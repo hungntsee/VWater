@@ -11,15 +11,17 @@ using Service.Helpers;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Claims;
+using System.Data.Entity;
 
 public interface IAccountService
 {
-    IEnumerable<Account> GetAll();
-    Account GetById(int id);
+    IEnumerable<AccountRespone> GetAll();
+    AccountRespone GetById(int id);
     void Create(AccountRequest request);
     void Update(int id, AccountUpdateRequest request);
     void Delete(int id);
-    void Login(LoginRequest request);
+    Account Login(LoginRequest request);
+    Account LoginByToken(AccessRequest request);
 }
 public class AccountService: IAccountService
 {
@@ -31,14 +33,16 @@ public class AccountService: IAccountService
         _context = context;
         _appSetting = appSetting.Value;
     }
-    public IEnumerable<Account> GetAll()
+    public IEnumerable<AccountRespone> GetAll()
     {
-        return _context.Account;
+        var accountsRespone =_context.Account.Adapt<IEnumerable<AccountRespone>>();
+        return accountsRespone;
     }
 
-    public Account GetById(int id)
+    public AccountRespone GetById(int id)
     {
-        return GetAccount(id);
+        var accountRespone = GetAccount(id).Adapt<AccountRespone>();
+        return accountRespone;
     }
 
     public void Create(AccountRequest request)
@@ -81,7 +85,7 @@ public class AccountService: IAccountService
         return account;
     }
 
-    public void Login(LoginRequest request)
+    public Account Login(LoginRequest request)
     {
         var account = _context.Account.SingleOrDefaultAsync(x => x.Username == request.Username && x.Password == request.Password).Result;
 
@@ -90,6 +94,14 @@ public class AccountService: IAccountService
         account.Access_token = generateJwtToken(account);
         _context.Account.Update(account);
         _context.SaveChangesAsync();
+
+        return account;
+    }
+
+    public Account LoginByToken(string token)
+    {
+        var account = _context.Account.SingleOrDefaultAsync(x => x.Access_token == token).Result;
+        return account;
     }
 
     private string generateJwtToken(Account account)

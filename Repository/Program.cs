@@ -11,7 +11,6 @@ service.AddDbContext<DBContext>();
 
 var config = new TypeAdapterConfig();
 config.NewConfig<Account, AccountRequest>();
-config.NewConfig<Account, AccessRequest>();
 config.NewConfig<Account, AccountUpdateRequest>();
 config.NewConfig<Account, AccountRespone>();
 config.NewConfig<Account, LoginRequest>();

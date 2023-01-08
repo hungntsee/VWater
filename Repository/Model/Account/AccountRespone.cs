@@ -15,6 +15,7 @@ namespace Repository.Model.Account;
         public string Address { get; set; }
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        public string Access_token { get; set; }
         public string RoleName { get; set; }
 
         public AccountRespone(Entity.Account account, Account_Role role)
@@ -27,6 +28,7 @@ namespace Repository.Model.Account;
             DateOfBirth= account.DateOfBirth;
             Address= account.Address;
             Email= account.Email;
+            Access_token= account.Access_token;
             RoleName = role.RoleName;
         }
     }
