@@ -18,6 +18,7 @@ namespace Repository.Entity
         public string Access_token { get; set; }
 
         public int? Role_Id{ get; set; }
+
         // Navigation property
         public virtual Account_Role Role { get; set; }
     }

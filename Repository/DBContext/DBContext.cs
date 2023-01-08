@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.Entity;
-/*using System.Data.Entity;*/
 
 public class DBContext : DbContext
 {
@@ -15,8 +14,8 @@ public class DBContext : DbContext
         optionsBuilder.UseSqlServer(Configuration.GetConnectionString("VWaterDatabase"));
         
     }
-    DbSet<Account> Account { get; set; }
-    DbSet<Account_Role> Account_Role { get; set; }
+    public DbSet<Account> Account { get; set; }
+    public DbSet<Account_Role> Account_Role { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

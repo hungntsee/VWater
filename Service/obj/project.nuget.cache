@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "aPODMCbMlyx9A07V+FaNJFI/JsRqsYdO0jtEYzfn694lDHD0nMRETdX3x9Gzb6Mnq6Z4W8UCRL1fITkZkJpL9Q==",
+  "dgSpecHash": "BTe/6IQe793w3G6+hRy3By7sgmQMfsj97qkmDiaEDyYeAvrKSRB77rY7mmFSiRxcGoA+RehrZX4PQYvc/u5G2A==",
   "success": true,
   "projectFilePath": "E:\\Project_2023_Spring\\back-end\\WeWater\\Service\\Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nguye\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\nguye\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\mapster\\7.3.0\\mapster.7.3.0.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\mapster.core\\1.2.0\\mapster.core.1.2.0.nupkg.sha512",
