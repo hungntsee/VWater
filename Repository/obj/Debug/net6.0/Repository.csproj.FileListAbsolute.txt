@@ -90,3 +90,4 @@ E:\Project_2023_Spring\back-end\WeWater\Repository\obj\Debug\net6.0\Repository.g
 E:\Project_2023_Spring\back-end\WeWater\Repository\obj\Debug\net6.0\ref\Repository.dll
 E:\Project_2023_Spring\back-end\WeWater\Repository\bin\Debug\net6.0\Mapster.dll
 E:\Project_2023_Spring\back-end\WeWater\Repository\bin\Debug\net6.0\Mapster.Core.dll
+E:\Project_2023_Spring\back-end\WeWater\Repository\bin\Debug\net6.0\Mapster.DependencyInjection.dll

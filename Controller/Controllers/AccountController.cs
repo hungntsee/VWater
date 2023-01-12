@@ -1,5 +1,4 @@
-﻿using Mapster;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Repository.Model.Account;
 using Service.Account;
 
@@ -34,7 +33,7 @@ namespace Controller.Controllers
         }
 
         // POST api/<AccountController>
-        [HttpPost]
+        [HttpPost("register")]
         public IActionResult Create(AccountRequest request)
         {
             _accountService.Create(request);
@@ -57,11 +56,17 @@ namespace Controller.Controllers
             return Ok(new { message = "User deleted" });
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         public IActionResult Login(LoginRequest request)
         {
-            var response = _accountService.Login(request);
-            return Ok( new { message = "Login Success/n" + response});
+            var account = _accountService.Login(request);
+            return Ok( new { message = "Login Success/n" + account});
+        }
+        [HttpPost("access_token")]
+        public IActionResult LoginByToken(string token)
+        {
+            var account = _accountService.LoginByToken(token);
+            return Ok(new { message = "Login Success/n" + account });
         }
     }
 }

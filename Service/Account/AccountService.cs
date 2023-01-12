@@ -12,36 +12,39 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Claims;
 using System.Data.Entity;
+using MapsterMapper;
 
 public interface IAccountService
 {
-    IEnumerable<AccountRespone> GetAll();
-    AccountRespone GetById(int id);
-    void Create(AccountRequest request);
-    void Update(int id, AccountUpdateRequest request);
-    void Delete(int id);
-    Account Login(LoginRequest request);
-    Account LoginByToken(AccessRequest request);
+    public IEnumerable<Account> GetAll();
+    public AccountRespone GetById(int id);
+    public void Create(AccountRequest request);
+    public void Update(int id, AccountUpdateRequest request);
+    public void Delete(int id);
+    public Account Login(LoginRequest request);
+    public Account LoginByToken(string token);
 }
 public class AccountService: IAccountService
 {
     private DBContext _context;
+    private readonly IMapper _mapper;
     private readonly AppSetting _appSetting;
 
-    public AccountService(DBContext context, IOptions<AppSetting> appSetting)
+    public AccountService(DBContext context, IOptions<AppSetting> appSetting, IMapper mapper)
     {
         _context = context;
         _appSetting = appSetting.Value;
+        _mapper = mapper;
     }
-    public IEnumerable<AccountRespone> GetAll()
+    public IEnumerable<Account> GetAll()
     {
-        var accountsRespone =_context.Account.Adapt<IEnumerable<AccountRespone>>();
-        return accountsRespone;
+        /*var accountsRespone =_mapper.Map<IEnumerable<AccountRespone>>(_context.Account);*/
+        return _context.Account;
     }
 
     public AccountRespone GetById(int id)
     {
-        var accountRespone = GetAccount(id).Adapt<AccountRespone>();
+        var accountRespone = _mapper.Map<AccountRespone>(GetAccount(id));
         return accountRespone;
     }
 
@@ -49,7 +52,7 @@ public class AccountService: IAccountService
     {
         if (_context.Account.AnyAsync(a => a.Username == request.Username).Result) 
             throw new AppException("User with the username '" + request.Username + "' already exists");
-        var account = request.Adapt<Account>();
+        var account = _mapper.Map<Account>(request);
 
         account.Password = BCrypt.HashPassword(request.Password);
 

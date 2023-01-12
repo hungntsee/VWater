@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "M7rPbFoeWJQe4/c0KtAhZKYmvkXuvG2DclfhB1PUj+0qV/YLuTKw0jx3mlkhTLR96V5LDuvOZvyGIMjoo7JdUg==",
+  "dgSpecHash": "VKOA5ZyeW0D+g2sniHscq6fgWdGqljo+kyURayJCBRAWCHzXWE0hClUBiI020MTAzYr9ySZrwlxNKEMBkZKiuw==",
   "success": true,
   "projectFilePath": "E:\\Project_2023_Spring\\back-end\\WeWater\\Repository\\Repository.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,7 @@
     "C:\\Users\\nguye\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\mapster\\7.3.0\\mapster.7.3.0.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\mapster.core\\1.2.0\\mapster.core.1.2.0.nupkg.sha512",
+    "C:\\Users\\nguye\\.nuget\\packages\\mapster.dependencyinjection\\1.0.0\\mapster.dependencyinjection.1.0.0.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.1\\microsoft.data.sqlclient.5.0.1.nupkg.sha512",

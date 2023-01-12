@@ -112,6 +112,18 @@
           "lib/netstandard2.0/Mapster.Core.dll": {}
         }
       },
+      "Mapster.DependencyInjection/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Mapster": "5.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Mapster.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Mapster.DependencyInjection.dll": {}
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
         "type": "package",
         "compile": {
@@ -1465,6 +1477,22 @@
         "lib/netstandard2.0/Mapster.Core.dll",
         "mapster.core.1.2.0.nupkg.sha512",
         "mapster.core.nuspec"
+      ]
+    },
+    "Mapster.DependencyInjection/1.0.0": {
+      "sha512": "nNSGrgu5GirZ8nmuFXHGct+GwXjmbAAb+UqBl3Bwx/vbkCOypuvOziC+wTaNEjz/OE6LMg8yMCZzOtl59Lxw9Q==",
+      "type": "package",
+      "path": "mapster.dependencyinjection/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net40/Mapster.DependencyInjection.dll",
+        "lib/net45/Mapster.DependencyInjection.dll",
+        "lib/netstandard1.3/Mapster.DependencyInjection.dll",
+        "lib/netstandard2.0/Mapster.DependencyInjection.dll",
+        "mapster.dependencyinjection.1.0.0.nupkg.sha512",
+        "mapster.dependencyinjection.nuspec"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
@@ -4080,6 +4108,7 @@
     "net6.0": [
       "EntityFramework >= 6.4.4",
       "Mapster >= 7.3.0",
+      "Mapster.DependencyInjection >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 7.0.1",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.1",
@@ -4138,6 +4167,10 @@
           "Mapster": {
             "target": "Package",
             "version": "[7.3.0, )"
+          },
+          "Mapster.DependencyInjection": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
