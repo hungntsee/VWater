@@ -99,7 +99,6 @@ E:\Project_2023_Spring\back-end\WeWater\Controller\obj\Debug\net6.0\Controller.p
 E:\Project_2023_Spring\back-end\WeWater\Controller\obj\Debug\net6.0\Controller.genruntimeconfig.cache
 E:\Project_2023_Spring\back-end\WeWater\Controller\obj\Debug\net6.0\ref\Controller.dll
 E:\Project_2023_Spring\back-end\WeWater\Controller\obj\Debug\net6.0\Controller.MvcApplicationPartsAssemblyInfo.cs
-E:\Project_2023_Spring\back-end\WeWater\Controller\bin\Debug\net6.0\Mapster.DependencyInjection.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\Repository.deps.json
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\Repository.runtimeconfig.json
@@ -202,3 +201,6 @@ C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\refint\Controller.
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.pdb
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.genruntimeconfig.cache
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\ref\Controller.dll
+E:\Project_2023_Spring\back-end\WeWater\Controller\bin\Debug\net6.0\AutoMapper.dll
+E:\Project_2023_Spring\back-end\WeWater\Controller\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+E:\Project_2023_Spring\back-end\WeWater\Controller\bin\Debug\net6.0\FluentValidation.dll

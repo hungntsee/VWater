@@ -88,9 +88,6 @@ E:\Project_2023_Spring\back-end\WeWater\Repository\obj\Debug\net6.0\refint\Repos
 E:\Project_2023_Spring\back-end\WeWater\Repository\obj\Debug\net6.0\Repository.pdb
 E:\Project_2023_Spring\back-end\WeWater\Repository\obj\Debug\net6.0\Repository.genruntimeconfig.cache
 E:\Project_2023_Spring\back-end\WeWater\Repository\obj\Debug\net6.0\ref\Repository.dll
-E:\Project_2023_Spring\back-end\WeWater\Repository\bin\Debug\net6.0\Mapster.dll
-E:\Project_2023_Spring\back-end\WeWater\Repository\bin\Debug\net6.0\Mapster.Core.dll
-E:\Project_2023_Spring\back-end\WeWater\Repository\bin\Debug\net6.0\Mapster.DependencyInjection.dll
 C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\appsettings.json
 C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Repository.exe
@@ -184,3 +181,11 @@ C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\refint\Repository.
 C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\Repository.pdb
 C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\Repository.genruntimeconfig.cache
 C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\ref\Repository.dll
+E:\Project_2023_Spring\back-end\WeWater\Repository\obj\Debug\net6.0\Repository.MvcApplicationPartsAssemblyInfo.cs
+E:\Project_2023_Spring\back-end\WeWater\Repository\bin\Debug\net6.0\AutoMapper.dll
+E:\Project_2023_Spring\back-end\WeWater\Repository\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+E:\Project_2023_Spring\back-end\WeWater\Repository\bin\Debug\net6.0\FluentValidation.dll
+E:\Project_2023_Spring\back-end\WeWater\Repository\bin\Debug\net6.0\Microsoft.OpenApi.dll
+E:\Project_2023_Spring\back-end\WeWater\Repository\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+E:\Project_2023_Spring\back-end\WeWater\Repository\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+E:\Project_2023_Spring\back-end\WeWater\Repository\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll

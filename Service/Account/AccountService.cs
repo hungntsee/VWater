@@ -1,7 +1,6 @@
 ﻿namespace Service.Account;
 
 using BCrypt.Net;
-using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -11,8 +10,6 @@ using Service.Helpers;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Claims;
-using System.Data.Entity;
-using MapsterMapper;
 
 public interface IAccountService
 {
@@ -69,7 +66,7 @@ public class AccountService: IAccountService
         if (!string.IsNullOrEmpty(request.Password))
             account.Password = BCrypt.HashPassword(request.Password);
 
-        account.Adapt(request);
+        account.(request);
         _context.Account.Update(account);
         _context.SaveChangesAsync();
     }
