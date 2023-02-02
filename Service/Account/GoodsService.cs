@@ -1,34 +1,28 @@
-﻿using BCrypt.Net;
-using Mapster;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Repository.Entity;
 using Service.Helpers;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
-using System.Security.Claims;
-using System.Data.Entity;
-using MapsterMapper;
-using Repository.Model.Goods;
+using VWater.Data;
+using VWater.Data.Entities;
+using VWater.Domain.Models;
 
 namespace Service.Good
 {
     public interface IGoodsService
     {
         public IEnumerable<Goods> GetAll();
-        public GoodsResponse GetById(int id);
-        public void Create(GoodsRequest request);
-        public void Update(int id, GoodsUpdateRequest request);
+        public GoodsReadModel GetById(int id);
+        public void Create(GoodsCreateModel request);
+        public void Update(int id, GoodsUpdateModel request);
         public void Delete(int id);
     }
     public class GoodsService : IGoodsService
     {
-        private DBContext _context;
+        private VWaterContext _context;
         private readonly IMapper _mapper;
         private readonly AppSetting _appSetting;
 
-        public GoodsService(DBContext context, IOptions<AppSetting> appSetting, IMapper mapper)
+        public GoodsService(VWaterContext context, IOptions<AppSetting> appSetting, IMapper mapper)
         {
             _context = context;
             _appSetting = appSetting.Value;
@@ -39,13 +33,13 @@ namespace Service.Good
             return _context.Goods;
         }
 
-        public GoodsResponse GetById(int id)
+        public GoodsReadModel GetById(int id)
         {
-            var goodsResponse = _mapper.Map<GoodsResponse>(GetGoods(id));
-            return goodsResponse;
+            var goods = _mapper.Map<GoodsReadModel>(GetGoods(id));
+            return goods;
         }
 
-        public void Create(GoodsRequest request)
+        public void Create(GoodsCreateModel request)
         {
             if (_context.Goods.AnyAsync(g => g.GoodsName == request.GoodsName).Result)
                 throw new AppException("Goods Name: '" + request.GoodsName + "' already exists");
@@ -55,14 +49,14 @@ namespace Service.Good
             _context.SaveChangesAsync();
         }
 
-        public void Update(int id, GoodsUpdateRequest request)
+        public void Update(int id, GoodsUpdateModel request)
         {
             var goods = GetGoods(id);
 
             if (_context.Goods.Any(g => g.GoodsName == request.GoodsName))
                 throw new AppException("Goods Name: '" + request.GoodsName + "' already exists");
 
-            goods.Adapt(request);
+            _mapper.Map(request,goods);
             _context.Goods.Update(goods);
             _context.SaveChangesAsync();
         }

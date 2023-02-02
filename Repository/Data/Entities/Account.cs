@@ -8,7 +8,6 @@ namespace VWater.Data.Entities
         public Account()
         {
             #region Generated Constructor
-            Shippers = new HashSet<Shipper>();
             #endregion
         }
 
@@ -31,7 +30,7 @@ namespace VWater.Data.Entities
 
         public string Email { get; set; }
 
-        public string AccessToken { get; set; }
+        public string? AccessToken { get; set; }
 
         public int RoleId { get; set; }
 
@@ -39,9 +38,6 @@ namespace VWater.Data.Entities
 
         #region Generated Relationships
         public virtual AccountRole RoleAccountRole { get; set; }
-
-        public virtual ICollection<Shipper> Shippers { get; set; }
-
         #endregion
 
     }

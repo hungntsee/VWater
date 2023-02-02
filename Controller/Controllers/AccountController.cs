@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Repository.Model.Account;
+using Repository.Domain.Models;
 using Service.Account;
+using VWater.Domain.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -34,7 +35,7 @@ namespace Controller.Controllers
 
         // POST api/<AccountController>
         [HttpPost("register")]
-        public IActionResult Create(AccountRequest request)
+        public IActionResult Create(AccountCreateModel request)
         {
             _accountService.Create(request);
             return Ok(new {message = "User created"});
@@ -42,7 +43,7 @@ namespace Controller.Controllers
 
         // PUT api/<AccountController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, AccountUpdateRequest request)
+        public IActionResult Update(int id, AccountUpdateModel request)
         {
             _accountService.Update(id, request);
             return Ok(new { message = "User update" });
@@ -60,13 +61,14 @@ namespace Controller.Controllers
         public IActionResult Login(LoginRequest request)
         {
             var account = _accountService.Login(request);
-            return Ok( new { message = "Login Success/n" + account});
+            return Ok( new { message = "Login Success",
+                             accessToken =  account.AccessToken});
         }
         [HttpPost("access_token")]
         public IActionResult LoginByToken(string token)
         {
             var account = _accountService.LoginByToken(token);
-            return Ok(new { message = "Login Success/n" + account });
+            return Ok(new { message = "Login Success\n" + account });
         }
     }
 }

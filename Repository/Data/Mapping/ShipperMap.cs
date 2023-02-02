@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using VWater.Data.Entities;
 
 namespace VWater.Data.Mapping
 {
@@ -46,9 +47,9 @@ namespace VWater.Data.Mapping
                 .HasColumnType("int");
 
             // relationships
-            builder.HasOne(t => t.Account)
-                .WithMany(t => t.Shippers)
-                .HasForeignKey(d => d.AccountId)
+            builder.HasOne<Account>()
+                .WithOne()
+                .HasForeignKey<Shipper>(d => d.AccountId)
                 .HasConstraintName("FK_shipper_account");
 
             builder.HasOne(t => t.Store)

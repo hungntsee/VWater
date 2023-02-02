@@ -56,10 +56,6 @@
               "target": "Package",
               "version": "[12.0.1, )"
             },
-            "EntityFramework": {
-              "target": "Package",
-              "version": "[6.4.4, )"
-            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.2, )"
@@ -67,6 +63,10 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[7.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer.Design": {
+              "target": "Package",
+              "version": "[1.1.6, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -145,10 +145,6 @@
               "target": "Package",
               "version": "[12.0.0, )"
             },
-            "EntityFramework": {
-              "target": "Package",
-              "version": "[6.4.4, )"
-            },
             "FluentValidation": {
               "target": "Package",
               "version": "[11.4.0, )"
@@ -172,6 +168,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.2, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             },
             "swashbuckle.AspNetCore": {
               "target": "Package",
@@ -253,10 +253,6 @@
             "BCrypt.Net-Core": {
               "target": "Package",
               "version": "[1.6.0, )"
-            },
-            "EntityFramework": {
-              "target": "Package",
-              "version": "[6.4.4, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",

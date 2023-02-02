@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Repository.Entity;
+using VWater.Data.Entities;
 
 namespace Controller.Helper;
 
