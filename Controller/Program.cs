@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Service.Account;
 using Service.Good;
+using Service.GoodExchangeNote;
+using Service.GoodsCompositions;
+using Service.GoodsInBaselines;
+using Service.GoodsInProducts;
+using Service.GoodsInQuotations;
 using Service.Helpers;
 using System.Text;
 using VWater.Data;
@@ -35,8 +40,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.Configure<AppSetting>(builder.Configuration.GetSection("AppSetting"));
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IGoodsService, GoodsService>();
-
-
+builder.Services.AddScoped<IGoodsCompositionService, GoodsCompositionService>();
+builder.Services.AddScoped<IGoodsExchangeNoteService, GoodsExchangeNoteService>();
+builder.Services.AddScoped<IGoodsInBaselineService, GoodsInBaselineService>();
+builder.Services.AddScoped<IGoodsInProductService, GoodsInProductService>();
+builder.Services.AddScoped<IGoodsInQuotationService, GoodsInQuotationService>();
 
 var app = builder.Build();
 

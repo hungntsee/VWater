@@ -43,7 +43,7 @@ namespace Controller.Controllers
         public IActionResult Update(int id,GoodsUpdateModel request)
         {
             _goodsService.Update(id, request);
-            return Ok(new { message = "Goods update" });
+            return Ok(new { message = "Goods updated" });
         }
 
         // DELETE api/<GoodsController>/5
