@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Controller.Helper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repository.Domain.Models;
 using Service.Account;
 using VWater.Domain.Models;
@@ -12,9 +14,11 @@ namespace Controller.Controllers
     public class AccountController : ControllerBase
     {
         private IAccountService _accountService;
-        public AccountController(IAccountService accountService)
+        private IConfiguration _config;
+        public AccountController(IAccountService accountService, IConfiguration config)
         {
             _accountService = accountService;
+            _config = config;
         }
 
         // GET: api/<AccountController>
@@ -56,7 +60,7 @@ namespace Controller.Controllers
             _accountService.Delete(id);
             return Ok(new { message = "User deleted" });
         }
-
+        [AllowAnonymous]
         [HttpPost("login")]
         public IActionResult Login(LoginRequest request)
         {
@@ -64,6 +68,7 @@ namespace Controller.Controllers
             return Ok( new { message = "Login Success",
                              accessToken =  account.AccessToken});
         }
+
         [HttpPost("access_token")]
         public IActionResult LoginByToken(string token)
         {

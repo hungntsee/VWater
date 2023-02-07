@@ -22,7 +22,6 @@ namespace VWater.Domain.Validation
             RuleFor(p => p.Address).MaximumLength(100);
             RuleFor(p => p.Email).NotEmpty();
             RuleFor(p => p.Email).MaximumLength(100);
-            RuleFor(p => p.AccessToken).MaximumLength(100);
             #endregion
         }
 
