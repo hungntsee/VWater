@@ -42,7 +42,7 @@ namespace Service.Good
         public void Create(GoodsCreateModel request)
         {
             if (_context.Goods.AnyAsync(g => g.GoodsName == request.GoodsName).Result)
-                throw new AppException("Goods Name: '" + request.GoodsName + "' already exists");
+                throw new AppException("Goods: '" + request.GoodsName + "'is already exists");
             var goods = _mapper.Map<Goods>(request);
 
             _context.Goods.AddAsync(goods);
@@ -54,7 +54,7 @@ namespace Service.Good
             var goods = GetGoods(id);
 
             if (_context.Goods.Any(g => g.GoodsName == request.GoodsName))
-                throw new AppException("Goods Name: '" + request.GoodsName + "' already exists");
+                throw new AppException("Goods: '" + request.GoodsName + "'is already exists");
 
             _mapper.Map(request,goods);
             _context.Goods.Update(goods);
@@ -71,7 +71,7 @@ namespace Service.Good
         private Goods GetGoods(int id)
         {
             var goods = _context.Goods.Find(id);
-            if (goods == null) throw new KeyNotFoundException("Goods not found");
+            if (goods == null) throw new KeyNotFoundException("Goods not found!");
             return goods;
         }
 
