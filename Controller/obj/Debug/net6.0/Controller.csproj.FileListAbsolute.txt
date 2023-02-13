@@ -208,3 +208,4 @@ C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\Microsoft.Extensio
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\System.Text.Encodings.Web.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\System.Text.Json.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+E:\Project_2023_Spring\back-end\WeWater\Controller\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

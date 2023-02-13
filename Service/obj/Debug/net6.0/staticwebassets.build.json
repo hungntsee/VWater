@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "aTGNIU6aKzGTXoATTYePfP/ZxAPg8xiDrG/9M02NePg=",
+  "Hash": "xk7YHCdy2e0ztSy0aVFZ84TW8Rlwj4gVAWNtZEHr1K0=",
   "Source": "Service",
   "BasePath": "_content/Service",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\Asus\\source\\repos\\VWater\\Repository\\Repository.csproj",
+      "Identity": "E:\\Project_2023_Spring\\back-end\\WeWater\\Repository\\Repository.csproj",
       "Version": 2,
       "Source": "Repository",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
