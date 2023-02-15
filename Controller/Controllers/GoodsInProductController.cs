@@ -5,7 +5,6 @@ using VWater.Data.Entities;
 using VWater.Domain.Models;
 using Service.GoodsInProducts;
 using Repository.Domain.Models;
-using Service.GoodsInProducts;
 
 namespace Controller.Controllers
 {

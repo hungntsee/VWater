@@ -41,8 +41,6 @@ namespace Service.GoodsInQuotations
 
         public void Create(GoodsInQuotationCreateModel request)
         {
-            if (_context.GoodsInQuotations.AnyAsync(g => g.GoodsId == g.GoodsId).Result)
-                throw new AppException("Goods in quotation with goods ID: '" + request.GoodsId + "'is already exists");
             var goodsInQuotation = _mapper.Map<GoodsInQuotation>(request);
 
             _context.GoodsInQuotations.AddAsync(goodsInQuotation);
@@ -52,9 +50,6 @@ namespace Service.GoodsInQuotations
         public void Update(int id, GoodsInQuotationUpdateModel request)
         {
             var goodsInQuotation = GetGoodsInQuotation(id);
-
-            if (_context.GoodsInQuotations.Any(g => g.GoodsId == g.GoodsId))
-                throw new AppException("Goods in quotation with goods ID: '" + request.GoodsId + "'is already exists");
 
             _mapper.Map(request, goodsInQuotation);
             _context.GoodsInQuotations.Update(goodsInQuotation);

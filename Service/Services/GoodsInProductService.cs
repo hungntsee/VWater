@@ -41,8 +41,6 @@ namespace Service.GoodsInProducts
 
         public void Create(GoodsInProductCreateModel request)
         {
-            if (_context.GoodsInProducts.AnyAsync(p => p.ProductId == p.ProductId).Result)
-                throw new AppException("Goods in product with product ID: '" + request.ProductId + "'is already exists");
             var goodsInProduct = _mapper.Map<GoodsInProduct>(request);
 
             _context.GoodsInProducts.AddAsync(goodsInProduct);
@@ -52,10 +50,6 @@ namespace Service.GoodsInProducts
         public void Update(int id, GoodsInProductUpdateModel request)
         {
             var goodsInProduct = GetGoodsInProduct(id);
-
-            if (_context.GoodsInProducts.Any(p => p.ProductId == p.ProductId))
-                throw new AppException("Goods in product with product ID: '" + request.ProductId + "'is already exists");
-
             _mapper.Map(request, goodsInProduct);
             _context.GoodsInProducts.Update(goodsInProduct);
             _context.SaveChangesAsync();

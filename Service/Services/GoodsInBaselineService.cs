@@ -41,8 +41,6 @@ namespace Service.GoodsInBaselines
 
         public void Create(GoodsInBaselineCreateModel request)
         {
-            if (_context.GoodsInBaselines.AnyAsync(w => w.WarehouseBaselineId == w.WarehouseBaselineId).Result)
-                throw new AppException("Goods in baseline with warehouse baseline ID: '" + request.WarehouseBaselineId + "'is already exists");
             var goodsInBaseline = _mapper.Map<GoodsInBaseline>(request);
 
             _context.GoodsInBaselines.AddAsync(goodsInBaseline);
@@ -52,9 +50,6 @@ namespace Service.GoodsInBaselines
         public void Update(int id, GoodsInBaselineUpdateModel request)
         {
             var goodsInBaseline = GetGoodsInBaseline(id);
-
-            if (_context.GoodsInBaselines.Any(w => w.WarehouseBaselineId == w.WarehouseBaselineId))
-                throw new AppException("Goods in baseline with warehouse baseline ID: '" + request.WarehouseBaselineId + "'is already exists");
 
             _mapper.Map(request, goodsInBaseline);
             _context.GoodsInBaselines.Update(goodsInBaseline);

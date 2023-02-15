@@ -41,8 +41,7 @@ namespace Service.GoodExchangeNote
 
         public void Create(GoodsExchangeNoteCreateModel request)
         {
-            if (_context.GoodsExchangeNotes.AnyAsync(p => p.PurchaseOrderId == request.PurchaseOrderId).Result)
-                throw new AppException("Goods exchange note with purchase order ID: '" + request.PurchaseOrderId + "'is already exists");
+        
             var goodsExchangeNote = _mapper.Map<GoodsExchangeNote>(request);
 
             _context.GoodsExchangeNotes.AddAsync(goodsExchangeNote);
@@ -53,8 +52,7 @@ namespace Service.GoodExchangeNote
         {
             var goodsExchangeNote = GetGoodsExchangeNote(id);
 
-            if (_context.GoodsExchangeNotes.Any(p => p.PurchaseOrderId == request.PurchaseOrderId))
-                throw new AppException("Goods exchange note with purchase order ID: '" + request.PurchaseOrderId + "'is already exists");
+            
 
             _mapper.Map(request, goodsExchangeNote);
             _context.GoodsExchangeNotes.Update(goodsExchangeNote);
