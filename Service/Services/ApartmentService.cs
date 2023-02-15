@@ -41,8 +41,6 @@ namespace Service.Apartments
 
         public void Create(ApartmentCreateModel request)
         {
-            if (_context.Apartments.Any(a => a.ApartmentName == request.ApartmentName))
-                throw new AppException("Apartment: '" + request.ApartmentName + "' already exists");
             var apartment = _mapper.Map<Apartment>(request);
 
             _context.Apartments.AddAsync(apartment);
@@ -53,8 +51,6 @@ namespace Service.Apartments
         {
             var apartment = GetApartment(id);
 
-            if (_context.Apartments.Any(a => a.ApartmentName == request.ApartmentName))
-                throw new AppException("Apartment: '" + request.ApartmentName + "' already exists");
             _mapper.Map(request, apartment);
             _context.Apartments.Update(apartment);
             _context.SaveChangesAsync();
