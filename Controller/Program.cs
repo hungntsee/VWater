@@ -11,6 +11,7 @@ using Service.GoodsInBaselines;
 using Service.GoodsInProducts;
 using Service.GoodsInQuotations;
 using Service.Helpers;
+using Service.Services;
 using System.Text;
 using VWater.Data;
 
@@ -49,6 +50,7 @@ builder.Services.AddScoped<IGoodsInProductService, GoodsInProductService>();
 builder.Services.AddScoped<IGoodsInQuotationService, GoodsInQuotationService>();
 builder.Services.AddScoped<IBuildingService, BuiildingService>();
 builder.Services.AddScoped<IApartmentService, ApartmentService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 
