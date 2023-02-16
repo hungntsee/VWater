@@ -41,8 +41,6 @@ namespace Service.Buildings
 
         public void Create(BuildingCreateModel request)
         {
-            if (_context.Buildings.Any(b => b.BuildingName == request.BuildingName))
-                throw new AppException("Building: '" + request.BuildingName + "' already exists");
             var building = _mapper.Map<Building>(request);
 
             _context.Buildings.AddAsync(building);
@@ -52,9 +50,6 @@ namespace Service.Buildings
         public void Update(int id, BuildingUpdateModel request)
         {
             var building = GetBuilding(id);
-
-            if (_context.Buildings.Any(b => b.BuildingName == request.BuildingName))
-                throw new AppException("Building: '" + request.BuildingName + "' already exists");
             _mapper.Map(request, building);
             _context.Buildings.Update(building);
             _context.SaveChangesAsync();

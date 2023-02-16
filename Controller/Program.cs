@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Service.Account;
 using Service.Apartments;
+using Service.Areas;
 using Service.Buildings;
 using Service.Good;
 using Service.GoodExchangeNote;
@@ -50,7 +51,9 @@ builder.Services.AddScoped<IGoodsInProductService, GoodsInProductService>();
 builder.Services.AddScoped<IGoodsInQuotationService, GoodsInQuotationService>();
 builder.Services.AddScoped<IBuildingService, BuiildingService>();
 builder.Services.AddScoped<IApartmentService, ApartmentService>();
+builder.Services.AddScoped<IAreaService, AreaService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
 
