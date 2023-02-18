@@ -17,6 +17,8 @@ using Service.GoodsInProducts;
 using Service.GoodsInQuotations;
 using Service.Helpers;
 using Service.Services;
+using Service.Stores;
+using Service.Warehouses;
 using System.Text;
 using VWater.Data;
 
@@ -62,6 +64,8 @@ builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IDeliveryAddressService, DeliveryAddressService>();
 builder.Services.AddScoped<IDeliverySlotService, DeliverySlotService>();
 builder.Services.AddScoped<IDeliveryTypeService, DeliveryTypeService>();
+builder.Services.AddScoped<IWarehouseService, WarehouseService>();
+builder.Services.AddScoped<IStoreService, StoreService>();
 
 var app = builder.Build();
 
