@@ -4,7 +4,11 @@ using Microsoft.IdentityModel.Tokens;
 using Service.Account;
 using Service.Apartments;
 using Service.Areas;
+using Service.Brands;
 using Service.Buildings;
+using Service.DeliveryAddresses;
+using Service.DeliverySlots;
+using Service.DeliveryTypes;
 using Service.Good;
 using Service.GoodExchangeNote;
 using Service.GoodsCompositions;
@@ -54,6 +58,10 @@ builder.Services.AddScoped<IApartmentService, ApartmentService>();
 builder.Services.AddScoped<IAreaService, AreaService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IBrandService, BrandService>();
+builder.Services.AddScoped<IDeliveryAddressService, DeliveryAddressService>();
+builder.Services.AddScoped<IDeliverySlotService, DeliverySlotService>();
+builder.Services.AddScoped<IDeliveryTypeService, DeliveryTypeService>();
 
 var app = builder.Build();
 
