@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.DeliveryTypes;
-using VWater.Data.Entities;
 using VWater.Domain.Models;
 
 namespace Controller.Controllers

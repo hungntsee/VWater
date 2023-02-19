@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Service.Services;
-using VWater.Data.Entities;
 using VWater.Domain.Models;
 
 namespace Controller.Controllers

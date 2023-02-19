@@ -38,7 +38,7 @@ namespace Controller.Controllers
         public IActionResult Create([FromBody] ProductCreateModel model)
         {
             _productService.Create(model);
-            return Ok(new {message = "Product created" });
+            return Ok(new { message = "Product created" });
         }
 
         // PUT api/<ProductController>/5
@@ -46,7 +46,7 @@ namespace Controller.Controllers
         public IActionResult Put(int id, [FromBody] ProductUpdateModel model)
         {
             _productService.Update(id, model);
-            return Ok(new { message = "Product updated"});
+            return Ok(new { message = "Product updated" });
         }
 
         // DELETE api/<ProductController>/5

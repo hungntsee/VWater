@@ -1,5 +1,4 @@
-﻿using Controller.Helper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Domain.Models;
 using Service.Account;
@@ -42,7 +41,7 @@ namespace Controller.Controllers
         public IActionResult Create(AccountCreateModel request)
         {
             _accountService.Create(request);
-            return Ok(new {message = "User created"});
+            return Ok(new { message = "User created" });
         }
 
         // PUT api/<AccountController>/5
@@ -65,8 +64,11 @@ namespace Controller.Controllers
         public IActionResult Login(LoginRequest request)
         {
             var account = _accountService.Login(request);
-            return Ok( new { message = "Login Success",
-                             accessToken =  account.AccessToken});
+            return Ok(new
+            {
+                message = "Login Success",
+                accessToken = account.AccessToken
+            });
         }
 
         [HttpPost("access_token")]

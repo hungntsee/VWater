@@ -40,7 +40,7 @@ namespace Controller.Controllers
 
         // PUT api/<GoodsController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id,GoodsUpdateModel request)
+        public IActionResult Update(int id, GoodsUpdateModel request)
         {
             _goodsService.Update(id, request);
             return Ok(new { message = "Goods updated" });
