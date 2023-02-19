@@ -1,18 +1,17 @@
 ﻿namespace Service.Account;
 
+using AutoMapper;
 using BCrypt.Net;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Repository.Domain.Models;
 using Service.Helpers;
 using System.IdentityModel.Tokens.Jwt;
-using System.Text;
 using System.Security.Claims;
+using System.Text;
 using VWater.Data;
-using AutoMapper;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
-using Repository.Domain.Models;
 
 public interface IAccountService
 {
@@ -24,7 +23,7 @@ public interface IAccountService
     public Account Login(LoginRequest request);
     public Account LoginByToken(string token);
 }
-public class AccountService: IAccountService
+public class AccountService : IAccountService
 {
     private VWaterContext _context;
     private readonly IMapper _mapper;
@@ -50,7 +49,7 @@ public class AccountService: IAccountService
 
     public void Create(AccountCreateModel request)
     {
-        if (_context.Accounts.AnyAsync(a => a.Username == request.Username).Result) 
+        if (_context.Accounts.AnyAsync(a => a.Username == request.Username).Result)
             throw new AppException("User with the username '" + request.Username + "' already exists");
         var account = _mapper.Map<Account>(request);
 
@@ -69,7 +68,7 @@ public class AccountService: IAccountService
         if (!string.IsNullOrEmpty(request.Password))
             account.Password = BCrypt.HashPassword(request.Password);
 
-        _mapper.Map(request,account);
+        _mapper.Map(request, account);
         _context.Accounts.Update(account);
         _context.SaveChangesAsync();
     }
@@ -120,8 +119,8 @@ public class AccountService: IAccountService
             new Claim(ClaimTypes.Surname, account.FirstName),
             new Claim(ClaimTypes.Role,account.RoleAccountRole.RoleName),
         };
-        var token = new JwtSecurityToken(_config["Jwt:Issuer"], _config["Jwt:Audience"],claims
-            ,expires: DateTime.Now.AddMinutes(15),
+        var token = new JwtSecurityToken(_config["Jwt:Issuer"], _config["Jwt:Audience"], claims
+            , expires: DateTime.Now.AddMinutes(15),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);

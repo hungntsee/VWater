@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 
 namespace Service.Helpers;
-public class AppException:Exception
+public class AppException : Exception
 {
     public AppException() : base() { }
 
@@ -10,4 +10,4 @@ public class AppException:Exception
     public AppException(string message, params object[] args)
         : base(String.Format(CultureInfo.CurrentCulture, message, args)) { }
 }
-       
+

@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Service.Helpers;
 using VWater.Data;
 using VWater.Data.Entities;
@@ -20,12 +18,10 @@ namespace Service.Stores
     {
         private VWaterContext _context;
         private readonly IMapper _mapper;
-        private readonly AppSetting _appSetting;
 
-        public StoreService(VWaterContext context, IOptions<AppSetting> appSetting, IMapper mapper)
+        public StoreService(VWaterContext context, IMapper mapper)
         {
             _context = context;
-            _appSetting = appSetting.Value;
             _mapper = mapper;
         }
         public IEnumerable<Store> GetAll()

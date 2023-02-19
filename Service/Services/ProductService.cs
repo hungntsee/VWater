@@ -8,7 +8,7 @@ namespace Service.Services
     public interface IProductService
     {
         public IEnumerable<Product> GetAll();
-        public ProductReadModel  GetById(int id);
+        public ProductReadModel GetById(int id);
         public void Create(ProductCreateModel model);
         public void Update(int id, ProductUpdateModel model);
         public void Delete(int id);
@@ -19,7 +19,7 @@ namespace Service.Services
         private VWaterContext _context;
         private readonly IMapper _mapper;
 
-        public ProductService (VWaterContext context, IMapper mapper)
+        public ProductService(VWaterContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -60,7 +60,8 @@ namespace Service.Services
 
         private Product GetProduct(int id)
         {
-            var product= _context.Products.FirstOrDefault(p => p.Id == id);
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null) throw new KeyNotFoundException("Product not found!");
             return product;
         }
     }

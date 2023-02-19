@@ -1,10 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
-using Microsoft.Extensions.Options;
-using AutoMapper;
-using VWater.Data;
-using Service.Helpers;
 
 namespace Service.GoodExchangeNote
 {
@@ -20,12 +17,10 @@ namespace Service.GoodExchangeNote
     {
         private VWaterContext _context;
         private readonly IMapper _mapper;
-        private readonly AppSetting _appSetting;
 
-        public GoodsExchangeNoteService(VWaterContext context, IOptions<AppSetting> appSetting, IMapper mapper)
+        public GoodsExchangeNoteService(VWaterContext context, IMapper mapper)
         {
             _context = context;
-            _appSetting = appSetting.Value;
             _mapper = mapper;
         }
         public IEnumerable<GoodsExchangeNote> GetAll()
@@ -41,7 +36,7 @@ namespace Service.GoodExchangeNote
 
         public void Create(GoodsExchangeNoteCreateModel request)
         {
-        
+
             var goodsExchangeNote = _mapper.Map<GoodsExchangeNote>(request);
 
             _context.GoodsExchangeNotes.AddAsync(goodsExchangeNote);
@@ -52,7 +47,7 @@ namespace Service.GoodExchangeNote
         {
             var goodsExchangeNote = GetGoodsExchangeNote(id);
 
-            
+
 
             _mapper.Map(request, goodsExchangeNote);
             _context.GoodsExchangeNotes.Update(goodsExchangeNote);
@@ -73,4 +68,4 @@ namespace Service.GoodExchangeNote
             return goodsExchangeNote;
         }
     }
-    }
+}

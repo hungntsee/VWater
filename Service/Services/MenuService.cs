@@ -18,7 +18,7 @@ namespace Service.Services
         private VWaterContext _context;
         private readonly IMapper _mapper;
 
-        public MenuService (VWaterContext context, IMapper mapper)
+        public MenuService(VWaterContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -60,6 +60,7 @@ namespace Service.Services
         private Menu GetMenu(int id)
         {
             var menu = _context.Menus.FirstOrDefault(p => p.Id == id);
+            if (menu == null) throw new KeyNotFoundException("Menu not found!");
             return menu;
         }
     }

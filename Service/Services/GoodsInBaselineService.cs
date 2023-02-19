@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Options;
 using Service.Helpers;
-using VWater.Data.Entities;
 using VWater.Data;
+using VWater.Data.Entities;
 using VWater.Domain.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Service.GoodsInBaselines
 {
@@ -22,10 +20,9 @@ namespace Service.GoodsInBaselines
         private readonly IMapper _mapper;
         private readonly AppSetting _appSetting;
 
-        public GoodsInBaselineService(VWaterContext context, IOptions<AppSetting> appSetting, IMapper mapper)
+        public GoodsInBaselineService(VWaterContext context, IMapper mapper)
         {
             _context = context;
-            _appSetting = appSetting.Value;
             _mapper = mapper;
         }
         public IEnumerable<GoodsInBaseline> GetAll()

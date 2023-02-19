@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Service.Helpers;
 using VWater.Data;
 using VWater.Data.Entities;
@@ -20,12 +19,10 @@ namespace Service.Good
     {
         private VWaterContext _context;
         private readonly IMapper _mapper;
-        private readonly AppSetting _appSetting;
 
-        public GoodsService(VWaterContext context, IOptions<AppSetting> appSetting, IMapper mapper)
+        public GoodsService(VWaterContext context, IMapper mapper)
         {
             _context = context;
-            _appSetting = appSetting.Value;
             _mapper = mapper;
         }
         public IEnumerable<Goods> GetAll()
@@ -55,7 +52,7 @@ namespace Service.Good
 
             if (_context.Goods.Any(g => g.GoodsName == request.GoodsName))
                 throw new AppException("Goods: '" + request.GoodsName + "' already exists");
-            _mapper.Map(request,goods);
+            _mapper.Map(request, goods);
             _context.Goods.Update(goods);
             _context.SaveChangesAsync();
         }

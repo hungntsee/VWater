@@ -1,7 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Service.Helpers;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -20,12 +17,10 @@ namespace Service.Apartments
     {
         private VWaterContext _context;
         private readonly IMapper _mapper;
-        private readonly AppSetting _appSetting;
 
-        public ApartmentService(VWaterContext context, IOptions<AppSetting> appSetting, IMapper mapper)
+        public ApartmentService(VWaterContext context, IMapper mapper)
         {
             _context = context;
-            _appSetting = appSetting.Value;
             _mapper = mapper;
         }
         public IEnumerable<Apartment> GetAll()

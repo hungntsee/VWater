@@ -13,11 +13,11 @@ namespace Service.Services
         public void Update(int id, WarehouseBaselineUpdateModel model);
         public void Delete(int id);
     }
-    public class WarehouseBaselineService: IWarehouseBaselineService
+    public class WarehouseBaselineService : IWarehouseBaselineService
     {
         private VWaterContext _context;
         private readonly IMapper _mapper;
-        public WarehouseBaselineService (VWaterContext context,IMapper mapper)
+        public WarehouseBaselineService(VWaterContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -59,6 +59,7 @@ namespace Service.Services
         private WarehouseBaseline GetWarehouseBaseline(int id)
         {
             var warehouseBaseline = _context.WarehouseBaselines.FirstOrDefault(p => p.Id == id);
+            if (warehouseBaseline == null) throw new KeyNotFoundException("Warehouse Baseline not found!");
             return warehouseBaseline;
         }
     }

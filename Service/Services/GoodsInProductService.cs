@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Options;
-using Service.Helpers;
-using VWater.Data.Entities;
 using VWater.Data;
+using VWater.Data.Entities;
 using VWater.Domain.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Service.GoodsInProducts
 {
@@ -20,12 +17,10 @@ namespace Service.GoodsInProducts
     {
         private VWaterContext _context;
         private readonly IMapper _mapper;
-        private readonly AppSetting _appSetting;
 
-        public GoodsInProductService(VWaterContext context, IOptions<AppSetting> appSetting, IMapper mapper)
+        public GoodsInProductService(VWaterContext context, IMapper mapper)
         {
             _context = context;
-            _appSetting = appSetting.Value;
             _mapper = mapper;
         }
         public IEnumerable<GoodsInProduct> GetAll()

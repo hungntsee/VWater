@@ -60,6 +60,7 @@ namespace Service.Services
         private Order GetOrder(int id)
         {
             var order = _context.Orders.FirstOrDefault(p => p.Id == id);
+            if (order == null) throw new KeyNotFoundException("Order not found!");
             return order;
         }
     }
