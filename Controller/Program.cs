@@ -9,6 +9,7 @@ using Service.Buildings;
 using Service.DeliveryAddresses;
 using Service.DeliverySlots;
 using Service.DeliveryTypes;
+using Service.Distributors;
 using Service.Good;
 using Service.GoodExchangeNote;
 using Service.GoodsCompositions;
@@ -16,6 +17,8 @@ using Service.GoodsInBaselines;
 using Service.GoodsInProducts;
 using Service.GoodsInQuotations;
 using Service.Helpers;
+using Service.Manufacturers;
+using Service.Quotations;
 using Service.Services;
 using Service.Stores;
 using Service.Warehouses;
@@ -66,6 +69,9 @@ builder.Services.AddScoped<IDeliverySlotService, DeliverySlotService>();
 builder.Services.AddScoped<IDeliveryTypeService, DeliveryTypeService>();
 builder.Services.AddScoped<IWarehouseService, WarehouseService>();
 builder.Services.AddScoped<IStoreService, StoreService>();
+builder.Services.AddScoped<IQuotationService, QuotationService>();
+builder.Services.AddScoped<IDistributorService, DistributorService>();
+builder.Services.AddScoped<IManufacturerService, ManufacturerService>();
 
 var app = builder.Build();
 
