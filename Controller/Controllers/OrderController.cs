@@ -19,7 +19,7 @@ namespace Controller.Controllers
 
         // GET: api/<ProductController>
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
             var products = _orderService.GetAll();
             return Ok(products);
