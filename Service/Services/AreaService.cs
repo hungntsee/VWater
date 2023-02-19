@@ -19,12 +19,10 @@ namespace Service.Areas
     {
         private VWaterContext _context;
         private readonly IMapper _mapper;
-        private readonly AppSetting _appSetting;
 
-        public AreaService(VWaterContext context, IOptions<AppSetting> appSetting, IMapper mapper)
+        public AreaService(VWaterContext context, IMapper mapper)
         {
             _context = context;
-            _appSetting = appSetting.Value;
             _mapper = mapper;
         }
         public IEnumerable<Area> GetAll()
