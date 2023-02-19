@@ -31,8 +31,8 @@ namespace Controller.Controllers
         }
 
         // POST api/<WarehouseController>
-        [HttpPost("register")]
-        public IActionResult Create(WarehouseCreateModel request)
+        [HttpPost]
+        public IActionResult Create([FromBody] WarehouseCreateModel request)
         {
             _warehouseService.Create(request);
             return Ok(new { message = "Warehouse created" });
@@ -40,7 +40,7 @@ namespace Controller.Controllers
 
         // PUT api/<WarehouseController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, WarehouseUpdateModel request)
+        public IActionResult Update(int id, [FromBody] WarehouseUpdateModel request)
         {
             _warehouseService.Update(id, request);
             return Ok(new { message = "Warehouse updated" });

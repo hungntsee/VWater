@@ -31,8 +31,8 @@ namespace Controller.Controllers
         }
 
         // POST api/<StoreController>
-        [HttpPost("register")]
-        public IActionResult Create(StoreCreateModel request)
+        [HttpPost]
+        public IActionResult Create([FromBody] StoreCreateModel request)
         {
             _storeService.Create(request);
             return Ok(new { message = "Store created" });
@@ -40,7 +40,7 @@ namespace Controller.Controllers
 
         // PUT api/<StoreController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, StoreUpdateModel request)
+        public IActionResult Update(int id, [FromBody] StoreUpdateModel request)
         {
             _storeService.Update(id, request);
             return Ok(new { message = "Store updated" });

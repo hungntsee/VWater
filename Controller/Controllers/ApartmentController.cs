@@ -31,8 +31,8 @@ namespace Controller.Controllers
         }
 
         // POST api/<ApartmentController>
-        [HttpPost("register")]
-        public IActionResult Create(ApartmentCreateModel request)
+        [HttpPost]
+        public IActionResult Create([FromBody] ApartmentCreateModel request)
         {
             _apartmentService.Create(request);
             return Ok(new { message = "Apartment created" });
@@ -40,7 +40,7 @@ namespace Controller.Controllers
 
         // PUT api/<ApartmentController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, ApartmentUpdateModel request)
+        public IActionResult Update(int id, [FromBody] ApartmentUpdateModel request)
         {
             _apartmentService.Update(id, request);
             return Ok(new { message = "Apartment updated" });

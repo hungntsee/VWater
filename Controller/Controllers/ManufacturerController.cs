@@ -31,8 +31,8 @@ namespace Controller.Controllers
         }
 
         // POST api/<ManufacturerController>
-        [HttpPost("register")]
-        public IActionResult Create(ManufacturerCreateModel request)
+        [HttpPost]
+        public IActionResult Create([FromBody] ManufacturerCreateModel request)
         {
             _manufacturerService.Create(request);
             return Ok(new { message = "Manufacturer created" });

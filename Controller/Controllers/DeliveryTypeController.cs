@@ -31,8 +31,8 @@ namespace Controller.Controllers
         }
 
         // POST api/<DeliveryTypeController>
-        [HttpPost("register")]
-        public IActionResult Create(DeliveryTypeCreateModel request)
+        [HttpPost]
+        public IActionResult Create([FromBody] DeliveryTypeCreateModel request)
         {
             _deliveryTypeService.Create(request);
             return Ok(new { message = "DeliveryType created" });
@@ -40,7 +40,7 @@ namespace Controller.Controllers
 
         // PUT api/<DeliveryTypeController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, DeliveryTypeUpdateModel request)
+        public IActionResult Update(int id, [FromBody] DeliveryTypeUpdateModel request)
         {
             _deliveryTypeService.Update(id, request);
             return Ok(new { message = "DeliveryType updated" });

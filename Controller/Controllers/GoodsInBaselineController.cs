@@ -32,8 +32,8 @@ namespace Controller.Controllers
         }
 
         // POST api/<GoodsInBaselineController>
-        [HttpPost("register")]
-        public IActionResult Create(GoodsInBaselineCreateModel request)
+        [HttpPost]
+        public IActionResult Create([FromBody] GoodsInBaselineCreateModel request)
         {
             _goodsInBaselineService.Create(request);
             return Ok(new { message = "Goods In Baseline created" });
@@ -41,7 +41,7 @@ namespace Controller.Controllers
 
         // PUT api/<GoodsInBaselineController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, GoodsInBaselineUpdateModel request)
+        public IActionResult Update(int id, [FromBody] GoodsInBaselineUpdateModel request)
         {
             _goodsInBaselineService.Update(id, request);
             return Ok(new { message = "Goods In Baseline updated" });

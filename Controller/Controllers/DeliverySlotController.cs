@@ -31,8 +31,8 @@ namespace Controller.Controllers
         }
 
         // POST api/<DeliverySlotController>
-        [HttpPost("register")]
-        public IActionResult Create(DeliverySlotCreateModel request)
+        [HttpPost]
+        public IActionResult Create([FromBody] DeliverySlotCreateModel request)
         {
             _deliverySlotService.Create(request);
             return Ok(new { message = "DeliverySlot created" });
@@ -40,7 +40,7 @@ namespace Controller.Controllers
 
         // PUT api/<DeliverySlotController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, DeliverySlotUpdateModel request)
+        public IActionResult Update(int id, [FromBody] DeliverySlotUpdateModel request)
         {
             _deliverySlotService.Update(id, request);
             return Ok(new { message = "DeliverySlot updated" });

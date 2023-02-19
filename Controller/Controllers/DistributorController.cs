@@ -31,8 +31,8 @@ namespace Controller.Controllers
         }
 
         // POST api/<DistributorController>
-        [HttpPost("register")]
-        public IActionResult Create(DistributorCreateModel request)
+        [HttpPost]
+        public IActionResult Create([FromBody] DistributorCreateModel request)
         {
             _distributorService.Create(request);
             return Ok(new { message = "Distributor created" });
@@ -40,7 +40,7 @@ namespace Controller.Controllers
 
         // PUT api/<DistributorController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, DistributorUpdateModel request)
+        public IActionResult Update(int id, [FromBody] DistributorUpdateModel request)
         {
             _distributorService.Update(id, request);
             return Ok(new { message = "Distributor updated" });

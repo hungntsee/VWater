@@ -31,8 +31,8 @@ namespace Controller.Controllers
         }
 
         // POST api/<QuotationController>
-        [HttpPost("register")]
-        public IActionResult Create(QuotationCreateModel request)
+        [HttpPost]
+        public IActionResult Create([FromBody] QuotationCreateModel request)
         {
             _quotationService.Create(request);
             return Ok(new { message = "Quotation created" });
@@ -40,7 +40,7 @@ namespace Controller.Controllers
 
         // PUT api/<QuotationController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, QuotationUpdateModel request)
+        public IActionResult Update(int id, [FromBody] QuotationUpdateModel request)
         {
             _quotationService.Update(id, request);
             return Ok(new { message = "Quotation updated" });

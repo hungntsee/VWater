@@ -31,8 +31,8 @@ namespace Controller.Controllers
         }
 
         // POST api/<BrandController>
-        [HttpPost("register")]
-        public IActionResult Create(BrandCreateModel request)
+        [HttpPost]
+        public IActionResult Create([FromBody] BrandCreateModel request)
         {
             _brandService.Create(request);
             return Ok(new { message = "Brand created" });
@@ -40,7 +40,7 @@ namespace Controller.Controllers
 
         // PUT api/<BrandController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, BrandUpdateModel request)
+        public IActionResult Update(int id, [FromBody] BrandUpdateModel request)
         {
             _brandService.Update(id, request);
             return Ok(new { message = "Brand updated" });

@@ -32,8 +32,8 @@ namespace Controller.Controllers
         }
 
         // POST api/<GoodsController>
-        [HttpPost("register")]
-        public IActionResult Create(GoodsCompositionCreateModel request)
+        [HttpPost]
+        public IActionResult Create([FromBody] GoodsCompositionCreateModel request)
         {
             _goodsCompositionService.Create(request);
             return Ok(new { message = "Goods Composition created" });
@@ -41,7 +41,7 @@ namespace Controller.Controllers
 
         // PUT api/<GoodsCompositionController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, GoodsCompositionUpdateModel request)
+        public IActionResult Update(int id, [FromBody] GoodsCompositionUpdateModel request)
         {
             _goodsCompositionService.Update(id, request);
             return Ok(new { message = "Goods Composition updated" });

@@ -31,8 +31,8 @@ namespace Controller.Controllers
         }
 
         // POST api/<DeliveryAddressController>
-        [HttpPost("register")]
-        public IActionResult Create(DeliveryAddressCreateModel request)
+        [HttpPost]
+        public IActionResult Create([FromBody] DeliveryAddressCreateModel request)
         {
             _deliveryAddressService.Create(request);
             return Ok(new { message = "DeliveryAddress created" });
@@ -40,7 +40,7 @@ namespace Controller.Controllers
 
         // PUT api/<DeliveryAddressController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, DeliveryAddressUpdateModel request)
+        public IActionResult Update(int id, [FromBody] DeliveryAddressUpdateModel request)
         {
             _deliveryAddressService.Update(id, request);
             return Ok(new { message = "DeliveryAddress updated" });

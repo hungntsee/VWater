@@ -31,8 +31,8 @@ namespace Controller.Controllers
         }
 
         // POST api/<AreaController>
-        [HttpPost("register")]
-        public IActionResult Create(AreaCreateModel request)
+        [HttpPost]
+        public IActionResult Create([FromBody] AreaCreateModel request)
         {
             _areaService.Create(request);
             return Ok(new { message = "Area created" });
@@ -40,7 +40,7 @@ namespace Controller.Controllers
 
         // PUT api/<AreaController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, AreaUpdateModel request)
+        public IActionResult Update(int id, [FromBody] AreaUpdateModel request)
         {
             _areaService.Update(id, request);
             return Ok(new { message = "Area updated" });

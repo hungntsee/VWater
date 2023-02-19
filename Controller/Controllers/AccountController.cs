@@ -38,7 +38,7 @@ namespace Controller.Controllers
 
         // POST api/<AccountController>
         [HttpPost("register")]
-        public IActionResult Create(AccountCreateModel request)
+        public IActionResult Create([FromBody] AccountCreateModel request)
         {
             _accountService.Create(request);
             return Ok(new { message = "User created" });
@@ -46,7 +46,7 @@ namespace Controller.Controllers
 
         // PUT api/<AccountController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, AccountUpdateModel request)
+        public IActionResult Update(int id, [FromBody] AccountUpdateModel request)
         {
             _accountService.Update(id, request);
             return Ok(new { message = "User update" });
@@ -61,7 +61,7 @@ namespace Controller.Controllers
         }
         [AllowAnonymous]
         [HttpPost("login")]
-        public IActionResult Login(LoginRequest request)
+        public IActionResult Login([FromBody] LoginRequest request)
         {
             var account = _accountService.Login(request);
             return Ok(new

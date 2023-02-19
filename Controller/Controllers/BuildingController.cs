@@ -31,8 +31,8 @@ namespace Controller.Controllers
         }
 
         // POST api/<BuildingController>
-        [HttpPost("register")]
-        public IActionResult Create(BuildingCreateModel request)
+        [HttpPost]
+        public IActionResult Create([FromBody] BuildingCreateModel request)
         {
             _buildingService.Create(request);
             return Ok(new { message = "Building created" });
@@ -40,7 +40,7 @@ namespace Controller.Controllers
 
         // PUT api/<BuildingController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, BuildingUpdateModel request)
+        public IActionResult Update(int id, [FromBody] BuildingUpdateModel request)
         {
             _buildingService.Update(id, request);
             return Ok(new { message = "Building updated" });

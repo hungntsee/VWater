@@ -31,8 +31,8 @@ namespace Controller.Controllers
         }
 
         // POST api/<GoodsController>
-        [HttpPost("register")]
-        public IActionResult Create(GoodsExchangeNoteCreateModel request)
+        [HttpPost]
+        public IActionResult Create([FromBody] GoodsExchangeNoteCreateModel request)
         {
             _goodsExchangeNoteService.Create(request);
             return Ok(new { message = "Goods Exchange Note created" });
@@ -40,7 +40,7 @@ namespace Controller.Controllers
 
         // PUT api/<GoodsExchangeNoteController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, GoodsExchangeNoteUpdateModel request)
+        public IActionResult Update(int id, [FromBody] GoodsExchangeNoteUpdateModel request)
         {
             _goodsExchangeNoteService.Update(id, request);
             return Ok(new { message = "Goods Exchange Note updated" });
