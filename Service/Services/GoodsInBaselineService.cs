@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Service.Helpers;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -18,7 +17,7 @@ namespace Service.GoodsInBaselines
     {
         private VWaterContext _context;
         private readonly IMapper _mapper;
-        private readonly AppSetting _appSetting;
+
 
         public GoodsInBaselineService(VWaterContext context, IMapper mapper)
         {

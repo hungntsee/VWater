@@ -72,6 +72,8 @@ builder.Services.AddScoped<IStoreService, StoreService>();
 builder.Services.AddScoped<IQuotationService, QuotationService>();
 builder.Services.AddScoped<IDistributorService, DistributorService>();
 builder.Services.AddScoped<IManufacturerService, ManufacturerService>();
+builder.Services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
+builder.Services.AddScoped<IPurchaseOrderDetailService, PurchaseOrderDetailService>();
 
 var app = builder.Build();
 
