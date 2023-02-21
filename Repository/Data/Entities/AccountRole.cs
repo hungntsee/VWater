@@ -8,7 +8,7 @@ namespace VWater.Data.Entities
         public AccountRole()
         {
             #region Generated Constructor
-            RoleAccounts = new HashSet<Account>();
+             Accounts = new HashSet<Account>();
             #endregion
         }
 
@@ -20,7 +20,7 @@ namespace VWater.Data.Entities
         #endregion
 
         #region Generated Relationships
-        public virtual ICollection<Account> RoleAccounts { get; set; }
+        public virtual ICollection<Account> Accounts { get; set; }
 
         #endregion
 

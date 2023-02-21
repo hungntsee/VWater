@@ -4,7 +4,7 @@ project:
   nullable: false
 database:
   provider: SqlServer
-  connectionString: Data Source=vwater.database.windows.net;Database=VWater; User ID=tienhung; Password=Hung0708;TrustServerCertificate=True;
+  connectionString: Data Source=SE140340;Database=VWater; User ID=tienhung; Password=Gunh0708;TrustServerCertificate=True;
   tableNaming: Singular
 data:
   context:

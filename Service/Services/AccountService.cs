@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Repository.Domain.Models;
 using Service.Helpers;
+using Service.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -37,8 +38,9 @@ public class AccountService : IAccountService
     }
     public IEnumerable<Account> GetAll()
     {
-        /*var accountsRespone =_mapper.Map<IEnumerable<AccountRespone>>(_context.Account);*/
-        return _context.Accounts;
+
+        var accounts = _context.Accounts;
+        return accounts;
     }
 
     public AccountReadModel GetById(int id)
@@ -89,7 +91,7 @@ public class AccountService : IAccountService
 
     public Account Login(LoginRequest request)
     {
-        var account = _context.Accounts.SingleOrDefaultAsync(x => x.Username == request.Username && x.Password == request.Password).Result;
+        var account = _context.Accounts.SingleOrDefaultAsync(x => x.Username.ToLower() == request.Username.ToLower() && x.Password.ToLower() == request.Password.ToLower()).Result;
 
         if (account == null) throw new AppException("Login Fail");
 

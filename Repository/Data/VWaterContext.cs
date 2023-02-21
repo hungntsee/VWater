@@ -69,8 +69,6 @@ namespace VWater.Data
 
         public virtual DbSet<VWater.Data.Entities.Quotation> Quotations { get; set; }
 
-        public virtual DbSet<VWater.Data.Entities.Roles> Roles { get; set; }
-
         public virtual DbSet<VWater.Data.Entities.Shipper> Shippers { get; set; }
 
         public virtual DbSet<VWater.Data.Entities.Store> Stores { get; set; }
@@ -110,7 +108,6 @@ namespace VWater.Data
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.PurchaseOrderDetailMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.PurchaseOrderMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.QuotationMap());
-            modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.RolesMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.ShipperMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.StoreMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.WarehouseBaselineMap());

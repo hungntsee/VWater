@@ -267,11 +267,11 @@ namespace Repository.Migrations
                         .HasColumnType("nchar(10)")
                         .HasColumnName("Note");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasColumnName("Password");
+                        .HasColumnName("PhoneNumber");
 
                     b.HasKey("Id");
 

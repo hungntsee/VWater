@@ -30,6 +30,11 @@ namespace VWater.Data.Mapping
                 .HasMaxLength(100);
 
             // relationships
+            builder.Navigation(a => a.Apartments).AutoInclude();
+            builder.Navigation(a => a.Menus).AutoInclude();
+            builder.Navigation(a => a.Warehouses).AutoInclude();
+            builder.Navigation(a => a.Distributors).AutoInclude();
+            builder.Navigation(a => a.Stores).AutoInclude();
             #endregion
         }
 

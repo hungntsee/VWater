@@ -23,16 +23,18 @@ using Service.Services;
 using Service.Stores;
 using Service.Warehouses;
 using System.Text;
+using System.Text.Json.Serialization;
 using VWater.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<VWaterContext>();
+builder.Services.AddDbContext<VWaterContext>(ServiceLifetime.Transient);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers().AddJsonOptions(x =>
 {
     x.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -74,6 +76,8 @@ builder.Services.AddScoped<IDistributorService, DistributorService>();
 builder.Services.AddScoped<IManufacturerService, ManufacturerService>();
 builder.Services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
 builder.Services.AddScoped<IPurchaseOrderDetailService, PurchaseOrderDetailService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IAccountRoleService, AccountRoleService>();
 
 var app = builder.Build();
 
@@ -90,7 +94,9 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+
 app.MapControllers();
+
 
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseMiddleware<JwtMiddleware>();

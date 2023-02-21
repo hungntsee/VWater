@@ -51,6 +51,8 @@ namespace VWater.Data.Mapping
                 .HasForeignKey(d => d.AreaId)
                 .HasConstraintName("FK_apartment_area");
 
+            builder.Navigation(a => a.Area).AutoInclude();
+            builder.Navigation(a => a.Buildings).AutoInclude();
             #endregion
         }
 
