@@ -10,7 +10,7 @@ namespace Service.Services
     public interface IAccountRoleService
     {
         public IEnumerable<AccountRole> GetAll();
-        public AccountRoleReadModel GetById(int id);
+        public AccountRole GetById(int id);
         public void Create(AccountRoleCreateModel request);
         public void Update(int id, AccountRoleUpdateModel request);
         public void Delete(int id);
@@ -27,12 +27,12 @@ namespace Service.Services
         }
         public IEnumerable<AccountRole> GetAll()
         {
-            return _context.AccountRoles;
+            return _context.AccountRoles.Include(a => a.Accounts);
         }
 
-        public AccountRoleReadModel GetById(int id)
+        public AccountRole GetById(int id)
         {
-            var accountRole = _mapper.Map<AccountRoleReadModel>(GetAccountRole(id));
+            var accountRole = GetAccountRole(id);
             return accountRole;
         }
 
@@ -61,7 +61,7 @@ namespace Service.Services
 
         private AccountRole GetAccountRole(int id)
         {
-            var accountRole = _context.AccountRoles.Find(id);
+            var accountRole = _context.AccountRoles.Include(a => a.Accounts).AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (accountRole == null) throw new KeyNotFoundException("Account Role not found!");
             return accountRole;
         }

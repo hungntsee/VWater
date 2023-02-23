@@ -10,7 +10,7 @@ namespace Service.Good
     public interface IGoodsService
     {
         public IEnumerable<Goods> GetAll();
-        public GoodsReadModel GetById(int id);
+        public Goods GetById(int id);
         public void Create(GoodsCreateModel request);
         public void Update(int id, GoodsUpdateModel request);
         public void Delete(int id);
@@ -27,12 +27,12 @@ namespace Service.Good
         }
         public IEnumerable<Goods> GetAll()
         {
-            return _context.Goods;
+            return _context.Goods.Include(a => a.Brand).Include(a => a.GoodsCompositions);
         }
 
-        public GoodsReadModel GetById(int id)
+        public Goods GetById(int id)
         {
-            var goods = _mapper.Map<GoodsReadModel>(GetGoods(id));
+            var goods = GetGoods(id);
             return goods;
         }
 
@@ -66,7 +66,8 @@ namespace Service.Good
 
         private Goods GetGoods(int id)
         {
-            var goods = _context.Goods.Find(id);
+            var goods = _context.Goods.Include(a => a.Brand).Include(a => a.GoodsCompositions)
+                .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (goods == null) throw new KeyNotFoundException("Goods not found!");
             return goods;
         }

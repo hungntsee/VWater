@@ -9,13 +9,6 @@ namespace VWater.Data.Queries
     public static partial class WarehouseExtensions
     {
         #region Generated Extensions
-        public static IQueryable<VWater.Data.Entities.Warehouse> ByAreaId(this IQueryable<VWater.Data.Entities.Warehouse> queryable, int areaId)
-        {
-            if (queryable is null)
-                throw new ArgumentNullException(nameof(queryable));
-
-            return queryable.Where(q => q.AreaId == areaId);
-        }
 
         public static VWater.Data.Entities.Warehouse GetByKey(this IQueryable<VWater.Data.Entities.Warehouse> queryable, int id)
         {

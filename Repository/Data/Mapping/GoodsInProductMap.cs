@@ -54,8 +54,8 @@ namespace VWater.Data.Mapping
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("FK_good_in_product_product");
 
-            builder.Navigation(a => a.GoodGoods).AutoInclude();
-            builder.Navigation(a => a.Product).AutoInclude();
+            /*builder.Navigation(a => a.GoodGoods).AutoInclude();
+            builder.Navigation(a => a.Product).AutoInclude();*/
             #endregion
         }
 

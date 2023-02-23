@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -8,7 +9,7 @@ namespace Service.Buildings
     public interface IBuildingService
     {
         public IEnumerable<Building> GetAll();
-        public BuildingReadModel GetById(int id);
+        public Building GetById(int id);
         public void Create(BuildingCreateModel request);
         public void Update(int id, BuildingUpdateModel request);
         public void Delete(int id);
@@ -25,12 +26,12 @@ namespace Service.Buildings
         }
         public IEnumerable<Building> GetAll()
         {
-            return _context.Buildings;
+            return _context.Buildings.Include(a => a.Apartment).Include(a => a.DeliveryAddresses);
         }
 
-        public BuildingReadModel GetById(int id)
+        public Building GetById(int id)
         {
-            var building = _mapper.Map<BuildingReadModel>(GetBuilding(id));
+            var building = GetBuilding(id);
             return building;
         }
 
@@ -59,7 +60,8 @@ namespace Service.Buildings
 
         private Building GetBuilding(int id)
         {
-            var building = _context.Buildings.Find(id);
+            var building = _context.Buildings.Include(a => a.Apartment).Include(a => a.DeliveryAddresses)
+                .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (building == null) throw new KeyNotFoundException("Building not found!");
             return building;
         }

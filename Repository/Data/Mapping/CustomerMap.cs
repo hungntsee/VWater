@@ -41,7 +41,7 @@ namespace VWater.Data.Mapping
 
             // relationships
 
-            builder.Navigation(a => a.DeliveryAddresses).AutoInclude();
+            /*builder.Navigation(a => a.DeliveryAddresses).AutoInclude();*/
             #endregion
         }
 

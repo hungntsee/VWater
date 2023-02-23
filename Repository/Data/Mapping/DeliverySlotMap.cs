@@ -54,8 +54,7 @@ namespace VWater.Data.Mapping
                 .WithMany(t => t.DeliverySlots)
                 .HasForeignKey(d => d.StoreId)
                 .HasConstraintName("FK_delivery_slot_store");
-            builder.Navigation(a => a.Orders).AutoInclude();
-            builder.Navigation(a => a.Store).AutoInclude();
+           /*builder.Navigation(a => a.Orders).AutoInclude();*/
 
             #endregion
         }

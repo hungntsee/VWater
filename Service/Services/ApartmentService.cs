@@ -9,7 +9,7 @@ namespace Service.Apartments
     public interface IApartmentService
     {
         public IEnumerable<Apartment> GetAll();
-        public ApartmentReadModel GetById(int id);
+        public Apartment GetById(int id);
         public void Create(ApartmentCreateModel request);
         public void Update(int id, ApartmentUpdateModel request);
         public void Delete(int id);
@@ -26,12 +26,12 @@ namespace Service.Apartments
         }
         public IEnumerable<Apartment> GetAll()
         {
-            return _context.Apartments;
+            return _context.Apartments.Include(a => a.Area).Include(a => a.Buildings);
         }
 
-        public ApartmentReadModel GetById(int id)
+        public Apartment GetById(int id)
         {
-            var apartment = _mapper.Map<ApartmentReadModel>(GetApartment(id));
+            var apartment = GetApartment(id);
             return apartment;
         }
 
@@ -61,7 +61,7 @@ namespace Service.Apartments
 
         private Apartment GetApartment(int id)
         {
-            var apartment = _context.Apartments.Find(id);
+            var apartment = _context.Apartments.Include(a => a.Area).Include(a =>a.Buildings).AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (apartment == null) throw new KeyNotFoundException("Apartment not found!");
             return apartment;
         }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -8,7 +9,7 @@ namespace Service.Services
     public interface IProductService
     {
         public IEnumerable<Product> GetAll();
-        public ProductReadModel GetById(int id);
+        public Product GetById(int id);
         public void Create(ProductCreateModel model);
         public void Update(int id, ProductUpdateModel model);
         public void Delete(int id);
@@ -27,12 +28,12 @@ namespace Service.Services
 
         public IEnumerable<Product> GetAll()
         {
-            return _context.Products;
+            return _context.Products.Include(a => a.GoodsInProducts);
         }
 
-        public ProductReadModel GetById(int id)
+        public Product GetById(int id)
         {
-            var productResponse = _mapper.Map<ProductReadModel>(GetProduct(id));
+            var productResponse = GetProduct(id);
             return productResponse;
         }
 
@@ -60,7 +61,8 @@ namespace Service.Services
 
         private Product GetProduct(int id)
         {
-            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            var product = _context.Products.Include(a => a.GoodsInProducts)
+                .AsNoTracking().FirstOrDefault(p => p.Id == id);
             if (product == null) throw new KeyNotFoundException("Product not found!");
             return product;
         }

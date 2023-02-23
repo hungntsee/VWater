@@ -57,8 +57,6 @@ namespace VWater.Data.Mapping
                 .HasForeignKey(d => d.StoreId)
                 .HasConstraintName("FK_shipper_store");
 
-            builder.Navigation(a => a.Account).AutoInclude();
-            builder.Navigation(a => a.Store).AutoInclude();
             #endregion
         }
 

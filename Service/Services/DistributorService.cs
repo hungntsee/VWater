@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Service.Helpers;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -8,7 +10,7 @@ namespace Service.Distributors
     public interface IDistributorService
     {
         public IEnumerable<Distributor> GetAll();
-        public DistributorReadModel GetById(int id);
+        public Distributor GetById(int id);
         public void Create(DistributorCreateModel request);
         public void Update(int id, DistributorUpdateModel request);
         public void Delete(int id);
@@ -25,21 +27,21 @@ namespace Service.Distributors
         }
         public IEnumerable<Distributor> GetAll()
         {
-            return _context.Distributors;
+            return _context.Distributors.Include(a => a.Area).Include(a => a.Quotations);
         }
 
-        public DistributorReadModel GetById(int id)
+        public Distributor GetById(int id)
         {
-            var distributor = _mapper.Map<DistributorReadModel>(GetDistributor(id));
+            var distributor = GetDistributor(id);
             return distributor;
         }
 
         public void Create(DistributorCreateModel request)
         {
-            /*
+
             if (_context.Distributors.Any(d => d.DistributorName == request.DistributorName))
                 throw new AppException("Distributor: '" + request.DistributorName + "' already exists");
-            */
+
             var distributor = _mapper.Map<Distributor>(request);
 
             _context.Distributors.AddAsync(distributor);
@@ -50,10 +52,9 @@ namespace Service.Distributors
         {
             var distributor = GetDistributor(id);
 
-            /*
             if (_context.Distributors.Any(d => d.DistributorName == request.DistributorName))
                 throw new AppException("Distributor: '" + request.DistributorName + "' already exists");
-            */
+
             _mapper.Map(request, distributor);
             _context.Distributors.Update(distributor);
             _context.SaveChangesAsync();
@@ -68,7 +69,8 @@ namespace Service.Distributors
 
         private Distributor GetDistributor(int id)
         {
-            var distributor = _context.Distributors.Find(id);
+            var distributor = _context.Distributors.Include(a => a.Area).Include(a => a.Quotations)
+                .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (distributor == null) throw new KeyNotFoundException("Distributor not found!");
             return distributor;
         }

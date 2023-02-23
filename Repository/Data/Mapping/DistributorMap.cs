@@ -67,7 +67,7 @@ namespace VWater.Data.Mapping
                 .WithMany(t => t.Distributors)
                 .HasForeignKey(d => d.AreaId)
                 .HasConstraintName("FK_distributor_area");
-            builder.Navigation(a => a.Area).AutoInclude();
+            /*builder.Navigation(a => a.Area).AutoInclude();*/
 
             #endregion
         }

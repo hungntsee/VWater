@@ -48,9 +48,6 @@ namespace VWater.Data.Mapping
                 .WithMany(t => t.PurchaseOrderDetails)
                 .HasForeignKey(d => d.PurchaseOrderId)
                 .HasConstraintName("FK_purchase_order_detail_purchase_order");
-
-            builder.Navigation(a => a.PurchaseOrder).AutoInclude();
-            builder.Navigation(a => a.Goods).AutoInclude();
             #endregion
         }
 

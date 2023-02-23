@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -25,12 +26,12 @@ namespace Service.GoodExchangeNote
         }
         public IEnumerable<GoodsExchangeNote> GetAll()
         {
-            return _context.GoodsExchangeNotes;
+            return _context.GoodsExchangeNotes.Include(a => a.PurchaseOrder).Include(a => a.Goods).Include(a => a.Order);
         }
 
-        public GoodsExchangeNoteReadModel GetById(int id)
+        public GoodsExchangeNote GetById(int id)
         {
-            var goodsExchangeNote = _mapper.Map<GoodsExchangeNoteReadModel>(GetGoodsExchangeNote(id));
+            var goodsExchangeNote = GetGoodsExchangeNote(id);
             return goodsExchangeNote;
         }
 
@@ -63,7 +64,8 @@ namespace Service.GoodExchangeNote
 
         private GoodsExchangeNote GetGoodsExchangeNote(int id)
         {
-            var goodsExchangeNote = _context.GoodsExchangeNotes.Find(id);
+            var goodsExchangeNote = _context.GoodsExchangeNotes.Include(a => a.PurchaseOrder).Include(a => a.Goods).Include(a => a.Order)
+                .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (goodsExchangeNote == null) throw new KeyNotFoundException("Goods Exchange Note not found!");
             return goodsExchangeNote;
         }

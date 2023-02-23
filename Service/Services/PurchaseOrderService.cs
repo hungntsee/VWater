@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -8,7 +9,7 @@ namespace Service.Services
     public interface IPurchaseOrderService
     {
         public IEnumerable<PurchaseOrder> GetAll();
-        public PurchaseOrderReadModel GetById(int id);
+        public PurchaseOrder GetById(int id);
         public void Create(PurchaseOrderCreateModel model);
         public void Update(int id, PurchaseOrderUpdateModel model);
         public void Delete(int id);
@@ -26,12 +27,14 @@ namespace Service.Services
 
         public IEnumerable<PurchaseOrder> GetAll()
         {
-            return _context.PurchaseOrders;
+            return _context.PurchaseOrders.Include(a => a.PurchaseOrderDetails)
+                .Include(a => a.Store)
+                .Include(a => a.Distributor);
         }
 
-        public PurchaseOrderReadModel GetById(int id)
+        public PurchaseOrder GetById(int id)
         {
-            var purchaseOrderResponse = _mapper.Map<PurchaseOrderReadModel>(GetPurchaseOrder(id));
+            var purchaseOrderResponse = GetPurchaseOrder(id);
             return purchaseOrderResponse;
         }
 
@@ -59,7 +62,10 @@ namespace Service.Services
 
         private PurchaseOrder GetPurchaseOrder(int id)
         {
-            var purchaseOrder = _context.PurchaseOrders.FirstOrDefault(p => p.Id == id);
+            var purchaseOrder = _context.PurchaseOrders.Include(a => a.PurchaseOrderDetails)
+                .Include(a => a.Store)
+                .Include(a => a.Distributor)
+                .AsNoTracking().FirstOrDefault(p => p.Id == id);
             if (purchaseOrder == null) throw new KeyNotFoundException("PurchaseOrder not found!");
             return purchaseOrder;
         }

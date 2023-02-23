@@ -48,8 +48,6 @@ namespace VWater.Data.Mapping
                 .HasForeignKey(d => d.DistributorId)
                 .HasConstraintName("FK_quotation_distributor");
 
-            builder.Navigation(a => a.Distributor).AutoInclude();
-            builder.Navigation(a => a.GoodsInQuotations).AutoInclude();
             #endregion
         }
 

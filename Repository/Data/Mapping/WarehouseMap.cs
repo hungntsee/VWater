@@ -34,11 +34,6 @@ namespace VWater.Data.Mapping
                 .HasColumnName("Store_Id")
                 .HasColumnType("int");
 
-            builder.Property(t => t.AreaId)
-                .IsRequired()
-                .HasColumnName("Area_Id")
-                .HasColumnType("int");
-
             builder.Property(t => t.Capacity)
                 .HasColumnName("Capacity")
                 .HasColumnType("nvarchar(50)")
@@ -56,9 +51,6 @@ namespace VWater.Data.Mapping
                 .WithMany(t => t.Warehouses)
                 .HasForeignKey(d => d.StoreId)
                 .HasConstraintName("FK_warehouse_store");
-
-            builder.Navigation(a => a.Store).AutoInclude();
-
 
             #endregion
         }

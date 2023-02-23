@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -8,7 +9,7 @@ namespace Service.GoodsInQuotations
     public interface IGoodsInQuotationService
     {
         public IEnumerable<GoodsInQuotation> GetAll();
-        public GoodsInQuotationReadModel GetById(int id);
+        public GoodsInQuotation GetById(int id);
         public void Create(GoodsInQuotationCreateModel request);
         public void Update(int id, GoodsInQuotationUpdateModel request);
         public void Delete(int id);
@@ -25,12 +26,12 @@ namespace Service.GoodsInQuotations
         }
         public IEnumerable<GoodsInQuotation> GetAll()
         {
-            return _context.GoodsInQuotations;
+            return _context.GoodsInQuotations.Include(a => a.Goods).Include(a => a.Quotation);
         }
 
-        public GoodsInQuotationReadModel GetById(int id)
+        public GoodsInQuotation GetById(int id)
         {
-            var goodsInQuotation = _mapper.Map<GoodsInQuotationReadModel>(GetGoodsInQuotation(id));
+            var goodsInQuotation = GetGoodsInQuotation(id);
             return goodsInQuotation;
         }
 
@@ -60,7 +61,8 @@ namespace Service.GoodsInQuotations
 
         private GoodsInQuotation GetGoodsInQuotation(int id)
         {
-            var goodsInQuotation = _context.GoodsInQuotations.Find(id);
+            var goodsInQuotation = _context.GoodsInQuotations.Include(a => a.Goods).Include(a => a.Quotation)
+                .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (goodsInQuotation == null) throw new KeyNotFoundException("Goods In Baseline not found!");
             return goodsInQuotation;
         }

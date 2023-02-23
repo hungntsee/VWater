@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Service.Helpers;
 using VWater.Data;
 using VWater.Data.Entities;
@@ -9,7 +10,7 @@ namespace Service.DeliveryTypes
     public interface IDeliveryTypeService
     {
         public IEnumerable<DeliveryType> GetAll();
-        public DeliveryTypeReadModel GetById(int id);
+        public DeliveryType GetById(int id);
         public void Create(DeliveryTypeCreateModel request);
         public void Update(int id, DeliveryTypeUpdateModel request);
         public void Delete(int id);
@@ -26,12 +27,12 @@ namespace Service.DeliveryTypes
         }
         public IEnumerable<DeliveryType> GetAll()
         {
-            return _context.DeliveryTypes;
+            return _context.DeliveryTypes.Include(a => a.DeliveryAddresses);
         }
 
-        public DeliveryTypeReadModel GetById(int id)
+        public DeliveryType GetById(int id)
         {
-            var deliveryType = _mapper.Map<DeliveryTypeReadModel>(GetDeliveryType(id));
+            var deliveryType = GetDeliveryType(id);
             return deliveryType;
         }
 

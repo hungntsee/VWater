@@ -2,13 +2,14 @@
 using VWater.Data.Entities;
 using VWater.Data;
 using VWater.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Service.Services
 {
     public interface ICustomerService
     {
         public IEnumerable<Customer> GetAll();
-        public CustomerReadModel GetById(int id);
+        public Customer GetById(int id);
         public void Create(CustomerCreateModel model);
         public void Update(int id, CustomerUpdateModel model);
         public void Delete(int id);
@@ -25,12 +26,12 @@ namespace Service.Services
         }
         public IEnumerable<Customer> GetAll()
         {
-            return _context.Customers;
+            return _context.Customers.Include(a => a.DeliveryAddresses);
         }
 
-        public CustomerReadModel GetById(int id)
+        public Customer GetById(int id)
         {
-            var customer = _mapper.Map<CustomerReadModel>(GetCustomer(id));
+            var customer = GetCustomer(id);
             return  customer;
         }
 
@@ -59,7 +60,7 @@ namespace Service.Services
 
         private Customer GetCustomer(int id)
         {
-            var customer = _context.Customers.Find(id);
+            var customer = _context.Customers.Include(a => a.DeliveryAddresses).AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (customer == null) throw new KeyNotFoundException("Customer not found!");
             return customer;
         }

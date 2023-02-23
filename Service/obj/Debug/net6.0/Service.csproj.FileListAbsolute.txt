@@ -96,3 +96,5 @@ E:\Project_2023_Spring\back-end\WeWater\Service\obj\Debug\net6.0\refint\Service.
 E:\Project_2023_Spring\back-end\WeWater\Service\obj\Debug\net6.0\Service.pdb
 E:\Project_2023_Spring\back-end\WeWater\Service\obj\Debug\net6.0\Service.genruntimeconfig.cache
 E:\Project_2023_Spring\back-end\WeWater\Service\obj\Debug\net6.0\ref\Service.dll
+E:\Project_2023_Spring\back-end\WeWater\Service\bin\Debug\net6.0\Castle.Core.dll
+E:\Project_2023_Spring\back-end\WeWater\Service\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll

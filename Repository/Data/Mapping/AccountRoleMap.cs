@@ -30,7 +30,6 @@ namespace VWater.Data.Mapping
                 .HasMaxLength(20);
 
             // relationships
-            builder.Navigation(a => a.Accounts).AutoInclude();
             #endregion
         }
 

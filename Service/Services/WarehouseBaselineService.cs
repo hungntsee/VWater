@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -8,7 +9,7 @@ namespace Service.Services
     public interface IWarehouseBaselineService
     {
         public IEnumerable<WarehouseBaseline> GetAll();
-        public WarehouseBaselineReadModel GetById(int id);
+        public WarehouseBaseline GetById(int id);
         public void Create(WarehouseBaselineCreateModel model);
         public void Update(int id, WarehouseBaselineUpdateModel model);
         public void Delete(int id);
@@ -39,12 +40,12 @@ namespace Service.Services
 
         public IEnumerable<WarehouseBaseline> GetAll()
         {
-            return _context.WarehouseBaselines;
+            return _context.WarehouseBaselines.Include(a => a.GoodsInBaselines).Include(a => a.Warehouse);
         }
 
-        public WarehouseBaselineReadModel GetById(int id)
+        public WarehouseBaseline GetById(int id)
         {
-            var warehouseBaseline = _mapper.Map<WarehouseBaselineReadModel>(GetWarehouseBaseline(id));
+            var warehouseBaseline = GetWarehouseBaseline(id);
             return warehouseBaseline;
         }
 
@@ -58,7 +59,8 @@ namespace Service.Services
 
         private WarehouseBaseline GetWarehouseBaseline(int id)
         {
-            var warehouseBaseline = _context.WarehouseBaselines.FirstOrDefault(p => p.Id == id);
+            var warehouseBaseline = _context.WarehouseBaselines.Include(a => a.GoodsInBaselines).Include(a => a.Warehouse)
+                .AsNoTracking().FirstOrDefault(p => p.Id == id);
             if (warehouseBaseline == null) throw new KeyNotFoundException("Warehouse Baseline not found!");
             return warehouseBaseline;
         }

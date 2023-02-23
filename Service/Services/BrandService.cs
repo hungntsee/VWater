@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Service.Helpers;
 using VWater.Data;
 using VWater.Data.Entities;
@@ -9,7 +10,7 @@ namespace Service.Brands
     public interface IBrandService
     {
         public IEnumerable<Brand> GetAll();
-        public BrandReadModel GetById(int id);
+        public Brand GetById(int id);
         public void Create(BrandCreateModel request);
         public void Update(int id, BrandUpdateModel request);
         public void Delete(int id);
@@ -26,12 +27,12 @@ namespace Service.Brands
         }
         public IEnumerable<Brand> GetAll()
         {
-            return _context.Brands;
+            return _context.Brands.Include(a => a.ManufactureManufacturer).Include(a => a.Goods);
         }
 
-        public BrandReadModel GetById(int id)
+        public Brand GetById(int id)
         {
-            var brand = _mapper.Map<BrandReadModel>(GetBrand(id));
+            var brand = GetBrand(id);
             return brand;
         }
 
@@ -65,7 +66,8 @@ namespace Service.Brands
 
         private Brand GetBrand(int id)
         {
-            var brand = _context.Brands.Find(id);
+            var brand = _context.Brands.Include(a => a.ManufactureManufacturer).Include(a => a.Goods)
+                .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (brand == null) throw new KeyNotFoundException("Brand not found!");
             return brand;
         }

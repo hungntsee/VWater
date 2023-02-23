@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Service.Helpers;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -8,7 +10,7 @@ namespace Service.Manufacturers
     public interface IManufacturerService
     {
         public IEnumerable<Manufacturer> GetAll();
-        public ManufacturerReadModel GetById(int id);
+        public Manufacturer GetById(int id);
         public void Create(ManufacturerCreateModel request);
         public void Update(int id, ManufacturerUpdateModel request);
         public void Delete(int id);
@@ -25,21 +27,21 @@ namespace Service.Manufacturers
         }
         public IEnumerable<Manufacturer> GetAll()
         {
-            return _context.Manufacturers;
+            return _context.Manufacturers.Include(a => a.ManufactureBrands);
         }
 
-        public ManufacturerReadModel GetById(int id)
+        public Manufacturer GetById(int id)
         {
-            var manufacturer = _mapper.Map<ManufacturerReadModel>(GetManufacturer(id));
+            var manufacturer = GetManufacturer(id);
             return manufacturer;
         }
 
         public void Create(ManufacturerCreateModel request)
         {
-            /*
+
             if (_context.Manufacturers.Any(m => m.ManufacturerName == request.ManufacturerName))
                 throw new AppException("Manufacturer: '" + request.ManufacturerName + "' already exists");
-            */
+
             var manufacturer = _mapper.Map<Manufacturer>(request);
 
             _context.Manufacturers.AddAsync(manufacturer);
@@ -50,10 +52,10 @@ namespace Service.Manufacturers
         {
             var manufacturer = GetManufacturer(id);
 
-            /*
+
             if (_context.Manufacturers.Any(m => m.ManufacturerName == request.ManufacturerName))
                 throw new AppException("Manufacturer: '" + request.ManufacturerName + "' already exists");
-            */
+
             _mapper.Map(request, manufacturer);
             _context.Manufacturers.Update(manufacturer);
             _context.SaveChangesAsync();
@@ -68,7 +70,7 @@ namespace Service.Manufacturers
 
         private Manufacturer GetManufacturer(int id)
         {
-            var manufacturer = _context.Manufacturers.Find(id);
+            var manufacturer = _context.Manufacturers.Include(a => a.ManufactureBrands).AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (manufacturer == null) throw new KeyNotFoundException("Manufacturer not found!");
             return manufacturer;
         }

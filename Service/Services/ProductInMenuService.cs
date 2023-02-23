@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -8,7 +9,7 @@ namespace Service.Services
     public interface IProductInMenuService
     {
         public IEnumerable<ProductInMenu> GetAll();
-        public ProductInMenuReadModel GetById(int id);
+        public ProductInMenu GetById(int id);
         public void Create(ProductInMenuCreateModel model);
         public void Update(int id, ProductInMenuUpdateModel model);
         public void Delete(int id);
@@ -25,12 +26,12 @@ namespace Service.Services
 
         public IEnumerable<ProductInMenu> GetAll()
         {
-            return _context.ProductInMenus;
+            return _context.ProductInMenus.Include(a => a.Menu).Include(a => a.Product);
         }
 
-        public ProductInMenuReadModel GetById(int id)
+        public ProductInMenu GetById(int id)
         {
-            var productInMenu = _mapper.Map<ProductInMenuReadModel>(GetProductInMenu(id));
+            var productInMenu = GetProductInMenu(id);
             return productInMenu;
         }
 
@@ -59,7 +60,8 @@ namespace Service.Services
 
         private ProductInMenu GetProductInMenu(int id)
         {
-            var productInMenu = _context.ProductInMenus.Find(id);
+            var productInMenu = _context.ProductInMenus.Include(a => a.Menu).Include(a => a.Product)
+                .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (productInMenu == null) throw new KeyNotFoundException("Product In Menu not found!");
             return productInMenu;
         }

@@ -17,7 +17,7 @@ using VWater.Domain.Models;
 public interface IAccountService
 {
     public IEnumerable<Account> GetAll();
-    public AccountReadModel GetById(int id);
+    public Account GetById(int id);
     public void Create(AccountCreateModel request);
     public void Update(int id, AccountUpdateModel request);
     public void Delete(int id);
@@ -39,13 +39,13 @@ public class AccountService : IAccountService
     public IEnumerable<Account> GetAll()
     {
 
-        var accounts = _context.Accounts;
+        var accounts = _context.Accounts.Include(a => a.RoleAccountRole);
         return accounts;
     }
 
-    public AccountReadModel GetById(int id)
+    public Account GetById(int id)
     {
-        var accountRespone = _mapper.Map<AccountReadModel>(GetAccount(id));
+        var accountRespone = GetAccount(id);
         return accountRespone;
     }
 
@@ -84,7 +84,7 @@ public class AccountService : IAccountService
 
     private Account GetAccount(int id)
     {
-        var account = _context.Accounts.Find(id);
+        var account = _context.Accounts.Include(a => a.RoleAccountRole).AsNoTracking().FirstOrDefault(a => a.Id == id);
         if (account == null) throw new KeyNotFoundException("Account not found");
         return account;
     }

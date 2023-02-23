@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -8,7 +9,7 @@ namespace Service.Quotations
     public interface IQuotationService
     {
         public IEnumerable<Quotation> GetAll();
-        public QuotationReadModel GetById(int id);
+        public Quotation GetById(int id);
         public void Create(QuotationCreateModel request);
         public void Update(int id, QuotationUpdateModel request);
         public void Delete(int id);
@@ -25,12 +26,12 @@ namespace Service.Quotations
         }
         public IEnumerable<Quotation> GetAll()
         {
-            return _context.Quotations;
+            return _context.Quotations.Include(a => a.GoodsInQuotations).Include(a => a.Distributor);
         }
 
-        public QuotationReadModel GetById(int id)
+        public Quotation GetById(int id)
         {
-            var quotation = _mapper.Map<QuotationReadModel>(GetQuotation(id));
+            var quotation = GetQuotation(id);
             return quotation;
         }
 

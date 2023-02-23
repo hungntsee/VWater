@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -8,7 +9,7 @@ namespace Service.GoodsInProducts
     public interface IGoodsInProductService
     {
         public IEnumerable<GoodsInProduct> GetAll();
-        public GoodsInProductReadModel GetById(int id);
+        public GoodsInProduct GetById(int id);
         public void Create(GoodsInProductCreateModel request);
         public void Update(int id, GoodsInProductUpdateModel request);
         public void Delete(int id);
@@ -25,12 +26,12 @@ namespace Service.GoodsInProducts
         }
         public IEnumerable<GoodsInProduct> GetAll()
         {
-            return _context.GoodsInProducts;
+            return _context.GoodsInProducts.Include(a => a.GoodGoods).Include(a => a.Product);
         }
 
-        public GoodsInProductReadModel GetById(int id)
+        public GoodsInProduct GetById(int id)
         {
-            var goodsInProduct = _mapper.Map<GoodsInProductReadModel>(GetGoodsInProduct(id));
+            var goodsInProduct = GetGoodsInProduct(id);
             return goodsInProduct;
         }
 
@@ -59,7 +60,8 @@ namespace Service.GoodsInProducts
 
         private GoodsInProduct GetGoodsInProduct(int id)
         {
-            var goodsInProduct = _context.GoodsInProducts.Find(id);
+            var goodsInProduct = _context.GoodsInProducts.Include(a => a.GoodGoods).Include(a => a.Product)
+                .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (goodsInProduct == null) throw new KeyNotFoundException("Goods In Product not found!");
             return goodsInProduct;
         }

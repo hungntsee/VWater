@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -8,7 +9,7 @@ namespace Service.DeliveryAddresses
     public interface IDeliveryAddressService
     {
         public IEnumerable<DeliveryAddress> GetAll();
-        public DeliveryAddressReadModel GetById(int id);
+        public DeliveryAddress GetById(int id);
         public void Create(DeliveryAddressCreateModel request);
         public void Update(int id, DeliveryAddressUpdateModel request);
         public void Delete(int id);
@@ -25,12 +26,12 @@ namespace Service.DeliveryAddresses
         }
         public IEnumerable<DeliveryAddress> GetAll()
         {
-            return _context.DeliveryAddresses;
+            return _context.DeliveryAddresses.Include(a => a.Customer).Include(a => a.Building).Include(a => a.Orders).Include(a => a.DeliveryType);
         }
 
-        public DeliveryAddressReadModel GetById(int id)
+        public DeliveryAddress GetById(int id)
         {
-            var deliveryAddress = _mapper.Map<DeliveryAddressReadModel>(GetDeliveryAddress(id));
+            var deliveryAddress = GetDeliveryAddress(id);
             return deliveryAddress;
         }
 
@@ -60,7 +61,8 @@ namespace Service.DeliveryAddresses
 
         private DeliveryAddress GetDeliveryAddress(int id)
         {
-            var deliveryAddress = _context.DeliveryAddresses.Find(id);
+            var deliveryAddress = _context.DeliveryAddresses.Include(a => a.Customer).Include(a => a.Building).Include(a => a.Orders).Include(a => a.DeliveryType)
+                .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (deliveryAddress == null) throw new KeyNotFoundException("DeliveryAddress not found!");
             return deliveryAddress;
         }

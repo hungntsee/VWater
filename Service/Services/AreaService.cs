@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Service.Helpers;
 using VWater.Data;
@@ -10,7 +11,7 @@ namespace Service.Areas
     public interface IAreaService
     {
         public IEnumerable<Area> GetAll();
-        public AreaReadModel GetById(int id);
+        public Area GetById(int id);
         public void Create(AreaCreateModel request);
         public void Update(int id, AreaUpdateModel request);
         public void Delete(int id);
@@ -27,12 +28,12 @@ namespace Service.Areas
         }
         public IEnumerable<Area> GetAll()
         {
-            return _context.Areas;
+            return _context.Areas.Include(a => a.Distributors).Include(a => a.Apartments).Include(a => a.Stores).Include(a => a.Menus);
         }
 
-        public AreaReadModel GetById(int id)
+        public Area GetById(int id)
         {
-            var area = _mapper.Map<AreaReadModel>(GetArea(id));
+            var area = GetArea(id);
             return area;
         }
 
@@ -66,7 +67,12 @@ namespace Service.Areas
 
         private Area GetArea(int id)
         {
-            var area = _context.Areas.Find(id);
+            var area = _context.Areas
+                .Include(a => a.Distributors)
+                .Include(a => a.Apartments)
+                .Include(a => a.Stores)
+                .Include(a => a.Menus)
+                .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (area == null) throw new KeyNotFoundException("Area not found!");
             return area;
         }

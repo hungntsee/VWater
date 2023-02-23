@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -8,7 +9,7 @@ namespace Service.Services
     public interface IOrderService
     {
         public IEnumerable<Order> GetAll();
-        public OrderReadModel GetById(int id);
+        public Order GetById(int id);
         public void Create(OrderCreateModel model);
         public void Update(int id, OrderUpdateModel model);
         public void Delete(int id);
@@ -26,12 +27,12 @@ namespace Service.Services
 
         public IEnumerable<Order> GetAll()
         {
-            return _context.Orders;
+            return _context.Orders.Include(a => a.DeliveryAddress).Include(a => a.DeliverySlot).Include(a => a.OrderDetails);
         }
 
-        public OrderReadModel GetById(int id)
+        public Order GetById(int id)
         {
-            var orderResponse = _mapper.Map<OrderReadModel>(GetOrder(id));
+            var orderResponse = GetOrder(id);
             return orderResponse;
         }
 
@@ -59,7 +60,8 @@ namespace Service.Services
 
         private Order GetOrder(int id)
         {
-            var order = _context.Orders.FirstOrDefault(p => p.Id == id);
+            var order = _context.Orders.Include(a => a.DeliveryAddress).Include(a => a.DeliverySlot).Include(a => a.OrderDetails)
+                .AsNoTracking().FirstOrDefault(p => p.Id == id);
             if (order == null) throw new KeyNotFoundException("Order not found!");
             return order;
         }

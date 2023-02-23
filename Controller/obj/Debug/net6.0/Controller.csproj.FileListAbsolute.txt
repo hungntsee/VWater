@@ -309,3 +309,5 @@ E:\Project_2023_Spring\back-end\WeWater\Controller\obj\Debug\net6.0\refint\Contr
 E:\Project_2023_Spring\back-end\WeWater\Controller\obj\Debug\net6.0\Controller.pdb
 E:\Project_2023_Spring\back-end\WeWater\Controller\obj\Debug\net6.0\Controller.genruntimeconfig.cache
 E:\Project_2023_Spring\back-end\WeWater\Controller\obj\Debug\net6.0\ref\Controller.dll
+E:\Project_2023_Spring\back-end\WeWater\Controller\bin\Debug\net6.0\Castle.Core.dll
+E:\Project_2023_Spring\back-end\WeWater\Controller\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll

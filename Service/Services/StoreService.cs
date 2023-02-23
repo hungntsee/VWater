@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Service.Helpers;
 using VWater.Data;
 using VWater.Data.Entities;
@@ -9,7 +10,7 @@ namespace Service.Stores
     public interface IStoreService
     {
         public IEnumerable<Store> GetAll();
-        public StoreReadModel GetById(int id);
+        public Store GetById(int id);
         public void Create(StoreCreateModel request);
         public void Update(int id, StoreUpdateModel request);
         public void Delete(int id);
@@ -26,12 +27,12 @@ namespace Service.Stores
         }
         public IEnumerable<Store> GetAll()
         {
-            return _context.Stores;
+            return _context.Stores.Include(a => a.Warehouses).Include(a => a.Area).Include(a => a.Shippers);
         }
 
-        public StoreReadModel GetById(int id)
+        public Store GetById(int id)
         {
-            var store = _mapper.Map<StoreReadModel>(GetStore(id));
+            var store = GetStore(id);
             return store;
         }
 
@@ -65,7 +66,8 @@ namespace Service.Stores
 
         private Store GetStore(int id)
         {
-            var store = _context.Stores.Find(id);
+            var store = _context.Stores.Include(a => a.Warehouses).Include(a => a.Area).Include(a => a.Shippers)
+                .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (store == null) throw new KeyNotFoundException("Store not found!");
             return store;
         }
