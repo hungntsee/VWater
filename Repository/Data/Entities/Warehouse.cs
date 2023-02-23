@@ -20,7 +20,6 @@ namespace VWater.Data.Entities
 
         public int StoreId { get; set; }
 
-        public int AreaId { get; set; }
 
         public string Capacity { get; set; }
 
@@ -29,7 +28,6 @@ namespace VWater.Data.Entities
         #endregion
 
         #region Generated Relationships
-        public virtual Area Area { get; set; }
 
         public virtual ICollection<GoodsExchangeNote> GoodsExchangeNotes { get; set; }
 

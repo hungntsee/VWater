@@ -32,7 +32,6 @@ namespace VWater.Data.Mapping
             // relationships
             builder.Navigation(a => a.Apartments).AutoInclude();
             builder.Navigation(a => a.Menus).AutoInclude();
-            builder.Navigation(a => a.Warehouses).AutoInclude();
             builder.Navigation(a => a.Distributors).AutoInclude();
             builder.Navigation(a => a.Stores).AutoInclude();
             #endregion

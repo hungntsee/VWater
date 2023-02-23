@@ -12,7 +12,6 @@ namespace VWater.Data.Entities
             Distributors = new HashSet<Distributor>();
             Menus = new HashSet<Menu>();
             Stores = new HashSet<Store>();
-            Warehouses = new HashSet<Warehouse>();
             #endregion
         }
 
@@ -31,8 +30,6 @@ namespace VWater.Data.Entities
         public virtual ICollection<Menu> Menus { get; set; }
 
         public virtual ICollection<Store> Stores { get; set; }
-
-        public virtual ICollection<Warehouse> Warehouses { get; set; }
 
         #endregion
 

@@ -1138,10 +1138,6 @@ namespace Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AreaId")
-                        .HasColumnType("int")
-                        .HasColumnName("Area_Id");
-
                     b.Property<string>("Capacity")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -1165,8 +1161,6 @@ namespace Repository.Migrations
                         .HasColumnName("WarehouseName");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AreaId");
 
                     b.HasIndex("StoreId");
 

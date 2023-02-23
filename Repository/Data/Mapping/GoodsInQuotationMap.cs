@@ -49,6 +49,9 @@ namespace VWater.Data.Mapping
                 .HasForeignKey(d => d.QuotationId)
                 .HasConstraintName("FK_goods_in_quotation_quotation");
 
+            builder.Navigation(a => a.Goods).AutoInclude();
+            builder.Navigation(a => a.Quotation).AutoInclude();
+
             #endregion
         }
 

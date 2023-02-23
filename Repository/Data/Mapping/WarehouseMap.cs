@@ -51,10 +51,6 @@ namespace VWater.Data.Mapping
                 .HasMaxLength(20);
 
             // relationships
-            builder.HasOne(t => t.Area)
-                .WithMany(t => t.Warehouses)
-                .HasForeignKey(d => d.AreaId)
-                .HasConstraintName("FK_warehouse_area");
 
             builder.HasOne(t => t.Store)
                 .WithMany(t => t.Warehouses)
@@ -76,7 +72,6 @@ namespace VWater.Data.Mapping
             public const string Id = "Id";
             public const string WarehouseName = "WarehouseName";
             public const string StoreId = "Store_Id";
-            public const string AreaId = "Area_Id";
             public const string Capacity = "Capacity";
             public const string PhoneNumber = "PhoneNumber";
         }

@@ -82,6 +82,10 @@ namespace VWater.Data.Mapping
                 .HasForeignKey(d => d.WarehouseId)
                 .HasConstraintName("FK_goods_exchange_note_warehouse");
 
+            builder.Navigation(a => a.Goods).AutoInclude();
+            builder.Navigation(a => a.Warehouse).AutoInclude();
+            builder.Navigation(a => a.Order).AutoInclude();
+            builder.Navigation(a => a.PurchaseOrder).AutoInclude();
             #endregion
         }
 

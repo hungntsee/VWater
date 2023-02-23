@@ -12,7 +12,6 @@ namespace VWater.Domain.Models
 
         public int StoreId { get; set; }
 
-        public int AreaId { get; set; }
 
         public string Capacity { get; set; }
 

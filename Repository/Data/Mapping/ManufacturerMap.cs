@@ -56,6 +56,7 @@ namespace VWater.Data.Mapping
                 .HasMaxLength(100);
 
             // relationships
+            builder.Navigation(a => a.ManufactureBrands).AutoInclude();
             #endregion
         }
 
