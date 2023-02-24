@@ -9,7 +9,7 @@ namespace Service.GoodExchangeNote
     public interface IGoodsExchangeNoteService
     {
         public IEnumerable<GoodsExchangeNote> GetAll();
-        public GoodsExchangeNoteReadModel GetById(int id);
+        public GoodsExchangeNote GetById(int id);
         public void Create(GoodsExchangeNoteCreateModel request);
         public void Update(int id, GoodsExchangeNoteUpdateModel request);
         public void Delete(int id);
