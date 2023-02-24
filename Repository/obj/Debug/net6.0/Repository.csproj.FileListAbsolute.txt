@@ -194,3 +194,5 @@ E:\Project_2023_Spring\back-end\WeWater\Repository\obj\Debug\net6.0\Repository.g
 E:\Project_2023_Spring\back-end\WeWater\Repository\obj\Debug\net6.0\ref\Repository.dll
 E:\Project_2023_Spring\back-end\WeWater\Repository\bin\Debug\net6.0\Castle.Core.dll
 E:\Project_2023_Spring\back-end\WeWater\Repository\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Castle.Core.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll

@@ -69,5 +69,10 @@ namespace Service.GoodExchangeNote
             if (goodsExchangeNote == null) throw new KeyNotFoundException("Goods Exchange Note not found!");
             return goodsExchangeNote;
         }
+
+        GoodsExchangeNoteReadModel IGoodsExchangeNoteService.GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
