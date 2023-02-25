@@ -39,20 +39,6 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Issuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt:Key").ToString()))
-        };
-    });
 builder.Services.Configure<AppSetting>(builder.Configuration.GetSection("AppSetting"));
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IGoodsService, GoodsService>();

@@ -46,7 +46,7 @@ public class JwtMiddleware
             var jwtToken = (JwtSecurityToken)validatedToken;
             var id = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
-            // attach user to context on successful jwt validation
+            // attach account to context on successful jwt validation
             context.Items["Account"] = accountService.GetById(id);
         }
         catch

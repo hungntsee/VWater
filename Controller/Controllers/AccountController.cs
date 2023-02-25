@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Controller.Helper;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Domain.Models;
 using Service.Account;
@@ -8,6 +8,7 @@ using VWater.Domain.Models;
 
 namespace Controller.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase

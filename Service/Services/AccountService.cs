@@ -3,10 +3,10 @@
 using AutoMapper;
 using BCrypt.Net;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Repository.Domain.Models;
 using Service.Helpers;
-using Service.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -28,13 +28,13 @@ public class AccountService : IAccountService
 {
     private VWaterContext _context;
     private readonly IMapper _mapper;
-    private readonly IConfiguration _config;
+    private readonly AppSetting _appSettings ;
 
-    public AccountService(VWaterContext context, IMapper mapper, IConfiguration config)
+    public AccountService(VWaterContext context, IMapper mapper, IOptions<AppSetting> appSettings)
     {
         _context = context;
         _mapper = mapper;
-        _config = config;
+        _appSettings = appSettings.Value;
     }
     public IEnumerable<Account> GetAll()
     {
@@ -91,7 +91,7 @@ public class AccountService : IAccountService
 
     public Account Login(LoginRequest request)
     {
-        var account = _context.Accounts.SingleOrDefaultAsync(x => x.Username.ToLower() == request.Username.ToLower() && x.Password.ToLower() == request.Password.ToLower()).Result;
+        var account = _context.Accounts.FirstOrDefaultAsync(x => x.Username.ToLower() == request.Username.ToLower() && x.Password.ToLower() == request.Password.ToLower()).Result;
 
         if (account == null) throw new AppException("Login Fail");
 
@@ -110,22 +110,16 @@ public class AccountService : IAccountService
 
     private string generateJwtToken(Account account)
     {
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-        var claims = new[]
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+        var tokenDescriptor = new SecurityTokenDescriptor
         {
-            new Claim(ClaimTypes.NameIdentifier,account.Username),
-            new Claim(ClaimTypes.Email,account.Email),
-            new Claim(ClaimTypes.GivenName, account.LastName),
-            new Claim(ClaimTypes.Surname, account.FirstName),
-            new Claim(ClaimTypes.Role,account.RoleAccountRole.RoleName),
+            Subject = new ClaimsIdentity(new[] { new Claim("id", account.Id.ToString()) }),
+            Expires = DateTime.UtcNow.AddDays(7),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
-        var token = new JwtSecurityToken(_config["Jwt:Issuer"], _config["Jwt:Audience"], claims
-            , expires: DateTime.Now.AddMinutes(15),
-            signingCredentials: credentials);
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        return tokenHandler.WriteToken(token);
     }
 }
 
