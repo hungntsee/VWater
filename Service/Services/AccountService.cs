@@ -29,12 +29,14 @@ public class AccountService : IAccountService
     private VWaterContext _context;
     private readonly IMapper _mapper;
     private readonly AppSetting _appSettings ;
+    private readonly IConfiguration _configuration;
 
-    public AccountService(VWaterContext context, IMapper mapper, IOptions<AppSetting> appSettings)
+    public AccountService(VWaterContext context, IMapper mapper, IOptions<AppSetting> appSettings, IConfiguration configuration)
     {
         _context = context;
         _mapper = mapper;
         _appSettings = appSettings.Value;
+        _configuration = configuration;
     }
     public IEnumerable<Account> GetAll()
     {
@@ -55,7 +57,7 @@ public class AccountService : IAccountService
             throw new AppException("User with the username '" + request.Username + "' already exists");
         var account = _mapper.Map<Account>(request);
 
-        account.Password = BCrypt.HashPassword(request.Password);
+        /*account.Password = BCrypt.HashPassword(request.Password);*/
 
         _context.Accounts.AddAsync(account);
         _context.SaveChangesAsync();
@@ -91,11 +93,26 @@ public class AccountService : IAccountService
 
     public Account Login(LoginRequest request)
     {
-        var account = _context.Accounts.FirstOrDefaultAsync(x => x.Username.ToLower() == request.Username.ToLower() && x.Password.ToLower() == request.Password.ToLower()).Result;
+        var account = _context.Accounts.Include(a => a.RoleAccountRole).FirstOrDefaultAsync(x => x.Username.ToLower() == request.Username.ToLower()).Result;
 
-        if (account == null) throw new AppException("Login Fail");
+        if(account != null && account.Password == request.Password)
+        {
+            var role = account.RoleAccountRole.RoleName;
 
-        account.AccessToken = generateJwtToken(account);
+            var authClaims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, account.Username),
+                new Claim(ClaimTypes.Role, role),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            };
+
+            var token = GetToken(authClaims);
+            account.AccessToken = new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        else throw new AppException("Login Fail");
+
+        /*account.AccessToken = generateJwtToken(account);*/
         _context.Accounts.Update(account);
         _context.SaveChangesAsync();
 
@@ -120,6 +137,21 @@ public class AccountService : IAccountService
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
+    }
+
+    private JwtSecurityToken GetToken(List<Claim> claims) {
+        
+        var authSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
+
+        var token = new JwtSecurityToken(
+            issuer: _configuration["JWT:ValidIssuer"],
+            audience: _configuration["JWT:ValidAudience"],
+            expires: DateTime.Now.AddHours(3),
+            claims: claims,
+            signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+            );
+
+        return token;
     }
 }
 
