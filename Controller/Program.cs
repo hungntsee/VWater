@@ -1,5 +1,6 @@
 using Controller.Helper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.IdentityModel.Tokens;
 using Service.Account;
 using Service.Apartments;
@@ -93,7 +94,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json","Vwater.API.Integration v1"));
 }
 
 app.UseHttpsRedirection();
