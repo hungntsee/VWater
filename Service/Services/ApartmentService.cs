@@ -61,7 +61,7 @@ namespace Service.Apartments
 
         private Apartment GetApartment(int id)
         {
-            var apartment = _context.Apartments.Include(a => a.Area).Include(a =>a.Buildings).AsNoTracking().FirstOrDefault(a => a.Id == id);
+            var apartment = _context.Apartments.Include(a => a.Area).Include(a => a.Buildings).AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (apartment == null) throw new KeyNotFoundException("Apartment not found!");
             return apartment;
         }

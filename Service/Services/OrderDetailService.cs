@@ -19,7 +19,7 @@ namespace Service.Services
         private VWaterContext _context;
         private readonly IMapper _mapper;
 
-        public OrderDetailService (VWaterContext context, IMapper mapper)
+        public OrderDetailService(VWaterContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

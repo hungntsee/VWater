@@ -1,8 +1,3 @@
-using System;
-using AutoMapper;
-using VWater.Data.Entities;
-using VWater.Domain.Models;
-
 namespace VWater.Domain.Mapping
 {
     public partial class ShipperProfile

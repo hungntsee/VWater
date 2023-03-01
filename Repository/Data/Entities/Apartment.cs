@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace VWater.Data.Entities
 {
     public partial class Apartment

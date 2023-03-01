@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
 namespace VWater.Data.Mapping
@@ -73,7 +71,7 @@ namespace VWater.Data.Mapping
                 .HasForeignKey(d => d.StoreId)
                 .HasConstraintName("FK_order_store");
 
-           #endregion
+            #endregion
         }
 
         #region Generated Constants

@@ -1,8 +1,3 @@
-using System;
-using AutoMapper;
-using VWater.Data.Entities;
-using VWater.Domain.Models;
-
 namespace VWater.Domain.Mapping
 {
     public partial class AccountProfile
@@ -19,8 +14,8 @@ namespace VWater.Domain.Mapping
             CreateMap<VWater.Domain.Models.AccountUpdateModel, VWater.Data.Entities.Account>().ForAllMembers(x => x.Condition(
                 (src, dest, prop) =>
                 {
-                    if(prop == null) return false;
-                    if(prop.GetType() == typeof(string) && string.IsNullOrEmpty((string)prop)) return false;
+                    if (prop == null) return false;
+                    if (prop.GetType() == typeof(string) && string.IsNullOrEmpty((string)prop)) return false;
 
                     return true;
                 }

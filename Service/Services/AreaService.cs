@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Service.Helpers;
 using VWater.Data;
 using VWater.Data.Entities;

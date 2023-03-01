@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.Services;
-using VWater.Data.Entities;
 using VWater.Domain.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,7 +12,7 @@ namespace Controller.Controllers
     {
         private IOrderDetailService _orderDetailService;
 
-        public OrderDetailController (IOrderDetailService orderDetailService)
+        public OrderDetailController(IOrderDetailService orderDetailService)
         {
             _orderDetailService = orderDetailService;
         }

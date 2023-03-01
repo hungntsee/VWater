@@ -33,7 +33,7 @@ namespace Controller.Controllers
 
         // POST api/<GoodsInProductController>
         [HttpPost]
-        public IActionResult Create([FromBody]GoodsInProductCreateModel request)
+        public IActionResult Create([FromBody] GoodsInProductCreateModel request)
         {
             _goodsInProductService.Create(request);
             return Ok(new { message = "Goods In Product created" });

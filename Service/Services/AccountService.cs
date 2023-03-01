@@ -1,7 +1,6 @@
 ﻿namespace Service.Account;
 
 using AutoMapper;
-using BCrypt.Net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -28,7 +27,7 @@ public class AccountService : IAccountService
 {
     private VWaterContext _context;
     private readonly IMapper _mapper;
-    private readonly AppSetting _appSettings ;
+    private readonly AppSetting _appSettings;
     private readonly IConfiguration _configuration;
 
     public AccountService(VWaterContext context, IMapper mapper, IOptions<AppSetting> appSettings, IConfiguration configuration)
@@ -53,10 +52,10 @@ public class AccountService : IAccountService
 
     public void Create(AccountCreateModel request)
     {
-        if (_context.Accounts.AnyAsync(a => a.Username == request.Username).Result)
-            throw new AppException("User with the username '" + request.Username + "' already exists");
+        if (_context.Accounts.AnyAsync(a => a.Email == request.Email).Result)
+            throw new AppException("User with the email '" + request.Email + "' already exists");
         var account = _mapper.Map<Account>(request);
-
+        account.Username = request.Email;
         /*account.Password = BCrypt.HashPassword(request.Password);*/
 
         _context.Accounts.AddAsync(account);
@@ -67,12 +66,14 @@ public class AccountService : IAccountService
     {
         var account = GetAccount(id);
 
-        if (request.Username != account.Email && _context.Accounts.Any(a => a.Username == request.Username))
-            throw new AppException("User with the username '" + request.Username + "' already exists");
-        if (!string.IsNullOrEmpty(request.Password))
-            account.Password = BCrypt.HashPassword(request.Password);
+        if (request.Email != account.Email && _context.Accounts.Any(a => a.Email == request.Email))
+            throw new AppException("User with the email '" + request.Email + "' already exists");
 
         _mapper.Map(request, account);
+
+        if (!string.IsNullOrEmpty(request.Email))
+            account.Username = request.Email.Trim();
+
         _context.Accounts.Update(account);
         _context.SaveChangesAsync();
     }
@@ -93,9 +94,9 @@ public class AccountService : IAccountService
 
     public Account Login(LoginRequest request)
     {
-        var account = _context.Accounts.Include(a => a.RoleAccountRole).FirstOrDefaultAsync(x => x.Username.ToLower() == request.Username.ToLower()).Result;
+        var account = _context.Accounts.Include(a => a.RoleAccountRole).FirstOrDefaultAsync(x => x.Username.ToLower() == request.Email.ToLower()).Result;
 
-        if(account != null && account.Password == request.Password)
+        if (account != null && account.Password == request.Password)
         {
             var role = account.RoleAccountRole.RoleName;
 
@@ -139,8 +140,9 @@ public class AccountService : IAccountService
         return tokenHandler.WriteToken(token);
     }
 
-    private JwtSecurityToken GetToken(List<Claim> claims) {
-        
+    private JwtSecurityToken GetToken(List<Claim> claims)
+    {
+
         var authSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
 
         var token = new JwtSecurityToken(

@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace VWater.Data.Entities
 {
     public partial class AccountRole
@@ -8,7 +5,7 @@ namespace VWater.Data.Entities
         public AccountRole()
         {
             #region Generated Constructor
-             Accounts = new HashSet<Account>();
+            Accounts = new HashSet<Account>();
             #endregion
         }
 

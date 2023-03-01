@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace VWater.Domain.Models
 {
     public partial class AccountRoleCreateModel

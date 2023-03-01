@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using VWater.Data.Entities;
-using VWater.Data;
-using VWater.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using VWater.Data;
+using VWater.Data.Entities;
+using VWater.Domain.Models;
 
 namespace Service.Services
 {
@@ -32,7 +32,7 @@ namespace Service.Services
         public Customer GetById(int id)
         {
             var customer = GetCustomer(id);
-            return  customer;
+            return customer;
         }
 
         public void Create(CustomerCreateModel model)
