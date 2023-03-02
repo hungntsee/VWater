@@ -3,7 +3,6 @@ namespace VWater.Domain.Models
     public partial class CustomerReadModel
     {
         #region Generated Properties
-        public int Id { get; set; }
 
         public string FullName { get; set; }
 
