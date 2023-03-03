@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "0dcI2x6b6okWYyui1M751oWuqFWXHyynhig0fQDOQmw=",
+  "Hash": "xk7YHCdy2e0ztSy0aVFZ84TW8Rlwj4gVAWNtZEHr1K0=",
   "Source": "Service",
   "BasePath": "_content/Service",
   "Mode": "Default",
@@ -11,10 +11,10 @@
       "Version": 2,
       "Source": "Repository",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
-      "AdditionalPublishProperties": "",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
       "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
       "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
-      "AdditionalBuildProperties": "",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
     }
   ],

@@ -3,7 +3,6 @@ namespace VWater.Domain.Models
     public partial class QuotationCreateModel
     {
         #region Generated Properties
-        public int Id { get; set; }
 
         public DateTime ValidFrom { get; set; }
 
