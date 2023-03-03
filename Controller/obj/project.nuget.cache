@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aWVCgACm/QPC9MsQMR/PEnR5imywncFIbcixz/l2H3waiFBVtgAZuxLER7oJbL4worMLjMGpillHJGko5xL+6A==",
+  "dgSpecHash": "GE+VgoblGomerS9Dc0I1ib2nLp6J56ItK39c3GBdIMw+KXRepgyVzAJhZWD86sL9k1tCOEQMO7Qb1Zvkhm/O0A==",
   "success": true,
-  "projectFilePath": "E:\\Project_2023_Spring\\back-end\\WeWater\\Controller\\Controller.csproj",
+  "projectFilePath": "E:\\Project_2023_Spring\\back-end\\WeWater\\VWater\\Controller\\Controller.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nguye\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",

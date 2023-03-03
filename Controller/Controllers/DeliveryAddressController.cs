@@ -34,8 +34,8 @@ namespace Controller.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] DeliveryAddressCreateModel request)
         {
-            _deliveryAddressService.Create(request);
-            return Ok(new { message = "DeliveryAddress created" });
+            var deliveryAddress = _deliveryAddressService.Create(request);
+            return Ok(new { message = "DeliveryAddress created"  + deliveryAddress});
         }
 
         // PUT api/<DeliveryAddressController>/5

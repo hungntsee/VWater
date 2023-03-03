@@ -39,6 +39,7 @@ namespace Service.Services
         public void Create(OrderCreateModel model)
         {
             var order = _mapper.Map<Order>(model);
+            order.OrderDate = DateTime.Now;
             _context.Orders.AddAsync(order);
             _context.SaveChangesAsync();
         }

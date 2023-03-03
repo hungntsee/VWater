@@ -10,7 +10,7 @@ namespace Service.DeliveryAddresses
     {
         public IEnumerable<DeliveryAddress> GetAll();
         public DeliveryAddress GetById(int id);
-        public void Create(DeliveryAddressCreateModel request);
+        public DeliveryAddress Create(DeliveryAddressCreateModel request);
         public void Update(int id, DeliveryAddressUpdateModel request);
         public void Delete(int id);
     }
@@ -35,12 +35,14 @@ namespace Service.DeliveryAddresses
             return deliveryAddress;
         }
 
-        public void Create(DeliveryAddressCreateModel request)
+        public DeliveryAddress Create(DeliveryAddressCreateModel request)
         {
             var deliveryAddress = _mapper.Map<DeliveryAddress>(request);
 
             _context.DeliveryAddresses.AddAsync(deliveryAddress);
             _context.SaveChangesAsync();
+
+            return deliveryAddress;
         }
 
         public void Update(int id, DeliveryAddressUpdateModel request)

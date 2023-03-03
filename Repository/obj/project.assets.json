@@ -4457,11 +4457,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Project_2023_Spring\\back-end\\WeWater\\Repository\\Repository.csproj",
+      "projectUniqueName": "E:\\Project_2023_Spring\\back-end\\WeWater\\VWater\\Repository\\Repository.csproj",
       "projectName": "Repository",
-      "projectPath": "E:\\Project_2023_Spring\\back-end\\WeWater\\Repository\\Repository.csproj",
+      "projectPath": "E:\\Project_2023_Spring\\back-end\\WeWater\\VWater\\Repository\\Repository.csproj",
       "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
-      "outputPath": "E:\\Project_2023_Spring\\back-end\\WeWater\\Repository\\obj\\",
+      "outputPath": "E:\\Project_2023_Spring\\back-end\\WeWater\\VWater\\Repository\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4559,7 +4559,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

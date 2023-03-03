@@ -8,8 +8,6 @@ namespace VWater.Domain.Models
 
         public int StoreId { get; set; }
 
-        public DateTime OrderDate { get; set; }
-
         public int TotalQuantity { get; set; }
 
         public decimal TotalPrice { get; set; }

@@ -10,7 +10,7 @@ namespace Service.Services
     {
         public IEnumerable<Customer> GetAll();
         public Customer GetById(int id);
-        public void Create(CustomerCreateModel model);
+        public Customer Create(CustomerCreateModel model);
         public void Update(int id, CustomerUpdateModel model);
         public void Delete(int id);
     }
@@ -35,12 +35,14 @@ namespace Service.Services
             return customer;
         }
 
-        public void Create(CustomerCreateModel model)
+        public Customer Create(CustomerCreateModel model)
         {
             var customer = _mapper.Map<Customer>(model);
 
             _context.Customers.AddAsync(customer);
             _context.SaveChangesAsync();
+
+            return customer;
         }
 
         public void Update(int id, CustomerUpdateModel model)

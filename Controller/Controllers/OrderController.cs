@@ -15,7 +15,7 @@ namespace Controller.Controllers
             _orderService = orderService;
         }
 
-        // GET: api/<ProductController>
+        // GET: api/<OrderController>
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -23,7 +23,7 @@ namespace Controller.Controllers
             return Ok(products);
         }
 
-        // GET api/<ProductController>/5
+        // GET api/<OrderController>/5
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -31,7 +31,7 @@ namespace Controller.Controllers
             return Ok(product);
         }
 
-        // POST api/<ProductController>
+        // POST api/<OrderController>
         [HttpPost]
         public IActionResult Create([FromBody] OrderCreateModel model)
         {
@@ -39,7 +39,7 @@ namespace Controller.Controllers
             return Ok(new { message = "Order created" });
         }
 
-        // PUT api/<ProductController>/5
+        // PUT api/<OrderController>/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] OrderUpdateModel model)
         {
@@ -47,7 +47,7 @@ namespace Controller.Controllers
             return Ok(new { message = "Order updated" });
         }
 
-        // DELETE api/<ProductController>/5
+        // DELETE api/<OrderController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

@@ -15,7 +15,7 @@ namespace Controller.Controllers
         {
             _menuService = menuService;
         }
-        // GET: api/<WarehouseController>
+        // GET: api/<MenuControllerController>
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -23,7 +23,7 @@ namespace Controller.Controllers
             return Ok(menu);
         }
 
-        // GET api/<WarehouseController>/5
+        // GET api/<MenuControllerController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -31,7 +31,15 @@ namespace Controller.Controllers
             return Ok(menu);
         }
 
-        // POST api/<WarehouseController>
+        //GET api/<MenuController>/time
+        [HttpGet("{time}")]
+        public IActionResult GetByTime(DateTime time) 
+        {
+            var menu = _menuService.GetByTime(time);
+            return Ok(menu);
+        }
+
+        // POST api/<MenuControllerController>
         [HttpPost]
         public IActionResult Create([FromBody] MenuCreateModel model)
         {
@@ -39,7 +47,7 @@ namespace Controller.Controllers
             return Ok(new { message = "Menu created" });
         }
 
-        // PUT api/<WarehouseController>/5
+        // PUT api/<MenuController>/5
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] MenuUpdateModel model)
         {

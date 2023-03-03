@@ -15,7 +15,7 @@ namespace Controller.Controllers
             _purchasePurchaseOrderService = purchasePurchaseOrderService;
         }
 
-        // GET: api/<ProductController>
+        // GET: api/<PurchaseOrderController>
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -23,7 +23,7 @@ namespace Controller.Controllers
             return Ok(products);
         }
 
-        // GET api/<ProductController>/5
+        // GET api/<PurchaseOrderController>/5
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -31,7 +31,7 @@ namespace Controller.Controllers
             return Ok(product);
         }
 
-        // POST api/<ProductController>
+        // POST api/<PurchaseOrderController>
         [HttpPost]
         public IActionResult Create([FromBody] PurchaseOrderCreateModel model)
         {
@@ -39,7 +39,7 @@ namespace Controller.Controllers
             return Ok(new { message = "PurchaseOrder created" });
         }
 
-        // PUT api/<ProductController>/5
+        // PUT api/<PurchaseOrderController>/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] PurchaseOrderUpdateModel model)
         {
@@ -47,7 +47,7 @@ namespace Controller.Controllers
             return Ok(new { message = "PurchaseOrder updated" });
         }
 
-        // DELETE api/<ProductController>/5
+        // DELETE api/<PurchaseOrderController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
