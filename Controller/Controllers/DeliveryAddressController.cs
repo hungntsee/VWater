@@ -30,12 +30,24 @@ namespace Controller.Controllers
             return Ok(deliveryAddress);
         }
 
+        // GET api/<DeliveryAddressController>/GetOrders
+        [HttpGet("{id}")]
+        public IActionResult GetOrdersByAddress(int id)
+        {
+            var deliveryAddress = _deliveryAddressService.GetOrdersByDeliveryAddress(id);
+            return Ok(deliveryAddress);
+        }
+
         // POST api/<DeliveryAddressController>
         [HttpPost]
         public IActionResult Create([FromBody] DeliveryAddressCreateModel request)
         {
             var deliveryAddress = _deliveryAddressService.Create(request);
-            return Ok(new { message = "DeliveryAddress created"  + deliveryAddress});
+            return Ok(new 
+            { 
+                message = "DeliveryAddress created",
+                deliveryAddress
+            });
         }
 
         // PUT api/<DeliveryAddressController>/5

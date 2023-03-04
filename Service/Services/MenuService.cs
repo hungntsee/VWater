@@ -11,7 +11,7 @@ namespace Service.Services
     {
         public IEnumerable<Menu> GetAll();
         public Menu GetById(int id);
-        public Menu GetByTime(DateTime time);
+        public Menu GetMenu(DateTime time, int area_id);
         public void Create(MenuCreateModel model);
         public void Update(int id, MenuUpdateModel model);
         public void Delete(int id);
@@ -37,7 +37,7 @@ namespace Service.Services
 
         public void Delete(int id)
         {
-            var menu = GetMenu(id);
+            var menu = GetMenuById(id);
             _context.Menus.Remove(menu);
             _context.SaveChangesAsync();
         }
@@ -49,35 +49,36 @@ namespace Service.Services
 
         public Menu GetById(int id)
         {
-            var menu = GetMenu(id);
+            var menu = GetMenuById(id);
             return menu;
         }
 
-        public Menu GetByTime(DateTime time)
+        public Menu GetMenu(DateTime time, int area_id)
         {
-            var menu = GetMenuByTime(time);
+            var menu = GetMenuByArea(time,area_id);
             return menu;
         }
 
         public void Update(int id, MenuUpdateModel model)
         {
-            var menu = GetMenu(id);
+            var menu = GetMenuById(id);
             _mapper.Map(menu, model);
             _context.Menus.Update(menu);
             _context.SaveChangesAsync();
         }
 
-        private Menu GetMenu(int id)
+        private Menu GetMenuById(int id)
         {
             var menu = _context.Menus.Include(a => a.Area).Include(a => a.ProductInMenus).AsNoTracking().FirstOrDefault(p => p.Id == id);
             if (menu == null) throw new KeyNotFoundException("Menu not found!");
             return menu;
         }
 
-        private Menu GetMenuByTime(DateTime time)
+        private Menu GetMenuByArea(DateTime time, int area_id)
         {
-            var menus = _context.Menus;
-            foreach (var menu in menus)
+            var area = _context.Areas.Include(a => a.Menus).AsNoTracking().FirstOrDefault(a => a.Id == area_id);
+
+            foreach (var menu in area.Menus)
             {
                 if (menu.ValidFrom < time && time < menu.ValidTo) return menu;
             }

@@ -32,10 +32,10 @@ namespace Controller.Controllers
         }
 
         //GET api/<MenuController>/time
-        [HttpGet("{time}")]
-        public IActionResult GetByTime(DateTime time) 
+        [HttpGet("{time,area_id}")]
+        public IActionResult GetByTime(DateTime time, int area_id) 
         {
-            var menu = _menuService.GetByTime(time);
+            var menu = _menuService.GetMenu(time,area_id);
             return Ok(menu);
         }
 

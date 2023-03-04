@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
+using VWater.Data.Queries;
 using VWater.Domain.Models;
 
 namespace Service.DeliveryAddresses
@@ -11,6 +12,7 @@ namespace Service.DeliveryAddresses
         public IEnumerable<DeliveryAddress> GetAll();
         public DeliveryAddress GetById(int id);
         public DeliveryAddress Create(DeliveryAddressCreateModel request);
+        public DeliveryAddress GetOrdersByDeliveryAddress(int id);
         public void Update(int id, DeliveryAddressUpdateModel request);
         public void Delete(int id);
     }
@@ -26,7 +28,7 @@ namespace Service.DeliveryAddresses
         }
         public IEnumerable<DeliveryAddress> GetAll()
         {
-            return _context.DeliveryAddresses.Include(a => a.Customer).Include(a => a.Building).Include(a => a.Orders).Include(a => a.DeliveryType);
+            return _context.DeliveryAddresses.Include(a => a.Customer).IgnoreAutoIncludes();
         }
 
         public DeliveryAddress GetById(int id)
@@ -35,12 +37,17 @@ namespace Service.DeliveryAddresses
             return deliveryAddress;
         }
 
+        public DeliveryAddress GetOrdersByDeliveryAddress(int id)
+        {
+            var deliveryAddress = _context.DeliveryAddresses.Include(a => a.Orders).AsNoTracking().Any(a => a.Id == id);
+        }
+
         public DeliveryAddress Create(DeliveryAddressCreateModel request)
         {
             var deliveryAddress = _mapper.Map<DeliveryAddress>(request);
-
-            _context.DeliveryAddresses.AddAsync(deliveryAddress);
-            _context.SaveChangesAsync();
+            deliveryAddress.StoreId = 1; 
+            _context.DeliveryAddresses.Add(deliveryAddress);
+            _context.SaveChanges();
 
             return deliveryAddress;
         }
@@ -69,5 +76,11 @@ namespace Service.DeliveryAddresses
             return deliveryAddress;
         }
 
+        private DeliveryAddress GetAddress(string address)
+        {
+            var deliveryAddress = _context.DeliveryAddresses.Include(a => a.Customer).Include(a => a.Building).Include(a => a.Orders).Include(a => a.DeliveryType)
+                .AsNoTracking().FirstOrDefault(a => a.Address == address);
+            return deliveryAddress;
+        }
     }
 }

@@ -36,8 +36,12 @@ namespace Controller.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] CustomerCreateModel request)
         {
-            var customer = _customerService.Create(request);
-            return Ok(new { message = "Customer created" + customer});
+            var customer = _customerService.Create(request);           
+            return Ok(new 
+            { 
+                message = "Customer created",
+                customer
+            });
         }
 
         // PUT api/<CustomerController>/5

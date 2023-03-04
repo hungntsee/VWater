@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Service.Helpers;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -10,6 +11,7 @@ namespace Service.Services
     {
         public IEnumerable<Customer> GetAll();
         public Customer GetById(int id);
+        public Customer GetCustomerByPhone(string phone);
         public Customer Create(CustomerCreateModel model);
         public void Update(int id, CustomerUpdateModel model);
         public void Delete(int id);
@@ -37,10 +39,17 @@ namespace Service.Services
 
         public Customer Create(CustomerCreateModel model)
         {
+            if (GetCustomerByPhone(model.PhoneNumber) == null)
+            {
+                throw new AppException("This Phone number is already existed!");
+            }
+
             var customer = _mapper.Map<Customer>(model);
 
-            _context.Customers.AddAsync(customer);
-            _context.SaveChangesAsync();
+            customer.Note = " ";
+
+             _context.Customers.Add(customer);
+             _context.SaveChanges();
 
             return customer;
         }
@@ -64,6 +73,12 @@ namespace Service.Services
         {
             var customer = _context.Customers.Include(a => a.DeliveryAddresses).AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (customer == null) throw new KeyNotFoundException("Customer not found!");
+            return customer;
+        }
+
+        public Customer GetCustomerByPhone(string phone)
+        {
+            var customer =_context.Customers.Include(a => a.DeliveryAddresses).AsNoTracking().FirstOrDefault(a => a.PhoneNumber == phone);
             return customer;
         }
 
