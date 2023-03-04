@@ -103,15 +103,15 @@ if (app.Environment.IsDevelopment())
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Vwater.API.Integration v1"));
 
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
 app.UseAuthorization();
 
-
 app.MapControllers();
-
 
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseMiddleware<JwtMiddleware>();
