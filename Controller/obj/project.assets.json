@@ -11578,24 +11578,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nguye\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Asus\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Project_2023_Spring\\back-end\\WeWater\\VWater\\Controller\\Controller.csproj",
+      "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\VWater\\Controller\\Controller.csproj",
       "projectName": "Controller",
-      "projectPath": "E:\\Project_2023_Spring\\back-end\\WeWater\\VWater\\Controller\\Controller.csproj",
-      "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
-      "outputPath": "E:\\Project_2023_Spring\\back-end\\WeWater\\VWater\\Controller\\obj\\",
+      "projectPath": "C:\\Users\\Asus\\source\\repos\\VWater\\Controller\\Controller.csproj",
+      "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Asus\\source\\repos\\VWater\\Controller\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\nguye\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11603,18 +11598,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "E:\\Project_2023_Spring\\back-end\\WeWater\\VWater\\Repository\\Repository.csproj": {
-              "projectPath": "E:\\Project_2023_Spring\\back-end\\WeWater\\VWater\\Repository\\Repository.csproj"
+            "C:\\Users\\Asus\\source\\repos\\VWater\\Repository\\Repository.csproj": {
+              "projectPath": "C:\\Users\\Asus\\source\\repos\\VWater\\Repository\\Repository.csproj"
             },
-            "E:\\Project_2023_Spring\\back-end\\WeWater\\VWater\\Service\\Service.csproj": {
-              "projectPath": "E:\\Project_2023_Spring\\back-end\\WeWater\\VWater\\Service\\Service.csproj"
+            "C:\\Users\\Asus\\source\\repos\\VWater\\Service\\Service.csproj": {
+              "projectPath": "C:\\Users\\Asus\\source\\repos\\VWater\\Service\\Service.csproj"
             }
           }
         }
@@ -11687,7 +11681,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }
