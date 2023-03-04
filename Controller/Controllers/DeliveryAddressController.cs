@@ -31,7 +31,7 @@ namespace Controller.Controllers
         }
 
         // GET api/<DeliveryAddressController>/GetOrders
-        [HttpGet("{id}")]
+        [HttpGet("{address_id}")]
         public IActionResult GetOrdersByAddress(int id)
         {
             var deliveryAddress = _deliveryAddressService.GetOrdersByDeliveryAddress(id);
