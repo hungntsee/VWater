@@ -32,6 +32,10 @@ ConfigurationManager configuration = builder.Configuration;
 // Add services to the container.
 builder.Services.AddDbContext<VWaterContext>(ServiceLifetime.Transient);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddCors(option =>
+{
+    option.AddDefaultPolicy(builder => { builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
+});
 builder.Services.AddControllers().AddJsonOptions(x =>
 {
     x.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
@@ -48,7 +52,7 @@ builder.Services.AddScoped<IAreaService, AreaService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IBuildingService, BuiildingService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddScoped<IDeliveryAddressService,DeliveryAddressService>();
+builder.Services.AddScoped<IDeliveryAddressService, DeliveryAddressService>();
 builder.Services.AddScoped<IDeliverySlotService, DeliverySlotService>();
 builder.Services.AddScoped<IDeliveryTypeService, DeliveryTypeService>();
 builder.Services.AddScoped<IDistributorService, DistributorService>();
@@ -59,11 +63,11 @@ builder.Services.AddScoped<IGoodsInBaselineService, GoodsInBaselineService>();
 builder.Services.AddScoped<IGoodsInProductService, GoodsInProductService>();
 builder.Services.AddScoped<IGoodsInQuotationService, GoodsInQuotationService>();
 builder.Services.AddScoped<IManufacturerService, ManufacturerService>();
-builder.Services.AddScoped<IMenuService,MenuService>();
+builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
 builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IProductInMenuService,ProductInMenuService>();
+builder.Services.AddScoped<IProductInMenuService, ProductInMenuService>();
 builder.Services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
 builder.Services.AddScoped<IPurchaseOrderDetailService, PurchaseOrderDetailService>();
 builder.Services.AddScoped<IQuotationService, QuotationService>();
@@ -97,11 +101,15 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    
+
 }
 
 app.UseSwagger();
-app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Vwater.API.Integration v1"));
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Vwater.API.Integration v1");
+    c.RoutePrefix = string.Empty;
+});
 
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 

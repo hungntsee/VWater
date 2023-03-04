@@ -48,8 +48,8 @@ namespace Service.Services
 
             customer.Note = " ";
 
-             _context.Customers.Add(customer);
-             _context.SaveChanges();
+            _context.Customers.Add(customer);
+            _context.SaveChanges();
 
             return customer;
         }
@@ -78,7 +78,7 @@ namespace Service.Services
 
         public Customer GetCustomerByPhone(string phone)
         {
-            var customer =_context.Customers.Include(a => a.DeliveryAddresses).AsNoTracking().FirstOrDefault(a => a.PhoneNumber == phone);
+            var customer = _context.Customers.Include(a => a.DeliveryAddresses).AsNoTracking().FirstOrDefault(a => a.PhoneNumber == phone);
             return customer;
         }
 

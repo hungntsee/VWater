@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
-using VWater.Data.Queries;
 using VWater.Domain.Models;
 
 namespace Service.DeliveryAddresses
@@ -39,13 +38,14 @@ namespace Service.DeliveryAddresses
 
         public DeliveryAddress GetOrdersByDeliveryAddress(int id)
         {
-            var deliveryAddress = _context.DeliveryAddresses.Include(a => a.Orders).AsNoTracking().Any(a => a.Id == id);
+            var deliveryAddress = _context.DeliveryAddresses.Include(a => a.Orders).AsNoTracking().FirstOrDefault(a => a.Id == id);
+            return deliveryAddress;
         }
 
         public DeliveryAddress Create(DeliveryAddressCreateModel request)
         {
             var deliveryAddress = _mapper.Map<DeliveryAddress>(request);
-            deliveryAddress.StoreId = 1; 
+            deliveryAddress.StoreId = 1;
             _context.DeliveryAddresses.Add(deliveryAddress);
             _context.SaveChanges();
 

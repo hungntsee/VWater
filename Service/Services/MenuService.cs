@@ -55,7 +55,7 @@ namespace Service.Services
 
         public Menu GetMenu(DateTime time, int area_id)
         {
-            var menu = GetMenuByArea(time,area_id);
+            var menu = GetMenuByArea(time, area_id);
             return menu;
         }
 
@@ -88,10 +88,10 @@ namespace Service.Services
         private void ValidateMenuDate(Menu menu)
         {
             if (menu == null) return;
-            if (menu.ValidFrom > menu.ValidTo) throw new AppException("Date for ValidTo > ValidFrom!");          
-            foreach(var m in _context.Menus)
+            if (menu.ValidFrom > menu.ValidTo) throw new AppException("Date for ValidTo > ValidFrom!");
+            foreach (var m in _context.Menus)
             {
-                if(menu.ValidFrom < m.ValidTo) throw new AppException("Date for ValidFrom must be newest.!");
+                if (menu.ValidFrom < m.ValidTo) throw new AppException("Date for ValidFrom must be newest.!");
             }
         }
     }

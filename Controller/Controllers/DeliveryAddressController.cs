@@ -43,8 +43,8 @@ namespace Controller.Controllers
         public IActionResult Create([FromBody] DeliveryAddressCreateModel request)
         {
             var deliveryAddress = _deliveryAddressService.Create(request);
-            return Ok(new 
-            { 
+            return Ok(new
+            {
                 message = "DeliveryAddress created",
                 deliveryAddress
             });

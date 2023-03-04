@@ -39,8 +39,8 @@ namespace Service.Services
         {
             var accountRole = _mapper.Map<AccountRole>(request);
 
-            _context.AccountRoles.AddAsync(accountRole);
-            _context.SaveChangesAsync();
+            _context.AccountRoles.Add(accountRole);
+            _context.SaveChanges();
         }
 
         public void Update(int id, AccountRoleUpdateModel request)
