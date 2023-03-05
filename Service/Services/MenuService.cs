@@ -76,13 +76,14 @@ namespace Service.Services
 
         private Menu GetMenuByArea(DateTime time, int area_id)
         {
-            var area = _context.Areas.Include(a => a.Menus).AsNoTracking().FirstOrDefault(a => a.Id == area_id);
+            var area = _context.Areas.Include(a => a.Menus).ThenInclude(a => a.ProductInMenus).AsNoTracking().FirstOrDefault(a => a.Id == area_id);
 
             foreach (var menu in area.Menus)
             {
                 if (menu.ValidFrom < time && time < menu.ValidTo) return menu;
             }
             return null;
+            
         }
 
         private void ValidateMenuDate(Menu menu)
