@@ -62,6 +62,7 @@ namespace VWater.Data
         public virtual DbSet<VWater.Data.Entities.ProductInMenu> ProductInMenus { get; set; }
 
         public virtual DbSet<VWater.Data.Entities.Product> Products { get; set; }
+        public virtual DbSet<VWater.Data.Entities.ProductType> ProductTypes { get; set; }
 
         public virtual DbSet<VWater.Data.Entities.PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
 
@@ -105,6 +106,7 @@ namespace VWater.Data
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.OrderMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.ProductInMenuMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.ProductMap());
+            modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.ProductTypeMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.PurchaseOrderDetailMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.PurchaseOrderMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.QuotationMap());

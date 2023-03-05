@@ -877,10 +877,44 @@ namespace Repository.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("ProductName");
 
+                    b.Property<string>("ProductTypeName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("ProductTypeName");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductType_Id");
 
                     b.ToTable("Product", "dbo");
                 });
+
+            modelBuilder.Entity("VWater.Data.Entities.ProductType", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasColumnName("Id");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                b.Property<string>("Url")
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnType("nvarchar(100)")
+                    .HasColumnName("Url");
+
+                b.Property<string>("TypeName")
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnType("nvarchar(100)")
+                    .HasColumnName("TypeName");
+
+                b.HasKey("Id");
+
+                b.ToTable("Product_Type", "dbo");
+            });
 
             modelBuilder.Entity("VWater.Data.Entities.ProductInMenu", b =>
                 {
@@ -1751,6 +1785,11 @@ namespace Repository.Migrations
 
                     b.Navigation("ProductInMenus");
                 });
+
+            modelBuilder.Entity("VWater.Data.Entities.ProductType", b =>
+            {
+                b.Navigation("ProductTypes");
+            });
 
             modelBuilder.Entity("VWater.Data.Entities.PurchaseOrder", b =>
                 {

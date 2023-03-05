@@ -38,7 +38,15 @@ namespace VWater.Data.Mapping
                 .HasColumnType("nvarchar(100)")
                 .HasMaxLength(100);
 
+            builder.Property(t => t.ProductType_Id)
+                .IsRequired()
+                .HasColumnName("ProductType_Id")
+                .HasColumnType("int");
             // relationships
+            builder.HasOne(t => t.ProductType)
+                .WithMany(t => t.Products)
+                .HasForeignKey(d => d.ProductType_Id)
+                .HasConstraintName("FK_product_product_type");
             #endregion
         }
 
@@ -55,6 +63,7 @@ namespace VWater.Data.Mapping
             public const string ProductName = "ProductName";
             public const string Img = "Img";
             public const string Description = "Description";
+            public const string ProductType_Id = "ProductType_Id";
         }
         #endregion
     }

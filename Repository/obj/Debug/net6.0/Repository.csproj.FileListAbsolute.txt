@@ -1,5 +1,3 @@
-C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\appsettings.Development.json
-C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\appsettings.json
 C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Repository.exe
 C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Repository.deps.json
 C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Repository.runtimeconfig.json

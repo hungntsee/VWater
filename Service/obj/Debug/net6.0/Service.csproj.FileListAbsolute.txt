@@ -109,8 +109,6 @@ C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\Service.dll
 C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\refint\Service.dll
 C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\Service.pdb
 C:\Users\Asus\source\repos\VWater\Service\bin\Debug\net6.0\package-lock.json
-C:\Users\Asus\source\repos\VWater\Service\bin\Debug\net6.0\appsettings.Development.json
-C:\Users\Asus\source\repos\VWater\Service\bin\Debug\net6.0\appsettings.json
 C:\Users\Asus\source\repos\VWater\Service\bin\Debug\net6.0\Repository.deps.json
 C:\Users\Asus\source\repos\VWater\Service\bin\Debug\net6.0\Repository.runtimeconfig.json
 C:\Users\Asus\source\repos\VWater\Service\bin\Debug\net6.0\Repository.exe

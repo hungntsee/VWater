@@ -55,6 +55,11 @@ namespace VWater.Data.Mapping
                 .HasColumnName("DeliverySlot_Id")
                 .HasColumnType("int");
 
+            builder.Property(t => t.PhoneNumber)
+                .HasColumnName("PhoneNumber")
+                .HasColumnType("nvarchar(20)")
+                .HasMaxLength(20);
+
             // relationships
             builder.HasOne(t => t.DeliveryAddress)
                 .WithMany(t => t.Orders)

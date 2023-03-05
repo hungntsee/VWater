@@ -26,6 +26,7 @@ namespace VWater.Data.Entities
         public int? Status { get; set; }
 
         public int DeliverySlotId { get; set; }
+        public string PhoneNumber { get; set; }
 
         #endregion
 

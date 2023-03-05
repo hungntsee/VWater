@@ -1,7 +1,5 @@
 C:\Users\Asus\source\repos\VWater\Service\bin\Release\net6.0\Repository.deps.json
 C:\Users\Asus\source\repos\VWater\Service\bin\Release\net6.0\Repository.runtimeconfig.json
-C:\Users\Asus\source\repos\VWater\Service\bin\Release\net6.0\appsettings.Development.json
-C:\Users\Asus\source\repos\VWater\Service\bin\Release\net6.0\appsettings.json
 C:\Users\Asus\source\repos\VWater\Service\bin\Release\net6.0\package-lock.json
 C:\Users\Asus\source\repos\VWater\Service\bin\Release\net6.0\Repository.exe
 C:\Users\Asus\source\repos\VWater\Service\bin\Release\net6.0\Service.exe
