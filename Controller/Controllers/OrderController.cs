@@ -35,8 +35,12 @@ namespace Controller.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] OrderCreateModel model)
         {
-            _orderService.Create(model);
-            return Ok(new { message = "Order created" });
+            var order = _orderService.Create(model);
+            return Ok(new 
+            { 
+                message = "Order created",
+                order
+            });
         }
 
         // PUT api/<OrderController>/5

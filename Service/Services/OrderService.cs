@@ -10,9 +10,10 @@ namespace Service.Services
     {
         public IEnumerable<Order> GetAll();
         public Order GetById(int id);
-        public void Create(OrderCreateModel model);
+        public Order Create(OrderCreateModel model);
         public void Update(int id, OrderUpdateModel model);
         public void Delete(int id);
+        public void ConfirmOrder(int id);
     }
     public class OrderService : IOrderService
     {
@@ -36,12 +37,17 @@ namespace Service.Services
             return orderResponse;
         }
 
-        public void Create(OrderCreateModel model)
+        public Order Create(OrderCreateModel model)
         {
             var order = _mapper.Map<Order>(model);
             order.OrderDate = DateTime.Now;
-            _context.Orders.AddAsync(order);
-            _context.SaveChangesAsync();
+
+            if (order.TotalPrice < 1000000) order.Status = 2;
+            else order.Status = 1;
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+
+            return order;
         }
 
         public void Update(int id, OrderUpdateModel model)
@@ -49,14 +55,24 @@ namespace Service.Services
             var order = GetOrder(id);
             _mapper.Map(model, order);
             _context.Orders.Update(order);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
             var order = GetOrder(id);
             _context.Orders.Remove(order);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
+        }
+
+        public void ConfirmOrder(int id)
+        {
+            var order = GetOrder(id);
+            order.Status = 2;
+
+            _context.Orders.Update(order);
+            _context.SaveChanges();
+
         }
 
         private Order GetOrder(int id)
