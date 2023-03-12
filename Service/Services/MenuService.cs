@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Server.IIS.Core;
 using Microsoft.EntityFrameworkCore;
 using Service.Helpers;
 using VWater.Data;
@@ -12,6 +13,7 @@ namespace Service.Services
         public IEnumerable<Menu> GetAll();
         public Menu GetById(int id);
         public Menu GetMenu(DateTime time, int area_id);
+        public IEnumerable<ProductFilterModel> FilterProductByType(string type, int menu_id);
         public void Create(MenuCreateModel model);
         public void Update(int id, MenuUpdateModel model);
         public void Delete(int id);
@@ -44,7 +46,7 @@ namespace Service.Services
 
         public IEnumerable<Menu> GetAll()
         {
-            return _context.Menus.Include(a => a.Area).Include(a => a.ProductInMenus);
+            return _context.Menus.Include(a => a.ProductInMenus).IgnoreAutoIncludes();
         }
 
         public Menu GetById(int id)
@@ -76,13 +78,11 @@ namespace Service.Services
 
         private Menu GetMenuByArea(DateTime time, int area_id)
         {
-            var area = _context.Areas.Include(a => a.Menus).ThenInclude(a => a.ProductInMenus).AsNoTracking().FirstOrDefault(a => a.Id == area_id);
-
-            foreach (var menu in area.Menus)
-            {
-                if (menu.ValidFrom < time && time < menu.ValidTo) return menu;
-            }
-            return null;
+            var menu = _context.Menus.Include(a => a.ProductInMenus)
+                .AsNoTracking().FirstOrDefault(a => a.AreaId == area_id && a.ValidFrom < time && time < a.ValidTo);
+            if (menu == null) return _context.Menus.Include(a => a.ProductInMenus).Last();
+            
+            return menu;
             
         }
 
@@ -94,6 +94,29 @@ namespace Service.Services
             {
                 if (menu.ValidFrom < m.ValidTo) throw new AppException("Date for ValidFrom must be newest.!");
             }
+        }
+
+        public IEnumerable<ProductFilterModel> FilterProductByType(string type, int menu_id)
+        {
+            var list = FilterProduct(type, menu_id);
+            if (list == null) throw new AppException("This type don't have any product");
+            return list;
+        }
+
+        private IEnumerable<ProductFilterModel> FilterProduct (string type, int menu_id)
+        {
+            var menu = GetMenuById(menu_id);
+            var productInMenus= menu.ProductInMenus;
+            var productList = new List<ProductFilterModel>();
+            foreach (var product in productInMenus)
+            {
+                if(type.ToLower() == product.Product.ProductType.ProductTypeName.ToLower())
+                {
+                    productList.Add(_mapper.Map<ProductFilterModel>(product));
+                }
+            }
+
+            return productList;
         }
     }
 }

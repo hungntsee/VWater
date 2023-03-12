@@ -38,12 +38,12 @@ namespace Controller.Controllers
             var menu = _menuService.GetMenu(time, area_id);
             if(menu == null)
             {
-                return BadRequest("Don't have this menu at that time!");
+                return BadRequest("Don't have any menu at this time!");
             }
             return Ok(menu);
         }
 
-        // POST api/<MenuControllerController>
+        // POST api/<MenuController>
         [HttpPost]
         public IActionResult Create([FromBody] MenuCreateModel model)
         {
@@ -53,18 +53,26 @@ namespace Controller.Controllers
 
         // PUT api/<MenuController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] MenuUpdateModel model)
+        public IActionResult Update(int id, MenuUpdateModel model)
         {
             _menuService.Update(id, model);
             return Ok(new { message = "Menu updated" });
         }
 
-        // DELETE api/<WarehouseController>/5
+        // DELETE api/<MenuController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _menuService.Delete(id);
             return Ok(new { message = "Menu deleted" });
+        }
+
+        // GET api/<MenuController>/filter
+        [HttpGet("/FilterByType")]
+        public IActionResult FilterByType(string type ,int menu_id)
+        {
+            var list = _menuService.FilterProductByType(type,menu_id);
+            return Ok(list);
         }
     }
 }
