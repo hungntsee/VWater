@@ -15,6 +15,7 @@ namespace Service.Services
         public void Delete(int id);
         public void ConfirmOrder(int id);
         public Order GetLastestOrder(int customer_id);
+        public List<Order> GetOrderByCustomer(int customer_id);
     }
     public class OrderService : IOrderService
     {
@@ -96,5 +97,18 @@ namespace Service.Services
             }
             return list.MaxBy(a => a.OrderDate);
         }
+
+        public List<Order> GetOrderByCustomer(int customer_id) 
+        {
+            var orders = _context.Orders.Include(a => a.DeliveryAddress).Include(a => a.OrderDetails);
+            var list = new List<Order>();
+            
+            foreach(var order in orders)
+            {
+                if (order.DeliveryAddress.CustomerId == customer_id) list.Add(order);
+            }
+            return list;
+        }
+
     }
 }

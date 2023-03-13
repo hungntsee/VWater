@@ -114,7 +114,6 @@ namespace Service.Services
                     productList.Add(product);
                 }
             }
-
             return productList;
         }
     }

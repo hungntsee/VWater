@@ -59,13 +59,5 @@ namespace Controller.Controllers
             _customerService.Delete(id);
             return Ok(new { message = "Customer deleted" });
         }
-
-        //GET api/<CustomerController>/GetOrderByPhonenumber
-        [HttpGet("/GetOrderByPhone")]
-        public IActionResult GetOrderForCustomer(int customer_id)
-        {
-            var customer = _customerService.GetOrderByPhonenumber(customer_id);
-            return Ok(customer);
-        }
     }
 }

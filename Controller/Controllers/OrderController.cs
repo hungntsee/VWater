@@ -66,5 +66,13 @@ namespace Controller.Controllers
             var order = _orderService.GetLastestOrder(customer_id);
             return Ok(order);
         }
+
+        //GET api/<OrderController>/GetOrderByCustomer
+        [HttpGet("/GetOrderByCustomer")]
+        public IActionResult GetOrderForCustomer(int customer_id)
+        {
+            var orders = _orderService.GetOrderByCustomer(customer_id);
+            return Ok(orders);
+        }
     }
 }
