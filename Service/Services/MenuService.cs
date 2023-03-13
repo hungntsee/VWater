@@ -79,7 +79,7 @@ namespace Service.Services
         private Menu GetMenuByArea(DateTime time, int area_id)
         {
             var menu = _context.Menus.Include(a => a.ProductInMenus)
-                .AsNoTracking().FirstOrDefault(a => a.AreaId == area_id && a.ValidFrom < time && time < a.ValidTo);
+                .AsNoTracking().FirstOrDefault(a => a.AreaId == area_id && a.ValidFrom <= time && time <= a.ValidTo);
             if (menu == null) return _context.Menus.Include(a => a.ProductInMenus).Last();
             
             return menu;
