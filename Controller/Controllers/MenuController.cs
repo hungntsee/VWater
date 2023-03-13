@@ -69,9 +69,9 @@ namespace Controller.Controllers
 
         // GET api/<MenuController>/filter
         [HttpGet("/FilterByType")]
-        public IActionResult FilterByType(string type ,int menu_id)
+        public IActionResult FilterByType(int type_id ,int menu_id)
         {
-            var list = _menuService.FilterProductByType(type,menu_id);
+            var list = _menuService.FilterProductByType(type_id,menu_id);
             return Ok(list);
         }
     }

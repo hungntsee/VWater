@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Server.IIS.Core;
 using Microsoft.EntityFrameworkCore;
 using Service.Helpers;
 using VWater.Data;
@@ -13,7 +12,7 @@ namespace Service.Services
         public IEnumerable<Menu> GetAll();
         public Menu GetById(int id);
         public Menu GetMenu(DateTime time, int area_id);
-        public IEnumerable<ProductFilterModel> FilterProductByType(string type, int menu_id);
+        public IEnumerable<ProductInMenu> FilterProductByType(int type_id, int menu_id);
         public void Create(MenuCreateModel model);
         public void Update(int id, MenuUpdateModel model);
         public void Delete(int id);
@@ -96,23 +95,23 @@ namespace Service.Services
             }
         }
 
-        public IEnumerable<ProductFilterModel> FilterProductByType(string type, int menu_id)
+        public IEnumerable<ProductInMenu> FilterProductByType(int type_id, int menu_id)
         {
-            var list = FilterProduct(type, menu_id);
+            var list = FilterProduct(type_id, menu_id);
             if (list == null) throw new AppException("This type don't have any product");
             return list;
         }
 
-        private IEnumerable<ProductFilterModel> FilterProduct (string type, int menu_id)
+        private IEnumerable<ProductInMenu> FilterProduct (int type_id, int menu_id)
         {
             var menu = GetMenuById(menu_id);
             var productInMenus= menu.ProductInMenus;
-            var productList = new List<ProductFilterModel>();
+            var productList = new List<ProductInMenu>();
             foreach (var product in productInMenus)
             {
-                if(type.ToLower() == product.Product.ProductType.ProductTypeName.ToLower())
+                if(type_id == product.Product.ProductType_Id)
                 {
-                    productList.Add(_mapper.Map<ProductFilterModel>(product));
+                    productList.Add(product);
                 }
             }
 

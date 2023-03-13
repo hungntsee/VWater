@@ -14,6 +14,7 @@ namespace Service.Services
         public void Update(int id, OrderUpdateModel model);
         public void Delete(int id);
         public void ConfirmOrder(int id);
+        public Order GetLastestOrder(int customer_id);
     }
     public class OrderService : IOrderService
     {
@@ -72,7 +73,6 @@ namespace Service.Services
 
             _context.Orders.Update(order);
             _context.SaveChanges();
-
         }
 
         private Order GetOrder(int id)
@@ -81,6 +81,20 @@ namespace Service.Services
                 .AsNoTracking().FirstOrDefault(p => p.Id == id);
             if (order == null) throw new KeyNotFoundException("Order not found!");
             return order;
+        }
+
+        public Order GetLastestOrder(int customer_id)
+        {
+            var orders = _context.Orders.Include(a => a.DeliveryAddress).Include(a => a.OrderDetails);
+            var list = new List<Order>();
+            foreach (var order in orders)
+            {
+                if (order.DeliveryAddress.CustomerId == customer_id)
+                {
+                    list.Add(order);
+                }
+            }
+            return list.MaxBy(a => a.OrderDate);
         }
     }
 }

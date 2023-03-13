@@ -58,5 +58,13 @@ namespace Controller.Controllers
             _orderService.Delete(id);
             return Ok(new { message = "Order deleted" });
         }
+
+        //GET api/<OrderController>/LastestOrder
+        [HttpGet("/LastestOrder")]
+        public IActionResult GetLatestOrder(int customer_id)
+        {
+            var order = _orderService.GetLastestOrder(customer_id);
+            return Ok(order);
+        }
     }
 }
