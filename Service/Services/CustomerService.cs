@@ -39,9 +39,11 @@ namespace Service.Services
 
         public Customer Create(CustomerCreateModel model)
         {
-            if (GetCustomerByPhone(model.PhoneNumber) == null)
+            if (GetCustomerByPhone(model.PhoneNumber) != null)
             {
-                throw new AppException("This Phone number is already existed!");
+                var customer1 = GetCustomerByPhone(model.PhoneNumber);
+                //throw new AppException("This Phone number is already existed!");
+                return customer1;
             }
 
             var customer = _mapper.Map<Customer>(model);
