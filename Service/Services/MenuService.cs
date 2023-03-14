@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Service.Helpers;
 using VWater.Data;
 using VWater.Data.Entities;
+using VWater.Data.Queries;
 using VWater.Domain.Models;
 
 namespace Service.Services
@@ -103,9 +104,8 @@ namespace Service.Services
         }
 
         private IEnumerable<ProductInMenu> FilterProduct (int type_id, int menu_id)
-        {
-            var menu = GetMenuById(menu_id);
-            var productInMenus= menu.ProductInMenus;
+        {         
+            var productInMenus= ProductInMenuExtensions.ByMenuId(_context.ProductInMenus,menu_id);
             var productList = new List<ProductInMenu>();
             foreach (var product in productInMenus)
             {

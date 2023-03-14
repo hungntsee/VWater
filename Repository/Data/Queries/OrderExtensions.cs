@@ -13,6 +13,14 @@ namespace VWater.Data.Queries
             return queryable.Where(q => q.DeliveryAddressId == deliveryAddressId);
         }
 
+        public static IQueryable<VWater.Data.Entities.Order> ByCustomerId(this IQueryable<VWater.Data.Entities.Order> queryable, int customerId)
+        {
+            if (queryable is null)
+                throw new ArgumentNullException(nameof(queryable));
+            queryable.Include(x => x.DeliveryAddress);
+            return queryable.Where(q => q.DeliveryAddress.CustomerId == customerId);
+        }
+
         public static IQueryable<VWater.Data.Entities.Order> ByDeliverySlotId(this IQueryable<VWater.Data.Entities.Order> queryable, int deliverySlotId)
         {
             if (queryable is null)

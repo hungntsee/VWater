@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
+using VWater.Data.Queries;
 using VWater.Domain.Models;
 
 namespace Service.Services
@@ -84,30 +85,27 @@ namespace Service.Services
             return order;
         }
 
+        private Order GetOrderIgnoreInclude(int id)
+        {
+            var order = _context.Orders.AsNoTracking().FirstOrDefault(p => p.Id == id);
+            if (order == null) throw new KeyNotFoundException("Order not found!");
+            return order;
+        }
+
         public Order GetLastestOrder(int customer_id)
         {
-            var orders = _context.Orders.Include(a => a.DeliveryAddress).Include(a => a.OrderDetails);
-            var list = new List<Order>();
-            foreach (var order in orders)
-            {
-                if (order.DeliveryAddress.CustomerId == customer_id)
-                {
-                    list.Add(order);
-                }
-            }
-            return list.MaxBy(a => a.OrderDate);
+            var orders = OrderExtensions.ByCustomerId(_context.Orders.Include(a => a.OrderDetails), customer_id);
+
+            return orders.ToList().MaxBy(a => a.OrderDate);
         }
 
         public List<Order> GetOrderByCustomer(int customer_id) 
         {
-            var orders = _context.Orders.Include(a => a.DeliveryAddress).Include(a => a.OrderDetails);
-            var list = new List<Order>();
-            
-            foreach(var order in orders)
-            {
-                if (order.DeliveryAddress.CustomerId == customer_id) list.Add(order);
-            }
-            return list;
+
+            /*var orders = _context.Orders.Include(a => a.DeliveryAddress).Include(a => a.OrderDetails).IgnoreAutoIncludes();*/
+            var orders = OrderExtensions.ByCustomerId(_context.Orders.Include(a=>a.OrderDetails), customer_id);
+
+            return orders.ToList();
         }
 
     }

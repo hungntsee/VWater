@@ -60,7 +60,7 @@ namespace Controller.Controllers
         }
 
         //GET api/<OrderController>/LastestOrder
-        [HttpGet("/LastestOrder")]
+        [HttpGet("/api/LastestOrder")]
         public IActionResult GetLatestOrder(int customer_id)
         {
             var order = _orderService.GetLastestOrder(customer_id);
@@ -68,7 +68,7 @@ namespace Controller.Controllers
         }
 
         //GET api/<OrderController>/GetOrderByCustomer
-        [HttpGet("/GetOrderByCustomer")]
+        [HttpGet("/api/GetOrderByCustomer")]
         public IActionResult GetOrderForCustomer(int customer_id)
         {
             var orders = _orderService.GetOrderByCustomer(customer_id);
