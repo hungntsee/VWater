@@ -15,13 +15,9 @@ namespace VWater.Domain.Models
 
         public decimal TotalPrice { get; set; }
 
-        public int? StatusId { get; set; }
-
         public int DeliverySlotId { get; set; }
 
         public string PhoneNumber { get; set; }
-
-        public int? ShipperId { get; set; }
 
         #endregion
 

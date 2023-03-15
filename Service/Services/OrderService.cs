@@ -14,9 +14,11 @@ namespace Service.Services
         public Order Create(OrderCreateModel model);
         public void Update(int id, OrderUpdateModel model);
         public void Delete(int id);
-        public void ConfirmOrder(int id);
+        public Order TakeOrder(int id, int shipper_id);
         public Order GetLastestOrder(int customer_id);
         public List<Order> GetOrderByCustomer(int customer_id);
+        public List<Order> FollowOrder(int customer_id);
+
     }
     public class OrderService : IOrderService
     {
@@ -44,11 +46,8 @@ namespace Service.Services
         {
             var order = _mapper.Map<Order>(model);
             order.OrderDate = DateTime.Now;
+            order.StatusId = 2;
 
-            /*
-            if (order.TotalPrice < 1000000) order.Status = 2;
-            else order.Status = 1;
-            */
             _context.Orders.Add(order);
             _context.SaveChanges();
 
@@ -70,13 +69,16 @@ namespace Service.Services
             _context.SaveChanges();
         }
 
-        public void ConfirmOrder(int id)
+        public Order TakeOrder(int id, int shipper_id)
         {
             var order = GetOrder(id);
-            //order.Status = 2;
+            order.StatusId = 2;
+            order.ShipperId = shipper_id;
 
             _context.Orders.Update(order);
             _context.SaveChanges();
+
+            return order;
         }
 
         private Order GetOrder(int id)
@@ -108,6 +110,18 @@ namespace Service.Services
             var orders = OrderExtensions.ByCustomerId(_context.Orders.Include(a=>a.OrderDetails), customer_id);
 
             return orders.ToList();
+        }
+
+        public List<Order> FollowOrder(int customer_id)
+        {
+            var orders = OrderExtensions.ByCustomerId(_context.Orders.Include(a => a.OrderDetails).Include(a => a.Status), customer_id);
+            var list = new List<Order>();
+            foreach(var order in orders)
+            {
+                order.Status.Orders = null;
+                if (order.StatusId != 1) list.Add(order);
+            }
+            return list;
         }
 
     }

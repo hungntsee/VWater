@@ -42,7 +42,7 @@ namespace VWater.Data.Entities
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 
-        public virtual Shipper Shipper { get; set; }
+        public virtual Shipper? Shipper { get; set; }
 
         public virtual Status Status { get; set; }
 

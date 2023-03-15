@@ -60,10 +60,9 @@ namespace VWater.Data.Mapping
                 .HasColumnType("varchar(20)")
                 .HasMaxLength(20);
 
-            builder.Property(t => t.ShipperId)
+            builder.Property(t => t.ShipperId).IsRequired(false)
                 .HasColumnName("Shipper_Id")
                 .HasColumnType("int");
-
             // relationships
             builder.HasOne(t => t.Shipper)
                 .WithMany(t => t.Orders)

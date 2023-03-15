@@ -34,14 +34,14 @@ namespace Service.Services
             var menu = _mapper.Map<Menu>(model);
             ValidateMenuDate(menu);
             _context.Menus.Add(menu);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
             var menu = GetMenuById(id);
             _context.Menus.Remove(menu);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public IEnumerable<Menu> GetAll()

@@ -74,5 +74,19 @@ namespace Controller.Controllers
             var orders = _orderService.GetOrderByCustomer(customer_id);
             return Ok(orders);
         }
+
+        [HttpGet("/api/TakeOrder")]
+        public IActionResult TakeOrder(int shipper_id, int order_id)
+        {
+            var order = _orderService.TakeOrder(shipper_id, order_id);
+            return Ok(order);
+        }
+
+        [HttpGet("/api/FollowOrder")]
+        public IActionResult FollowOrder(int customer_id)
+        {
+            var orders = _orderService.FollowOrder(customer_id);
+            return Ok(orders);
+        }
     }
 }
