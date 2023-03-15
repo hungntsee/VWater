@@ -3,6 +3,7 @@ namespace VWater.Domain.Models
     public partial class PurchaseOrderCreateModel
     {
         #region Generated Properties
+     
 
         public int StoreId { get; set; }
 
@@ -14,7 +15,7 @@ namespace VWater.Domain.Models
 
         public decimal ToatalPrice { get; set; }
 
-        public int? Status { get; set; }
+        public int? StatusId { get; set; }
 
         public string Payment { get; set; }
 

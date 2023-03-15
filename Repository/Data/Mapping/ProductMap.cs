@@ -39,14 +39,15 @@ namespace VWater.Data.Mapping
                 .HasMaxLength(100);
 
             builder.Property(t => t.ProductType_Id)
-                .IsRequired()
                 .HasColumnName("ProductType_Id")
                 .HasColumnType("int");
+
             // relationships
             builder.HasOne(t => t.ProductType)
                 .WithMany(t => t.Products)
                 .HasForeignKey(d => d.ProductType_Id)
-                .HasConstraintName("FK_product_product_type");
+                .HasConstraintName("FK__Product__Product__42E1EEFE");
+
             #endregion
         }
 

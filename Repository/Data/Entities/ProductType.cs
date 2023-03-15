@@ -1,4 +1,4 @@
-﻿namespace VWater.Data.Entities
+namespace VWater.Data.Entities
 {
     public partial class ProductType
     {
@@ -13,6 +13,7 @@
         public int Id { get; set; }
 
         public string ProductTypeName { get; set; }
+
         public string Url { get; set; }
 
         #endregion

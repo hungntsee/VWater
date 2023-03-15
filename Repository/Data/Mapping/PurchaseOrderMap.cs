@@ -46,8 +46,8 @@ namespace VWater.Data.Mapping
                 .HasColumnName("ToatalPrice")
                 .HasColumnType("money");
 
-            builder.Property(t => t.Status)
-                .HasColumnName("Status")
+            builder.Property(t => t.StatusId)
+                .HasColumnName("Status_Id")
                 .HasColumnType("int");
 
             builder.Property(t => t.Payment)
@@ -61,6 +61,11 @@ namespace VWater.Data.Mapping
                 .HasMaxLength(100);
 
             // relationships
+            builder.HasOne(t => t.Status)
+                .WithMany(t => t.PurchaseOrders)
+                .HasForeignKey(d => d.StatusId)
+                .HasConstraintName("FK__Purchase___Statu__55009F39");
+
             builder.HasOne(t => t.Distributor)
                 .WithMany(t => t.PurchaseOrders)
                 .HasForeignKey(d => d.DistributorId)
@@ -89,7 +94,7 @@ namespace VWater.Data.Mapping
             public const string OrderDate = "OrderDate";
             public const string TotalQuantity = "TotalQuantity";
             public const string ToatalPrice = "ToatalPrice";
-            public const string Status = "Status";
+            public const string StatusId = "Status_Id";
             public const string Payment = "Payment";
             public const string Note = "Note";
         }

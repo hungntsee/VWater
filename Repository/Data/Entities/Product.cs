@@ -20,7 +20,7 @@ namespace VWater.Data.Entities
 
         public string Description { get; set; }
 
-        public int ProductType_Id { get; set; }
+        public int? ProductType_Id { get; set; }
 
         #endregion
 
@@ -30,6 +30,7 @@ namespace VWater.Data.Entities
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 
         public virtual ICollection<ProductInMenu> ProductInMenus { get; set; }
+
         public virtual ProductType ProductType { get; set; }
 
         #endregion

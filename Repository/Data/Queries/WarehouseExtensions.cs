@@ -5,7 +5,6 @@ namespace VWater.Data.Queries
     public static partial class WarehouseExtensions
     {
         #region Generated Extensions
-
         public static VWater.Data.Entities.Warehouse GetByKey(this IQueryable<VWater.Data.Entities.Warehouse> queryable, int id)
         {
             if (queryable is null)

@@ -28,6 +28,14 @@ namespace VWater.Data.Queries
             return new ValueTask<VWater.Data.Entities.Product>(task);
         }
 
+        public static IQueryable<VWater.Data.Entities.Product> ByProductTypeId(this IQueryable<VWater.Data.Entities.Product> queryable, int? productTypeId)
+        {
+            if (queryable is null)
+                throw new ArgumentNullException(nameof(queryable));
+
+            return queryable.Where(q => (q.ProductType_Id == productTypeId || (productTypeId == null && q.ProductType_Id == null)));
+        }
+
         #endregion
 
     }

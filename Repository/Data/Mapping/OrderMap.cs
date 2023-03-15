@@ -46,8 +46,8 @@ namespace VWater.Data.Mapping
                 .HasColumnName("TotalPrice")
                 .HasColumnType("money");
 
-            builder.Property(t => t.Status)
-                .HasColumnName("Status")
+            builder.Property(t => t.StatusId)
+                .HasColumnName("Status_Id")
                 .HasColumnType("int");
 
             builder.Property(t => t.DeliverySlotId)
@@ -57,10 +57,24 @@ namespace VWater.Data.Mapping
 
             builder.Property(t => t.PhoneNumber)
                 .HasColumnName("PhoneNumber")
-                .HasColumnType("nvarchar(20)")
+                .HasColumnType("varchar(20)")
                 .HasMaxLength(20);
 
+            builder.Property(t => t.ShipperId)
+                .HasColumnName("Shipper_Id")
+                .HasColumnType("int");
+
             // relationships
+            builder.HasOne(t => t.Shipper)
+                .WithMany(t => t.Orders)
+                .HasForeignKey(d => d.ShipperId)
+                .HasConstraintName("FK__Order__Shipper_I__4F47C5E3");
+
+            builder.HasOne(t => t.Status)
+                .WithMany(t => t.Orders)
+                .HasForeignKey(d => d.StatusId)
+                .HasConstraintName("FK__Order__Status_Id__540C7B00");
+
             builder.HasOne(t => t.DeliveryAddress)
                 .WithMany(t => t.Orders)
                 .HasForeignKey(d => d.DeliveryAddressId)
@@ -94,8 +108,10 @@ namespace VWater.Data.Mapping
             public const string OrderDate = "OrderDate";
             public const string TotalQuantity = "TotalQuantity";
             public const string TotalPrice = "TotalPrice";
-            public const string Status = "Status";
+            public const string StatusId = "Status_Id";
             public const string DeliverySlotId = "DeliverySlot_Id";
+            public const string PhoneNumber = "PhoneNumber";
+            public const string ShipperId = "Shipper_Id";
         }
         #endregion
     }

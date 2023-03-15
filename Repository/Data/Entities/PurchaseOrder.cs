@@ -23,7 +23,7 @@ namespace VWater.Data.Entities
 
         public decimal ToatalPrice { get; set; }
 
-        public int? Status { get; set; }
+        public int? StatusId { get; set; }
 
         public string Payment { get; set; }
 
@@ -37,6 +37,8 @@ namespace VWater.Data.Entities
         public virtual ICollection<GoodsExchangeNote> GoodsExchangeNotes { get; set; }
 
         public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
+
+        public virtual Status Status { get; set; }
 
         public virtual Store Store { get; set; }
 

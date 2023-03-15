@@ -52,6 +52,22 @@ namespace VWater.Data.Queries
             return new ValueTask<VWater.Data.Entities.Order>(task);
         }
 
+        public static IQueryable<VWater.Data.Entities.Order> ByShipperId(this IQueryable<VWater.Data.Entities.Order> queryable, int? shipperId)
+        {
+            if (queryable is null)
+                throw new ArgumentNullException(nameof(queryable));
+
+            return queryable.Where(q => (q.ShipperId == shipperId || (shipperId == null && q.ShipperId == null)));
+        }
+
+        public static IQueryable<VWater.Data.Entities.Order> ByStatusId(this IQueryable<VWater.Data.Entities.Order> queryable, int? statusId)
+        {
+            if (queryable is null)
+                throw new ArgumentNullException(nameof(queryable));
+
+            return queryable.Where(q => (q.StatusId == statusId || (statusId == null && q.StatusId == null)));
+        }
+
         public static IQueryable<VWater.Data.Entities.Order> ByStoreId(this IQueryable<VWater.Data.Entities.Order> queryable, int storeId)
         {
             if (queryable is null)

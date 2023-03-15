@@ -47,7 +47,6 @@ namespace VWater.Data.Mapping
                 .HasForeignKey(d => d.MenuId)
                 .HasConstraintName("FK_product_in_menu_product_menu");
 
-            builder.Navigation(a => a.Product).AutoInclude();
             #endregion
         }
 

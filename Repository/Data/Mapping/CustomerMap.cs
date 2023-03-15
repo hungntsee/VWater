@@ -28,9 +28,10 @@ namespace VWater.Data.Mapping
                 .HasMaxLength(100);
 
             builder.Property(t => t.PhoneNumber)
+                .IsRequired()
                 .HasColumnName("PhoneNumber")
-                .HasColumnType("nvarchar(50)")
-                .HasMaxLength(50);
+                .HasColumnType("nvarchar(20)")
+                .HasMaxLength(20);
 
             builder.Property(t => t.Note)
                 .HasColumnName("Note")
@@ -38,8 +39,6 @@ namespace VWater.Data.Mapping
                 .HasMaxLength(10);
 
             // relationships
-
-            /*builder.Navigation(a => a.DeliveryAddresses).AutoInclude();*/
             #endregion
         }
 
@@ -54,7 +53,7 @@ namespace VWater.Data.Mapping
         {
             public const string Id = "Id";
             public const string FullName = "FullName";
-            public const string Password = "PhoneNumber";
+            public const string PhoneNumber = "PhoneNumber";
             public const string Note = "Note";
         }
         #endregion

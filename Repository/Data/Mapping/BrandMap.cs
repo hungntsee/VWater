@@ -48,8 +48,6 @@ namespace VWater.Data.Mapping
                 .HasForeignKey(d => d.ManufactureId)
                 .HasConstraintName("FK_brand_manufacture");
 
-            /*builder.Navigation(a => a.ManufactureManufacturer).AutoInclude();
-            builder.Navigation(a => a.Goods).AutoInclude();*/
             #endregion
         }
 

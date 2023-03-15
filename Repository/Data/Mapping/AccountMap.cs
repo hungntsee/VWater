@@ -79,11 +79,10 @@ namespace VWater.Data.Mapping
 
             // relationships
             builder.HasOne(t => t.RoleAccountRole)
-                .WithMany(t => t.Accounts)
+                .WithMany(t => t.RoleAccounts)
                 .HasForeignKey(d => d.RoleId)
                 .HasConstraintName("FK_account_account_role");
 
-            /*builder.Navigation(a => a.RoleAccountRole).AutoInclude();*/
             #endregion
         }
 

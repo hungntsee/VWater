@@ -46,6 +46,7 @@ namespace VWater.Data.Mapping
                 .WithMany(t => t.PurchaseOrderDetails)
                 .HasForeignKey(d => d.PurchaseOrderId)
                 .HasConstraintName("FK_purchase_order_detail_purchase_order");
+
             #endregion
         }
 

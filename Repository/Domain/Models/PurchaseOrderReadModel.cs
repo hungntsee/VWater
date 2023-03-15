@@ -15,7 +15,7 @@ namespace VWater.Domain.Models
 
         public decimal ToatalPrice { get; set; }
 
-        public int? Status { get; set; }
+        public int? StatusId { get; set; }
 
         public string Payment { get; set; }
 

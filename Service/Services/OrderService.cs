@@ -45,8 +45,10 @@ namespace Service.Services
             var order = _mapper.Map<Order>(model);
             order.OrderDate = DateTime.Now;
 
+            /*
             if (order.TotalPrice < 1000000) order.Status = 2;
             else order.Status = 1;
+            */
             _context.Orders.Add(order);
             _context.SaveChanges();
 
@@ -71,7 +73,7 @@ namespace Service.Services
         public void ConfirmOrder(int id)
         {
             var order = GetOrder(id);
-            order.Status = 2;
+            //order.Status = 2;
 
             _context.Orders.Update(order);
             _context.SaveChanges();

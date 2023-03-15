@@ -26,7 +26,7 @@ namespace Service.Services
         }
         public IEnumerable<AccountRole> GetAll()
         {
-            return _context.AccountRoles.Include(a => a.Accounts);
+            return _context.AccountRoles.Include(a => a.RoleAccounts);
         }
 
         public AccountRole GetById(int id)
@@ -60,7 +60,7 @@ namespace Service.Services
 
         private AccountRole GetAccountRole(int id)
         {
-            var accountRole = _context.AccountRoles.Include(a => a.Accounts).AsNoTracking().FirstOrDefault(a => a.Id == id);
+            var accountRole = _context.AccountRoles.Include(a => a.RoleAccounts).AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (accountRole == null) throw new KeyNotFoundException("Account Role not found!");
             return accountRole;
         }

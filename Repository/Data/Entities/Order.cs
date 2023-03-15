@@ -23,10 +23,13 @@ namespace VWater.Data.Entities
 
         public decimal TotalPrice { get; set; }
 
-        public int? Status { get; set; }
+        public int? StatusId { get; set; }
 
         public int DeliverySlotId { get; set; }
+
         public string PhoneNumber { get; set; }
+
+        public int? ShipperId { get; set; }
 
         #endregion
 
@@ -38,6 +41,10 @@ namespace VWater.Data.Entities
         public virtual ICollection<GoodsExchangeNote> GoodsExchangeNotes { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+
+        public virtual Shipper Shipper { get; set; }
+
+        public virtual Status Status { get; set; }
 
         public virtual Store Store { get; set; }
 

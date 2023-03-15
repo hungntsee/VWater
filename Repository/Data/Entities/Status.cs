@@ -1,33 +1,31 @@
+using System;
+using System.Collections.Generic;
+
 namespace VWater.Data.Entities
 {
-    public partial class Shipper
+    public partial class Status
     {
-        public Shipper()
+        public Status()
         {
             #region Generated Constructor
             Orders = new HashSet<Order>();
+            PurchaseOrders = new HashSet<PurchaseOrder>();
             #endregion
         }
 
         #region Generated Properties
         public int Id { get; set; }
 
-        public int AccountId { get; set; }
+        public string StatusName { get; set; }
 
-        public string Fullname { get; set; }
-
-        public string PhoneNumber { get; set; }
-
-        public int StoreId { get; set; }
+        public string Note { get; set; }
 
         #endregion
 
         #region Generated Relationships
-        public virtual Account Account { get; set; }
-
         public virtual ICollection<Order> Orders { get; set; }
 
-        public virtual Store Store { get; set; }
+        public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
 
         #endregion
 
