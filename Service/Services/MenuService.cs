@@ -105,7 +105,7 @@ namespace Service.Services
 
         private IEnumerable<ProductInMenu> FilterProduct (int type_id, int menu_id)
         {         
-            var productInMenus= ProductInMenuExtensions.ByMenuId(_context.ProductInMenus,menu_id);
+            var productInMenus= ProductInMenuExtensions.ByMenuId(_context.ProductInMenus.Include(a => a.Product),menu_id);
             var productList = new List<ProductInMenu>();
             foreach (var product in productInMenus)
             {
