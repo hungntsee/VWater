@@ -35,8 +35,8 @@ namespace VWater.Data.Mapping
 
             builder.Property(t => t.Note)
                 .HasColumnName("Note")
-                .HasColumnType("nchar(10)")
-                .HasMaxLength(10);
+                .HasColumnType("nvarchar(50)")
+                .HasMaxLength(50);
 
             // relationships
             #endregion

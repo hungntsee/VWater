@@ -42,7 +42,7 @@ namespace Service.Services
             if (GetCustomerByPhone(model.PhoneNumber) != null)
             {
                 var customer1 = GetCustomerByPhone(model.PhoneNumber);
-                customer1.Note = "Welcomeback";
+                customer1.Note = "Welcome Back";
                 //throw new AppException("This Phone number is already existed!");
                 _context.Customers.Update(customer1);
                 _context.SaveChanges();
