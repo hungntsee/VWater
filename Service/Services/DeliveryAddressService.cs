@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
+using VWater.Data.Queries;
 using VWater.Domain.Models;
 
 namespace Service.DeliveryAddresses
@@ -43,7 +44,12 @@ namespace Service.DeliveryAddresses
         }
 
         public DeliveryAddress Create(DeliveryAddressCreateModel request)
-        {
+        {           
+            var deliveryAddresses = DeliveryAddressExtensions.ByCustomerId(_context.DeliveryAddresses, request.CustomerId);
+            foreach (var address in deliveryAddresses)
+            {
+                if (request.Address.Equals(address.Address)) return address;
+            }
             var deliveryAddress = _mapper.Map<DeliveryAddress>(request);
             deliveryAddress.StoreId = 1;
             _context.DeliveryAddresses.Add(deliveryAddress);

@@ -37,6 +37,14 @@ namespace Controller.Controllers
         public IActionResult Create([FromBody] CustomerCreateModel request)
         {
             var customer = _customerService.Create(request);
+            if (customer.Note == "Welcome Back")
+            {
+                return Ok(new
+                {
+                    message = "Welcome Back",
+                    customer
+                });
+            }
             return Ok(new
             {
                 message = "Customer created",

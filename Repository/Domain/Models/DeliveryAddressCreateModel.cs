@@ -9,8 +9,6 @@ namespace VWater.Domain.Models
 
         public string Address { get; set; }
 
-        public int StoreId { get; set; }
-
         public int? BuildingId { get; set; }
 
         public int DeliveryTypeId { get; set; }

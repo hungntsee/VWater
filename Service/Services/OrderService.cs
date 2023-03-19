@@ -98,9 +98,18 @@ namespace Service.Services
 
         public Order GetLastestOrder(int customer_id)
         {
-            var orders = OrderExtensions.ByCustomerId(_context.Orders.Include(a => a.OrderDetails), customer_id);
+            var orders = OrderExtensions.ByCustomerId(
+                _context.Orders.Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu).ThenInclude(a => a.Product),
+                customer_id);
+            var lastestOrder = orders.ToList().MaxBy(a => a.OrderDate);
+            foreach (var orderDetail in lastestOrder.OrderDetails)
+            {
+                orderDetail.Order = null;
+                orderDetail.ProductInMenu.Product.ProductInMenus = null;
+                orderDetail.ProductInMenu.OrderDetails = null;
+            }
 
-            return orders.ToList().MaxBy(a => a.OrderDate);
+            return lastestOrder;
         }
 
         public List<Order> GetOrderByCustomer(int customer_id) 

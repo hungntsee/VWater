@@ -42,13 +42,16 @@ namespace Service.Services
             if (GetCustomerByPhone(model.PhoneNumber) != null)
             {
                 var customer1 = GetCustomerByPhone(model.PhoneNumber);
+                customer1.Note = "Welcomeback";
                 //throw new AppException("This Phone number is already existed!");
+                _context.Customers.Update(customer1);
+                _context.SaveChanges();
                 return customer1;
             }
 
             var customer = _mapper.Map<Customer>(model);
 
-            customer.Note = " ";
+            customer.Note = "New User";
 
             _context.Customers.Add(customer);
             _context.SaveChanges();
