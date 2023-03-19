@@ -1,6 +1,10 @@
 .vs
 .vscode
-bin/*
-obj/*
+Controller/bin/*
+Controller/obj/*
+Repository/bin/*
+Repository/obj/*
+Service/bin/*
+Service/obj/*
 .exe
 .cache
