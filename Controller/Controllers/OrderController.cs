@@ -88,5 +88,12 @@ namespace Controller.Controllers
             var orders = _orderService.FollowOrder(customer_id);
             return Ok(orders);
         }
+
+        [HttpGet("/api/ReOrder/{order_id}")]
+        public IActionResult ReOrder(int order_id)
+        {
+            var order = _orderService.ReOrder(order_id);
+            return Ok(order);
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace Service.Services
         public Order GetLastestOrder(int customer_id);
         public List<Order> GetOrderByCustomer(int customer_id);
         public List<Order> FollowOrder(int customer_id);
+        public Order ReOrder(int order_id);
 
     }
     public class OrderService : IOrderService
@@ -33,7 +34,7 @@ namespace Service.Services
 
         public IEnumerable<Order> GetAll()
         {
-            return _context.Orders.Include(a => a.DeliveryAddress).Include(a => a.DeliverySlot).Include(a => a.OrderDetails);
+            return _context.Orders.Include(a => a.OrderDetails);
         }
 
         public Order GetById(int id)
@@ -128,9 +129,18 @@ namespace Service.Services
             foreach(var order in orders)
             {
                 order.Status.Orders = null;
-                if (order.StatusId != 1) list.Add(order);
+                if (order.StatusId >1 && order.StatusId < 5) list.Add(order);
             }
             return list;
+        }
+
+        public Order ReOrder(int order_id)
+        {
+            var order = GetOrder(order_id);
+
+            order.OrderDate = DateTime.Now;
+
+            return Create(_mapper.Map<OrderCreateModel>(order));
         }
 
     }

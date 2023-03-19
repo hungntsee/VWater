@@ -56,5 +56,12 @@ namespace Controller.Controllers
             _orderDetailService.Delete(id);
             return Ok(new { message = "Order Detail deleted" });
         }
+
+        [HttpGet("/api/ReOrderDetails")]
+        public IActionResult ReOrderDetails(int order_id,int newOrder_id)
+        {
+            var orderDetails = _orderDetailService.ReOrderDetail(order_id,newOrder_id);
+            return Ok(orderDetails);
+        }
     }
 }

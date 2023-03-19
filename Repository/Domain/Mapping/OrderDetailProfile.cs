@@ -9,6 +9,8 @@ namespace VWater.Domain.Mapping
 
             CreateMap<VWater.Domain.Models.OrderDetailCreateModel, VWater.Data.Entities.OrderDetail>();
 
+            CreateMap<VWater.Data.Entities.OrderDetail, VWater.Domain.Models.OrderDetailCreateModel>();
+
             CreateMap<VWater.Data.Entities.OrderDetail, VWater.Domain.Models.OrderDetailUpdateModel>();
 
             CreateMap<VWater.Domain.Models.OrderDetailUpdateModel, VWater.Data.Entities.OrderDetail>();
