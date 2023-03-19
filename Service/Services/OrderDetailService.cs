@@ -27,7 +27,12 @@ namespace Service.Services
 
         public IEnumerable<OrderDetail> GetAll()
         {
-            return _context.OrderDetails.Include(a => a.Order);
+            var orderDetails = _context.OrderDetails.Include(a => a.ProductInMenu);
+            foreach (var orderDetail in orderDetails)
+            {
+                orderDetail.ProductInMenu.OrderDetails = null;
+            }
+            return orderDetails;
         }
 
         public OrderDetail GetById(int id)

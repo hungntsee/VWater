@@ -5,6 +5,7 @@ namespace VWater.Data.Entities
         public ProductInMenu()
         {
             #region Generated Constructor
+            OrderDetails = new HashSet<OrderDetail>();
             #endregion
         }
 
@@ -23,6 +24,8 @@ namespace VWater.Data.Entities
         public virtual Menu Menu { get; set; }
 
         public virtual Product Product { get; set; }
+
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 
         #endregion
 

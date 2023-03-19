@@ -36,12 +36,12 @@ namespace VWater.Data.Queries
             return queryable.Where(q => q.OrderId == orderId);
         }
 
-        public static IQueryable<VWater.Data.Entities.OrderDetail> ByProductId(this IQueryable<VWater.Data.Entities.OrderDetail> queryable, int productId)
+        public static IQueryable<VWater.Data.Entities.OrderDetail> ByProductInMenuId(this IQueryable<VWater.Data.Entities.OrderDetail> queryable, int productInMenuId)
         {
             if (queryable is null)
                 throw new ArgumentNullException(nameof(queryable));
 
-            return queryable.Where(q => q.ProductId == productId);
+            return queryable.Where(q => q.ProductInMenuId == productInMenuId);
         }
 
         #endregion

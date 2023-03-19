@@ -11578,19 +11578,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Asus\\.nuget\\packages\\": {}
+    "C:\\Users\\Admin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\VWater\\Controller\\Controller.csproj",
+      "projectUniqueName": "F:\\VWater\\Controller\\Controller.csproj",
       "projectName": "Controller",
-      "projectPath": "C:\\Users\\Asus\\source\\repos\\VWater\\Controller\\Controller.csproj",
-      "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Asus\\source\\repos\\VWater\\Controller\\obj\\",
+      "projectPath": "F:\\VWater\\Controller\\Controller.csproj",
+      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+      "outputPath": "F:\\VWater\\Controller\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11604,11 +11604,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Asus\\source\\repos\\VWater\\Repository\\Repository.csproj": {
-              "projectPath": "C:\\Users\\Asus\\source\\repos\\VWater\\Repository\\Repository.csproj"
+            "F:\\VWater\\Repository\\Repository.csproj": {
+              "projectPath": "F:\\VWater\\Repository\\Repository.csproj"
             },
-            "C:\\Users\\Asus\\source\\repos\\VWater\\Service\\Service.csproj": {
-              "projectPath": "C:\\Users\\Asus\\source\\repos\\VWater\\Service\\Service.csproj"
+            "F:\\VWater\\Service\\Service.csproj": {
+              "projectPath": "F:\\VWater\\Service\\Service.csproj"
             }
           }
         }
@@ -11681,7 +11681,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

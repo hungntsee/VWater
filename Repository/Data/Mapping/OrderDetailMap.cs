@@ -26,9 +26,9 @@ namespace VWater.Data.Mapping
                 .HasColumnName("Order_Id")
                 .HasColumnType("int");
 
-            builder.Property(t => t.ProductId)
+            builder.Property(t => t.ProductInMenuId)
                 .IsRequired()
-                .HasColumnName("Product_Id")
+                .HasColumnName("ProductInMenu_Id")
                 .HasColumnType("int");
 
             builder.Property(t => t.Quantity)
@@ -47,10 +47,10 @@ namespace VWater.Data.Mapping
                 .HasForeignKey(d => d.OrderId)
                 .HasConstraintName("FK_order_detail_order");
 
-            builder.HasOne(t => t.Product)
+            builder.HasOne(t => t.ProductInMenu)
                 .WithMany(t => t.OrderDetails)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK_order_detail_product");
+                .HasForeignKey(d => d.ProductInMenuId)
+                .HasConstraintName("FK_order_detail_product_in_menu");
 
             #endregion
         }

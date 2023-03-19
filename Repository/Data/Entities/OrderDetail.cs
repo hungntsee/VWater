@@ -13,7 +13,7 @@ namespace VWater.Data.Entities
 
         public int OrderId { get; set; }
 
-        public int ProductId { get; set; }
+        public int ProductInMenuId { get; set; }
 
         public int Quantity { get; set; }
 
@@ -24,7 +24,7 @@ namespace VWater.Data.Entities
         #region Generated Relationships
         public virtual Order Order { get; set; }
 
-        public virtual Product Product { get; set; }
+        public virtual ProductInMenu ProductInMenu { get; set; }
 
         #endregion
 
