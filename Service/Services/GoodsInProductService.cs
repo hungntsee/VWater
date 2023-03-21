@@ -26,7 +26,7 @@ namespace Service.GoodsInProducts
         }
         public IEnumerable<GoodsInProduct> GetAll()
         {
-            return _context.GoodsInProducts.Include(a => a.GoodGoods).Include(a => a.Product);
+            return _context.GoodsInProducts.Include(a => a.GoodsInBaseline).Include(a => a.Product);
         }
 
         public GoodsInProduct GetById(int id)
@@ -60,7 +60,7 @@ namespace Service.GoodsInProducts
 
         private GoodsInProduct GetGoodsInProduct(int id)
         {
-            var goodsInProduct = _context.GoodsInProducts.Include(a => a.GoodGoods).Include(a => a.Product)
+            var goodsInProduct = _context.GoodsInProducts.Include(a => a.GoodsInBaseline).Include(a => a.Product)
                 .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (goodsInProduct == null) throw new KeyNotFoundException("Goods In Product not found!");
             return goodsInProduct;

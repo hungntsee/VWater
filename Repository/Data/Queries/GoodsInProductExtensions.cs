@@ -5,12 +5,12 @@ namespace VWater.Data.Queries
     public static partial class GoodsInProductExtensions
     {
         #region Generated Extensions
-        public static IQueryable<VWater.Data.Entities.GoodsInProduct> ByGoodId(this IQueryable<VWater.Data.Entities.GoodsInProduct> queryable, int goodId)
+        public static IQueryable<VWater.Data.Entities.GoodsInProduct> ByGoodsInBaselineId(this IQueryable<VWater.Data.Entities.GoodsInProduct> queryable, int? goodsInBaselineId)
         {
             if (queryable is null)
                 throw new ArgumentNullException(nameof(queryable));
 
-            return queryable.Where(q => q.GoodId == goodId);
+            return queryable.Where(q => (q.GoodsInBaselineId == goodsInBaselineId || (goodsInBaselineId == null && q.GoodsInBaselineId == null)));
         }
 
         public static VWater.Data.Entities.GoodsInProduct GetByKey(this IQueryable<VWater.Data.Entities.GoodsInProduct> queryable, int id)

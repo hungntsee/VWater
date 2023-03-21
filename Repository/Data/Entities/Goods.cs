@@ -5,7 +5,6 @@ namespace VWater.Data.Entities
         public Goods()
         {
             #region Generated Constructor
-            GoodGoodsInProducts = new HashSet<GoodsInProduct>();
             GoodsCompositions = new HashSet<GoodsComposition>();
             GoodsExchangeNotes = new HashSet<GoodsExchangeNote>();
             GoodsInBaselines = new HashSet<GoodsInBaseline>();
@@ -31,8 +30,6 @@ namespace VWater.Data.Entities
 
         #region Generated Relationships
         public virtual Brand Brand { get; set; }
-
-        public virtual ICollection<GoodsInProduct> GoodGoodsInProducts { get; set; }
 
         public virtual ICollection<GoodsComposition> GoodsCompositions { get; set; }
 

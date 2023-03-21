@@ -50,7 +50,7 @@ namespace VWater.Data.Mapping
             builder.HasOne(t => t.ProductInMenu)
                 .WithMany(t => t.OrderDetails)
                 .HasForeignKey(d => d.ProductInMenuId)
-                .HasConstraintName("FK_order_detail_product_in_menu");
+                .HasConstraintName("FK_Order_Detail_Product_In_Menu");
 
             #endregion
         }
@@ -66,7 +66,7 @@ namespace VWater.Data.Mapping
         {
             public const string Id = "Id";
             public const string OrderId = "Order_Id";
-            public const string ProductId = "Product_Id";
+            public const string ProductInMenuId = "ProductInMenu_Id";
             public const string Quantity = "Quantity";
             public const string Price = "Price";
         }

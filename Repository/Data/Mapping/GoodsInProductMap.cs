@@ -26,11 +26,6 @@ namespace VWater.Data.Mapping
                 .HasColumnName("Product_Id")
                 .HasColumnType("int");
 
-            builder.Property(t => t.GoodId)
-                .IsRequired()
-                .HasColumnName("Good_Id")
-                .HasColumnType("int");
-
             builder.Property(t => t.Quantity)
                 .IsRequired()
                 .HasColumnName("Quantity")
@@ -41,16 +36,20 @@ namespace VWater.Data.Mapping
                 .HasColumnName("Price")
                 .HasColumnType("money");
 
-            // relationships
-            builder.HasOne(t => t.GoodGoods)
-                .WithMany(t => t.GoodGoodsInProducts)
-                .HasForeignKey(d => d.GoodId)
-                .HasConstraintName("FK_good_in_product_goods");
+            builder.Property(t => t.GoodsInBaselineId)
+                .HasColumnName("GoodsInBaseline_Id")
+                .HasColumnType("int");
 
+            // relationships
             builder.HasOne(t => t.Product)
                 .WithMany(t => t.GoodsInProducts)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("FK_good_in_product_product");
+
+            builder.HasOne(t => t.GoodsInBaseline)
+                .WithMany(t => t.GoodsInProducts)
+                .HasForeignKey(d => d.GoodsInBaselineId)
+                .HasConstraintName("FK_Goods_In_Product_Goods_In_Baseline");
 
             #endregion
         }
@@ -66,9 +65,9 @@ namespace VWater.Data.Mapping
         {
             public const string Id = "Id";
             public const string ProductId = "Product_Id";
-            public const string GoodId = "Good_Id";
             public const string Quantity = "Quantity";
             public const string Price = "Price";
+            public const string GoodsInBaselineId = "GoodsInBaseline_Id";
         }
         #endregion
     }

@@ -23,9 +23,9 @@ namespace VWater.Data.Entities
         #region Generated Relationships
         public virtual Menu Menu { get; set; }
 
-        public virtual Product Product { get; set; }
-
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+
+        public virtual Product Product { get; set; }
 
         #endregion
 
