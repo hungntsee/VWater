@@ -92,7 +92,10 @@ namespace Service.Services
             if (menu.ValidFrom > menu.ValidTo) throw new AppException("Date for ValidTo > ValidFrom!");
             foreach (var m in _context.Menus)
             {
-                if (menu.ValidFrom < m.ValidTo) throw new AppException("Date for ValidFrom must be newest.!");
+                if (menu.ValidFrom < m.ValidTo && menu.AreaId == m.AreaId)
+                {
+                    throw new AppException("Date for ValidFrom must be newest.!");
+                }
             }
         }
 

@@ -26,7 +26,7 @@ namespace Service.Services
 
         public IEnumerable<ProductInMenu> GetAll()
         {
-            return _context.ProductInMenus.Include(a => a.Menu).Include(a => a.Product);
+            return _context.ProductInMenus;
         }
 
         public ProductInMenu GetById(int id)

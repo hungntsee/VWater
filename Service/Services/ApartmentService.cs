@@ -26,7 +26,12 @@ namespace Service.Apartments
         }
         public IEnumerable<Apartment> GetAll()
         {
-            return _context.Apartments.Include(a => a.Area).Include(a => a.Buildings);
+            var apartments = _context.Apartments.Include(a => a.Area).Include(a => a.Buildings);
+            foreach(var apartment in apartments)
+            {
+                apartment.Area.Apartments = null;
+            }
+            return apartments;
         }
 
         public Apartment GetById(int id)
