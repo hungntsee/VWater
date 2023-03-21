@@ -67,5 +67,12 @@ namespace Controller.Controllers
             _customerService.Delete(id);
             return Ok(new { message = "Customer deleted" });
         }
+
+        [HttpGet("/api/getHistoryOrder")]
+        public IActionResult GetHistoryOrder(int customer_id)
+        {
+            var customer = _customerService.GetHistoryOrder(customer_id);
+            return Ok(customer);
+        }
     }
 }

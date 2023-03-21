@@ -15,6 +15,7 @@ namespace Service.Services
         public Customer Create(CustomerCreateModel model);
         public void Update(int id, CustomerUpdateModel model);
         public void Delete(int id);
+        public Customer GetHistoryOrder(int customer_id);
     }
     public class CustomerService : ICustomerService
     {
@@ -84,6 +85,17 @@ namespace Service.Services
         public Customer GetCustomerByPhone(string phone)
         {
             var customer = _context.Customers.Include(a => a.DeliveryAddresses).AsNoTracking().FirstOrDefault(a => a.PhoneNumber == phone);
+            return customer;
+        }
+
+        public Customer GetHistoryOrder(int customer_id)
+        {
+            var customer = _context.Customers
+                .Include(a => a.DeliveryAddresses)
+                .ThenInclude(a => a.Orders)
+                .ThenInclude(a => a.OrderDetails)
+                .AsNoTracking().FirstOrDefault(a => a.Id == customer_id);            
+
             return customer;
         }
     }
