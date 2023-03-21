@@ -786,7 +786,7 @@ namespace Repository.Migrations
                         .HasColumnName("DeliverySlot_Id");
 
                     b.Property<DateTime>("OrderDate")
-                        .HasColumnType("date")
+                        .HasColumnType("datetime")
                         .HasColumnName("OrderDate");
 
                     b.Property<int?>("Status")

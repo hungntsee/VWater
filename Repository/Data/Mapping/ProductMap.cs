@@ -38,7 +38,7 @@ namespace VWater.Data.Mapping
                 .HasColumnType("nvarchar(100)")
                 .HasMaxLength(100);
 
-            builder.Property(t => t.ProductType_Id)
+            builder.Property(t => t.ProductType_Id).IsRequired(false)
                 .HasColumnName("ProductType_Id")
                 .HasColumnType("int");
 

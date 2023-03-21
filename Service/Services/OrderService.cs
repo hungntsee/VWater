@@ -75,7 +75,7 @@ namespace Service.Services
         public Order TakeOrder(int id, int shipper_id)
         {
             var order = GetOrder(id);
-            order.StatusId = 2;
+            order.StatusId = 3;
             order.ShipperId = shipper_id;
 
             _context.Orders.Update(order);

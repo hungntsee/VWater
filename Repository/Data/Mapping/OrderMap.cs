@@ -34,7 +34,7 @@ namespace VWater.Data.Mapping
             builder.Property(t => t.OrderDate)
                 .IsRequired()
                 .HasColumnName("OrderDate")
-                .HasColumnType("date");
+                .HasColumnType("datetime");
 
             builder.Property(t => t.TotalQuantity)
                 .IsRequired()

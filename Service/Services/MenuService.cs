@@ -112,6 +112,7 @@ namespace Service.Services
             var productList = new List<ProductInMenu>();
             foreach (var product in productInMenus)
             {
+                product.Product.ProductInMenus = null;
                 if(type_id == product.Product.ProductType_Id)
                 {
                     productList.Add(product);

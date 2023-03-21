@@ -28,7 +28,7 @@ namespace VWater.Data.Entities
 
         public virtual ICollection<ProductInMenu> ProductInMenus { get; set; }
 
-        public virtual ProductType ProductType { get; set; }
+        public virtual ProductType? ProductType { get; set; }
 
         #endregion
 
