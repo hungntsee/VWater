@@ -126,10 +126,13 @@ namespace Service.Services
 
         public List<Order> FollowOrder(int customer_id)
         {
-            var orders = OrderExtensions.ByCustomerId(_context.Orders.Include(a => a.OrderDetails).Include(a => a.Status), customer_id);
+            var orders = OrderExtensions.ByCustomerId(_context.Orders.Include(a => a.OrderDetails).Include(a => a.Status).Include(a=>a.DeliveryAddress), customer_id);
             var list = new List<Order>();
             foreach(var order in orders)
             {
+                order.GoodsExchangeNotes = null;
+                order.Status.PurchaseOrders = null;
+                order.DeliveryAddress.Orders = null;
                 order.Status.Orders = null;
                 if (order.StatusId >1 && order.StatusId < 5) list.Add(order);
             }
