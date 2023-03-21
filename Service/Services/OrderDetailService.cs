@@ -47,8 +47,8 @@ namespace Service.Services
         {
             var orderDetail = _mapper.Map<OrderDetail>(model);
 
-            _context.OrderDetails.AddAsync(orderDetail);
-            _context.SaveChangesAsync();
+            _context.OrderDetails.Add(orderDetail);
+            _context.SaveChanges();
 
             return orderDetail;
         }

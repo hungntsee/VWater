@@ -4,8 +4,6 @@ namespace VWater.Domain.Models
     {
         #region Generated Properties
 
-        public int OrderId { get; set; }
-
         public int ProductInMenuId { get; set; }
 
         public int Quantity { get; set; }

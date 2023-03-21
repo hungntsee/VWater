@@ -55,11 +55,6 @@ namespace VWater.Data.Mapping
                 .HasColumnName("DeliverySlot_Id")
                 .HasColumnType("int");
 
-            builder.Property(t => t.PhoneNumber)
-                .HasColumnName("PhoneNumber")
-                .HasColumnType("varchar(20)")
-                .HasMaxLength(20);
-
             builder.Property(t => t.ShipperId).IsRequired(false)
                 .HasColumnName("Shipper_Id")
                 .HasColumnType("int");
