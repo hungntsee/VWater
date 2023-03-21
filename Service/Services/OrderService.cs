@@ -145,7 +145,33 @@ namespace Service.Services
 
             order.OrderDate = DateTime.Now;
 
-            return Create(_mapper.Map<OrderCreateModel>(order));
+            var newOrder = Create(_mapper.Map<OrderCreateModel>(order));
+
+            var responeOrder = _context.Orders
+                .Include(a => a.DeliveryAddress)
+                .Include(a => a.Store)
+                .Include(a => a.Status)
+                .Include(a => a.DeliverySlot)
+                .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu).ThenInclude(a => a.Product)
+                .AsNoTracking().FirstOrDefault(a => a.Id == newOrder.Id);
+
+            responeOrder.DeliveryAddress.Orders = null;
+            responeOrder.Status.Orders = null;
+            responeOrder.Status.PurchaseOrders = null;
+            responeOrder.Store.Orders = null;
+            responeOrder.Store.DeliveryAddresses = null;
+            responeOrder.Store.DeliverySlots = null;
+            responeOrder.Store.PurchaseOrders = null;
+            responeOrder.Store.Shippers = null;
+            responeOrder.Store.Warehouses = null;
+            responeOrder.DeliverySlot.Orders = null;
+            foreach(var orderDetail in responeOrder.OrderDetails)
+            {
+                orderDetail.ProductInMenu.OrderDetails = null;
+                orderDetail.ProductInMenu.Product.ProductInMenus = null;
+            }
+
+            return responeOrder;
         }
 
     }
