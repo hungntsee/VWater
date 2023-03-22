@@ -115,30 +115,65 @@ namespace Service.Services
             return lastestOrder;
         }
 
-        public List<Order> GetOrderByCustomer(int customer_id) 
+        public List<Order> GetOrderByCustomer(int customer_id)
         {
-
             /*var orders = _context.Orders.Include(a => a.DeliveryAddress).Include(a => a.OrderDetails).IgnoreAutoIncludes();*/
-            var orders = OrderExtensions.ByCustomerId(_context.Orders.Include(a=>a.OrderDetails), customer_id);
+            var orders = OrderExtensions.ByCustomerId(_context.Orders
+                .Include(a => a.DeliveryAddress)
+                .Include(a => a.Store)
+                .Include(a => a.Status)
+                .Include(a => a.DeliverySlot)
+                .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu)
+                .ThenInclude(a => a.Product), customer_id);
+
+            foreach(var order in orders)
+            {
+                OrderJsonFile(order);
+            }
 
             return orders.ToList();
         }
 
         public List<Order> FollowOrder(int customer_id)
         {
-            var orders = OrderExtensions.ByCustomerId(_context.Orders.Include(a => a.OrderDetails).Include(a => a.Status).Include(a=>a.DeliveryAddress), customer_id);
+            var orders = OrderExtensions.ByCustomerId(_context.Orders
+                            .Include(a => a.DeliveryAddress)
+                            .Include(a => a.Store)
+                            .Include(a => a.Status)
+                            .Include(a => a.DeliverySlot)
+                            .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu)
+                            .ThenInclude(a => a.Product), customer_id);
             var list = new List<Order>();
-            foreach(var order in orders)
+            foreach (var order in orders)
             {
-                order.GoodsExchangeNotes = null;
-                order.Status.PurchaseOrders = null;
-                order.DeliveryAddress.Orders = null;
-                order.Status.Orders = null;
-                if (order.StatusId >1 && order.StatusId < 5) list.Add(order);
+                OrderJsonFile(order);
+                if (order.StatusId > 1 && order.StatusId < 5) list.Add(order);
             }
             return list;
         }
 
+        private void OrderJsonFile(Order order) 
+        {
+
+                order.DeliveryAddress.Orders = null;
+                order.Status.Orders = null;
+                order.Status.PurchaseOrders = null;
+                order.Store.Orders = null;
+                order.Store.DeliveryAddresses = null;
+                order.Store.DeliverySlots = null;
+                order.Store.PurchaseOrders = null;
+                order.Store.Shippers = null;
+                order.Store.Warehouses = null;
+                order.DeliverySlot.Orders = null;
+                order.GoodsExchangeNotes = null;
+                foreach (var order1 in order.OrderDetails)
+                {
+                    order1.ProductInMenu.OrderDetails = null;
+                    order1.ProductInMenu.Product.ProductInMenus = null;
+                    order1.ProductInMenu.Product.GoodsInProducts = null;
+                }
+            
+        }
         public Order ReOrder(int order_id)
         {
             var order = GetOrder(order_id);
@@ -155,21 +190,7 @@ namespace Service.Services
                 .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu).ThenInclude(a => a.Product)
                 .AsNoTracking().FirstOrDefault(a => a.Id == newOrder.Id);
 
-            responeOrder.DeliveryAddress.Orders = null;
-            responeOrder.Status.Orders = null;
-            responeOrder.Status.PurchaseOrders = null;
-            responeOrder.Store.Orders = null;
-            responeOrder.Store.DeliveryAddresses = null;
-            responeOrder.Store.DeliverySlots = null;
-            responeOrder.Store.PurchaseOrders = null;
-            responeOrder.Store.Shippers = null;
-            responeOrder.Store.Warehouses = null;
-            responeOrder.DeliverySlot.Orders = null;
-            foreach(var orderDetail in responeOrder.OrderDetails)
-            {
-                orderDetail.ProductInMenu.OrderDetails = null;
-                orderDetail.ProductInMenu.Product.ProductInMenus = null;
-            }
+            OrderJsonFile(responeOrder);
 
             return responeOrder;
         }

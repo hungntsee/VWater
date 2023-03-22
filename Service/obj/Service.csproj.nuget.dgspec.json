@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "F:\\VWater\\Service\\Service.csproj": {}
+    "C:\\Users\\Asus\\source\\repos\\VWater\\Service\\Service.csproj": {}
   },
   "projects": {
-    "F:\\VWater\\Repository\\Repository.csproj": {
+    "C:\\Users\\Asus\\source\\repos\\VWater\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\VWater\\Repository\\Repository.csproj",
+        "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\VWater\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "F:\\VWater\\Repository\\Repository.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "F:\\VWater\\Repository\\obj\\",
+        "projectPath": "C:\\Users\\Asus\\source\\repos\\VWater\\Repository\\Repository.csproj",
+        "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Asus\\source\\repos\\VWater\\Repository\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -104,21 +104,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "F:\\VWater\\Service\\Service.csproj": {
+    "C:\\Users\\Asus\\source\\repos\\VWater\\Service\\Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\VWater\\Service\\Service.csproj",
+        "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\VWater\\Service\\Service.csproj",
         "projectName": "Service",
-        "projectPath": "F:\\VWater\\Service\\Service.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "F:\\VWater\\Service\\obj\\",
+        "projectPath": "C:\\Users\\Asus\\source\\repos\\VWater\\Service\\Service.csproj",
+        "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Asus\\source\\repos\\VWater\\Service\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -132,8 +132,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "F:\\VWater\\Repository\\Repository.csproj": {
-                "projectPath": "F:\\VWater\\Repository\\Repository.csproj"
+              "C:\\Users\\Asus\\source\\repos\\VWater\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\Users\\Asus\\source\\repos\\VWater\\Repository\\Repository.csproj"
               }
             }
           }
@@ -188,7 +188,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     }
