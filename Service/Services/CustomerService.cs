@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Service.Helpers;
+using System.Text.RegularExpressions;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -38,8 +39,19 @@ namespace Service.Services
             return customer;
         }
 
+        private void ValidateCustomer(Customer customer)
+        {
+            var phonenumber = customer.PhoneNumber;
+            var fullname = customer.FullName;
+            if (phonenumber.Length < 10 || phonenumber.Length > 11) throw new AppException("Wrong format for Phonenumber: Length from 10 to 11.");
+            if (Regex.IsMatch(phonenumber, @"\D") || Regex.IsMatch(phonenumber, @"\s")) throw new AppException("Wrong format for Phonenumber: Only have number.");
+            if (Regex.IsMatch(fullname, @"\W{\s}")) throw new AppException("Wrong input for Fullname: Can't have special character.");
+        }
+
         public Customer Create(CustomerCreateModel model)
         {
+
+            ValidateCustomer(_mapper.Map<Customer>(model));
             if (GetCustomerByPhone(model.PhoneNumber) != null)
             {
                 var customer1 = GetCustomerByPhone(model.PhoneNumber);
@@ -71,8 +83,9 @@ namespace Service.Services
         public void Delete(int id)
         {
             var customer = GetCustomer(id);
-            _context.Customers.Remove(customer);
-            _context.SaveChangesAsync();
+            _context.Customers.Remove(customer);           
+            _context.SaveChanges();
+
         }
 
         private Customer GetCustomer(int id)
