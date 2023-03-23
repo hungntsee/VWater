@@ -27,9 +27,9 @@ namespace VWater.Data.Mapping
                 .HasColumnType("nvarchar(100)")
                 .HasMaxLength(100);
 
-            builder.Property(t => t.Url)
+            builder.Property(t => t.Img)
                 .IsRequired()
-                .HasColumnName("Url")
+                .HasColumnName("Img")
                 .HasColumnType("nvarchar(100)")
                 .HasMaxLength(100);
 
@@ -48,7 +48,7 @@ namespace VWater.Data.Mapping
         {
             public const string Id = "Id";
             public const string ProductTypeName = "ProductTypeName";
-            public const string Url = "Url";
+            public const string Img = "Img";
         }
         #endregion
     }

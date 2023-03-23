@@ -11,7 +11,7 @@ namespace VWater.Domain.Validation
             #region Generated Constructor
             RuleFor(p => p.ProductTypeName).NotEmpty();
             RuleFor(p => p.ProductTypeName).MaximumLength(20);
-            RuleFor(p => p.Url).MaximumLength(100);
+            RuleFor(p => p.Img).MaximumLength(100);
             #endregion
         }
 

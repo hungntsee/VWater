@@ -14,7 +14,7 @@ namespace VWater.Data.Entities
 
         public string ProductTypeName { get; set; }
 
-        public string Url { get; set; }
+        public string Img { get; set; }
 
         #endregion
 
