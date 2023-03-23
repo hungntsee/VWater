@@ -27,7 +27,7 @@ namespace Service.DeliverySlots
         }
         public IEnumerable<DeliverySlot> GetAll()
         {
-            return _context.DeliverySlots.Include(a => a.Store).Include(a => a.Orders);
+            return _context.DeliverySlots;
         }
 
         public DeliverySlot GetById(int id)
