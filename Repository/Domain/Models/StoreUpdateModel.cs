@@ -6,7 +6,6 @@ namespace VWater.Domain.Models
 
         public string StoreName { get; set; }
 
-        public int AreaId { get; set; }
 
         public string Address { get; set; }
 

@@ -13,7 +13,6 @@ namespace VWater.Domain.Validation
             RuleFor(p => p.ProductName).MaximumLength(100);
             RuleFor(p => p.Img).NotEmpty();
             RuleFor(p => p.Img).MaximumLength(100);
-            RuleFor(p => p.Description).MaximumLength(100);
             #endregion
         }
 
