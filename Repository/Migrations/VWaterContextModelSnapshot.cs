@@ -264,7 +264,7 @@ namespace Repository.Migrations
                     b.Property<string>("Note")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nchar(10)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnName("Note");
 
                     b.Property<string>("PhoneNumber")

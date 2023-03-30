@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using RabbitMQ;
 using Repository.Domain.Models;
 using VWater.Data;
 using VWater.Data.Entities;
@@ -29,7 +30,7 @@ namespace Service.Services
     {
         private VWaterContext _context;
         private readonly IMapper _mapper;
-        private IOrderDetailService _detailService;
+        private Send send = new Send();
 
         public OrderService(VWaterContext context, IMapper mapper)
         {
@@ -59,8 +60,12 @@ namespace Service.Services
             _context.SaveChanges();
 
             var responseOrder = GetOrder(order.Id);
-            var message = JsonConvert.SerializeObject(responseOrder);
-
+            var message = JsonConvert.SerializeObject(responseOrder, Formatting.Indented,
+                new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+            send.SendMessage(message);
             return responseOrder;
         }
 
