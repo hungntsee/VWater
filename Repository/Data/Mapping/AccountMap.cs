@@ -69,9 +69,8 @@ namespace VWater.Data.Mapping
 
             builder.Property(t => t.AccessToken)
                 .HasColumnName("Access_token")
-                .HasColumnType("nvarchar(100)")
-                .HasMaxLength(100);
-
+                .HasColumnType("nvarchar(MAX)")
+                .HasMaxLength(int.MaxValue);
             builder.Property(t => t.RoleId)
                 .IsRequired()
                 .HasColumnName("Role_Id")

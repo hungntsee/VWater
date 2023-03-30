@@ -34,7 +34,7 @@ namespace Repository.Migrations
                     b.Property<string>("AccessToken")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("nvarchar(MAX)")
                         .HasColumnName("Access_token");
 
                     b.Property<string>("Address")
