@@ -58,8 +58,8 @@ public class AccountService : IAccountService
         account.Username = request.Email;
         /*account.Password = BCrypt.HashPassword(request.Password);*/
 
-        _context.Accounts.AddAsync(account);
-        _context.SaveChangesAsync();
+        _context.Accounts.Add(account);
+        _context.SaveChanges();
     }
 
     public void Update(int id, AccountUpdateModel request)
@@ -75,14 +75,14 @@ public class AccountService : IAccountService
             account.Username = request.Email.Trim();
 
         _context.Accounts.Update(account);
-        _context.SaveChangesAsync();
+        _context.SaveChanges();
     }
 
     public void Delete(int id)
     {
         var account = GetAccount(id);
         _context.Accounts.Remove(account);
-        _context.SaveChangesAsync();
+        _context.SaveChanges();
     }
 
     private Account GetAccount(int id)
@@ -115,7 +115,7 @@ public class AccountService : IAccountService
 
         /*account.AccessToken = generateJwtToken(account);*/
         _context.Accounts.Update(account);
-        _context.SaveChangesAsync();
+        _context.SaveChanges();
 
         return account;
     }
