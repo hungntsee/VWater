@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Repository.Domain.Models;
 using VWater.Data;
 using VWater.Data.Entities;
@@ -57,7 +58,10 @@ namespace Service.Services
             _context.Orders.Add(order);
             _context.SaveChanges();
 
-            return order;
+            var responseOrder = GetOrder(order.Id);
+            var message = JsonConvert.SerializeObject(responseOrder);
+
+            return responseOrder;
         }
 
         public void Update(int id, OrderUpdateModel model)
@@ -89,9 +93,16 @@ namespace Service.Services
 
         private Order GetOrder(int id)
         {
-            var order = _context.Orders.Include(a => a.DeliveryAddress).Include(a => a.DeliverySlot).Include(a => a.OrderDetails)
+            var order = _context.Orders
+                .Include(a => a.DeliveryAddress).ThenInclude(a => a.Customer)
+                .Include(a => a.Store)
+                .Include(a => a.Status)
+                .Include(a => a.DeliverySlot)
+                .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu).ThenInclude(a => a.Product)
                 .AsNoTracking().FirstOrDefault(p => p.Id == id);
             if (order == null) throw new KeyNotFoundException("Order not found!");
+            OrderJsonFile(order);
+            order.DeliveryAddress.Customer.DeliveryAddresses = null;
             return order;
         }
 
