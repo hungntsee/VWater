@@ -26,9 +26,9 @@ namespace VWater.Data.Mapping
                 .HasColumnName("PurchaseOrder_Id")
                 .HasColumnType("int");
 
-            builder.Property(t => t.GoodsId)
+            builder.Property(t => t.GoodsInQuotationId)
                 .IsRequired()
-                .HasColumnName("Goods_Id")
+                .HasColumnName("GoodsInQuotation_Id")
                 .HasColumnType("int");
 
             builder.Property(t => t.Quantity)
@@ -37,10 +37,10 @@ namespace VWater.Data.Mapping
                 .HasColumnType("int");
 
             // relationships
-            builder.HasOne(t => t.Goods)
+            builder.HasOne(t => t.GoodsInQuotation)
                 .WithMany(t => t.PurchaseOrderDetails)
-                .HasForeignKey(d => d.GoodsId)
-                .HasConstraintName("FK_purchase_order_detail_goods");
+                .HasForeignKey(d => d.GoodsInQuotationId)
+                .HasConstraintName("FK_Purchase_Order_Detail_Goods_In_Quotation");
 
             builder.HasOne(t => t.PurchaseOrder)
                 .WithMany(t => t.PurchaseOrderDetails)
@@ -61,7 +61,7 @@ namespace VWater.Data.Mapping
         {
             public const string Id = "Id";
             public const string PurchaseOrderId = "PurchaseOrder_Id";
-            public const string GoodsId = "Goods_Id";
+            public const string GoodsInQuotationId = "GoodsInQuotation_Id";
             public const string Quantity = "Quantity";
         }
         #endregion

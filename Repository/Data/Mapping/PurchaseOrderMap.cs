@@ -64,7 +64,7 @@ namespace VWater.Data.Mapping
             builder.HasOne(t => t.Status)
                 .WithMany(t => t.PurchaseOrders)
                 .HasForeignKey(d => d.StatusId)
-                .HasConstraintName("FK__Purchase___Statu__55009F39");
+                .HasConstraintName("FK__Purchase___Statu__3D2915A8");
 
             builder.HasOne(t => t.Distributor)
                 .WithMany(t => t.PurchaseOrders)

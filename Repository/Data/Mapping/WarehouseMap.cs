@@ -42,12 +42,6 @@ namespace VWater.Data.Mapping
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50);
 
-            builder.Property(t => t.PhoneNumber)
-                .IsRequired()
-                .HasColumnName("PhoneNumber")
-                .HasColumnType("nvarchar(20)")
-                .HasMaxLength(20);
-
             // relationships
             builder.HasOne(t => t.Store)
                 .WithMany(t => t.Warehouses)
@@ -71,7 +65,6 @@ namespace VWater.Data.Mapping
             public const string StoreId = "Store_Id";
             public const string AreaId = "Area_Id";
             public const string Capacity = "Capacity";
-            public const string PhoneNumber = "PhoneNumber";
         }
         #endregion
     }

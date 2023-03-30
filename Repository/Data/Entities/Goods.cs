@@ -9,7 +9,6 @@ namespace VWater.Data.Entities
             GoodsExchangeNotes = new HashSet<GoodsExchangeNote>();
             GoodsInBaselines = new HashSet<GoodsInBaseline>();
             GoodsInQuotations = new HashSet<GoodsInQuotation>();
-            PurchaseOrderDetails = new HashSet<PurchaseOrderDetail>();
             #endregion
         }
 
@@ -38,8 +37,6 @@ namespace VWater.Data.Entities
         public virtual ICollection<GoodsInBaseline> GoodsInBaselines { get; set; }
 
         public virtual ICollection<GoodsInQuotation> GoodsInQuotations { get; set; }
-
-        public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
 
         #endregion
 

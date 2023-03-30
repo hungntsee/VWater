@@ -12,8 +12,6 @@ namespace VWater.Domain.Models
 
         public string Capacity { get; set; }
 
-        public string PhoneNumber { get; set; }
-
         #endregion
 
     }

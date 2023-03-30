@@ -7,7 +7,7 @@ namespace VWater.Domain.Models
 
         public int PurchaseOrderId { get; set; }
 
-        public int GoodsId { get; set; }
+        public int GoodsInQuotationId { get; set; }
 
         public int Quantity { get; set; }
 

@@ -13,14 +13,14 @@ namespace VWater.Data.Entities
 
         public int PurchaseOrderId { get; set; }
 
-        public int GoodsId { get; set; }
+        public int GoodsInQuotationId { get; set; }
 
         public int Quantity { get; set; }
 
         #endregion
 
         #region Generated Relationships
-        public virtual Goods Goods { get; set; }
+        public virtual GoodsInQuotation GoodsInQuotation { get; set; }
 
         public virtual PurchaseOrder PurchaseOrder { get; set; }
 

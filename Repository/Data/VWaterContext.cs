@@ -77,6 +77,8 @@ namespace VWater.Data
 
         public virtual DbSet<VWater.Data.Entities.Store> Stores { get; set; }
 
+        public virtual DbSet<VWater.Data.Entities.Sysdiagrams> Sysdiagrams { get; set; }
+
         public virtual DbSet<VWater.Data.Entities.WarehouseBaseline> WarehouseBaselines { get; set; }
 
         public virtual DbSet<VWater.Data.Entities.Warehouse> Warehouses { get; set; }
@@ -116,6 +118,7 @@ namespace VWater.Data
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.ShipperMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.StatusMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.StoreMap());
+            modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.SysdiagramsMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.WarehouseBaselineMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.WarehouseMap());
             #endregion

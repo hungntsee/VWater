@@ -27,7 +27,7 @@ namespace Service.Services
 
         public IEnumerable<PurchaseOrderDetail> GetAll()
         {
-            return _context.PurchaseOrderDetails.Include(a => a.Goods).Include(a => a.PurchaseOrder);
+            return _context.PurchaseOrderDetails.Include(a => a.GoodsInQuotation).Include(a => a.PurchaseOrder);
         }
 
         public PurchaseOrderDetail GetById(int id)
@@ -60,7 +60,7 @@ namespace Service.Services
 
         private PurchaseOrderDetail GetPurchaseOrderDetail(int id)
         {
-            var purchaseOrderDetail = _context.PurchaseOrderDetails.Include(a => a.Goods).Include(a => a.PurchaseOrder)
+            var purchaseOrderDetail = _context.PurchaseOrderDetails.Include(a => a.GoodsInQuotation).Include(a => a.PurchaseOrder)
                 .AsNoTracking().FirstOrDefault(p => p.Id == id);
             if (purchaseOrderDetail == null) throw new KeyNotFoundException("PurchaseOrderDetail not found!");
             return purchaseOrderDetail;

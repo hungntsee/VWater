@@ -5,12 +5,12 @@ namespace VWater.Data.Queries
     public static partial class PurchaseOrderDetailExtensions
     {
         #region Generated Extensions
-        public static IQueryable<VWater.Data.Entities.PurchaseOrderDetail> ByGoodsId(this IQueryable<VWater.Data.Entities.PurchaseOrderDetail> queryable, int goodsId)
+        public static IQueryable<VWater.Data.Entities.PurchaseOrderDetail> ByGoodsInQuotationId(this IQueryable<VWater.Data.Entities.PurchaseOrderDetail> queryable, int goodsInQuotationId)
         {
             if (queryable is null)
                 throw new ArgumentNullException(nameof(queryable));
 
-            return queryable.Where(q => q.GoodsId == goodsId);
+            return queryable.Where(q => q.GoodsInQuotationId == goodsInQuotationId);
         }
 
         public static VWater.Data.Entities.PurchaseOrderDetail GetByKey(this IQueryable<VWater.Data.Entities.PurchaseOrderDetail> queryable, int id)

@@ -21,8 +21,6 @@ namespace VWater.Data.Entities
 
         public string Capacity { get; set; }
 
-        public string PhoneNumber { get; set; }
-
         #endregion
 
         #region Generated Relationships

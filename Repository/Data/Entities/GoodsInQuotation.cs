@@ -5,6 +5,7 @@ namespace VWater.Data.Entities
         public GoodsInQuotation()
         {
             #region Generated Constructor
+            PurchaseOrderDetails = new HashSet<PurchaseOrderDetail>();
             #endregion
         }
 
@@ -21,6 +22,8 @@ namespace VWater.Data.Entities
 
         #region Generated Relationships
         public virtual Goods Goods { get; set; }
+
+        public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
 
         public virtual Quotation Quotation { get; set; }
 

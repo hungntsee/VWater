@@ -37,6 +37,7 @@ namespace VWater.Data.Mapping
                 .HasColumnType("money");
 
             builder.Property(t => t.GoodsInBaselineId)
+                .IsRequired()
                 .HasColumnName("GoodsInBaseline_Id")
                 .HasColumnType("int");
 

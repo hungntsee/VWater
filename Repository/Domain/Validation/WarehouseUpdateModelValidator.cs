@@ -12,8 +12,6 @@ namespace VWater.Domain.Validation
             RuleFor(p => p.WarehouseName).NotEmpty();
             RuleFor(p => p.WarehouseName).MaximumLength(100);
             RuleFor(p => p.Capacity).MaximumLength(50);
-            RuleFor(p => p.PhoneNumber).NotEmpty();
-            RuleFor(p => p.PhoneNumber).MaximumLength(20);
             #endregion
         }
 
