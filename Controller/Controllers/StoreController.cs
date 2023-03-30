@@ -53,5 +53,11 @@ namespace Controller.Controllers
             _storeService.Delete(id);
             return Ok(new { message = "Store deleted" });
         }
+
+        [HttpGet("GetNumberOfStore")]
+        public IActionResult GetNumberOfStore() 
+        {
+            return Ok(new {numberOfStore = _storeService.GetNumberOfStore() });
+        }
     }
 }

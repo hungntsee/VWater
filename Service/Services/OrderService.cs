@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Repository.Domain.Models;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Data.Queries;
@@ -19,6 +20,8 @@ namespace Service.Services
         public List<Order> GetOrderByCustomer(int customer_id);
         public List<Order> FollowOrder(int customer_id);
         public Order ReOrder(int order_id);
+        public int GetNumberOfOrder();
+        public ReportOrderResponseModel GetReport();
 
     }
     public class OrderService : IOrderService
@@ -193,6 +196,29 @@ namespace Service.Services
             OrderJsonFile(responeOrder);
 
             return responeOrder;
+        }
+
+        public int GetNumberOfOrder()
+        {
+            return _context.Orders.Count();
+        }
+
+        private int GetNumberOfOrderByStatus(int status_id)
+        {
+            var ordersByStatus = OrderExtensions.ByStatusId(_context.Orders, status_id);
+            return ordersByStatus.Count();
+        }
+
+        public ReportOrderResponseModel GetReport()
+        {
+            var report = new ReportOrderResponseModel();
+            report.NumberOfFinishOrder = GetNumberOfOrderByStatus(1);
+            report.NumberOfWaitingOrder = GetNumberOfOrderByStatus(2);
+            report.NumberOfConfirmedOrder = GetNumberOfOrderByStatus(3);
+            report.NumberOfShippingOrder = GetNumberOfOrderByStatus(4);
+            report.NumberOfFailOrder = GetNumberOfOrderByStatus(5);
+
+            return report;
         }
 
     }

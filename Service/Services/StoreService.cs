@@ -14,6 +14,7 @@ namespace Service.Stores
         public void Create(StoreCreateModel request);
         public void Update(int id, StoreUpdateModel request);
         public void Delete(int id);
+        public int GetNumberOfStore();
     }
     public class StoreService : IStoreService
     {
@@ -70,6 +71,13 @@ namespace Service.Stores
                 .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (store == null) throw new KeyNotFoundException("Store not found!");
             return store;
+        }
+
+        public int GetNumberOfStore()
+        {
+            var numberOfStore = _context.Stores.Count();
+
+            return numberOfStore;
         }
 
     }

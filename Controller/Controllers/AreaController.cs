@@ -53,5 +53,11 @@ namespace Controller.Controllers
             _areaService.Delete(id);
             return Ok(new { message = "Area deleted" });
         }
+
+        [HttpGet("/GetNumberOfArea")]
+        public IActionResult GetNumberOfArea()
+        {
+            return Ok( new {NumberOfArea = _areaService.GetNumberOfArea()});
+        }
     }
 }

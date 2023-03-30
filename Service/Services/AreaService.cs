@@ -16,6 +16,7 @@ namespace Service.Areas
         public void Create(AreaCreateModel request);
         public void Update(int id, AreaUpdateModel request);
         public void Delete(int id);
+        public int GetNumberOfArea();
     }
     public class AreaService : IAreaService
     {
@@ -76,6 +77,11 @@ namespace Service.Areas
                 .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (area == null) throw new KeyNotFoundException("Area not found!");
             return area;
+        }
+
+        public int GetNumberOfArea()
+        {
+            return _context.Areas.Count();
         }
 
     }

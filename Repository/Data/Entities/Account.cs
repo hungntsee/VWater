@@ -28,7 +28,7 @@ namespace VWater.Data.Entities
 
         public string Email { get; set; }
 
-        public string AccessToken { get; set; }
+        public string? AccessToken { get; set; }
 
         public int RoleId { get; set; }
 

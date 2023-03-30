@@ -9,7 +9,6 @@ using VWater.Domain.Models;
 
 namespace Controller.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
@@ -61,7 +60,6 @@ namespace Controller.Controllers
             _accountService.Delete(id);
             return Ok(new { message = "User deleted" });
         }
-        [AllowAnonymous]
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
@@ -69,8 +67,9 @@ namespace Controller.Controllers
             return Ok(new
             {
                 message = "Login Success",
-                accessToken = account.AccessToken
-            });
+                accessToken = account.AccessToken,
+                role = account.RoleAccountRole.RoleName,
+            }) ;
         }
 
         [HttpPost("access_token")]

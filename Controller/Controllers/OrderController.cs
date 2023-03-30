@@ -95,5 +95,17 @@ namespace Controller.Controllers
             var order = _orderService.ReOrder(order_id);
             return Ok(order);
         }
+
+        [HttpGet("/api/GetNumberOfOrder")]
+        public IActionResult GetNumberOfOrder()
+        {
+            return Ok(new {numberOfOrder = _orderService.GetNumberOfOrder()});
+        }
+
+        [HttpGet("/api/GetReport")]
+        public IActionResult GetReport()
+        {
+            return Ok(_orderService.GetReport());
+        }
     }
 }
