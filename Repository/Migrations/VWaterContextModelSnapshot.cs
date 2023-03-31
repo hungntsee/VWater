@@ -1120,6 +1120,75 @@ namespace Repository.Migrations
 
                     b.ToTable("Shipper", "dbo");
                 });
+            modelBuilder.Entity("VWater.Data.Entities.Wallet", b =>
+            {
+                b.Property<int>("Id")
+                .ValueGeneratedOnAdd()
+                .HasColumnType("int")
+                .HasColumnName("Id");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                b.Property<int>("ShipperId")
+                .HasColumnName("Shipper_Id")
+                .HasColumnType("int");
+
+                b.Property<decimal>("Credit")
+                    .IsRequired()
+                    .HasColumnName("Credit")
+                    .HasColumnType("money");
+
+                b.HasKey("Id");
+
+                b.HasIndex("ShipperId");
+
+                b.ToTable("Wallet", "dbo");
+            });
+
+            modelBuilder.Entity("VWater.Data.Entities.Transaction", b =>
+            {
+                b.Property<int>("Id")
+                .IsRequired()
+                .HasColumnName("Id")
+                .HasColumnType("int");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                b.Property<DateTime>("Date")
+                    .IsRequired()
+                    .HasColumnName("Date")
+                    .HasColumnType("datetime");
+
+                b.Property<decimal>("Price")
+                    .IsRequired()
+                    .HasColumnName("Price")
+                    .HasColumnType("money");
+
+                b.Property<int>("WalletId")
+                    .IsRequired()
+                    .HasColumnName("Wallet_Id")
+                    .HasColumnType("int");
+
+                b.Property("OrderId")
+                    .IsRequired(false)
+                    .HasColumnName("Order_Id")
+                    .HasColumnType("int");
+
+                b.Property<string>("Note")
+                    .IsRequired(false)
+                    .HasColumnName("Note")
+                    .HasColumnType("nvarchar(100)")
+                    .HasMaxLength(100);
+
+                b.HasKey("Id");
+
+                b.HasIndex("WalletId");
+
+                b.HasIndex("OrderId");
+
+                b.ToTable("Transaction", "dbo");
+
+            });
 
             modelBuilder.Entity("VWater.Data.Entities.Store", b =>
                 {

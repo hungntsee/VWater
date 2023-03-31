@@ -45,6 +45,7 @@ namespace VWater.Data.Entities
         public virtual Shipper? Shipper { get; set; }
 
         public virtual ICollection<GoodsExchangeNote> GoodsExchangeNotes { get; set; }
+        public virtual Transaction? Transaction { get; set; }
 
         #endregion
 
