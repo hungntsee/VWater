@@ -30,7 +30,7 @@ namespace Service.Areas
         }
         public IEnumerable<Area> GetAll()
         {
-            return _context.Areas.Include(a => a.Distributors).Include(a => a.Apartments).Include(a => a.Stores).Include(a => a.Menus);
+            return _context.Areas.Include(a => a.Distributors).Include(a => a.Stores).Include(a => a.Menus);
         }
 
         public Area GetById(int id)
@@ -71,7 +71,6 @@ namespace Service.Areas
         {
             var area = _context.Areas
                 .Include(a => a.Distributors)
-                .Include(a => a.Apartments)
                 .Include(a => a.Stores)
                 .Include(a => a.Menus)
                 .AsNoTracking().FirstOrDefault(a => a.Id == id);

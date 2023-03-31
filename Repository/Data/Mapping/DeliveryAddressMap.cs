@@ -37,20 +37,20 @@ namespace VWater.Data.Mapping
                 .HasColumnName("Store_Id")
                 .HasColumnType("int");
 
-            builder.Property(t => t.BuildingId)
-                .HasColumnName("Building_Id")
-                .HasColumnType("int");
-
             builder.Property(t => t.DeliveryTypeId)
                 .IsRequired()
                 .HasColumnName("DeliveryType_Id")
                 .HasColumnType("int");
 
+            builder.Property(t => t.AreaId)
+                .HasColumnName("Area_Id")
+                .HasColumnType("int");
+
             // relationships
-            builder.HasOne(t => t.Building)
+            builder.HasOne(t => t.Area)
                 .WithMany(t => t.DeliveryAddresses)
-                .HasForeignKey(d => d.BuildingId)
-                .HasConstraintName("FK_delivery_address_building");
+                .HasForeignKey(d => d.AreaId)
+                .HasConstraintName("FK_Delivery_Address_Area");
 
             builder.HasOne(t => t.Customer)
                 .WithMany(t => t.DeliveryAddresses)
@@ -83,8 +83,8 @@ namespace VWater.Data.Mapping
             public const string CustomerId = "Customer_Id";
             public const string Address = "Address";
             public const string StoreId = "Store_Id";
-            public const string BuildingId = "Building_Id";
             public const string DeliveryTypeId = "DeliveryType_Id";
+            public const string AreaId = "Area_Id";
         }
         #endregion
     }

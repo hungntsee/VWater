@@ -76,7 +76,7 @@ namespace Service.DeliveryAddresses
 
         private DeliveryAddress GetDeliveryAddress(int id)
         {
-            var deliveryAddress = _context.DeliveryAddresses.Include(a => a.Customer).Include(a => a.Building).Include(a => a.Orders).Include(a => a.DeliveryType)
+            var deliveryAddress = _context.DeliveryAddresses.Include(a => a.Customer).Include(a => a.Orders).Include(a => a.DeliveryType)
                 .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (deliveryAddress == null) throw new KeyNotFoundException("DeliveryAddress not found!");
             return deliveryAddress;
@@ -84,7 +84,7 @@ namespace Service.DeliveryAddresses
 
         private DeliveryAddress GetAddress(string address)
         {
-            var deliveryAddress = _context.DeliveryAddresses.Include(a => a.Customer).Include(a => a.Building).Include(a => a.Orders).Include(a => a.DeliveryType)
+            var deliveryAddress = _context.DeliveryAddresses.Include(a => a.Customer).Include(a => a.Orders).Include(a => a.DeliveryType)
                 .AsNoTracking().FirstOrDefault(a => a.Address == address);
             return deliveryAddress;
         }

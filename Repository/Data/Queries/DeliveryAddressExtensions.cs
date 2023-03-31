@@ -5,12 +5,12 @@ namespace VWater.Data.Queries
     public static partial class DeliveryAddressExtensions
     {
         #region Generated Extensions
-        public static IQueryable<VWater.Data.Entities.DeliveryAddress> ByBuildingId(this IQueryable<VWater.Data.Entities.DeliveryAddress> queryable, int? buildingId)
+        public static IQueryable<VWater.Data.Entities.DeliveryAddress> ByAreaId(this IQueryable<VWater.Data.Entities.DeliveryAddress> queryable, int? areaId)
         {
             if (queryable is null)
                 throw new ArgumentNullException(nameof(queryable));
 
-            return queryable.Where(q => (q.BuildingId == buildingId || (buildingId == null && q.BuildingId == null)));
+            return queryable.Where(q => (q.AreaId == areaId || (areaId == null && q.AreaId == null)));
         }
 
         public static IQueryable<VWater.Data.Entities.DeliveryAddress> ByCustomerId(this IQueryable<VWater.Data.Entities.DeliveryAddress> queryable, int customerId)

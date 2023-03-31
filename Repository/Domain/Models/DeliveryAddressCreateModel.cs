@@ -10,9 +10,9 @@ namespace VWater.Domain.Models
 
         public int StoreId { get; set; }
 
-        public int? BuildingId { get; set; }
-
         public int DeliveryTypeId { get; set; }
+
+        public int? AreaId { get; set; }
 
         #endregion
 

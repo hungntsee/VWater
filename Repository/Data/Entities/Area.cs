@@ -5,7 +5,7 @@ namespace VWater.Data.Entities
         public Area()
         {
             #region Generated Constructor
-            Apartments = new HashSet<Apartment>();
+            DeliveryAddresses = new HashSet<DeliveryAddress>();
             Distributors = new HashSet<Distributor>();
             Menus = new HashSet<Menu>();
             Stores = new HashSet<Store>();
@@ -20,7 +20,7 @@ namespace VWater.Data.Entities
         #endregion
 
         #region Generated Relationships
-        public virtual ICollection<Apartment> Apartments { get; set; }
+        public virtual ICollection<DeliveryAddress> DeliveryAddresses { get; set; }
 
         public virtual ICollection<Distributor> Distributors { get; set; }
 

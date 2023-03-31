@@ -21,13 +21,9 @@ namespace VWater.Data
 
         public virtual DbSet<VWater.Data.Entities.Account> Accounts { get; set; }
 
-        public virtual DbSet<VWater.Data.Entities.Apartment> Apartments { get; set; }
-
         public virtual DbSet<VWater.Data.Entities.Area> Areas { get; set; }
 
         public virtual DbSet<VWater.Data.Entities.Brand> Brands { get; set; }
-
-        public virtual DbSet<VWater.Data.Entities.Building> Buildings { get; set; }
 
         public virtual DbSet<VWater.Data.Entities.Customer> Customers { get; set; }
 
@@ -90,10 +86,8 @@ namespace VWater.Data
             #region Generated Configuration
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.AccountMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.AccountRoleMap());
-            modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.ApartmentMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.AreaMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.BrandMap());
-            modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.BuildingMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.CustomerMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.DeliveryAddressMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.DeliverySlotMap());

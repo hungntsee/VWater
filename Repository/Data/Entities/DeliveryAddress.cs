@@ -18,14 +18,14 @@ namespace VWater.Data.Entities
 
         public int StoreId { get; set; }
 
-        public int? BuildingId { get; set; }
-
         public int DeliveryTypeId { get; set; }
+
+        public int? AreaId { get; set; }
 
         #endregion
 
         #region Generated Relationships
-        public virtual Building Building { get; set; }
+        public virtual Area Area { get; set; }
 
         public virtual Customer Customer { get; set; }
 
