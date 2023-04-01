@@ -55,6 +55,8 @@ namespace VWater.Data
 
         public virtual DbSet<VWater.Data.Entities.Order> Orders { get; set; }
 
+        public virtual DbSet<VWater.Data.Entities.DepositNote> DepositNotes { get; set; }
+
         public virtual DbSet<VWater.Data.Entities.ProductInMenu> ProductInMenus { get; set; }
 
         public virtual DbSet<VWater.Data.Entities.Product> Products { get; set; }
@@ -74,6 +76,10 @@ namespace VWater.Data
         public virtual DbSet<VWater.Data.Entities.Store> Stores { get; set; }
 
         public virtual DbSet<VWater.Data.Entities.Sysdiagrams> Sysdiagrams { get; set; }
+
+        public virtual DbSet<VWater.Data.Entities.Wallet> Wallets { get; set; }
+
+        public virtual DbSet<VWater.Data.Entities.Transaction> Transactions { get; set; }
 
         public virtual DbSet<VWater.Data.Entities.WarehouseBaseline> WarehouseBaselines { get; set; }
 
@@ -113,6 +119,8 @@ namespace VWater.Data
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.StatusMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.StoreMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.SysdiagramsMap());
+            modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.WalletMap());
+            modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.TransactionMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.WarehouseBaselineMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.WarehouseMap());
             #endregion

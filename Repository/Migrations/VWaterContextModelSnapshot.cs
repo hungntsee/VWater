@@ -443,6 +443,43 @@ namespace Repository.Migrations
                     b.ToTable("Distributor", "dbo");
                 });
 
+            modelBuilder.Entity("VWater.Data.Entities.DepositeNote", b =>
+            {
+                b.Property<int>("Id")
+                .IsRequired()
+                .HasColumnName("Id")
+                .HasColumnType("int")
+                .ValueGeneratedOnAdd();
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                b.Property<bool>("IsDeposit")
+                    .IsRequired()
+                    .HasColumnName("IsDeposite")
+                    .HasColumnType("bit");
+
+                b.Property("Quantity")
+                    .IsRequired()
+                    .HasColumnName("Quantity")
+                    .HasColumnType("int");
+
+                b.Property("Price")
+                    .IsRequired()
+                    .HasColumnName("Price")
+                    .HasColumnType("money");
+
+                b.Property("OrderId")
+                    .IsRequired()
+                    .HasColumnName("Order_Id")
+                    .HasColumnType("int");
+
+                b.HasKey("Id");
+
+                b.HasIndex("OrderId");
+
+                b.ToTable("DepositeNote", "dbo");
+            });
+
             modelBuilder.Entity("VWater.Data.Entities.Goods", b =>
                 {
                     b.Property<int>("Id")

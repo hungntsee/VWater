@@ -58,6 +58,12 @@ namespace VWater.Data.Mapping
             builder.Property(t => t.ShipperId).IsRequired(false)
                 .HasColumnName("Shipper_Id")
                 .HasColumnType("int");
+
+            builder.Property(t => t.IsDeposit)
+                .IsRequired(false)
+                .HasColumnName("IsDeposit")
+                .HasColumnType("bit");
+
             // relationships
             builder.HasOne(t => t.Shipper)
                 .WithMany(t => t.Orders)

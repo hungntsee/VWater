@@ -44,6 +44,13 @@ namespace Controller.Controllers
             _accountService.Create(request);
             return Ok(new { message = "User created" });
         }
+        [HttpPost("CreateAccoutForShipper")]
+        public IActionResult CreateForShipper(ShipperCreateModel requestShipper)
+        {
+            var shipper = _accountService.CreateForShipper(requestShipper);
+            return Ok(shipper);
+
+        }
 
         // PUT api/<AccountController>/5
         [HttpPut("{id}")]

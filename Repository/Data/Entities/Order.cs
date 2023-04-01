@@ -29,6 +29,8 @@ namespace VWater.Data.Entities
 
         public int? ShipperId { get; set; }
 
+        public bool? IsDeposit { get; set; }
+
         #endregion
 
         #region Generated Relationships
@@ -45,7 +47,10 @@ namespace VWater.Data.Entities
         public virtual Shipper? Shipper { get; set; }
 
         public virtual ICollection<GoodsExchangeNote> GoodsExchangeNotes { get; set; }
+        
         public virtual Transaction? Transaction { get; set; }
+
+        public virtual DepositNote? DepositNote { get; set; }
 
         #endregion
 

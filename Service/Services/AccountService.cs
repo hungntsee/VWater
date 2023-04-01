@@ -1,6 +1,7 @@
 ﻿namespace Service.Account;
 
 using AutoMapper;
+using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -18,6 +19,7 @@ public interface IAccountService
     public IEnumerable<Account> GetAll();
     public Account GetById(int id);
     public void Create(AccountCreateModel request);
+    public Shipper CreateForShipper(ShipperCreateModel request);
     public void Update(int id, AccountUpdateModel request);
     public void Delete(int id);
     public Account Login(LoginRequest request);
@@ -154,6 +156,38 @@ public class AccountService : IAccountService
             );
 
         return token;
+    }
+
+    public Shipper CreateForShipper(ShipperCreateModel request)
+    {
+        if (_context.Accounts.AnyAsync(a => a.Email == request.AccountCreateModel.Email).Result)
+            throw new AppException("User with the email '" + request.AccountCreateModel.Email + "' already exists");
+        var account = _mapper.Map<Account>(request.AccountCreateModel);
+        account.Username = request.AccountCreateModel.Email;
+
+        _context.Accounts.Add(account);
+        _context.SaveChanges();
+        var shipper = new Shipper();
+        if(account.RoleId == 6)
+        {
+            shipper = _mapper.Map<Shipper>(request);
+            shipper.AccountId = account.Id;
+            shipper.Fullname = account.FirstName +" "+ account.FirstName;
+            _context.Shippers.Add(shipper);
+            _context.SaveChanges();
+
+            var wallet = new Wallet();
+            wallet.ShipperId = shipper.Id;
+            wallet.Credit = 0;
+            _context.Wallets.Add(wallet);
+            _context.SaveChanges();
+
+            shipper.Wallet = wallet;
+        }
+        shipper.Account = account;
+        shipper.Orders = null;
+
+        return shipper;
     }
 }
 

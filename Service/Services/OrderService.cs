@@ -84,14 +84,16 @@ namespace Service.Services
             _context.SaveChanges();
         }
 
-        public Order TakeOrder(int id, int shipper_id)
+        public Order TakeOrder(int order_id, int shipper_id)
         {
-            var order = GetOrder(id);
+            var order = GetOrder(order_id);
             order.StatusId = 3;
             order.ShipperId = shipper_id;
 
             _context.Orders.Update(order);
             _context.SaveChanges();
+
+            CreateTransactionForOrder(order);
 
             return order;
         }
@@ -185,6 +187,7 @@ namespace Service.Services
                 order.Store.Warehouses = null;
                 order.DeliverySlot.Orders = null;
                 order.GoodsExchangeNotes = null;
+                order.DepositNote = null;
                 foreach (var order1 in order.OrderDetails)
                 {
                     order1.ProductInMenu.OrderDetails = null;
@@ -235,6 +238,55 @@ namespace Service.Services
             report.NumberOfFailOrder = GetNumberOfOrderByStatus(5);
 
             return report;
+        }
+
+        public DepositNote CreateDepositeNote(DepositNoteCreateModel model, int order_id) 
+        {
+            var order = GetOrder(order_id);
+
+            order.IsDeposit = true;
+
+            var depositeNote = _mapper.Map<DepositNote>(model);
+            depositeNote.OrderId = order_id;
+
+            if(depositeNote.IsDeposit == true)
+            {
+                order.TotalPrice += depositeNote.Price;
+                _context.Orders.Update(order);
+                _context.SaveChanges();
+            }
+
+            _context.DepositNotes.Add(depositeNote);
+            _context.SaveChanges();
+
+            return depositeNote;
+        }
+
+        private void CreateTransactionForOrder(Order order)
+        {
+            var shipper = _context.Shippers.Include(a =>a .Wallet).AsNoTracking().FirstOrDefault(a => a.Id == order.ShipperId);
+            var transaction = new Transaction();
+
+            transaction.Date = DateTime.Now;
+
+            int quantityDeposit = 0;
+            foreach (var orderDetail in order.OrderDetails)
+            {
+                if (orderDetail.ProductInMenu.Product.Description == "Bình") quantityDeposit++;
+            }
+
+            var priceDeposit = 15000 * quantityDeposit;
+            transaction.Price = order.TotalPrice + priceDeposit;
+            transaction.WalletId = shipper.Wallet.Id;
+            transaction.OrderId = order.Id;
+            transaction.Note = "Take Order";
+
+            _context.Transactions.Add(transaction);
+            _context.SaveChanges();
+
+            shipper.Wallet.Credit += transaction.Price;
+            _context.Wallets.Update(shipper.Wallet);
+            _context.SaveChanges();
         }
 
     }
