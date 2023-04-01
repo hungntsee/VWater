@@ -56,5 +56,12 @@ namespace Controller.Controllers
             _productService.Delete(id);
             return Ok(new { message = "Product deleted" });
         }
+
+        // GET api/<ProductController>/GetNumberOfArea
+        [HttpGet("/GetNumberOfProduct")]
+        public IActionResult GetNumberOfProduct()
+        {
+            return Ok(new { NumberOfProduct = _productService.GetNumberOfProduct() });
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Service.Services
         public void Create(ProductCreateModel model);
         public void Update(int id, ProductUpdateModel model);
         public void Delete(int id);
-
+        public int GetNumberOfProduct();
     }
     public class ProductService : IProductService
     {
@@ -65,6 +65,11 @@ namespace Service.Services
                 .AsNoTracking().FirstOrDefault(p => p.Id == id);
             if (product == null) throw new KeyNotFoundException("Product not found!");
             return product;
+        }
+
+        public int GetNumberOfProduct()
+        {
+            return _context.Products.Count();   
         }
     }
 }
