@@ -46,8 +46,8 @@ namespace VWater.Data.Mapping
 
             // relationships
             builder.HasOne(t => t.Account)
-                .WithMany(t => t.Shippers)
-                .HasForeignKey(d => d.AccountId)
+                .WithOne(t => t.Shipper)
+                .HasForeignKey<Shipper>(d => d.AccountId)
                 .HasConstraintName("FK_shipper_account")
                 .OnDelete(DeleteBehavior.Cascade);
 

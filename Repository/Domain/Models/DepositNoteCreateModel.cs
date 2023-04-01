@@ -2,7 +2,9 @@
 {
     public class DepositNoteCreateModel
     {
-        public bool isDeposit { get; set; }
+        public int OrderId { get; set; }
+
+        public bool IsDeposit { get; set; }
 
         public int Quantity { get; set; }
 

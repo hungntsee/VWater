@@ -35,6 +35,8 @@ namespace VWater.Data.Entities
 
         #region Generated Relationships
         public virtual AccountRole RoleAccountRole { get; set; }
+
+        public virtual Shipper? Shipper{ get; set;}
         #endregion
 
     }

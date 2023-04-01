@@ -107,5 +107,12 @@ namespace Controller.Controllers
         {
             return Ok(_orderService.GetReport());
         }
+
+        [HttpPost("/api/CreateDepositNote")]
+        public IActionResult CreateDepositNote([FromBody] DepositNoteCreateModel model)
+        {
+            var depositNote = _orderService.CreateDepositeNote(model);
+            return Ok(depositNote);
+        }
     }
 }

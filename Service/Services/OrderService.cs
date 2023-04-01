@@ -24,6 +24,7 @@ namespace Service.Services
         public Order ReOrder(int order_id);
         public int GetNumberOfOrder();
         public ReportOrderResponseModel GetReport();
+        public DepositNote CreateDepositeNote(DepositNoteCreateModel model);
 
     }
     public class OrderService : IOrderService
@@ -240,14 +241,13 @@ namespace Service.Services
             return report;
         }
 
-        public DepositNote CreateDepositeNote(DepositNoteCreateModel model, int order_id) 
+        public DepositNote CreateDepositeNote(DepositNoteCreateModel model) 
         {
-            var order = GetOrder(order_id);
+            var order = GetOrder(model.OrderId);
 
             order.IsDeposit = true;
 
             var depositeNote = _mapper.Map<DepositNote>(model);
-            depositeNote.OrderId = order_id;
 
             if(depositeNote.IsDeposit == true)
             {
