@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using VWater.Data.Entities;
 
 namespace VWater.Data.Mapping
@@ -49,16 +49,16 @@ namespace VWater.Data.Mapping
                 .HasMaxLength(100);
 
             // relationships
+            builder.HasOne(t => t.Order)
+                .WithMany(t => t.Transactions)
+                .HasForeignKey(d => d.OrderId)
+                .HasConstraintName("FK_Transaction_Order");
+
             builder.HasOne(t => t.Wallet)
                 .WithMany(t => t.Transactions)
                 .HasForeignKey(d => d.WalletId)
                 .HasConstraintName("FK_Transaction_Wallet")
                 .IsRequired();
-
-            builder.HasOne(t => t.Order)
-                .WithOne(t => t.Transaction)
-                .HasForeignKey<Transaction>(d => d.OrderId)
-                .HasConstraintName("FK_Transaction_Order");
             #endregion
         }
 
@@ -77,7 +77,6 @@ namespace VWater.Data.Mapping
             public const string WalletId = "Wallet_Id";
             public const string OrderId = "Order_Id";
             public const string Note = "Note";
-
         }
         #endregion
     }

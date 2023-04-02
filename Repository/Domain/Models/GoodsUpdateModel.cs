@@ -3,6 +3,7 @@ namespace VWater.Domain.Models
     public partial class GoodsUpdateModel
     {
         #region Generated Properties
+        public int Id { get; set; }
 
         public string GoodsName { get; set; }
 

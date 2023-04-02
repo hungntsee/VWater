@@ -11,7 +11,7 @@ namespace VWater.Domain.Models
 
         public decimal Price { get; set; }
 
-        public int? GoodsInBaselineId { get; set; }
+        public int GoodsInBaselineId { get; set; }
 
         #endregion
 

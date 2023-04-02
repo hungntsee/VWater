@@ -3,6 +3,9 @@ namespace VWater.Domain.Models
     public partial class OrderDetailCreateModel
     {
         #region Generated Properties
+        public int Id { get; set; }
+
+        public int OrderId { get; set; }
 
         public int ProductInMenuId { get; set; }
 

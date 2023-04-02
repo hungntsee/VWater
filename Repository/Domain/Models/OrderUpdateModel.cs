@@ -20,6 +20,8 @@ namespace VWater.Domain.Models
 
         public int? ShipperId { get; set; }
 
+        public bool? IsDeposit { get; set; }
+
         #endregion
 
     }

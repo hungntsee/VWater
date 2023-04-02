@@ -1,17 +1,20 @@
+using System;
+using System.Collections.Generic;
+
 namespace VWater.Domain.Models
 {
-    public partial class WarehouseBaselineUpdateModel
+    public partial class TransactionReadModel
     {
         #region Generated Properties
         public int Id { get; set; }
 
-        public int WarehouseId { get; set; }
-
         public DateTime Date { get; set; }
 
-        public int TotalQuantity { get; set; }
+        public decimal Price { get; set; }
 
-        public int? Status { get; set; }
+        public int WalletId { get; set; }
+
+        public int? OrderId { get; set; }
 
         public string Note { get; set; }
 

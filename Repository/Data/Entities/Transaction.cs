@@ -1,4 +1,4 @@
-﻿namespace VWater.Data.Entities
+namespace VWater.Data.Entities
 {
     public class Transaction
     {
@@ -16,8 +16,10 @@
 
 
         #region Generated Relationships
-        public virtual Wallet Wallet { get; set; }
         public virtual Order Order { get; set; }
+
+        public virtual Wallet Wallet { get; set; }
+
         #endregion
     }
 }

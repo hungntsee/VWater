@@ -264,7 +264,7 @@ namespace Service.Services
 
         private void CreateTransactionForOrder(Order order)
         {
-            var shipper = _context.Shippers.Include(a =>a .Wallet).AsNoTracking().FirstOrDefault(a => a.Id == order.ShipperId);
+            var shipper = _context.Shippers.Include(a =>a .Wallets).AsNoTracking().FirstOrDefault(a => a.Id == order.ShipperId);
             var transaction = new Transaction();
 
             transaction.Date = DateTime.Now;
@@ -277,15 +277,15 @@ namespace Service.Services
 
             var priceDeposit = 15000 * quantityDeposit;
             transaction.Price = order.TotalPrice + priceDeposit;
-            transaction.WalletId = shipper.Wallet.Id;
+            transaction.WalletId = shipper.Wallets.Id;
             transaction.OrderId = order.Id;
             transaction.Note = "Take Order";
 
             _context.Transactions.Add(transaction);
             _context.SaveChanges();
 
-            shipper.Wallet.Credit += transaction.Price;
-            _context.Wallets.Update(shipper.Wallet);
+            shipper.Wallets.Credit += transaction.Price;
+            _context.Wallets.Update(shipper.Wallets);
             _context.SaveChanges();
         }
 

@@ -3,7 +3,7 @@ namespace VWater.Domain.Models
     public partial class ProductCreateModel
     {
         #region Generated Properties
-
+        public int Id { get; set; }
 
         public string ProductName { get; set; }
 

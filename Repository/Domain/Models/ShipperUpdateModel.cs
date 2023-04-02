@@ -3,6 +3,7 @@ namespace VWater.Domain.Models
     public partial class ShipperUpdateModel
     {
         #region Generated Properties
+        public int Id { get; set; }
 
         public int AccountId { get; set; }
 

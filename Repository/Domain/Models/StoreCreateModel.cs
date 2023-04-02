@@ -3,6 +3,8 @@ namespace VWater.Domain.Models
     public partial class StoreCreateModel
     {
         #region Generated Properties
+        public int Id { get; set; }
+
         public string StoreName { get; set; }
 
         public int AreaId { get; set; }

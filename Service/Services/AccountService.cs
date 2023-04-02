@@ -182,7 +182,7 @@ public class AccountService : IAccountService
             _context.Wallets.Add(wallet);
             _context.SaveChanges();
 
-            shipper.Wallet = wallet;
+            shipper.Wallets = wallet;
         }
         shipper.Account = account;
         shipper.Orders = null;

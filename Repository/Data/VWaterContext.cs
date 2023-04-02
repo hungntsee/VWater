@@ -33,6 +33,8 @@ namespace VWater.Data
 
         public virtual DbSet<VWater.Data.Entities.DeliveryType> DeliveryTypes { get; set; }
 
+        public virtual DbSet<VWater.Data.Entities.DepositNote> DepositNotes { get; set; }
+
         public virtual DbSet<VWater.Data.Entities.Distributor> Distributors { get; set; }
 
         public virtual DbSet<VWater.Data.Entities.Goods> Goods { get; set; }
@@ -55,8 +57,6 @@ namespace VWater.Data
 
         public virtual DbSet<VWater.Data.Entities.Order> Orders { get; set; }
 
-        public virtual DbSet<VWater.Data.Entities.DepositNote> DepositNotes { get; set; }
-
         public virtual DbSet<VWater.Data.Entities.ProductInMenu> ProductInMenus { get; set; }
 
         public virtual DbSet<VWater.Data.Entities.Product> Products { get; set; }
@@ -77,9 +77,9 @@ namespace VWater.Data
 
         public virtual DbSet<VWater.Data.Entities.Sysdiagrams> Sysdiagrams { get; set; }
 
-        public virtual DbSet<VWater.Data.Entities.Wallet> Wallets { get; set; }
-
         public virtual DbSet<VWater.Data.Entities.Transaction> Transactions { get; set; }
+
+        public virtual DbSet<VWater.Data.Entities.Wallet> Wallets { get; set; }
 
         public virtual DbSet<VWater.Data.Entities.WarehouseBaseline> WarehouseBaselines { get; set; }
 
@@ -98,6 +98,7 @@ namespace VWater.Data
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.DeliveryAddressMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.DeliverySlotMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.DeliveryTypeMap());
+            modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.DepositNoteMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.DistributorMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.GoodsCompositionMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.GoodsExchangeNoteMap());
@@ -119,8 +120,8 @@ namespace VWater.Data
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.StatusMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.StoreMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.SysdiagramsMap());
-            modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.WalletMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.TransactionMap());
+            modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.WalletMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.WarehouseBaselineMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.WarehouseMap());
             #endregion

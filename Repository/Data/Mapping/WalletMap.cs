@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using VWater.Data.Entities;
 
 namespace VWater.Data.Mapping
@@ -34,10 +34,10 @@ namespace VWater.Data.Mapping
 
             // relationships
             builder.HasOne(t => t.Shipper)
-                .WithOne(t => t.Wallet)
+                .WithOne(t => t.Wallets)
                 .HasForeignKey<Wallet>(d => d.ShipperId)
-                .HasConstraintName("FK_Wallet_Shipper")
-                .IsRequired();
+                .HasConstraintName("FK_Wallet_Shipper");
+
             #endregion
         }
         #region Generated Constants

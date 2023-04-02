@@ -28,7 +28,7 @@ namespace VWater.Data.Entities
         public virtual ICollection<Order> Orders { get; set; }
 
         public virtual Store Store { get; set; }
-        public virtual Wallet Wallet { get; set; }
+        public virtual Wallet Wallets { get; set; }
 
         #endregion
 

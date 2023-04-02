@@ -3,6 +3,7 @@ namespace VWater.Domain.Models
     public partial class GoodsInQuotationCreateModel
     {
         #region Generated Properties
+        public int Id { get; set; }
 
         public int QuotationId { get; set; }
 

@@ -68,12 +68,12 @@ namespace VWater.Data.Mapping
             builder.HasOne(t => t.Shipper)
                 .WithMany(t => t.Orders)
                 .HasForeignKey(d => d.ShipperId)
-                .HasConstraintName("FK__Order__Shipper_I__4F47C5E3");
+                .HasConstraintName("FK__Order__Shipper_I__339FAB6E");
 
             builder.HasOne(t => t.Status)
                 .WithMany(t => t.Orders)
                 .HasForeignKey(d => d.StatusId)
-                .HasConstraintName("FK__Order__Status_Id__540C7B00");
+                .HasConstraintName("FK__Order__Status_Id__3493CFA7");
 
             builder.HasOne(t => t.DeliveryAddress)
                 .WithMany(t => t.Orders)
@@ -110,8 +110,8 @@ namespace VWater.Data.Mapping
             public const string TotalPrice = "TotalPrice";
             public const string StatusId = "Status_Id";
             public const string DeliverySlotId = "DeliverySlot_Id";
-            public const string PhoneNumber = "PhoneNumber";
             public const string ShipperId = "Shipper_Id";
+            public const string IsDeposit = "isDeposit";
         }
         #endregion
     }

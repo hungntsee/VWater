@@ -9,7 +9,6 @@ namespace VWater.Domain.Models
 
         public int StoreId { get; set; }
 
-
         #endregion
 
     }

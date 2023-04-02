@@ -3,6 +3,8 @@ namespace VWater.Domain.Models
     public partial class PurchaseOrderUpdateModel
     {
         #region Generated Properties
+        public int Id { get; set; }
+
         public int StoreId { get; set; }
 
         public int DistributorId { get; set; }

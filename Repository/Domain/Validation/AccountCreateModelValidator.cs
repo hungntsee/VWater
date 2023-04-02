@@ -9,6 +9,8 @@ namespace VWater.Domain.Validation
         public AccountCreateModelValidator()
         {
             #region Generated Constructor
+            RuleFor(p => p.Username).NotEmpty();
+            RuleFor(p => p.Username).MaximumLength(50);
             RuleFor(p => p.Password).NotEmpty();
             RuleFor(p => p.Password).MaximumLength(100);
             RuleFor(p => p.FirstName).NotEmpty();

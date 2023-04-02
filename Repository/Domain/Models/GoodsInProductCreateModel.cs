@@ -3,6 +3,7 @@ namespace VWater.Domain.Models
     public partial class GoodsInProductCreateModel
     {
         #region Generated Properties
+        public int Id { get; set; }
 
         public int ProductId { get; set; }
 
@@ -10,7 +11,7 @@ namespace VWater.Domain.Models
 
         public decimal Price { get; set; }
 
-        public int? GoodsInBaselineId { get; set; }
+        public int GoodsInBaselineId { get; set; }
 
         #endregion
 

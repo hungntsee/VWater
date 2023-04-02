@@ -3,6 +3,7 @@ namespace VWater.Domain.Models
     public partial class BrandCreateModel
     {
         #region Generated Properties
+        public int Id { get; set; }
 
         public string BrandName { get; set; }
 

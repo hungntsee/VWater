@@ -1,4 +1,4 @@
-﻿namespace VWater.Data.Entities
+namespace VWater.Data.Entities
 {
     public class DepositNote
     {
@@ -18,10 +18,12 @@
         public decimal Price { get; set; }
 
         public int OrderId { get; set; }
+
         #endregion
 
         #region Generated Relationships
-        public virtual Order Order{ get; set; }
+        public virtual Order Order { get; set; }
+
         #endregion
     }
 }

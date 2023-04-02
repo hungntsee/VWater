@@ -46,7 +46,7 @@ namespace VWater.Data.Mapping
             builder.HasOne(t => t.ProductType)
                 .WithMany(t => t.Products)
                 .HasForeignKey(d => d.ProductType_Id)
-                .HasConstraintName("FK__Product__Product__42E1EEFE");
+                .HasConstraintName("FK__Product__Product__3A4CA8FD");
 
             #endregion
         }
