@@ -55,7 +55,7 @@ namespace Service.Services
             var order = _mapper.Map<Order>(model);
             order.OrderDate = DateTime.Now;
             order.StatusId = 2;
-            order.StoreId = 1;
+            //order.StoreId = 1;
 
             _context.Orders.Add(order);
             _context.SaveChanges();
