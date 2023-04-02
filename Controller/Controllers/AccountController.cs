@@ -71,15 +71,7 @@ namespace Controller.Controllers
         public IActionResult Login([FromBody] LoginRequest request)
         {
             var account = _accountService.Login(request);
-            return Ok(new
-            {
-                message = "Login Success",
-                accessToken = account.AccessToken,
-                role = account.RoleAccountRole.RoleName,
-                email = account.Email,
-                firstName = account.FirstName,
-                lastName = account.LastName,
-            }) ;
+            return Ok(account) ;
         }
 
         [HttpPost("access_token")]
