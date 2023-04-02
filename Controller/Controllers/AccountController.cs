@@ -76,6 +76,9 @@ namespace Controller.Controllers
                 message = "Login Success",
                 accessToken = account.AccessToken,
                 role = account.RoleAccountRole.RoleName,
+                email = account.Email,
+                firstName = account.FirstName,
+                lastName = account.LastName,
             }) ;
         }
 
