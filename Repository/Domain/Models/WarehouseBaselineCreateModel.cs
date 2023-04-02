@@ -3,8 +3,6 @@ namespace VWater.Domain.Models
     public partial class WarehouseBaselineCreateModel
     {
         #region Generated Properties
-        public int Id { get; set; }
-
         public int WarehouseId { get; set; }
 
         public DateTime Date { get; set; }

@@ -6,7 +6,6 @@ namespace VWater.Domain.Models
     public partial class StatusUpdateModel
     {
         #region Generated Properties
-        public int Id { get; set; }
 
         public string StatusName { get; set; }
 
