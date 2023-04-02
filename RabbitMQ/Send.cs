@@ -23,10 +23,6 @@ namespace RabbitMQ {
                                      routingKey: "shipper-app",
                                      basicProperties: null,
                                      body: body);
-               Console.WriteLine($" [x] Sent {message}");
-
-               Console.WriteLine(" Press [enter] to exit.");
-               Console.ReadLine();
           }
 
      }

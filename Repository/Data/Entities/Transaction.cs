@@ -12,7 +12,7 @@
         public decimal Price { get; set; }
         public int WalletId { get; set; }
         public int? OrderId { get; set; }
-        public string? Note { get; set; }
+        public string Note { get; set; }
 
 
         #region Generated Relationships

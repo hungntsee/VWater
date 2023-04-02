@@ -1,8 +1,8 @@
-﻿namespace Repository.Domain.Models
+﻿namespace VWater.Domain.Models
 {
     public class TransactionCreateModel
     {
-        public DateTime Date { get; set; }
+        public DateTime DateTime { get; set; }
         public decimal Price { get; set; }
         public int WalletId { get; set; }
         public int? OrderId { get; set; }
