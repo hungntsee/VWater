@@ -1,0 +1,194 @@
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\package-lock.json
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Repository.exe
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Repository.deps.json
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Repository.runtimeconfig.json
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Repository.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Repository.pdb
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\AutoMapper.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Azure.Core.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Azure.Identity.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Castle.Core.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\FluentValidation.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Humanizer.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Configuration.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Json.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Physical.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.FileSystemGlobbing.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.OpenApi.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Mono.TextTemplating.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\System.CodeDom.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\System.Drawing.Common.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\System.Memory.Data.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\System.Runtime.Caching.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\System.Security.Permissions.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\System.Text.Json.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\System.Windows.Extensions.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\Repository.csproj.AssemblyReference.cache
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\Repository.AssemblyInfoInputs.cache
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\Repository.AssemblyInfo.cs
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\Repository.csproj.CoreCompileInputs.cache
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\Repository.MvcApplicationPartsAssemblyInfo.cs
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\Repository.MvcApplicationPartsAssemblyInfo.cache
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\staticwebassets\msbuild.Repository.Microsoft.AspNetCore.StaticWebAssets.props
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\staticwebassets\msbuild.build.Repository.props
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Repository.props
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Repository.props
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\staticwebassets.pack.json
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\staticwebassets.build.json
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\staticwebassets.development.json
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\scopedcss\bundle\Repository.styles.css
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\Repository.csproj.CopyComplete
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\Repository.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\refint\Repository.dll
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\Repository.pdb
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\Repository.genruntimeconfig.cache
+D:\FPT\Do An Code\Backup\VWater\Repository\obj\Debug\net6.0\ref\Repository.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\package-lock.json
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Repository.exe
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Repository.deps.json
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Repository.runtimeconfig.json
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Repository.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Repository.pdb
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Azure.Core.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Azure.Identity.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Castle.Core.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\FluentValidation.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Humanizer.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Configuration.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Mono.TextTemplating.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\System.CodeDom.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\System.Memory.Data.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\System.Text.Json.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\Users\Asus\source\repos\VWater\Repository\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\Repository.csproj.AssemblyReference.cache
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\Repository.AssemblyInfoInputs.cache
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\Repository.AssemblyInfo.cs
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\Repository.csproj.CoreCompileInputs.cache
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\Repository.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\Repository.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\staticwebassets\msbuild.Repository.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\staticwebassets\msbuild.build.Repository.props
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Repository.props
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Repository.props
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\scopedcss\bundle\Repository.styles.css
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\Repository.csproj.CopyComplete
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\Repository.dll
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\refint\Repository.dll
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\Repository.pdb
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\Repository.genruntimeconfig.cache
+C:\Users\Asus\source\repos\VWater\Repository\obj\Debug\net6.0\ref\Repository.dll

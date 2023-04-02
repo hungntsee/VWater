@@ -7,6 +7,7 @@ using Service.Brands;
 using Service.DeliveryAddresses;
 using Service.DeliverySlots;
 using Service.DeliveryTypes;
+using Service.DepositNotes;
 using Service.Distributors;
 using Service.Good;
 using Service.GoodExchangeNote;
@@ -77,7 +78,7 @@ builder.Services.AddScoped<IStoreService, StoreService>();
 builder.Services.AddScoped<IStatusService, StatusService>();
 builder.Services.AddScoped<IWarehouseService, WarehouseService>();
 builder.Services.AddScoped<IWarehouseBaselineService, WarehouseBaselineService>();
-
+builder.Services.AddScoped<IDepositNoteService, DepositNoteService>();
 
 builder.Services.AddAuthentication(options =>
 {
