@@ -21,6 +21,7 @@ using Service.ProductTypes;
 using Service.Quotations;
 using Service.Services;
 using Service.Stores;
+using Service.Wallets;
 using Service.Warehouses;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -79,6 +80,7 @@ builder.Services.AddScoped<IStatusService, StatusService>();
 builder.Services.AddScoped<IWarehouseService, WarehouseService>();
 builder.Services.AddScoped<IWarehouseBaselineService, WarehouseBaselineService>();
 builder.Services.AddScoped<IDepositNoteService, DepositNoteService>();
+builder.Services.AddScoped<IWalletService, WalletService>();
 
 builder.Services.AddAuthentication(options =>
 {
