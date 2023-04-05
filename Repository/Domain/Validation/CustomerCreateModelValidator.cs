@@ -12,8 +12,7 @@ namespace VWater.Domain.Validation
             RuleFor(p => p.FullName).NotEmpty();
             RuleFor(p => p.FullName).MaximumLength(100);
             RuleFor(p => p.PhoneNumber).NotEmpty();
-            RuleFor(p => p.PhoneNumber).MaximumLength(20);
-            RuleFor(p => p.Note).MaximumLength(50);
+            RuleFor(p => p.PhoneNumber).MaximumLength(20);      
             #endregion
         }
 

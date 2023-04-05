@@ -76,9 +76,9 @@ namespace Controller.Controllers
         }
 
         [HttpGet("/api/TakeOrder")]
-        public IActionResult TakeOrder(int shipper_id, int order_id)
+        public IActionResult TakeOrder(int order_id, int shipper_id)
         {
-            var order = _orderService.TakeOrder(shipper_id, order_id);
+            var order = _orderService.TakeOrder(order_id, shipper_id);
             return Ok(order);
         }
 

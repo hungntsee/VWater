@@ -8,8 +8,6 @@ namespace VWater.Domain.Models
 
         public string PhoneNumber { get; set; }
 
-        public string Note { get; set; }
-
         #endregion
 
         }

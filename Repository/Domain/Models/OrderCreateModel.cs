@@ -16,9 +16,6 @@ namespace VWater.Domain.Models
 
         public int DeliverySlotId { get; set; }
 
-        public int? ShipperId { get; set; }
-
-        public bool? IsDeposit { get; set; }
         public ICollection<OrderDetailCreateModel> OrderDetails { get; set; }
 
         #endregion

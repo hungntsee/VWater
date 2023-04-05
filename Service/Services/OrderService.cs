@@ -47,6 +47,7 @@ namespace Service.Services
         public Order GetById(int id)
         {
             var orderResponse = GetOrder(id);
+            OrderJsonFile(orderResponse);
             return orderResponse;
         }
 
@@ -54,7 +55,11 @@ namespace Service.Services
         {
             var order = _mapper.Map<Order>(model);
             order.OrderDate = DateTime.Now;
+            order.IsDeposit = false;
             order.StatusId = 2;
+            order.ShipperId = null;
+
+            //if (order.Price > 500000)
             //order.StoreId = 1;
 
             _context.Orders.Add(order);
@@ -87,30 +92,40 @@ namespace Service.Services
 
         public Order TakeOrder(int order_id, int shipper_id)
         {
-            var order = GetOrder(order_id);
+            //if(order.ShipperId == null)
+            var order = GetOrderIgnoreInclude(order_id);
             order.StatusId = 3;
             order.ShipperId = shipper_id;
 
             _context.Orders.Update(order);
             _context.SaveChanges();
 
-            CreateTransactionForOrder(order);
+            var responseOrder = GetOrder(order.Id);
 
-            return order;
+            CreateTransactionForOrder(responseOrder);
+
+            responseOrder.Shipper.Orders = null;
+            responseOrder.Shipper.Wallets.Transactions = null;
+            foreach (var transaction in responseOrder.Transactions)
+            {
+                transaction.Wallet = null;
+            }
+            OrderJsonFile(responseOrder);
+
+            return responseOrder;
         }
 
         private Order GetOrder(int id)
         {
-            var order = _context.Orders
+            var order = OrderExtensions.GetByKey(_context.Orders
                 .Include(a => a.DeliveryAddress).ThenInclude(a => a.Customer)
                 .Include(a => a.Store)
                 .Include(a => a.Status)
                 .Include(a => a.DeliverySlot)
                 .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu).ThenInclude(a => a.Product)
-                .AsNoTracking().FirstOrDefault(p => p.Id == id);
+                , id);
             if (order == null) throw new KeyNotFoundException("Order not found!");
-            OrderJsonFile(order);
-            order.DeliveryAddress.Customer.DeliveryAddresses = null;
+            
             return order;
         }
 
@@ -177,24 +192,28 @@ namespace Service.Services
         private void OrderJsonFile(Order order) 
         {
 
-                order.DeliveryAddress.Orders = null;
-                order.Status.Orders = null;
-                order.Status.PurchaseOrders = null;
-                order.Store.Orders = null;
-                order.Store.DeliveryAddresses = null;
-                order.Store.DeliverySlots = null;
-                order.Store.PurchaseOrders = null;
-                order.Store.Shippers = null;
-                order.Store.Warehouses = null;
-                order.DeliverySlot.Orders = null;
-                order.GoodsExchangeNotes = null;
-                order.DepositNote = null;
-                foreach (var order1 in order.OrderDetails)
-                {
-                    order1.ProductInMenu.OrderDetails = null;
-                    order1.ProductInMenu.Product.ProductInMenus = null;
-                    order1.ProductInMenu.Product.GoodsInProducts = null;
-                }
+            order.DeliveryAddress.Orders = null;
+            order.DeliveryAddress.Customer.DeliveryAddresses = null;
+            order.Status.Orders = null;
+            order.Status.PurchaseOrders = null;
+            order.Store.Orders = null;
+            order.Store.DeliveryAddresses = null;
+            order.Store.DeliverySlots = null;
+            order.Store.PurchaseOrders = null;
+            order.Store.Shippers = null;
+            order.Store.Warehouses = null;
+            order.DeliverySlot.Orders = null;
+            order.DeliverySlot.Store = null;
+            order.GoodsExchangeNotes = null;
+            order.DepositNote = null;
+            order.Status.Orders = null;
+            order.Transactions = null;
+            foreach (var order1 in order.OrderDetails)
+             {
+               order1.ProductInMenu.OrderDetails = null;
+               order1.ProductInMenu.Product.ProductInMenus = null;
+               order1.ProductInMenu.Product.GoodsInProducts = null;
+             }
             
         }
         public Order ReOrder(int order_id)

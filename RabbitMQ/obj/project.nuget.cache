@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "BmAQK8wTfpyubpag2KCsT229KJAS+/kRfFV03Jkv1y47/dAMoFODYlyLLmiUDYYhdPUBUlBdXCsYin0Bh+kqmQ==",
+  "dgSpecHash": "WFMqYv1Ud0XnXscubLM1RbQVXfa8rzTYGTi5rLeyATf1ovphH9ehVpVsEHpLoAqsk3SaaNaBoa0xS41118pKAQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Asus\\source\\repos\\VWater\\RabbitMQ\\RabbitMQ.csproj",
+  "projectFilePath": "E:\\Project_2023_Spring\\back-end\\WeWater\\VWater\\RabbitMQ\\RabbitMQ.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Asus\\.nuget\\packages\\rabbitmq.client\\6.5.0\\rabbitmq.client.6.5.0.nupkg.sha512",
-    "C:\\Users\\Asus\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
-    "C:\\Users\\Asus\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512"
+    "C:\\Users\\TienHung\\.nuget\\packages\\rabbitmq.client\\6.5.0\\rabbitmq.client.6.5.0.nupkg.sha512",
+    "C:\\Users\\TienHung\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "C:\\Users\\TienHung\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }
