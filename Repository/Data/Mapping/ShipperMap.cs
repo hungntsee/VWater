@@ -44,6 +44,10 @@ namespace VWater.Data.Mapping
                 .HasColumnName("Store_Id")
                 .HasColumnType("int");
 
+            builder.Property(t => t.IsOnline)
+                .IsRequired(false)
+                .HasColumnName("IsOnline")
+                .HasColumnType("bit");
             // relationships
             builder.HasOne(t => t.Account)
                 .WithOne(t => t.Shipper)
@@ -73,6 +77,7 @@ namespace VWater.Data.Mapping
             public const string Fullname = "Fullname";
             public const string PhoneNumber = "PhoneNumber";
             public const string StoreId = "Store_Id";
+            public const string IsOnline = "isOnline";
         }
         #endregion
     }

@@ -48,6 +48,11 @@ namespace VWater.Data.Mapping
                 .HasColumnType("nvarchar(100)")
                 .HasMaxLength(100);
 
+            builder.Property(t => t.AccountId)
+                .IsRequired()
+                .HasColumnName("Account_Id")
+                .HasColumnType("int");
+
             // relationships
             builder.HasOne(t => t.Order)
                 .WithMany(t => t.Transactions)
@@ -59,6 +64,11 @@ namespace VWater.Data.Mapping
                 .HasForeignKey(d => d.WalletId)
                 .HasConstraintName("FK_Transaction_Wallet")
                 .IsRequired();
+
+            builder.HasOne(t => t.Account)
+                .WithMany(t => t.Transaction)
+                .HasForeignKey(d => d.AccountId)
+                .HasConstraintName("FK_Transaction_Account");
             #endregion
         }
 
@@ -77,6 +87,7 @@ namespace VWater.Data.Mapping
             public const string WalletId = "Wallet_Id";
             public const string OrderId = "Order_Id";
             public const string Note = "Note";
+            public const string AccountId = "Account_Id";
         }
         #endregion
     }

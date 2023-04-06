@@ -5,6 +5,7 @@ namespace VWater.Data.Entities
         public Account()
         {
             #region Generated Constructor
+            Transaction = new HashSet<Transaction>();
             #endregion
         }
 
@@ -37,6 +38,7 @@ namespace VWater.Data.Entities
         public virtual AccountRole RoleAccountRole { get; set; }
 
         public virtual Shipper? Shipper{ get; set;}
+        public virtual ICollection<Transaction> Transaction { get; set; }
         #endregion
 
     }

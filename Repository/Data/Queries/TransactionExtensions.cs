@@ -48,6 +48,13 @@ namespace VWater.Data.Queries
             return queryable.Where(q => q.WalletId == walletId);
         }
 
+        public static IQueryable<VWater.Data.Entities.Transaction> ByAccountId(this IQueryable<VWater.Data.Entities.Transaction> queryable, int? accountId)
+        {
+            if (queryable is null)
+                throw new ArgumentNullException(nameof(queryable));
+
+            return queryable.Where(q => (q.AccountId == accountId || (accountId == null && q.AccountId == null)));
+        }
         #endregion
 
     }
