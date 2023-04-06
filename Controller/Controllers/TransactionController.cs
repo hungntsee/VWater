@@ -54,5 +54,12 @@ namespace Controller.Controllers
             _transactionService.Delete(id);
             return Ok(new { message = "Transaction deleted" });
         }
+
+        [HttpPost("RefundForShipper")]
+        public IActionResult RefundForShipper([FromBody] TransactionCreateModel transaction)
+        {
+            _transactionService.RefundForShipper(transaction);
+            return Ok(new { message = " Refund Successful" });
+        }
     }
 }

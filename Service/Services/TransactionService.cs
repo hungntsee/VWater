@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Repository.Domain.Models;
 using Service.Helpers;
+using System.ComponentModel;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Domain.Models;
@@ -12,9 +13,10 @@ namespace Service.Transactions
     {
         public IEnumerable<Transaction> GetAll();
         public Transaction GetById(int id);
-        public void Create(TransactionCreateModel request);
+        public Transaction Create(TransactionCreateModel request);
         public void Update(int id, TransactionUpdateModel request);
         public void Delete(int id);
+        public void RefundForShipper(TransactionCreateModel request);
     }
     public class TransactionService : ITransactionService
     {
@@ -37,12 +39,14 @@ namespace Service.Transactions
             return transaction;
         }
 
-        public void Create(TransactionCreateModel request)
+        public Transaction Create(TransactionCreateModel request)
         {
             var transaction = _mapper.Map<Transaction>(request);
 
             _context.Transactions.AddAsync(transaction);
             _context.SaveChangesAsync();
+
+            return transaction;
         }
 
         public void Update(int id, TransactionUpdateModel request)
@@ -67,6 +71,16 @@ namespace Service.Transactions
                 .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (transaction == null) throw new KeyNotFoundException("Transaction not found!");
             return transaction;
+        }
+
+        public void RefundForShipper(TransactionCreateModel request)
+        {
+            var transaction = Create(request);
+            if (transaction == null) return;
+            var wallet = _context.Wallets.Include(a => a.Shipper).AsNoTracking().FirstOrDefault(a => a.Id == request.WalletId);
+            wallet.Credit -= transaction.Price;
+            _context.Wallets.Update(wallet);
+            _context.SaveChanges();
         }
 
     }
