@@ -51,8 +51,6 @@ namespace Service.Stores
         {
             var store = GetStore(id);
 
-            if (_context.Stores.Any(b => b.StoreName == request.StoreName))
-                throw new AppException("Store: '" + request.StoreName + "' already exists");
             _mapper.Map(request, store);
             _context.Stores.Update(store);
             _context.SaveChangesAsync();
