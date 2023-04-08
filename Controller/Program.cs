@@ -20,6 +20,7 @@ using Service.Manufacturers;
 using Service.ProductTypes;
 using Service.Quotations;
 using Service.Services;
+using Service.Shippers;
 using Service.Stores;
 using Service.Transactions;
 using Service.Wallets;
@@ -83,6 +84,7 @@ builder.Services.AddScoped<IWarehouseBaselineService, WarehouseBaselineService>(
 builder.Services.AddScoped<IDepositNoteService, DepositNoteService>();
 builder.Services.AddScoped<IWalletService, WalletService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<IShipperService, ShipperService>();
 
 builder.Services.AddAuthentication(options =>
 {

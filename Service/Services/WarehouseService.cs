@@ -13,6 +13,7 @@ namespace Service.Warehouses
         public void Create(WarehouseCreateModel request);
         public void Update(int id, WarehouseUpdateModel request);
         public void Delete(int id);
+        public int GetNumberOfWarehouse();
     }
     public class WarehouseService : IWarehouseService
     {
@@ -67,5 +68,11 @@ namespace Service.Warehouses
             return warehouse;
         }
 
+        public int GetNumberOfWarehouse()
+        {
+            var numberOfWarehouse = _context.Warehouses.Count();
+
+            return numberOfWarehouse;
+        }
     }
 }

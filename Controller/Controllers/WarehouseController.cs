@@ -53,5 +53,11 @@ namespace Controller.Controllers
             _warehouseService.Delete(id);
             return Ok(new { message = "Warehouse deleted" });
         }
+
+        [HttpGet("GetNumberOfWarehouse")]
+        public IActionResult GetNumberOfStore()
+        {
+            return Ok(new { numberOfWarehouse = _warehouseService.GetNumberOfWarehouse() });
+        }
     }
 }
