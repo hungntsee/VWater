@@ -44,7 +44,9 @@ namespace Service.Services
 
         public IEnumerable<Order> GetAll()
         {
-            return _context.Orders.Include(a => a.OrderDetails);
+            var orders = _context.Orders.Include(a => a.OrderDetails);
+            var list = orders.ToList().OrderByDescending(a => a.OrderDate);
+            return list;
         }
 
         public Order GetById(int id)
