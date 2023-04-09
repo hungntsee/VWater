@@ -27,6 +27,7 @@ namespace Service.Services
         public ReportOrderResponseModel GetReport();
         public DepositNote CreateDepositeNote(DepositNoteCreateModel model);
         public void CancelOrder(int order_id);
+        public void ConfirmOrder(int order_id);
 
     }
     public class OrderService : IOrderService
@@ -74,13 +75,15 @@ namespace Service.Services
             var responseOrder = GetOrder(order.Id);
             OrderJsonFile(responseOrder);
             responseOrder.DeliveryAddress.Customer.DeliveryAddresses = null;
-
-            var message = JsonConvert.SerializeObject(responseOrder, Formatting.Indented,
-                new JsonSerializerSettings()
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                });
-            send.SendMessage(message);
+            if (order.StatusId == 2)
+            {
+                var message = JsonConvert.SerializeObject(responseOrder, Formatting.Indented,
+                    new JsonSerializerSettings()
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    });
+                send.SendMessage(message);
+            }
             return responseOrder;
         }
 
@@ -136,6 +139,29 @@ namespace Service.Services
             if (order == null) throw new KeyNotFoundException("Order not found!");
             
             return order;
+        }
+
+        public void ConfirmOrder(int order_id)
+        {
+            var order = GetOrderIgnoreInclude(order_id);
+
+            order.StatusId = 2;
+            _context.Orders.Update(order);
+            _context.SaveChanges();
+
+            var responseOrder = GetOrder(order_id);
+            OrderJsonFile(responseOrder);
+            responseOrder.DeliveryAddress.Customer.DeliveryAddresses = null;
+
+            if (responseOrder.StatusId == 2)
+            {
+                var message = JsonConvert.SerializeObject(responseOrder, Formatting.Indented,
+                    new JsonSerializerSettings()
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    });
+                send.SendMessage(message);
+            }
         }
 
         public void CancelOrder(int order_id)

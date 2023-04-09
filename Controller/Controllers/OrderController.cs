@@ -120,5 +120,12 @@ namespace Controller.Controllers
             _orderService.CancelOrder(order_id);
             return Ok(new {message = "Order has already been CANCEL."});
         }
+
+        [HttpGet("/api/ConfirmOrder")]
+        public IActionResult ConfirmOrder(int order_id)
+        {
+            _orderService.ConfirmOrder(order_id);
+            return Ok(new { message = "Order has already been CONFIRM." });
+        }
     }
 }
