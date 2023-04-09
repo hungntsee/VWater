@@ -28,6 +28,7 @@ namespace Service.Services
         public DepositNote CreateDepositeNote(DepositNoteCreateModel model);
         public void CancelOrder(int order_id);
         public void ConfirmOrder(int order_id);
+        public void FinishOrder(int order_id);
 
     }
     public class OrderService : IOrderService
@@ -176,6 +177,15 @@ namespace Service.Services
                 _context.SaveChanges();
             }
             else throw new AppException("Đơn hàng của bạn đã được nhận bởi Shipper. Không thể hủy");
+        }
+
+        public void FinishOrder(int order_id)
+        {
+            var order = GetOrderIgnoreInclude(order_id);
+            order.StatusId = 4;
+            _context.Orders.Update(order);
+            _context.SaveChanges();
+
         }
 
         private Order GetOrderIgnoreInclude(int id)

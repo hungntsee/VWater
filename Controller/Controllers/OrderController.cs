@@ -127,5 +127,12 @@ namespace Controller.Controllers
             _orderService.ConfirmOrder(order_id);
             return Ok(new { message = "Order has already been CONFIRM." });
         }
+
+        [HttpGet("/api/FinishOrder")]
+        public IActionResult FinishOrder(int order_id)
+        {
+            _orderService.FinishOrder(order_id);
+            return Ok(new { message = "Order has already been FINISH." });
+        }
     }
 }
