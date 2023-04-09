@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RabbitMQ;
 using Repository.Domain.Models;
+using Service.Helpers;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Data.Queries;
@@ -25,6 +26,7 @@ namespace Service.Services
         public int GetNumberOfOrder();
         public ReportOrderResponseModel GetReport();
         public DepositNote CreateDepositeNote(DepositNoteCreateModel model);
+        public void CancelOrder(int order_id);
 
     }
     public class OrderService : IOrderService
@@ -48,6 +50,7 @@ namespace Service.Services
         {
             var orderResponse = GetOrder(id);
             OrderJsonFile(orderResponse);
+            orderResponse.DeliveryAddress.Customer.DeliveryAddresses = null;
             return orderResponse;
         }
 
@@ -55,19 +58,22 @@ namespace Service.Services
         {
             var order = _mapper.Map<Order>(model);
             order.OrderDate = DateTime.Now;
-            order.StoreId = 1;
-            order.IsDeposit = false;
-            order.StatusId = 2;
+            order.DeliveryAddress = _context.DeliveryAddresses.AsNoTracking().FirstOrDefault(a => a.Id == order.DeliveryAddressId);
+            order.StoreId = order.DeliveryAddress.StoreId;
+            order.IsDeposit = false;           
             order.ShipperId = null;
 
-            //if (order.Price > 500000)
-            //order.StoreId = 1;
+            order.DeliveryAddress = null;
+
+            if (order.TotalPrice > 500000) order.StoreId = 1;
+            else order.StoreId = 2;
 
             _context.Orders.Add(order);
             _context.SaveChanges();
 
             var responseOrder = GetOrder(order.Id);
             OrderJsonFile(responseOrder);
+            responseOrder.DeliveryAddress.Customer.DeliveryAddresses = null;
 
             var message = JsonConvert.SerializeObject(responseOrder, Formatting.Indented,
                 new JsonSerializerSettings()
@@ -130,6 +136,18 @@ namespace Service.Services
             if (order == null) throw new KeyNotFoundException("Order not found!");
             
             return order;
+        }
+
+        public void CancelOrder(int order_id)
+        {
+            var order = GetOrder(order_id);
+            if (order.StatusId < 3)
+            {
+                order.StatusId = 5;
+                _context.Orders.Update(order);
+                _context.SaveChanges();
+            }
+            else throw new AppException("Đơn hàng của bạn đã được nhận bởi Shipper. Không thể hủy");
         }
 
         private Order GetOrderIgnoreInclude(int id)
@@ -196,7 +214,6 @@ namespace Service.Services
         {
 
             order.DeliveryAddress.Orders = null;
-            order.DeliveryAddress.Customer.DeliveryAddresses = null;
             order.Status.Orders = null;
             order.Status.PurchaseOrders = null;
             order.Store.Orders = null;

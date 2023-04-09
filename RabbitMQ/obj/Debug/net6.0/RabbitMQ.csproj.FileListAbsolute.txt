@@ -16,21 +16,3 @@ D:\FPT\Do An Code\Backup\VWater\RabbitMQ\obj\Debug\net6.0\refint\RabbitMQ.dll
 D:\FPT\Do An Code\Backup\VWater\RabbitMQ\obj\Debug\net6.0\RabbitMQ.pdb
 D:\FPT\Do An Code\Backup\VWater\RabbitMQ\obj\Debug\net6.0\RabbitMQ.genruntimeconfig.cache
 D:\FPT\Do An Code\Backup\VWater\RabbitMQ\obj\Debug\net6.0\ref\RabbitMQ.dll
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\bin\Debug\net6.0\RabbitMQ.exe
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\bin\Debug\net6.0\RabbitMQ.deps.json
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\bin\Debug\net6.0\RabbitMQ.runtimeconfig.json
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\bin\Debug\net6.0\RabbitMQ.dll
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\bin\Debug\net6.0\RabbitMQ.pdb
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\bin\Debug\net6.0\RabbitMQ.Client.dll
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\bin\Debug\net6.0\System.Threading.Channels.dll
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\obj\Debug\net6.0\RabbitMQ.csproj.AssemblyReference.cache
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\obj\Debug\net6.0\RabbitMQ.GeneratedMSBuildEditorConfig.editorconfig
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\obj\Debug\net6.0\RabbitMQ.AssemblyInfoInputs.cache
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\obj\Debug\net6.0\RabbitMQ.AssemblyInfo.cs
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\obj\Debug\net6.0\RabbitMQ.csproj.CoreCompileInputs.cache
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\obj\Debug\net6.0\RabbitMQ.csproj.CopyComplete
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\obj\Debug\net6.0\RabbitMQ.dll
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\obj\Debug\net6.0\refint\RabbitMQ.dll
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\obj\Debug\net6.0\RabbitMQ.pdb
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\obj\Debug\net6.0\RabbitMQ.genruntimeconfig.cache
-E:\Project_2023_Spring\back-end\WeWater\VWater\RabbitMQ\obj\Debug\net6.0\ref\RabbitMQ.dll

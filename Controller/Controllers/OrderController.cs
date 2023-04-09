@@ -114,5 +114,11 @@ namespace Controller.Controllers
             var depositNote = _orderService.CreateDepositeNote(model);
             return Ok(depositNote);
         }
+        [HttpGet("/api/CancelOrder")]
+        public IActionResult CancelOrder(int order_id)
+        {
+            _orderService.CancelOrder(order_id);
+            return Ok(new {message = "Order has already been CANCEL."});
+        }
     }
 }
