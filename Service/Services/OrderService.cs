@@ -69,8 +69,8 @@ namespace Service.Services
 
             order.DeliveryAddress = null;
 
-            if (order.TotalPrice > 500000) order.StoreId = 1;
-            else order.StoreId = 2;
+            if (order.TotalPrice > 500000) order.StatusId = 1;
+            else order.StatusId = 2;
 
             _context.Orders.Add(order);
             _context.SaveChanges();
