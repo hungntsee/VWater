@@ -55,6 +55,7 @@ namespace Service.Services
         {
             var order = _mapper.Map<Order>(model);
             order.OrderDate = DateTime.Now;
+            order.StoreId = 1;
             order.IsDeposit = false;
             order.StatusId = 2;
             order.ShipperId = null;
@@ -66,6 +67,8 @@ namespace Service.Services
             _context.SaveChanges();
 
             var responseOrder = GetOrder(order.Id);
+            OrderJsonFile(responseOrder);
+
             var message = JsonConvert.SerializeObject(responseOrder, Formatting.Indented,
                 new JsonSerializerSettings()
                 {

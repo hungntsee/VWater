@@ -6,8 +6,6 @@ namespace VWater.Domain.Models
 
         public int DeliveryAddressId { get; set; }
 
-        public int StoreId { get; set; }
-
         public DateTime OrderDate { get; set; }
 
         public int TotalQuantity { get; set; }

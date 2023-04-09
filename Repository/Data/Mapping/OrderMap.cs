@@ -27,7 +27,6 @@ namespace VWater.Data.Mapping
                 .HasColumnType("int");
 
             builder.Property(t => t.StoreId)
-                .IsRequired()
                 .HasColumnName("Store_Id")
                 .HasColumnType("int");
 
