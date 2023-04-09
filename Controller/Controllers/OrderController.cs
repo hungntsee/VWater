@@ -75,13 +75,6 @@ namespace Controller.Controllers
             return Ok(orders);
         }
 
-        [HttpGet("/api/TakeOrder")]
-        public IActionResult TakeOrder(int order_id, int shipper_id)
-        {
-            var order = _orderService.TakeOrder(order_id, shipper_id);
-            return Ok(order);
-        }
-
         [HttpGet("/api/FollowOrder")]
         public IActionResult FollowOrder(int customer_id)
         {
@@ -114,6 +107,14 @@ namespace Controller.Controllers
             var depositNote = _orderService.CreateDepositeNote(model);
             return Ok(depositNote);
         }
+
+        [HttpGet("/api/ConfirmOrder")]
+        public IActionResult ConfirmOrder(int order_id)
+        {
+            _orderService.ConfirmOrder(order_id);
+            return Ok(new { message = "Order has already been CONFIRM." });
+        }
+
         [HttpGet("/api/CancelOrder")]
         public IActionResult CancelOrder(int order_id)
         {
@@ -121,11 +122,11 @@ namespace Controller.Controllers
             return Ok(new {message = "Order has already been CANCEL."});
         }
 
-        [HttpGet("/api/ConfirmOrder")]
-        public IActionResult ConfirmOrder(int order_id)
+        [HttpGet("/api/TakeOrder")]
+        public IActionResult TakeOrder(int order_id, int shipper_id)
         {
-            _orderService.ConfirmOrder(order_id);
-            return Ok(new { message = "Order has already been CONFIRM." });
+            var order = _orderService.TakeOrder(order_id, shipper_id);
+            return Ok(order);
         }
 
         [HttpGet("/api/FinishOrder")]
