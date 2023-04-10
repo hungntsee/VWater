@@ -349,7 +349,10 @@ namespace Service.Services
             int quantityDeposit = 0;
             foreach (var orderDetail in order.OrderDetails)
             {
-                if (orderDetail.ProductInMenu.Product.Description == "Bình") quantityDeposit++;
+                if (orderDetail.ProductInMenu.Product.Description == "Bình")
+                {
+                    quantityDeposit+= orderDetail.Quantity;
+                }
             }
 
             var priceDeposit = 15000 * quantityDeposit;
