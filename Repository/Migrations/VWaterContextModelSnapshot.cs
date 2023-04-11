@@ -838,6 +838,10 @@ namespace Repository.Migrations
                         .HasColumnType("money")
                         .HasColumnName("TotalPrice");
 
+                    b.Property<decimal>("AmountPaid")
+                        .HasColumnType("money")
+                        .HasColumnName("AmountPaid");
+
                     b.Property<int>("TotalQuantity")
                         .HasColumnType("int")
                         .HasColumnName("TotalQuantity");

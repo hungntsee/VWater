@@ -45,6 +45,11 @@ namespace VWater.Data.Mapping
                 .HasColumnName("TotalPrice")
                 .HasColumnType("money");
 
+            builder.Property(t => t.AmountPaid)
+                .IsRequired(false)
+                .HasColumnName("AmountPaid")
+                .HasColumnType("money");
+
             builder.Property(t => t.StatusId)
                 .HasColumnName("Status_Id")
                 .HasColumnType("int");

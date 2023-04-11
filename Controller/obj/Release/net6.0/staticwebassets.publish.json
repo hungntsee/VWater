@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "HFEB/c0Y3E7vM1/ZuOXo/c5ClF6G9wU4lGopDA78uyY=",
+  "Hash": "Quv4Sq9uAW7O9NdMQLwGE33gYTrEnjcsNvCRii0a+IM=",
   "Source": "Controller",
   "BasePath": "_content/Controller",
   "Mode": "Default",
   "ManifestType": "Publish",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\Asus\\source\\repos\\VWater\\Repository\\Repository.csproj",
+      "Identity": "E:\\Project_2023_Spring\\back-end\\WeWater\\VWater\\Repository\\Repository.csproj",
       "Version": 2,
       "Source": "Repository",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
@@ -18,7 +18,7 @@
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
     },
     {
-      "Identity": "C:\\Users\\Asus\\source\\repos\\VWater\\Service\\Service.csproj",
+      "Identity": "E:\\Project_2023_Spring\\back-end\\WeWater\\VWater\\Service\\Service.csproj",
       "Version": 2,
       "Source": "Service",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
