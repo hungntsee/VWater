@@ -135,5 +135,12 @@ namespace Controller.Controllers
             _orderService.FinishOrder(order_id);
             return Ok(new { message = "Order has already been FINISH." });
         }
+
+        [HttpGet("/api/GetOrderByStore")]
+        public IActionResult GetOrderByStore(int store_id)
+        {
+            var orders = _orderService.GetOrderByStore(store_id);
+            return Ok(orders);
+        }
     }
 }

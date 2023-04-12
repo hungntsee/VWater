@@ -29,7 +29,7 @@ namespace Service.Services
         public void CancelOrder(int order_id);
         public void ConfirmOrder(int order_id);
         public void FinishOrder(int order_id);
-
+        public List<Order> GetOrderByStore(int store_id);
     }
     public class OrderService : IOrderService
     {
@@ -369,5 +369,22 @@ namespace Service.Services
             _context.SaveChanges();
         }
 
+        public List<Order> GetOrderByStore(int store_id)
+        {
+            var orders = OrderExtensions.ByStoreId(_context.Orders
+                .Include(a => a.DeliveryAddress)
+                .Include(a => a.Store)
+                .Include(a => a.Status)
+                .Include(a => a.DeliverySlot)
+                .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu)
+                .ThenInclude(a => a.Product), store_id);
+
+            foreach (var order in orders)
+            {
+                OrderJsonFile(order);
+            }
+
+            return orders.ToList();
+        }
     }
 }
