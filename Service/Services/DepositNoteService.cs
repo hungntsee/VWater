@@ -44,16 +44,21 @@ namespace Service.DepositNotes
             var depositNote = _mapper.Map<DepositNote>(request);
 
             ValidateDepositQuantity(depositNote);
+            /*
+            _ = depositNote.Quantity >= 0;
+            _ = depositNote.Order.TotalQuantity;
+            */
 
             _context.DepositNotes.AddAsync(depositNote);
+
             _context.SaveChangesAsync();
         }
 
-        private void ValidateDepositQuantity(DepositNote depositeNote)
+        private void ValidateDepositQuantity(DepositNote depositNote)
         {
 
-            if (depositeNote == null) return;
-            if (depositeNote.Quantity <0 && depositeNote.Quantity > depositeNote.Order.TotalQuantity) throw new AppException("Quantity must be >= 0 and < Order Quantity");
+            if (depositNote == null) return;
+            if (depositNote.Quantity <0 && depositNote.Quantity > depositNote.Order.TotalQuantity) throw new AppException("Quantity must be >= 0 and < Order Quantity");
 
         }
 
