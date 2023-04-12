@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using Service.Helpers;
@@ -42,8 +43,18 @@ namespace Service.DepositNotes
         {
             var depositNote = _mapper.Map<DepositNote>(request);
 
+            ValidateDepositQuantity(depositNote);
+
             _context.DepositNotes.AddAsync(depositNote);
             _context.SaveChangesAsync();
+        }
+
+        private void ValidateDepositQuantity(DepositNote depositeNote)
+        {
+
+            if (depositeNote == null) return;
+            if (depositeNote.Quantity <0 && depositeNote.Quantity > depositeNote.Order.TotalQuantity) throw new AppException("Quantity must be >= 0 and < Order Quantity");
+
         }
 
         public void Update(int id, DepositNoteUpdateModel request)
