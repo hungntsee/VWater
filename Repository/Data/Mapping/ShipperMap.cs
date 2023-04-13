@@ -43,6 +43,7 @@ namespace VWater.Data.Mapping
                 .IsRequired(false)
                 .HasColumnName("IsOnline")
                 .HasColumnType("bit");
+
             // relationships
             builder.HasOne(t => t.Account)
                 .WithOne(t => t.Shipper)

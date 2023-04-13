@@ -1149,10 +1149,6 @@ namespace Repository.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasColumnName("PhoneNumber");
 
-                    b.Property<int>("StoreId")
-                        .HasColumnType("int")
-                        .HasColumnName("Store_Id");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");

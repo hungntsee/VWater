@@ -10,7 +10,6 @@ namespace VWater.Data.Entities
             DeliverySlots = new HashSet<DeliverySlot>();
             Orders = new HashSet<Order>();
             PurchaseOrders = new HashSet<PurchaseOrder>();
-            Shippers = new HashSet<Shipper>();
             Warehouses = new HashSet<Warehouse>();
             #endregion
         }
@@ -42,8 +41,6 @@ namespace VWater.Data.Entities
         public virtual ICollection<Order> Orders { get; set; }
 
         public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
-
-        public virtual ICollection<Shipper> Shippers { get; set; }
 
         public virtual ICollection<Warehouse> Warehouses { get; set; }
 
