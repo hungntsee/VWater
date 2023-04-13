@@ -142,5 +142,16 @@ namespace Controller.Controllers
             var orders = _orderService.GetOrderByStore(store_id);
             return Ok(orders);
         }
+
+        [HttpGet("/api/GetOrderByStatusForShipper")]
+        public IActionResult GetOrderByStatusForShipper(int shipper_id, int status_id)
+        {
+            var order = _orderService.GetOrderByStatusForShipper(shipper_id, status_id);
+            if (order == null)
+            {
+                return BadRequest("Can't find result matched your input!");
+            }
+            return Ok(order);
+        }
     }
 }

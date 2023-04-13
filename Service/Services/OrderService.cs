@@ -30,6 +30,7 @@ namespace Service.Services
         public void ConfirmOrder(int order_id);
         public void FinishOrder(int order_id);
         public List<Order> GetOrderByStore(int store_id);
+        public Order GetOrderByStatusForShipper(int shipper_id, int status_id);
     }
     public class OrderService : IOrderService
     {
@@ -384,6 +385,25 @@ namespace Service.Services
             }
 
             return orders.ToList();
+        }
+
+        public Order GetOrderByStatusForShipper(int shipper_id, int status_id)
+        {
+            var order = GetShipperByStatus(shipper_id, status_id);
+            return order;
+        }
+
+        private Order GetShipperByStatus(int shipper_id, int status_id)
+        {
+            var responseOrder = _context.Orders.Include(a => a.Shipper).Include(a=>a.Status)
+                .AsNoTracking().FirstOrDefault(a => a.ShipperId == shipper_id && a.StatusId == status_id);
+            if (responseOrder == null) return _context.Orders.Include(a => a.Shipper).Include(a => a.Status).Last();
+
+            responseOrder.Shipper.Orders = null;
+            responseOrder.Status.Orders = null;
+            //OrderJsonFile(responseOrder);
+            return responseOrder;
+
         }
     }
 }

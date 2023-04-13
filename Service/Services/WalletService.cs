@@ -75,7 +75,7 @@ namespace Service.Wallets
         {
             var wallets = WalletExtensions.ByShipperId(_context.Wallets
                 .Include(a => a.Transactions), shipper_id);
-
+           
             return wallets.ToList();
         }
     }
