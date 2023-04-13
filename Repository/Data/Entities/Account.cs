@@ -30,13 +30,15 @@ namespace VWater.Data.Entities
 
         public string? AccessToken { get; set; }
 
+        public int? StoreId { get; set; }
+
         public int RoleId { get; set; }
 
         #endregion
 
         #region Generated Relationships
         public virtual AccountRole RoleAccountRole { get; set; }
-
+        public virtual Store? Store { get; set; }
         public virtual Shipper? Shipper{ get; set;}
         public virtual ICollection<Transaction> Transaction { get; set; }
         #endregion

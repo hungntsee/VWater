@@ -71,6 +71,12 @@ namespace VWater.Data.Mapping
                 .HasColumnName("Access_token")
                 .HasColumnType("nvarchar(MAX)")
                 .HasMaxLength(int.MaxValue);
+
+            builder.Property(t => t.StoreId)
+                .IsRequired(false)
+                .HasColumnName("Store_Id")
+                .HasColumnType("int");
+
             builder.Property(t => t.RoleId)
                 .IsRequired()
                 .HasColumnName("Role_Id")
@@ -82,6 +88,10 @@ namespace VWater.Data.Mapping
                 .HasForeignKey(d => d.RoleId)
                 .HasConstraintName("FK_account_account_role");
 
+            builder.HasOne(t => t.Store)
+                .WithMany(t => t.Accounts)
+                .HasForeignKey(a => a.StoreId)
+                .HasConstraintName("FK_Account_Store");
             #endregion
         }
 

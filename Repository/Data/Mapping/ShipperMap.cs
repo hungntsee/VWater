@@ -39,11 +39,6 @@ namespace VWater.Data.Mapping
                 .HasColumnType("nvarchar(20)")
                 .HasMaxLength(20);
 
-            builder.Property(t => t.StoreId)
-                .IsRequired()
-                .HasColumnName("Store_Id")
-                .HasColumnType("int");
-
             builder.Property(t => t.IsOnline)
                 .IsRequired(false)
                 .HasColumnName("IsOnline")

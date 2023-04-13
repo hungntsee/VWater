@@ -17,6 +17,8 @@ namespace VWater.Domain.Models
 
         public string Address { get; set; }
 
+        public int StoreId { get; set; }
+
         public int RoleId { get; set; }
 
         #endregion

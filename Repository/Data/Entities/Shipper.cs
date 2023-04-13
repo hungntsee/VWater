@@ -18,7 +18,6 @@ namespace VWater.Data.Entities
 
         public string PhoneNumber { get; set; }
 
-        public int StoreId { get; set; }
         public bool? IsOnline { get; set; } 
 
         #endregion
@@ -28,7 +27,6 @@ namespace VWater.Data.Entities
 
         public virtual ICollection<Order> Orders { get; set; }
 
-        public virtual Store Store { get; set; }
         public virtual Wallet Wallets { get; set; }
 
         #endregion

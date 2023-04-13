@@ -5,6 +5,7 @@ namespace VWater.Data.Entities
         public Store()
         {
             #region Generated Constructor
+            Accounts = new HashSet<Account>();
             DeliveryAddresses = new HashSet<DeliveryAddress>();
             DeliverySlots = new HashSet<DeliverySlot>();
             Orders = new HashSet<Order>();
@@ -31,6 +32,8 @@ namespace VWater.Data.Entities
 
         #region Generated Relationships
         public virtual Area Area { get; set; }
+
+        public virtual ICollection<Account> Accounts { get; set; }
 
         public virtual ICollection<DeliveryAddress> DeliveryAddresses { get; set; }
 

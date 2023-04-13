@@ -7,7 +7,6 @@ namespace VWater.Domain.Models
 
         public string PhoneNumber { get; set; }
 
-        public int StoreId { get; set; }
         public bool? IsOnline { get; set; }
 
         #endregion
