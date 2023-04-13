@@ -258,7 +258,6 @@ namespace Service.Services
             order.Store.DeliveryAddresses = null;
             order.Store.DeliverySlots = null;
             order.Store.PurchaseOrders = null;
-            order.Store.Shippers = null;
             order.Store.Warehouses = null;
             order.DeliverySlot.Orders = null;
             order.DeliverySlot.Store = null;

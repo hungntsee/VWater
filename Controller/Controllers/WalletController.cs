@@ -54,5 +54,12 @@ namespace Controller.Controllers
             _walletService.Delete(id);
             return Ok(new { message = "Wallet deleted" });
         }
+
+        [HttpGet("/api/GetWalletByShipperId")]
+        public IActionResult GetWalletByShipperId(int shipper_id)
+        {
+            var wallets = _walletService.GetWalletByShipperId(shipper_id);
+            return Ok(wallets);
+        }
     }
 }

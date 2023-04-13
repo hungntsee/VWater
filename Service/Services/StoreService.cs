@@ -28,7 +28,7 @@ namespace Service.Stores
         }
         public IEnumerable<Store> GetAll()
         {
-            return _context.Stores.Include(a => a.Warehouses).Include(a => a.Area).Include(a => a.Shippers);
+            return _context.Stores.Include(a => a.Warehouses).Include(a => a.Area);
         }
 
         public Store GetById(int id)
@@ -65,7 +65,7 @@ namespace Service.Stores
 
         private Store GetStore(int id)
         {
-            var store = _context.Stores.Include(a => a.Warehouses).Include(a => a.Area).Include(a => a.Shippers)
+            var store = _context.Stores.Include(a => a.Warehouses).Include(a => a.Area)
                 .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (store == null) throw new KeyNotFoundException("Store not found!");
             return store;
