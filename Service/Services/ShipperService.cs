@@ -27,7 +27,7 @@ namespace Service.Shippers
         }
         public IEnumerable<Shipper> GetAll()
         {
-            return _context.Shippers.Include(a => a.Store).Include(a => a.Orders).Include(a => a.Wallets);
+            return _context.Shippers.Include(a => a.Orders).Include(a => a.Wallets);
         }
 
         public Shipper GetById(int id)
@@ -62,7 +62,7 @@ namespace Service.Shippers
 
         private Shipper GetShipper(int id)
         {
-            var shipper = _context.Shippers.Include(a => a.Store).Include(a => a.Orders).Include(a => a.Wallets)
+            var shipper = _context.Shippers.Include(a => a.Orders).Include(a => a.Wallets)
                 .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (shipper == null) throw new KeyNotFoundException("Shipper not found!");
             return shipper;

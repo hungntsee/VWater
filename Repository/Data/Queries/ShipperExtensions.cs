@@ -36,14 +36,6 @@ namespace VWater.Data.Queries
             return new ValueTask<VWater.Data.Entities.Shipper>(task);
         }
 
-        public static IQueryable<VWater.Data.Entities.Shipper> ByStoreId(this IQueryable<VWater.Data.Entities.Shipper> queryable, int storeId)
-        {
-            if (queryable is null)
-                throw new ArgumentNullException(nameof(queryable));
-
-            return queryable.Where(q => q.StoreId == storeId);
-        }
-
         #endregion
 
     }

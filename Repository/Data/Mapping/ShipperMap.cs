@@ -50,10 +50,6 @@ namespace VWater.Data.Mapping
                 .HasConstraintName("FK_shipper_account")
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(t => t.Store)
-                .WithMany(t => t.Shippers)
-                .HasForeignKey(d => d.StoreId)
-                .HasConstraintName("FK_shipper_store");
 
             #endregion
         }
@@ -71,7 +67,6 @@ namespace VWater.Data.Mapping
             public const string AccountId = "Account_Id";
             public const string Fullname = "Fullname";
             public const string PhoneNumber = "PhoneNumber";
-            public const string StoreId = "Store_Id";
             public const string IsOnline = "isOnline";
         }
         #endregion
