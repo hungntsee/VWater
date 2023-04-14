@@ -397,7 +397,7 @@ namespace Service.Services
         {
             var responseOrder = _context.Orders.Include(a => a.Shipper).Include(a=>a.Status)
                 .AsNoTracking().FirstOrDefault(a => a.ShipperId == shipper_id && a.StatusId == status_id);
-            if (responseOrder == null) return _context.Orders.Include(a => a.Shipper).Include(a => a.Status).Last();
+            if (responseOrder == null) throw new KeyNotFoundException("Can not found!");
 
             responseOrder.Shipper.Orders = null;
             responseOrder.Status.Orders = null;
