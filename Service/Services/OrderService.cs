@@ -31,6 +31,7 @@ namespace Service.Services
         public void FinishOrder(int order_id);
         public List<Order> GetOrderByStore(int store_id);
         public Order GetOrderByStatusForShipper(int shipper_id, int status_id);
+        public int CountOrderByStatus();
     }
     public class OrderService : IOrderService
     {
@@ -405,5 +406,11 @@ namespace Service.Services
             return responseOrder;
 
         }
+
+        public int CountOrderByStatus()
+        {
+            return _context.Orders.Count(a => a.StatusId == 2);   
+        }
+
     }
 }

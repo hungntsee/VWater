@@ -153,5 +153,11 @@ namespace Controller.Controllers
             }
             return Ok(order);
         }
+
+        [HttpGet("/api/CountOrderByStatus")]
+        public IActionResult CountOrderByStatus()
+        {
+            return Ok(new { countOrderByStatus = _orderService.CountOrderByStatus() });
+        }
     }
 }
