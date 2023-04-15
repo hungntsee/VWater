@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Repository.Domain.Models;
 using VWater.Data;
 using VWater.Data.Entities;
+using VWater.Data.Queries;
 using VWater.Domain.Models;
 
 namespace Service.Shippers
@@ -75,5 +77,25 @@ namespace Service.Shippers
             return numberOfShipper;
         }
 
+        private int GetNumberOfOrderByStatusForShipper(int status_id)
+        {
+            var ordersByStatusForShipper = OrderExtensions.ByStatusId(_context.Orders, status_id);
+            return ordersByStatusForShipper.Count();
+        }
+
+        public ReportOrderResponseModel GetReportForShipper(int shipper_id)
+        {
+            var report = new ReportOrderResponseModel();
+
+            var shipper = GetShipper(shipper_id);
+
+            report.NumberOfFinishOrder = GetNumberOfOrderByStatusForShipper(1);
+            report.NumberOfWaitingOrder = GetNumberOfOrderByStatusForShipper(2);
+            report.NumberOfConfirmedOrder = GetNumberOfOrderByStatusForShipper(3);
+            report.NumberOfShippingOrder = GetNumberOfOrderByStatusForShipper(4);
+            report.NumberOfFailOrder = GetNumberOfOrderByStatusForShipper(5);
+
+            return report;
+        }
     }
 }

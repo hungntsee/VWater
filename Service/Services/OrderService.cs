@@ -373,7 +373,7 @@ namespace Service.Services
         public List<Order> GetOrderByStore(int store_id)
         {
             var orders = OrderExtensions.ByStoreId(_context.Orders
-                .Include(a => a.DeliveryAddress)
+                .Include(a => a.DeliveryAddress).ThenInclude(a=> a.Customer)
                 .Include(a => a.Store)
                 .Include(a => a.Status)
                 .Include(a => a.DeliverySlot)
