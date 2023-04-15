@@ -92,6 +92,20 @@ namespace Service.Services
             return responseOrder;
         }
 
+        public Order CreateWithPaymentMomo(OrderCreateModel model)
+        {
+            var order = _mapper.Map<Order>(model);
+            order.OrderDate = DateTime.Now;
+            order.DeliveryAddress = _context.DeliveryAddresses.AsNoTracking().FirstOrDefault(a => a.Id == order.DeliveryAddressId);
+            order.StoreId = order.DeliveryAddress.StoreId;
+            order.IsDeposit = false;
+            order.ShipperId = null;
+
+            order.DeliveryAddress = null;
+
+
+
+        }
         public void Update(int id, OrderUpdateModel model)
         {
             var order = GetOrder(id);
