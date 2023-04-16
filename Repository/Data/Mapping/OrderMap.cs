@@ -46,7 +46,7 @@ namespace VWater.Data.Mapping
                 .HasColumnType("money");
 
             builder.Property(t => t.AmountPaid)
-                .IsRequired(false)
+                .IsRequired()
                 .HasColumnName("AmountPaid")
                 .HasColumnType("money");
 

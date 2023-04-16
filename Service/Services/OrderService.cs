@@ -62,12 +62,14 @@ namespace Service.Services
 
         public Order Create(OrderCreateModel model)
         {
+            if (model.OrderDetails == null) throw new AppException("Don't have products in your cart");
             var order = _mapper.Map<Order>(model);
             order.OrderDate = DateTime.Now;
             order.DeliveryAddress = _context.DeliveryAddresses.AsNoTracking().FirstOrDefault(a => a.Id == order.DeliveryAddressId);
             order.StoreId = order.DeliveryAddress.StoreId;
             order.IsDeposit = false;           
             order.ShipperId = null;
+            order.AmountPaid = 0;
 
             order.DeliveryAddress = null;
 
@@ -92,8 +94,9 @@ namespace Service.Services
             return responseOrder;
         }
 
-        public Order CreateWithPaymentMomo(OrderCreateModel model)
+        public Order CreateRequestForMomo(OrderCreateModel model)
         {
+            if (model.OrderDetails == null) throw new AppException("Don't have products in your cart");
             var order = _mapper.Map<Order>(model);
             order.OrderDate = DateTime.Now;
             order.DeliveryAddress = _context.DeliveryAddresses.AsNoTracking().FirstOrDefault(a => a.Id == order.DeliveryAddressId);
@@ -103,8 +106,7 @@ namespace Service.Services
 
             order.DeliveryAddress = null;
 
-
-
+            return order;
         }
         public void Update(int id, OrderUpdateModel model)
         {

@@ -24,7 +24,7 @@ namespace VWater.Data.Entities
 
         public decimal TotalPrice { get; set; }
 
-        public decimal? AmountPaid { get; set; }
+        public decimal AmountPaid { get; set; }
 
         public int? StatusId { get; set; }
 
