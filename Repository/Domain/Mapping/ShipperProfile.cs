@@ -15,6 +15,10 @@ namespace VWater.Domain.Mapping
 
             CreateMap<VWater.Domain.Models.ShipperReadModel, VWater.Domain.Models.ShipperUpdateModel>();
 
+
+            CreateMap<VWater.Data.Entities.Shipper, VWater.Domain.Models.ShipperStatusModel>();
+            CreateMap<VWater.Domain.Models.ShipperStatusModel, VWater.Data.Entities.Shipper>();
+            CreateMap<VWater.Domain.Models.ShipperReadModel, VWater.Domain.Models.ShipperStatusModel>();
         }
 
     }

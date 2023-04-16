@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Repository.Domain.Models;
 using Service.Shippers;
 using VWater.Domain.Models;
 
@@ -42,6 +43,13 @@ namespace Controller.Controllers
         public IActionResult GetNumberOfShipper()
         {
             return Ok(new { numberOfShipper = _shipperService.GetNumberOfShipper() });
+        }
+
+        [HttpPut("StatusOfShipper")]
+        public IActionResult StatusOfShipper(int id, [FromBody] ShipperStatusModel request1)
+        {
+            _shipperService.StatusOfShipper(id, request1);
+            return Ok(new { message = "Shipper status changed" });
         }
     }
 }

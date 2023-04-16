@@ -16,6 +16,7 @@ namespace Service.Shippers
         public void Update(int id, ShipperUpdateModel request);
         public void Delete(int id);
         public int GetNumberOfShipper();
+        public void StatusOfShipper(int id, ShipperStatusModel request1);
     }
     public class ShipperService : IShipperService
     {
@@ -96,6 +97,18 @@ namespace Service.Shippers
             report.NumberOfFailOrder = GetNumberOfOrderByStatusForShipper(5);
 
             return report;
+        }
+
+        public void StatusOfShipper(int id, ShipperStatusModel request1)
+        {
+            var shipper = GetShipper(id);
+            _mapper.Map(request1, shipper);
+
+            if (shipper.IsOnline == true) { shipper.IsOnline = false; }
+            else { shipper.IsOnline = true; }
+
+            _context.Shippers.Update(shipper);
+            _context.SaveChangesAsync();
         }
     }
 }
