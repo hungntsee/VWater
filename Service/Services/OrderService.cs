@@ -32,6 +32,7 @@ namespace Service.Services
         public List<Order> GetOrderByStore(int store_id);
         public Order GetOrderByStatusForShipper(int shipper_id, int status_id);
         public int CountOrderByStatus();
+        public Order GetNewOrderByStoreId(int store_id);
     }
     public class OrderService : IOrderService
     {
@@ -426,6 +427,22 @@ namespace Service.Services
         public int CountOrderByStatus()
         {
             return _context.Orders.Count(a => a.StatusId == 2);   
+        }
+
+        public Order GetNewOrderByStoreId(int store_id)
+        {
+            var orders = OrderExtensions.ByStoreId(
+                _context.Orders.Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu).ThenInclude(a => a.Product),
+                store_id);
+            var newOrderByStoreId = orders.ToList().MaxBy(a => a.OrderDate);
+            foreach (var orderDetail in newOrderByStoreId.OrderDetails)
+            {
+                orderDetail.Order = null;
+                orderDetail.ProductInMenu.Product.ProductInMenus = null;
+                orderDetail.ProductInMenu.OrderDetails = null;
+            }
+
+            return newOrderByStoreId;
         }
 
     }

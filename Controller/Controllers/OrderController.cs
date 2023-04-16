@@ -159,5 +159,12 @@ namespace Controller.Controllers
         {
             return Ok(new { countOrderByStatus = _orderService.CountOrderByStatus() });
         }
+
+        [HttpGet("/api/GetNewOrderByStoreId")]
+        public IActionResult GetNewOrderByStoreId(int store_id)
+        {
+            var order = _orderService.GetNewOrderByStoreId(store_id);
+            return Ok(order);
+        }
     }
 }
