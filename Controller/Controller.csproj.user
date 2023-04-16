@@ -6,7 +6,7 @@
     <WebStackScaffolding_ControllerDialogWidth>650.4</WebStackScaffolding_ControllerDialogWidth>
     <WebStackScaffolding_DbContextDialogWidth>650.4</WebStackScaffolding_DbContextDialogWidth>
     <ActiveDebugProfile>Controller</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>E:\Project_2023_Spring\back-end\WeWater\VWater\Controller\Properties\PublishProfiles\vwaterweb - Zip Deploy.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\Asus\source\repos\VWater\Controller\Properties\PublishProfiles\vwaterweb - Zip Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
