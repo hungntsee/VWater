@@ -17,6 +17,7 @@ namespace Service.Shippers
         public void Delete(int id);
         public int GetNumberOfShipper();
         public void StatusOfShipper(int id, ShipperStatusModel request1);
+        public ReportOrderResponseModel GetReportForShipper(int shipper_id);
     }
     public class ShipperService : IShipperService
     {
@@ -88,14 +89,18 @@ namespace Service.Shippers
         {
             var report = new ReportOrderResponseModel();
 
-            var shipper = GetShipper(shipper_id);
+            //var shipper = GetShipper(shipper_id);
+            var order = new Order();
+            //var orders = OrderExtensions.ByShipperId(_context.Orders, shipper_id);
 
-            report.NumberOfFinishOrder = GetNumberOfOrderByStatusForShipper(1);
-            report.NumberOfWaitingOrder = GetNumberOfOrderByStatusForShipper(2);
-            report.NumberOfConfirmedOrder = GetNumberOfOrderByStatusForShipper(3);
-            report.NumberOfShippingOrder = GetNumberOfOrderByStatusForShipper(4);
-            report.NumberOfFailOrder = GetNumberOfOrderByStatusForShipper(5);
-
+            if (order.ShipperId== shipper_id)
+            { 
+                report.NumberOfFinishOrder = GetNumberOfOrderByStatusForShipper(1);
+                report.NumberOfWaitingOrder = GetNumberOfOrderByStatusForShipper(2);
+                report.NumberOfConfirmedOrder = GetNumberOfOrderByStatusForShipper(3);
+                report.NumberOfShippingOrder = GetNumberOfOrderByStatusForShipper(4);
+                report.NumberOfFailOrder = GetNumberOfOrderByStatusForShipper(5);           
+            }
             return report;
         }
 

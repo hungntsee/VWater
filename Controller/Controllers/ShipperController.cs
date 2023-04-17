@@ -51,5 +51,11 @@ namespace Controller.Controllers
             _shipperService.StatusOfShipper(id, request1);
             return Ok(new { message = "Shipper status changed" });
         }
+
+        [HttpGet("/api/GetReportForShipper")]
+        public IActionResult GetReportForShipper(int shipper_id)
+        {
+            return Ok(_shipperService.GetReportForShipper(shipper_id));
+        }
     }
 }

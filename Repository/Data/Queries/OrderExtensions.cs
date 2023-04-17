@@ -76,6 +76,16 @@ namespace VWater.Data.Queries
             return queryable.Where(q => q.StoreId == storeId);
         }
 
+        /*
+        public static IQueryable<VWater.Data.Entities.Order> ByStatusForShipper(this IQueryable<VWater.Data.Entities.Order> queryable, int? statusId, int? shipperId)
+        {
+            if (queryable is null)
+                throw new ArgumentNullException(nameof(queryable));
+
+            return queryable.Where(q => (q.StatusId == statusId || (statusId == null && q.StatusId == null)) && (q.ShipperId == shipperId || (shipperId == null && q.ShipperId == null)));
+        }
+        */
+
         #endregion
 
     }
