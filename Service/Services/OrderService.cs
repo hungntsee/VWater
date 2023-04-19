@@ -2,10 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RabbitMQ;
+using Repository.ZaloPayHelper;
 using Service.Helpers;
-using System.Dynamic;
-using System.Security.Cryptography;
-using System.Text;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Data.Queries;
@@ -108,6 +106,7 @@ namespace Service.Services
         {
             if (model.OrderDetails == null) throw new AppException("Don't have products in your cart");
             var order = _mapper.Map<Order>(model);
+
             order.OrderDate = DateTime.Now;
             order.DeliveryAddress = _context.DeliveryAddresses.AsNoTracking().FirstOrDefault(a => a.Id == order.DeliveryAddressId);
             order.StoreId = order.DeliveryAddress.StoreId;
@@ -116,57 +115,26 @@ namespace Service.Services
 
             order.DeliveryAddress = null;
 
-            Random rnd = new Random();
-            var app_trans_id = rnd.Next(1000000);
-
+            //Add data for request to zalo
+            var amount = long.Parse(order.TotalPrice.ToString());
             var embed_data = new
             {
                 redirect = "https://vwater-user-ui.vercel.app/order-tracking"
             };
-            var param = new Dictionary<string, string>();
-            ZaloPayCreateRequest request = new ZaloPayCreateRequest();
+            var zaloRequestData = new ZaloPayCreateRequest(amount, embed_data, null, _config);
 
-            request.app_id = _config["ZaloPay:Appid"];
-            request.app_trans_id = DateTime.Now.ToString("yyMMdd")+ "_"+ app_trans_id;
-            request.app_time = Utils.GetTimeStamp().ToString();
-            request.amount = (order.TotalPrice*100).ToString();
-            request.embed_data = JsonConvert.SerializeObject(embed_data);
-            request.callback_url = "";
-            request.mac = GenerateMac(request);
+            var result = await HttpHelper.PostFormAsync(_config["ZaloPay:ZaloPayApiCreateOrder"], zaloRequestData.AsParams());
 
-            param.Add("app_id",request.app_id);
-            param.Add("app_user", request.app_user);
-            param.Add("app_time", request.app_time);
-            param.Add("amount", request.amount);
-            param.Add("app_trans_id",request.app_trans_id); // mã giao dich có định dạng yyMMdd_xxxx
-            param.Add("embed_data", request.embed_data);
-            param.Add("item", request.item);
-            param.Add("description", request.desciption);
-            param.Add("bank_code", request.bank_code);
-
-            string create_order_url = "https://sb-openapi.zalopay.vn/v2/create";
-
-            var result = await HttpHelper.PostFormAsync(create_order_url, param);
-
+            var returnCode = (long)result["returncode"];
+            if (returnCode == 1)
+            {
+                order.StatusId = 6;
+                order.OrderIdMomo = zaloRequestData.AppTransId;
+                _context.Orders.Add(order);
+                _context.SaveChanges();
+            }
 
             return result;
-        }
-
-        private string GenerateMac(ZaloPayCreateRequest request)
-        {
-            var key1 = _config["ZaloPay:Key1"];
-            var key2 = _config["ZaloPay:Key2"];
-            var data =
-                request.app_id +
-                "|" + request.app_trans_id +
-                "|" + request.app_user +
-                "|" + request.amount +
-                "|" + request.app_time +
-                "|" + request.embed_data +
-                "|" + request.item;
-
-            var mac = HmacHelper.Compute(ZaloPayHMAC.HMACSHA256, key1, data);
-            return mac;
         }
 
         public void GetResponeseFromMomo(ResponseFromMomo response)
