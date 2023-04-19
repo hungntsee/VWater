@@ -168,7 +168,7 @@ public class AccountService : IAccountService
         _context.Accounts.Add(account);
         _context.SaveChanges();
         var shipper = new Shipper();
-        if(account.RoleId == 6)
+        if(account.RoleId == 2)
         {
             shipper = _mapper.Map<Shipper>(request);
             shipper.AccountId = account.Id;
