@@ -2,12 +2,16 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RabbitMQ;
-using Repository.Domain.Models;
 using Service.Helpers;
+using System.Dynamic;
+using System.Security.Cryptography;
+using System.Text;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Data.Queries;
 using VWater.Domain.Models;
+using ZaloPay.Helper;
+using ZaloPay.Helper.Crypto;
 
 namespace Service.Services
 {
@@ -33,17 +37,21 @@ namespace Service.Services
         public Order GetOrderByStatusForShipper(int shipper_id, int status_id);
         public int CountOrderByStatus();
         public Order GetNewOrderByStoreId(int store_id);
+        public Task<Dictionary<string, object>> CreateOrderWithZaloPay(OrderCreateModel model);
+        public void GetResponeseFromMomo(ResponseFromMomo response);
     }
     public class OrderService : IOrderService
     {
         private VWaterContext _context;
         private readonly IMapper _mapper;
         private Send send = new Send();
+        private IConfiguration _config;
 
-        public OrderService(VWaterContext context, IMapper mapper)
+        public OrderService(VWaterContext context, IMapper mapper, IConfiguration configuration)
         {
             _context = context;
             _mapper = mapper;
+            _config = configuration;
         }
 
         public IEnumerable<Order> GetAll()
@@ -95,7 +103,8 @@ namespace Service.Services
             return responseOrder;
         }
 
-        public Order CreateRequestForMomo(OrderCreateModel model)
+        #region Payment With Momo
+        public async Task<Dictionary<string,object>> CreateOrderWithZaloPay(OrderCreateModel model)
         {
             if (model.OrderDetails == null) throw new AppException("Don't have products in your cart");
             var order = _mapper.Map<Order>(model);
@@ -107,8 +116,81 @@ namespace Service.Services
 
             order.DeliveryAddress = null;
 
-            return order;
+            Random rnd = new Random();
+            var app_trans_id = rnd.Next(1000000);
+
+            var embed_data = new
+            {
+                redirect = "https://vwater-user-ui.vercel.app/order-tracking"
+            };
+            var param = new Dictionary<string, string>();
+            ZaloPayCreateRequest request = new ZaloPayCreateRequest();
+
+            request.app_id = _config["ZaloPay:Appid"];
+            request.app_trans_id = DateTime.Now.ToString("yyMMdd")+ "_"+ app_trans_id;
+            request.app_time = Utils.GetTimeStamp().ToString();
+            request.amount = (order.TotalPrice*100).ToString();
+            request.embed_data = JsonConvert.SerializeObject(embed_data);
+            request.callback_url = "";
+            request.mac = GenerateMac(request);
+
+            param.Add("app_id",request.app_id);
+            param.Add("app_user", request.app_user);
+            param.Add("app_time", request.app_time);
+            param.Add("amount", request.amount);
+            param.Add("app_trans_id",request.app_trans_id); // mã giao dich có định dạng yyMMdd_xxxx
+            param.Add("embed_data", request.embed_data);
+            param.Add("item", request.item);
+            param.Add("description", request.desciption);
+            param.Add("bank_code", request.bank_code);
+
+            string create_order_url = "https://sb-openapi.zalopay.vn/v2/create";
+
+            var result = await HttpHelper.PostFormAsync(create_order_url, param);
+
+
+            return result;
         }
+
+        private string GenerateMac(ZaloPayCreateRequest request)
+        {
+            var key1 = _config["ZaloPay:Key1"];
+            var key2 = _config["ZaloPay:Key2"];
+            var data =
+                request.app_id +
+                "|" + request.app_trans_id +
+                "|" + request.app_user +
+                "|" + request.amount +
+                "|" + request.app_time +
+                "|" + request.embed_data +
+                "|" + request.item;
+
+            var mac = HmacHelper.Compute(ZaloPayHMAC.HMACSHA256, key1, data);
+            return mac;
+        }
+
+        public void GetResponeseFromMomo(ResponseFromMomo response)
+        {
+            if (response.ResultCode == 0)
+            {
+                var orderMomoId = response.OrderId;
+                var order = _context.Orders.AsNoTracking().FirstOrDefault(t => t.OrderIdMomo == orderMomoId);
+
+                if (order == null) throw new AppException("Order is not exist for this request.!");
+                if (order.StatusId == 7) throw new AppException("This Order already paid.!");
+                if (order.TotalPrice != response.Amount) throw new AppException("Wrong Amount.!");
+
+                order.StatusId = 7;
+                order.AmountPaid = response.Amount;
+                order.IpnData = JsonConvert.SerializeObject(response);
+
+                _context.Orders.Update(order);
+                _context.SaveChanges();
+
+            }
+            else if (response.ResultCode != 0) throw new AppException("Transaction Fail.");
+        }
+        #endregion
         public void Update(int id, OrderUpdateModel model)
         {
             var order = GetOrder(id);

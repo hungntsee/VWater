@@ -846,6 +846,16 @@ namespace Repository.Migrations
                         .HasColumnType("int")
                         .HasColumnName("TotalQuantity");
 
+                    b.Property<string>("OrderIdMomo")
+                        .IsRequired(false)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("OrderIdMomo");
+
+                    b.Property<string>("IpnData")
+                        .IsRequired(false)
+                        .HasColumnType("nvarchar(MAX)")
+                        .HasColumnName("IpnData");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DeliveryAddressId");

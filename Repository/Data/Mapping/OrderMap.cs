@@ -68,6 +68,16 @@ namespace VWater.Data.Mapping
                 .HasColumnName("IsDeposit")
                 .HasColumnType("bit");
 
+            builder.Property(t => t.OrderIdMomo)
+                .IsRequired(false)
+                .HasColumnName("OrderIdMomo")
+                .HasColumnType("nvarchar(100)");
+
+            builder.Property(t => t.IpnData)
+                .IsRequired(false)
+                .HasColumnName("IpnData")
+                .HasColumnType("nvarchar(MAX)");
+
             // relationships
             builder.HasOne(t => t.Shipper)
                 .WithMany(t => t.Orders)

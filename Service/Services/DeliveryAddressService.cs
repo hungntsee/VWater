@@ -28,7 +28,12 @@ namespace Service.DeliveryAddresses
         }
         public IEnumerable<DeliveryAddress> GetAll()
         {
-            return _context.DeliveryAddresses.Include(a => a.Customer).IgnoreAutoIncludes();
+            var deliveryAddresses = _context.DeliveryAddresses.Include(a => a.Customer).IgnoreAutoIncludes();
+            foreach (var deliveryAddress in deliveryAddresses)
+            {
+                deliveryAddress.Customer.DeliveryAddresses = null;
+            }
+            return deliveryAddresses;
         }
 
         public DeliveryAddress GetById(int id)

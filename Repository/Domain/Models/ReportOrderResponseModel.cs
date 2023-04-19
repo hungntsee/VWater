@@ -1,4 +1,4 @@
-﻿namespace Repository.Domain.Models
+﻿namespace VWater.Domain.Models
 {
     public class ReportOrderResponseModel
     {

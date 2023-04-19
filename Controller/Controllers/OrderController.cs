@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.Services;
+using System.Net;
 using VWater.Domain.Models;
 
 namespace Controller.Controllers
@@ -165,6 +166,20 @@ namespace Controller.Controllers
         {
             var order = _orderService.GetNewOrderByStoreId(store_id);
             return Ok(order);
+        }
+
+        [HttpPost("/api/CreateOrderWithZalo")]
+        public IActionResult CreateOrderWithMomo(OrderCreateModel model)
+        {
+            var response = _orderService.CreateOrderWithZaloPay(model);
+            return Ok(response.Result);
+        }
+
+        [HttpPost("/api/momo-ipn")]
+        public HttpStatusCode MomoIpn(ResponseFromMomo response)
+        {
+            _orderService.GetResponeseFromMomo(response);
+            return HttpStatusCode.NoContent;
         }
     }
 }

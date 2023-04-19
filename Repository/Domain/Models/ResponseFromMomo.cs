@@ -7,7 +7,6 @@
         public string RequestId { get; set;}      
         public long Amount { get; set;}
         public string OrderInfo { get; set;}
-        public string PartnerUserId { get; set; }
         public string OrderType {get; set;}
         public long TransId { get; set;}
         public int ResultCode { get; set; }

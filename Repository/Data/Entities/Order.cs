@@ -34,6 +34,10 @@ namespace VWater.Data.Entities
 
         public bool? IsDeposit { get; set; }
 
+        public string? OrderIdMomo { get; set; }
+
+        public string? IpnData { get; set; }
+
         #endregion
 
         #region Generated Relationships
