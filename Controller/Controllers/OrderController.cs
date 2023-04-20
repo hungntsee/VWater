@@ -189,5 +189,15 @@ namespace Controller.Controllers
             return Ok(orders);
         }
 
+        [HttpGet("/api/GetOrderByStoreAndStatus")]
+        public IActionResult GetOrderByStoreAndStatus(int store_id, int status_id)
+        {
+            var order = _orderService.GetOrderByStoreAndStatus(store_id, status_id);
+            if (order == null)
+            {
+                return BadRequest("Can't find result matched your input!");
+            }
+            return Ok(order);
+        }
     }
 }

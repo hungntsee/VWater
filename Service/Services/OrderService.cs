@@ -38,6 +38,7 @@ namespace Service.Services
         public Task<Dictionary<string, object>> CreateOrderWithZaloPay(OrderCreateModel model);
         public void GetResponeseFromMomo(ResponseFromMomo response);
         public List<Order> GetOrderByShipper(int shipper_id);
+        public Order GetOrderByStoreAndStatus(int store_id, int status_id);
     }
     public class OrderService : IOrderService
     {
@@ -512,6 +513,24 @@ namespace Service.Services
             }
 
             return orders.ToList();
+        }
+
+        public Order GetOrderByStoreAndStatus(int store_id, int status_id)
+        {
+            var order = StoreAndStatus(store_id, status_id);
+            return order;
+        }
+
+        private Order StoreAndStatus(int store_id, int status_id)
+        {
+            var responseOrder = _context.Orders.Include(a => a.Store).Include(a => a.Status).OrderByDescending(a => a.Id)
+                .AsNoTracking().FirstOrDefault(a => a.StoreId == store_id && a.StatusId == status_id);
+            if (responseOrder == null) throw new KeyNotFoundException("Can not found!");
+
+            responseOrder.Status.Orders = null;
+            //OrderJsonFile(responseOrder);
+            return responseOrder;
+
         }
 
     }
