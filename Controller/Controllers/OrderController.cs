@@ -181,5 +181,13 @@ namespace Controller.Controllers
             _orderService.GetResponeseFromMomo(response);
             return HttpStatusCode.NoContent;
         }
+
+        [HttpGet("/api/GetOrderByShipper")]
+        public IActionResult GetOrderByShipper(int shipper_id)
+        {
+            var orders = _orderService.GetOrderByShipper(shipper_id);
+            return Ok(orders);
+        }
+
     }
 }

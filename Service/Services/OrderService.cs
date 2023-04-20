@@ -37,6 +37,7 @@ namespace Service.Services
         public Order GetNewOrderByStoreId(int store_id);
         public Task<Dictionary<string, object>> CreateOrderWithZaloPay(OrderCreateModel model);
         public void GetResponeseFromMomo(ResponseFromMomo response);
+        public List<Order> GetOrderByShipper(int shipper_id);
     }
     public class OrderService : IOrderService
     {
@@ -445,7 +446,7 @@ namespace Service.Services
                 .Include(a => a.Status)
                 .Include(a => a.DeliverySlot)
                 .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu)
-                .ThenInclude(a => a.Product), store_id);
+                .ThenInclude(a => a.Product).OrderByDescending(a => a.Id), store_id);
 
             foreach (var order in orders)
             {
@@ -493,6 +494,24 @@ namespace Service.Services
             }
 
             return newOrderByStoreId;
+        }
+
+        public List<Order> GetOrderByShipper(int shipper_id)
+        {
+            var orders = OrderExtensions.ByShipperId(_context.Orders
+                .Include(a => a.DeliveryAddress).ThenInclude(a => a.Customer)
+                .Include(a => a.Store)
+                .Include(a => a.Status)
+                .Include(a => a.DeliverySlot)
+                .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu)
+                .ThenInclude(a => a.Product).OrderByDescending(a => a.Id), shipper_id);
+
+            foreach (var order in orders)
+            {
+                OrderJsonFile(order);
+            }
+
+            return orders.ToList();
         }
 
     }
