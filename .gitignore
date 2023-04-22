@@ -28,3 +28,7 @@ Service\obj\*
 /Service/obj/Debug/net6.0/Service.GeneratedMSBuildEditorConfig.editorconfig
 /Service/obj/Debug/net6.0/Service.csproj.AssemblyReference.cache
 /Service/obj/Debug/net6.0/Service.AssemblyInfoInputs.cache
+/Controller/obj/project.nuget.cache
+/RabbitMQ/obj/project.nuget.cache
+/Repository/obj/project.nuget.cache
+/Service/obj
