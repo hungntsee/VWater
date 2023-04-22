@@ -31,7 +31,7 @@ namespace VWater.Domain.Models
             EmbedData = JsonConvert.SerializeObject(embeddata);
             Item = JsonConvert.SerializeObject(item);
             Mac = ComputeMac(configuration);
-            CallBackUrl = "https://localhost:7243/api/callback-zalo";
+            CallBackUrl = "https://vwaterweb.azurewebsites.net/api/callback-zalo";
         }
 
         public virtual string GetMacData()
