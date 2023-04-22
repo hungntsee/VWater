@@ -124,7 +124,7 @@ namespace Service.Services
                 redirect = "https://vwater-user-ui.vercel.app/order-tracking"
             };
             var zaloRequestData = new ZaloPayCreateRequest(amount, embed_data, null, _config);
-            
+
             var result = await HttpHelper.PostFormAsync(_config["ZaloPay:ZaloPayApiCreateOrder"], zaloRequestData.AsParams());
 
             var returnCode = (long)result["returncode"];

@@ -106,11 +106,13 @@ public class AccountService : IAccountService
             {
                 new Claim(ClaimTypes.Name, account.Username),
                 new Claim(ClaimTypes.Role, role),
+                new Claim(ClaimTypes.Sid,  account.StoreId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
 
             var token = GetToken(authClaims);
             account.AccessToken = new JwtSecurityTokenHandler().WriteToken(token);
+            var encryptToken = new JwtSecurityTokenHandler().ReadToken(account.AccessToken);
         }
 
         else throw new AppException("Login Fail");
