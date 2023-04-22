@@ -36,7 +36,7 @@ namespace Service.Services
         public int CountOrderByStatus();
         public Order GetNewOrderByStoreId(int store_id);
         public Task<Dictionary<string, object>> CreateOrderWithZaloPay(OrderCreateModel model);
-        public void GetResponeseFromMomo(ResponseFromMomo response);
+        public Dictionary<string, object> CallBackFromZalo(ZaloCallBackRequest cbData);
         public List<Order> GetOrderByShipper(int shipper_id);
         public Order GetOrderByStoreAndStatus(int store_id, int status_id);
     }
@@ -124,7 +124,7 @@ namespace Service.Services
                 redirect = "https://vwater-user-ui.vercel.app/order-tracking"
             };
             var zaloRequestData = new ZaloPayCreateRequest(amount, embed_data, null, _config);
-
+            Console.WriteLine(zaloRequestData.AsParams());
             var result = await HttpHelper.PostFormAsync(_config["ZaloPay:ZaloPayApiCreateOrder"], zaloRequestData.AsParams());
 
             var returnCode = (long)result["returncode"];
@@ -135,30 +135,70 @@ namespace Service.Services
                 _context.Orders.Add(order);
                 _context.SaveChanges();
             }
-
+            
             return result;
         }
 
-        public void GetResponeseFromMomo(ResponseFromMomo response)
+        public Dictionary<string, object> CallBackFromZalo(ZaloCallBackRequest cbData)
         {
-            if (response.ResultCode == 0)
+            var result = new Dictionary<string, object>();
+            try
             {
-                var orderMomoId = response.OrderId;
-                var order = _context.Orders.AsNoTracking().FirstOrDefault(t => t.OrderIdMomo == orderMomoId);
+                var dataStr = Convert.ToString(cbData.Data);
+                var requestMac = Convert.ToString(cbData.Mac);
 
-                if (order == null) throw new AppException("Order is not exist for this request.!");
-                if (order.StatusId == 7) throw new AppException("This Order already paid.!");
-                if (order.TotalPrice != response.Amount) throw new AppException("Wrong Amount.!");
+                var isValidCallBack = VerifyCallback(dataStr, requestMac);
+                if(!isValidCallBack)
+                {
+                    result["returncode"] = - 1;
+                    result["returnmessage"] = "mac not equal";
+                }
+                else
+                {
+                    var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(dataStr);
+                    var apptransid = data["apptransid"].ToString();
 
-                order.StatusId = 7;
-                order.AmountPaid = response.Amount;
-                order.IpnData = JsonConvert.SerializeObject(response);
+                    var order = _context.Orders.AsNoTracking().FirstOrDefault(a => a.OrderIdMomo == apptransid);
+                    if (order != null)
+                    {
+                         var ipnData = new
+                        {
+                            Zptransid = data["zptransid"].ToString(),
+                            Channel = int.Parse(data["channel"].ToString()),
+                            Status = 1
+                        };
+                        order.IpnData = Convert.ToString(ipnData);
+                        order.StatusId = 7;
+                        order.AmountPaid = order.TotalPrice;
 
-                _context.Orders.Update(order);
-                _context.SaveChanges();
-
+                        _context.Orders.Update(order);
+                        _context.SaveChanges();
+                    }
+                }
+                result["returncode"] = 1;
+                result["returnmessage"] = "success";
+                Console.WriteLine(result);
+                return result;
+            }catch (Exception e)
+            {
+                result["returncode"] = 0;
+                result["returnmessage"] = e.Message;
+                return result;
             }
-            else if (response.ResultCode != 0) throw new AppException("Transaction Fail.");
+        }
+
+        private bool VerifyCallback(string data, string requestMac)
+        {
+            try
+            {
+                string mac = HmacHelper.Compute(ZaloPayHMAC.HMACSHA256, _config["ZaloPay:Key2"], data);
+
+                return requestMac.Equals(mac);
+            }
+            catch
+            {
+                return false;
+            }
         }
         #endregion
         public void Update(int id, OrderUpdateModel model)

@@ -175,11 +175,11 @@ namespace Controller.Controllers
             return Ok(response.Result);
         }
 
-        [HttpPost("/api/momo-ipn")]
-        public HttpStatusCode MomoIpn(ResponseFromMomo response)
+        [HttpPost("/api/callback-zalo")]
+        public IActionResult MomoIpn(ZaloCallBackRequest cbData)
         {
-            _orderService.GetResponeseFromMomo(response);
-            return HttpStatusCode.NoContent;
+            var result = _orderService.CallBackFromZalo(cbData);
+            return Ok(result);
         }
 
         [HttpGet("/api/GetOrderByShipper")]

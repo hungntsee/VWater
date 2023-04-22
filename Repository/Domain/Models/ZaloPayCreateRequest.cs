@@ -15,8 +15,8 @@ namespace VWater.Domain.Models
         public string Description { get; set; }
         public string EmbedData { get; set; }
         public string BankCode { get; set; }
-        public string mac { get; set; }
-        public string callback_url { get; set; }
+        public string Mac { get; set; }
+        public string CallBackUrl { get; set; }
 
 
         public ZaloPayCreateRequest(long amount, object embeddata, object item, IConfiguration configuration)
@@ -30,7 +30,8 @@ namespace VWater.Domain.Models
             Description = "Thanh toán đơn hàng tại VWater Shop";
             EmbedData = JsonConvert.SerializeObject(embeddata);
             Item = JsonConvert.SerializeObject(item);
-            mac = ComputeMac(configuration);
+            Mac = ComputeMac(configuration);
+            CallBackUrl = "https://localhost:7243/api/callback-zalo";
         }
 
         public virtual string GetMacData()

@@ -11,5 +11,6 @@ namespace ZaloPay.Helper
         public static long GetTimeStamp(){
             return GetTimeStamp(DateTime.Now);
         }
+
     }
 }
