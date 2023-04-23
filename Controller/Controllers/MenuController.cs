@@ -74,5 +74,12 @@ namespace Controller.Controllers
             var list = _menuService.FilterProductByType(type_id,menu_id);
             return Ok(list);
         }
+
+        [HttpGet("/api/GetMenuByAreaId")]
+        public IActionResult GetMenuByAreaId(int area_id)
+        {
+            var menus = _menuService.GetMenuByAreaId(area_id);
+            return Ok(menus);
+        }
     }
 }
