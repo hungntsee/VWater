@@ -17,6 +17,7 @@ namespace Service.Services
         public void Create(MenuCreateModel model);
         public void Update(int id, MenuUpdateModel model);
         public void Delete(int id);
+        public List<Menu> GetMenuByAreaId(int area_id);
     }
     public class MenuService : IMenuService
     {
@@ -119,6 +120,14 @@ namespace Service.Services
                 }
             }
             return productList;
+        }
+
+        public List<Menu> GetMenuByAreaId(int area_id)
+        {
+            var menus = MenuExtensions.ByAreaId(_context.Menus
+                .Include(a => a.Area), area_id);
+
+            return menus.ToList();
         }
     }
 }

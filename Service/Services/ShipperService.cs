@@ -18,6 +18,7 @@ namespace Service.Shippers
         public int GetNumberOfShipper();
         public void StatusOfShipper(int id, ShipperStatusModel request1);
         public ReportOrderResponseModel GetReportForShipper(int shipper_id);
+        public List<Shipper> GetShipperByStoreId(int store_id);
     }
     public class ShipperService : IShipperService
     {
@@ -114,6 +115,15 @@ namespace Service.Shippers
 
             _context.Shippers.Update(shipper);
             _context.SaveChangesAsync();
+        }
+
+        public List<Shipper> GetShipperByStoreId(int store_id)
+        {
+            var shipper = ShipperExtensions.ByStoreId(
+                _context.Shippers.Include(a => a.Account),
+                store_id);
+
+            return shipper.ToList();
         }
     }
 }

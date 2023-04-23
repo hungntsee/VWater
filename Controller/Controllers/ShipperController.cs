@@ -57,5 +57,12 @@ namespace Controller.Controllers
         {
             return Ok(_shipperService.GetReportForShipper(shipper_id));
         }
+
+        [HttpGet("/api/GetShipperByStoreId")]
+        public IActionResult GetShipperByStoreId(int store_id)
+        {
+            var shippers = _shipperService.GetShipperByStoreId(store_id);
+            return Ok(shippers);
+        }
     }
 }
