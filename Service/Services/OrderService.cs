@@ -349,7 +349,7 @@ namespace Service.Services
                             .Include(a => a.Status)
                             .Include(a => a.DeliverySlot)
                             .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu)
-                            .ThenInclude(a => a.Product), customer_id);
+                            .ThenInclude(a => a.Product).OrderByDescending(a=>a.Id), customer_id);
             var list = new List<Order>();
             foreach (var order in orders)
             {
