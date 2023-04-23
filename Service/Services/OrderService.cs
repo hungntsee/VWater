@@ -354,7 +354,7 @@ namespace Service.Services
             foreach (var order in orders)
             {
                 OrderJsonFile(order);
-                if (order.StatusId < 4) list.Add(order);
+                if (order.StatusId != 4 || order.StatusId != 5 ) list.Add(order);
             }
             return list;
         }
