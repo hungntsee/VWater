@@ -164,8 +164,8 @@ namespace Controller.Controllers
         [HttpGet("/api/GetNewOrderByStoreId")]
         public IActionResult GetNewOrderByStoreId(int store_id)
         {
-            var order = _orderService.GetNewOrderByStoreId(store_id);
-            return Ok(order);
+            var orders = _orderService.GetNewOrderByStoreId(store_id);
+            return Ok(orders);
         }
 
         [HttpPost("/api/CreateOrderWithZalo")]

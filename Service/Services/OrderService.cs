@@ -34,7 +34,7 @@ namespace Service.Services
         public List<Order> GetOrderByStore(int store_id);
         public Order GetOrderByStatusForShipper(int shipper_id, int status_id);
         public int CountOrderByStatus();
-        public Order GetNewOrderByStoreId(int store_id);
+        public List<Order> GetNewOrderByStoreId(int store_id);
         public Task<Dictionary<string, object>> CreateOrderWithZaloPay(OrderCreateModel model);
         public Dictionary<string, object> CallBackFromZalo(ZaloCallBackRequest cbData);
         public List<Order> GetOrderByShipper(int shipper_id);
@@ -521,6 +521,7 @@ namespace Service.Services
             return _context.Orders.Count(a => a.StatusId == 2);   
         }
 
+        /*
         public Order GetNewOrderByStoreId(int store_id)
         {
             var orders = OrderExtensions.ByStoreId(
@@ -535,6 +536,26 @@ namespace Service.Services
             }
 
             return newOrderByStoreId;
+        }
+        */
+
+        public List<Order> GetNewOrderByStoreId(int store_id)
+        {
+            var orders = OrderExtensions.ByStoreId(
+                _context.Orders.Include(a => a.DeliveryAddress)
+                            .Include(a => a.Store)
+                            .Include(a => a.Status)
+                            .Include(a => a.DeliverySlot)
+                            .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu)
+                            .ThenInclude(a => a.Product).OrderByDescending(a => a.Id),
+                store_id);
+            var list = new List<Order>();
+            foreach (var order in orders)
+            {
+                OrderJsonFile(order);
+                if (order.StatusId < 3) list.Add(order);
+            }
+            return list;
         }
 
         public List<Order> GetOrderByShipper(int shipper_id)
