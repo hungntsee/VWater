@@ -32,3 +32,11 @@ Service\obj\*
 /RabbitMQ/obj/project.nuget.cache
 /Repository/obj/project.nuget.cache
 /Service/obj
+/Controller/obj/Release/net6.0/Controller.assets.cache
+/Controller/obj/Release/net6.0/Controller.csproj.AssemblyReference.cache
+/RabbitMQ/obj/Release/net6.0/RabbitMQ.assets.cache
+/RabbitMQ/obj/Release/net6.0/RabbitMQ.csproj.AssemblyReference.cache
+/Repository/obj/Release/net6.0/Repository.assets.cache
+/Repository/obj/Release/net6.0/Repository.csproj.AssemblyReference.cache
+/Service/obj/Release/net6.0/Service.assets.cache
+/Service/obj/Release/net6.0/Service.csproj.AssemblyReference.cache
