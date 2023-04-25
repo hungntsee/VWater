@@ -169,7 +169,7 @@ namespace Controller.Controllers
         }
 
         [HttpPost("/api/CreateOrderWithZalo")]
-        public IActionResult CreateOrderWithMomo(OrderCreateModel model)
+        public IActionResult CreateOrderWithZaloPay(OrderCreateModel model)
         {
             var response = _orderService.CreateOrderWithZaloPay(model);
             return Ok(response.Result);
@@ -180,6 +180,20 @@ namespace Controller.Controllers
         {
             var result = _orderService.CallBackFromZalo(cbData);
             return Ok(result);
+        }
+
+        [HttpPost("/api/CreateOrderWithVNPay")]
+        public IActionResult CreateOrderWithVNPay(OrderCreateModel model)
+        {
+            var response = _orderService.CreateOrderWithVNPay(model);
+            return Ok(response);
+        }
+
+        [HttpGet("/api/VNPay-ipn")]
+        public IActionResult VnPayIpn()
+        {
+            var responseContent = _orderService.VNPayIpn(Request);
+            return Ok(responseContent);
         }
 
         [HttpGet("/api/GetOrderByShipper")]

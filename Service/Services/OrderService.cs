@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 using RabbitMQ;
 using Repository.ZaloPayHelper;
 using Service.Helpers;
+using System.Reflection.PortableExecutable;
+using System.Web;
+using VNPAY_CS_ASPX;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Data.Queries;
@@ -37,6 +40,8 @@ namespace Service.Services
         public List<Order> GetNewOrderByStoreId(int store_id);
         public Task<Dictionary<string, object>> CreateOrderWithZaloPay(OrderCreateModel model);
         public Dictionary<string, object> CallBackFromZalo(ZaloCallBackRequest cbData);
+        public string CreateOrderWithVNPay(OrderCreateModel model);
+        public string VNPayIpn(HttpRequest request);
         public List<Order> GetOrderByShipper(int shipper_id);
         public Order GetOrderByStoreAndStatus(int store_id, int status_id);
     }
@@ -46,12 +51,14 @@ namespace Service.Services
         private readonly IMapper _mapper;
         private Send send = new Send();
         private IConfiguration _config;
+        private IHttpContextAccessor _contextAccessor;
 
-        public OrderService(VWaterContext context, IMapper mapper, IConfiguration configuration)
+        public OrderService(VWaterContext context, IMapper mapper, IConfiguration configuration, IHttpContextAccessor contextAccessor)
         {
             _context = context;
             _mapper = mapper;
             _config = configuration;
+            _contextAccessor = contextAccessor;
         }
 
         public IEnumerable<Order> GetAll()
@@ -103,7 +110,7 @@ namespace Service.Services
             return responseOrder;
         }
 
-        #region Payment With Momo
+        #region Payment With Zalo
         public async Task<Dictionary<string,object>> CreateOrderWithZaloPay(OrderCreateModel model)
         {
             if (model.OrderDetails == null) throw new AppException("Don't have products in your cart");
@@ -199,6 +206,164 @@ namespace Service.Services
             {
                 return false;
             }
+        }
+        #endregion
+
+        #region Payment With VNPay
+        public string CreateOrderWithVNPay (OrderCreateModel model)
+        {
+            if (model.OrderDetails == null) throw new AppException("Don't have products in your cart");
+            var order = _mapper.Map<Order>(model);
+
+            order.OrderDate = DateTime.Now;
+            order.DeliveryAddress = _context.DeliveryAddresses.AsNoTracking().FirstOrDefault(a => a.Id == order.DeliveryAddressId);
+            order.StoreId = order.DeliveryAddress.StoreId;
+            order.IsDeposit = false;
+            order.ShipperId = null;
+            order.StatusId = 6;           
+
+            order.DeliveryAddress = null;
+
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+
+            //Get Config Info
+            string vnp_Returnurl = _config["VNPay:vnp_Returnurl"];
+            string vnp_Url = _config["VNPay:vnp_Url"];
+            string vnp_TmnCode = _config["VNPay:vnp_TmnCode"];
+            string vnp_HashSecret = _config["VNPay:vnp_HashSecret"];
+
+            if (string.IsNullOrEmpty(vnp_TmnCode) || string.IsNullOrEmpty(vnp_HashSecret))
+            {
+                throw new AppException("Vui lòng cấu hình các tham số: vnp_TmnCode,vnp_HashSecret trong file web.config");
+            }
+
+            //Build URL for VNPay
+            var amount = long.Parse(order.TotalPrice.ToString());
+
+            VnPayLibrary vnpay = new VnPayLibrary();
+
+            vnpay.AddRequestData("vnp_Version", VnPayLibrary.VERSION);
+            vnpay.AddRequestData("vnp_Command", "pay");
+            vnpay.AddRequestData("vnp_TmnCode", vnp_TmnCode);
+            vnpay.AddRequestData("vnp_Amount", (amount * 100).ToString());
+            vnpay.AddRequestData("vnp_CreateDate", order.OrderDate.ToString("yyyyMMddHHmmss"));
+            vnpay.AddRequestData("vnp_CurrCode", "VND");
+            vnpay.AddRequestData("vnp_IpAddr", VNPAY_CS_ASPX.Utils.GetIpAddress(_contextAccessor));
+            vnpay.AddRequestData("vnp_Locale", "vn");
+            vnpay.AddRequestData("vnp_OrderInfo", "Thanh toan tai VWater cho don hang: " + order.Id);
+            vnpay.AddRequestData("vnp_ReturnUrl", vnp_Returnurl);
+            vnpay.AddRequestData("vnp_TxnRef", order.Id.ToString());
+            vnpay.AddRequestData("vnp_ExpireDate", DateTime.Now.AddMinutes(15).ToString("yyyyMMddHHmmss"));
+
+            string paymentUrl = vnpay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
+            order.OrderIdMomo = paymentUrl;
+
+            _context.Orders.Update(order);
+            _context.SaveChanges();
+            
+            return paymentUrl;
+
+        }
+
+        public string VNPayIpn(HttpRequest request)
+        {
+            string returnContent = string.Empty;
+            var data = HttpUtility.ParseQueryString(request.QueryString.Value);
+            if(data.Count > 0)
+            {
+                string vnp_HashSecret = _config["VNPay:vnp_HashSecret"]; //Secret key
+                var vnpayData = data;
+                VnPayLibrary vnpay = new VnPayLibrary();
+                foreach (string s in vnpayData)
+                {
+                    if (!string.IsNullOrEmpty(s) && s.StartsWith("vnp_"))
+                    {
+                        vnpay.AddResponseData(s, vnpayData[s]);
+                    }
+
+                }
+                //Lay danh sach tham so tra ve tu VNPAY
+                //vnp_TxnRef: Ma don hang merchant gui VNPAY tai command=pay    
+                //vnp_TransactionNo: Ma GD tai he thong VNPAY
+                //vnp_ResponseCode:Response code from VNPAY: 00: Thanh cong, Khac 00: Xem tai lieu
+                //vnp_SecureHash: HmacSHA512 cua du lieu tra ve
+                
+                int orderId = Convert.ToInt16(vnpay.GetResponseData("vnp_TxnRef"));
+                long vnp_Amount = Convert.ToInt64(vnpay.GetResponseData("vnp_Amount")) / 100;
+                long vnpayTranId = Convert.ToInt64(vnpay.GetResponseData("vnp_TransactionNo"));
+                string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
+                string vnp_TransactionStatus = vnpay.GetResponseData("vnp_TransactionStatus");
+                String vnp_SecureHash = data["vnp_SecureHash"];
+                bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, vnp_HashSecret);
+
+                var ipnData = new {
+                     orderId = orderId,
+                     vnp_Amount = vnp_Amount,
+                     vnpayTranId = vnpayTranId,
+                     vnp_ResponseCode = vnp_ResponseCode,
+                     vnp_TransactionStatus = vnp_TransactionStatus,
+                     vnp_SecureHash = vnp_SecureHash,
+                     checkSignature = checkSignature
+                    };
+
+                if (checkSignature)
+                {
+                    var order = GetOrderIgnoreInclude(orderId);
+                    if(order != null)
+                    {
+                        if(order.TotalPrice == vnp_Amount)
+                        {
+                            if(order.StatusId == 6)
+                            {
+                                if(vnp_ResponseCode == "00" && vnp_TransactionStatus == "00")
+                                {
+                                    System.Console.WriteLine("Thanh toan thanh cong, OrderId={0}, VNPAY TranId={1}", orderId,
+                                        vnpayTranId);
+                                    order.StatusId = 7;
+                                    order.AmountPaid = vnp_Amount;
+                                    order.IpnData = JsonConvert.SerializeObject(ipnData);                 
+                                }
+                                else
+                                {
+                                    System.Console.WriteLine("Thanh toan loi, OrderId={0}, VNPAY TranId={1},ResponseCode={2}",
+                                        orderId,
+                                        vnpayTranId, vnp_ResponseCode);
+                                    order.StatusId = 5;
+                                    order.IpnData = "Thanh toan khong thanh cong";
+                                }
+                                _context.Orders.Update(order);
+                                _context.SaveChanges();
+
+                                returnContent = "{\"RspCode\":\"00\",\"Message\":\"Confirm Success\"}";
+                            }
+                            else
+                            {
+                                returnContent = "{\"RspCode\":\"02\",\"Message\":\"Order already confirmed\"}";
+                            }
+                        }
+                        else
+                        {
+                            returnContent = "{\"RspCode\":\"04\",\"Message\":\"invalid amount\"}";
+                        }
+                    }
+                    else
+                    {
+                        returnContent = "{\"RspCode\":\"01\",\"Message\":\"Order not found\"}";
+                    }
+                }
+                else
+                {
+                    returnContent = "{\"RspCode\":\"97\",\"Message\":\"Invalid signature\"}";
+                    System.Console.WriteLine("Invalid signature, InputData={0}", request.QueryString.Value);
+                }
+            }
+            else
+            {
+                returnContent = "{\"RspCode\":\"99\",\"Message\":\"Input data required\"}";
+            }
+
+            return returnContent;
         }
         #endregion
         public void Update(int id, OrderUpdateModel model)

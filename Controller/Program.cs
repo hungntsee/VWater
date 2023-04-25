@@ -48,6 +48,7 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<AppSetting>(configuration.GetSection("AppSetting"));
 
@@ -105,6 +106,8 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
     };
 });
+
+builder.Services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, Microsoft.AspNetCore.Http.HttpContextAccessor>();
 
 var app = builder.Build();
 

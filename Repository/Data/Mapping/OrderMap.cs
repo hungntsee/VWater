@@ -71,7 +71,7 @@ namespace VWater.Data.Mapping
             builder.Property(t => t.OrderIdMomo)
                 .IsRequired(false)
                 .HasColumnName("OrderIdMomo")
-                .HasColumnType("nvarchar(100)");
+                .HasColumnType("nvarchar(MAX)");
 
             builder.Property(t => t.IpnData)
                 .IsRequired(false)
