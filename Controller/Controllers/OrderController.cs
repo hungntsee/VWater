@@ -193,7 +193,11 @@ namespace Controller.Controllers
         public IActionResult VnPayIpn()
         {
             var responseContent = _orderService.VNPayIpn(Request);
-            return Ok(responseContent);
+            if (responseContent != "{\"RspCode\":\"00\",\"Message\":\"Confirm Success\"}") 
+            {
+                return Ok(responseContent);
+            }
+            return new RedirectResult("https://vwater-user-ui.vercel.app/order-tracking");         
         }
 
         [HttpGet("/api/GetOrderByShipper")]
