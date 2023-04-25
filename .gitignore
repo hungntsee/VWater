@@ -40,3 +40,7 @@ Service\obj\*
 /Repository/obj/Release/net6.0/Repository.csproj.AssemblyReference.cache
 /Service/obj/Release/net6.0/Service.assets.cache
 /Service/obj/Release/net6.0/Service.csproj.AssemblyReference.cache
+/Controller/obj/Debug/net6.0/apphost.exe
+/Controller/obj/Controller.csproj.nuget.dgspec.json
+/Controller/obj/Controller.csproj.nuget.g.props
+/Controller/obj/project.assets.json
