@@ -7,11 +7,11 @@ namespace ZaloPay.Helper
         }
 
         public static long GetTimeStamp(){
-            return GetTimeStamp(DateTime.Now);
+            return GetTimeStamp(DateTime.UtcNow.AddHours(7));
         }
 
         public static string GenTransID() {
-            return DateTime.Now.ToString("yyMMdd") + "_" + (GetTimeStamp());
+            return DateTime.UtcNow.AddHours(7).ToString("yyMMdd") + "_" + (GetTimeStamp());
         }
 
     }

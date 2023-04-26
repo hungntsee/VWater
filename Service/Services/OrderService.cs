@@ -80,7 +80,7 @@ namespace Service.Services
         {
             if (model.OrderDetails == null) throw new AppException("Don't have products in your cart");
             var order = _mapper.Map<Order>(model);
-            order.OrderDate = DateTime.Now;
+            order.OrderDate = DateTime.UtcNow.AddHours(7);
             order.DeliveryAddress = _context.DeliveryAddresses.AsNoTracking().FirstOrDefault(a => a.Id == order.DeliveryAddressId);
             order.StoreId = order.DeliveryAddress.StoreId;
             order.IsDeposit = false;           
@@ -116,7 +116,7 @@ namespace Service.Services
             if (model.OrderDetails == null) throw new AppException("Don't have products in your cart");
             var order = _mapper.Map<Order>(model);
 
-            order.OrderDate = DateTime.Now;
+            order.OrderDate = DateTime.UtcNow.AddHours(7);
             order.DeliveryAddress = _context.DeliveryAddresses.AsNoTracking().FirstOrDefault(a => a.Id == order.DeliveryAddressId);
             order.StoreId = order.DeliveryAddress.StoreId;
             order.IsDeposit = false;
@@ -254,7 +254,7 @@ namespace Service.Services
             vnpay.AddRequestData("vnp_OrderInfo", "Thanh toan tai VWater cho don hang: " + order.Id);
             vnpay.AddRequestData("vnp_ReturnUrl", vnp_Returnurl);
             vnpay.AddRequestData("vnp_TxnRef", order.Id.ToString());
-            vnpay.AddRequestData("vnp_ExpireDate", DateTime.Now.AddMinutes(15).ToString("yyyyMMddHHmmss"));
+            vnpay.AddRequestData("vnp_ExpireDate", DateTime.UtcNow.AddHours(7).AddMinutes(15).ToString("yyyyMMddHHmmss"));
 
             string paymentUrl = vnpay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
             order.OrderIdMomo = paymentUrl;
@@ -553,7 +553,7 @@ namespace Service.Services
         {
             var order = GetOrder(order_id);
 
-            order.OrderDate = DateTime.Now;
+            order.OrderDate = DateTime.UtcNow.AddHours(7);
 
             var newOrder = Create(_mapper.Map<OrderCreateModel>(order));
 
@@ -633,7 +633,7 @@ namespace Service.Services
             var shipper = _context.Shippers.Include(a =>a .Wallets).AsNoTracking().FirstOrDefault(a => a.Id == order.ShipperId);
             var transaction = new Transaction();
 
-            transaction.Date = DateTime.Now;
+            transaction.Date = DateTime.UtcNow.AddHours(7);
 
             int quantityDeposit = 0;
             foreach (var orderDetail in order.OrderDetails)
