@@ -215,7 +215,7 @@ namespace Service.Services
             if (model.OrderDetails == null) throw new AppException("Don't have products in your cart");
             var order = _mapper.Map<Order>(model);
 
-            order.OrderDate = DateTime.Now;
+            order.OrderDate = DateTime.UtcNow;
             order.DeliveryAddress = _context.DeliveryAddresses.AsNoTracking().FirstOrDefault(a => a.Id == order.DeliveryAddressId);
             order.StoreId = order.DeliveryAddress.StoreId;
             order.IsDeposit = false;
@@ -601,11 +601,25 @@ namespace Service.Services
 
             var depositeNote = _mapper.Map<DepositNote>(model);
 
-            if(depositeNote.IsDeposit == true)
+            int quantityDeposit = 0;
+            foreach (var orderDetail in order.OrderDetails)
+            {
+                if (orderDetail.ProductInMenu.Product.Description == "Bình")
+                {
+                    quantityDeposit += orderDetail.Quantity;
+                }
+            }
+
+            if (depositeNote.Quantity > quantityDeposit)
+            {
+                throw new AppException("Số lượng bình khách cọc không được lớn hơn số lượng bình khách mua.");
+            }
+
+                if (depositeNote.IsDeposit == true)
             {
                 order.TotalPrice += depositeNote.Price;
                 _context.Orders.Update(order);
-                _context.SaveChanges();
+                _context.SaveChanges();               
             }
 
             _context.DepositNotes.Add(depositeNote);
@@ -630,8 +644,8 @@ namespace Service.Services
                 }
             }
 
-            var priceDeposit = 15000 * quantityDeposit;
-            transaction.Price = order.TotalPrice + priceDeposit;
+            var priceDeposit = 50000 * quantityDeposit;
+            transaction.Price = order.TotalPrice - order.AmountPaid + priceDeposit;
             transaction.WalletId = shipper.Wallets.Id;
             transaction.OrderId = order.Id;
             transaction.Note = "Take Order";

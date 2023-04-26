@@ -5,9 +5,11 @@ using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 using Repository.Domain.Models;
 using Service.Helpers;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 using VWater.Data;
@@ -24,6 +26,8 @@ public interface IAccountService
     public void Delete(int id);
     public Account Login(LoginRequest request);
     public Account LoginByToken(string token);
+    public string ForgotPassword(string phonenumber);
+    public string CheckOTP(string phone, string code);
 }
 public class AccountService : IAccountService
 {
@@ -191,5 +195,90 @@ public class AccountService : IAccountService
 
         return shipper;
     }
+
+    public string ForgotPassword(string phonenumber)
+    {
+        var apiKey = _configuration["eSMS:APIKey"];
+        var secretKey = _configuration["eSMS:SecretKey"];
+
+        var timeAlive = 5;
+        var numCharOfCode = 6;
+        var message = "{OTP} la ma xac minh dang ky Baotrixemay cua ban";
+
+
+        string requestUrl = "http://rest.esms.vn/MainService.svc/json/SendMessageAutoGenCode_V4_get?Phone=" + phonenumber + "&ApiKey=" + apiKey
+        + "&SecretKey=" + secretKey + "&TimeAlive=" + timeAlive + "&NumCharOfCode=" + numCharOfCode + "&Brandname=Baotrixemay" + "&Type=2&message=" + message;
+
+        string result = SendGetRequest(requestUrl);
+
+        return result;
+    }
+
+    public string CheckOTP(string phone, string code)
+    {
+        var account = _context.Accounts.Include(a => a.Shipper).AsNoTracking().FirstOrDefault(a => a.Shipper.PhoneNumber == phone);
+
+        var apiKey = _configuration["eSMS:APIKey"];
+        var secretKey = _configuration["eSMS:SecretKey"];
+
+        string requestUrl = "http://rest.esms.vn/MainService.svc/json/CheckCodeGen_V4_get?Phone=" + phone
+            + "&ApiKey=" + apiKey + "&SecretKey=" + secretKey + "&Code=" + code;
+
+        var result = SendGetRequest(requestUrl);
+
+        JObject ojb = JObject.Parse(result);
+        int CodeResult = (int)ojb["CodeResult"];//100 is successfull
+
+        if (CodeResult == 100)
+        {
+            account.Password = "123456";
+            _context.Accounts.Update(account);
+            _context.SaveChanges();
+        }
+
+        return result;
+    }
+    private string SendGetRequest(string RequestUrl)
+    {
+        Uri address = new Uri(RequestUrl);
+        HttpWebRequest request;
+        HttpWebResponse response = null;
+        StreamReader reader;
+        if (address == null) { throw new ArgumentNullException("address"); }
+        try
+        {
+            request = WebRequest.Create(address) as HttpWebRequest;
+            request.UserAgent = "VWater";
+            request.KeepAlive = false;
+            request.Timeout = 15 * 1000;
+            response = request.GetResponse() as HttpWebResponse;
+            if (request.HaveResponse == true && response != null)
+            {
+                reader = new StreamReader(response.GetResponseStream());
+                string result = reader.ReadToEnd();
+                result = result.Replace("</string>", "");
+                return result;
+            }
+        }
+        catch (WebException wex)
+        {
+            if (wex.Response != null)
+            {
+                using (HttpWebResponse errorResponse = (HttpWebResponse)wex.Response)
+                {
+                    Console.WriteLine(
+                        "The server returned '{0}' with the status code {1} ({2:d}).",
+                        errorResponse.StatusDescription, errorResponse.StatusCode,
+                        errorResponse.StatusCode);
+                }
+            }
+        }
+        finally
+        {
+            if (response != null) { response.Close(); }
+        }
+        return null;
+    }
+
 }
 

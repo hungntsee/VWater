@@ -80,5 +80,19 @@ namespace Controller.Controllers
             var account = _accountService.LoginByToken(token);
             return Ok(new { message = "Login Success\n" + account });
         }
+        [HttpGet("ForgotPassword")]
+        public IActionResult ForgotPassword (string phonenumber)
+        {
+            var result = _accountService.ForgotPassword(phonenumber);
+            return Ok(result);
+        }
+
+        [HttpGet("CheckOTP")]
+        public IActionResult CheckOTP(string phonenumber, string code)
+        {
+            var result = _accountService.CheckOTP(phonenumber,code);
+            return Ok(result);
+        }
+
     }
 }
