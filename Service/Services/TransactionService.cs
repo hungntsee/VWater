@@ -30,7 +30,7 @@ namespace Service.Transactions
         }
         public IEnumerable<Transaction> GetAll()
         {
-            return _context.Transactions.Include(a => a.Order).Include(a => a.Wallet);
+            return _context.Transactions.Include(a => a.Order).Include(a => a.Wallet).OrderByDescending(a=>a.Id);
         }
 
         public Transaction GetById(int id)

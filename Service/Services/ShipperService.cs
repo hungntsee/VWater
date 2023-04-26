@@ -19,6 +19,7 @@ namespace Service.Shippers
         public void StatusOfShipper(int id, ShipperStatusModel request1);
         public ReportOrderResponseModel GetReportForShipper(int shipper_id);
         public List<Shipper> GetShipperByStoreId(int store_id);
+        public Shipper ChangeStatus(int id);
     }
     public class ShipperService : IShipperService
     {
@@ -115,6 +116,18 @@ namespace Service.Shippers
 
             _context.Shippers.Update(shipper);
             _context.SaveChangesAsync();
+        }
+
+        public Shipper ChangeStatus(int id)
+        {
+            var shipper = GetShipper(id);
+
+            if (shipper.IsOnline == true) { shipper.IsOnline = false; }
+            else { shipper.IsOnline = true; }
+            _context.Shippers.Update(shipper);
+            _context.SaveChangesAsync();
+
+            return shipper;
         }
 
         public List<Shipper> GetShipperByStoreId(int store_id)

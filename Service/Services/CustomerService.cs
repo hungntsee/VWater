@@ -90,7 +90,7 @@ namespace Service.Services
 
         private Customer GetCustomer(int id)
         {
-            var customer = _context.Customers.Include(a => a.DeliveryAddresses).AsNoTracking().FirstOrDefault(a => a.Id == id);
+            var customer = _context.Customers.Include(a => a.DeliveryAddresses).ThenInclude(a => a.Orders.OrderByDescending(a => a.Id)).AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (customer == null) throw new KeyNotFoundException("Customer not found!");
             return customer;
         }

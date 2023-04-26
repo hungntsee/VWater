@@ -39,18 +39,20 @@ namespace Controller.Controllers
             return Ok(new { message = "Shipper updated" });
         }
 
-        [HttpGet("GetNumberOfShipper")]
+        [HttpGet("/api/GetNumberOfShipper")]
         public IActionResult GetNumberOfShipper()
         {
             return Ok(new { numberOfShipper = _shipperService.GetNumberOfShipper() });
         }
 
+        /*
         [HttpPut("StatusOfShipper")]
         public IActionResult StatusOfShipper(int id, [FromBody] ShipperStatusModel request1)
         {
             _shipperService.StatusOfShipper(id, request1);
             return Ok(new { message = "Shipper status changed" });
         }
+        */
 
         [HttpGet("/api/GetReportForShipper")]
         public IActionResult GetReportForShipper(int shipper_id)
@@ -63,6 +65,13 @@ namespace Controller.Controllers
         {
             var shippers = _shipperService.GetShipperByStoreId(store_id);
             return Ok(shippers);
+        }
+
+        [HttpGet("/api/ChangeStatus")]
+        public IActionResult ChangeStatus(int id)
+        {
+            var shipper = _shipperService.ChangeStatus(id);
+            return Ok(shipper);
         }
     }
 }

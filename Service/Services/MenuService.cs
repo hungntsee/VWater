@@ -47,7 +47,7 @@ namespace Service.Services
 
         public IEnumerable<Menu> GetAll()
         {
-            return _context.Menus.Include(a => a.ProductInMenus).IgnoreAutoIncludes();
+            return _context.Menus.Include(a => a.ProductInMenus).IgnoreAutoIncludes().OrderByDescending(a => a.Id);
         }
 
         public Menu GetById(int id)
