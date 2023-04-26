@@ -215,7 +215,7 @@ namespace Service.Services
             if (model.OrderDetails == null) throw new AppException("Don't have products in your cart");
             var order = _mapper.Map<Order>(model);
 
-            order.OrderDate = DateTime.UtcNow;
+            order.OrderDate = DateTime.UtcNow.AddHours(7) ;
             order.DeliveryAddress = _context.DeliveryAddresses.AsNoTracking().FirstOrDefault(a => a.Id == order.DeliveryAddressId);
             order.StoreId = order.DeliveryAddress.StoreId;
             order.IsDeposit = false;
