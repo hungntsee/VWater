@@ -72,7 +72,10 @@ namespace Service.Services
 
         private Menu GetMenuById(int id)
         {
-            var menu = _context.Menus.Include(a => a.Area).Include(a => a.ProductInMenus).AsNoTracking().FirstOrDefault(p => p.Id == id);
+            var menu = _context.Menus.Include(a => a.Area).Include(a => a.ProductInMenus)
+                .ThenInclude(a => a.Product).ThenInclude(a=>a.ProductType).AsNoTracking().FirstOrDefault(p => p.Id == id);
+            menu.Area.Menus = null;  
+
             if (menu == null) throw new KeyNotFoundException("Menu not found!");
             return menu;
         }
