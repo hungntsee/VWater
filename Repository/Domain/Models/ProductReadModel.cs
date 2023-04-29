@@ -1,3 +1,5 @@
+using VWater.Data.Entities;
+
 namespace VWater.Domain.Models
 {
     public partial class ProductReadModel
@@ -12,6 +14,8 @@ namespace VWater.Domain.Models
         public string Description { get; set; }
 
         public int? ProductType_Id { get; set; }
+
+        public ProductsInBaseline ProductsInBaseline { get; set; }
 
         #endregion
 

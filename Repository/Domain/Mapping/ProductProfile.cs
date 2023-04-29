@@ -5,7 +5,7 @@ namespace VWater.Domain.Mapping
     {
         public ProductProfile()
         {
-            CreateMap<VWater.Data.Entities.Product, VWater.Domain.Models.ProductReadModel>();
+            CreateMap<VWater.Data.Entities.Product, VWater.Domain.Models.ProductReadModel>().ForMember(p => p.ProductsInBaseline, t => t.MapFrom(prm => prm.ProductsInBaselines.Last()));
 
             CreateMap<VWater.Domain.Models.ProductCreateModel, VWater.Data.Entities.Product>();
 
@@ -13,7 +13,7 @@ namespace VWater.Domain.Mapping
 
             CreateMap<VWater.Domain.Models.ProductUpdateModel, VWater.Data.Entities.Product>();
 
-            CreateMap<VWater.Domain.Models.ProductReadModel, VWater.Domain.Models.ProductUpdateModel>();
+            CreateMap<VWater.Domain.Models.ProductReadModel, VWater.Domain.Models.ProductUpdateModel>();           
 
         }
 

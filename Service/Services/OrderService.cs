@@ -76,9 +76,18 @@ namespace Service.Services
             return orderResponse;
         }
 
+        private void CheckPayingOrder(int customer_id)
+        {
+            var orders = OrderExtensions.ByCustomerId(_context.Orders,customer_id);
+            foreach (var order in orders)
+            {
+                if (order.StatusId == 6) throw new AppException("Bạn đang có 1 đơn hàng chưa thanh toán.");
+            }
+        }
+
         public Order Create(OrderCreateModel model)
         {
-            if (model.OrderDetails == null) throw new AppException("Don't have products in your cart");
+            if (model.OrderDetails == null) throw new AppException("Không có sản phẩm nào trong giỏ hàng của bạn.");
             var order = _mapper.Map<Order>(model);
             order.OrderDate = DateTime.UtcNow.AddHours(7);
             order.DeliveryAddress = _context.DeliveryAddresses.AsNoTracking().FirstOrDefault(a => a.Id == order.DeliveryAddressId);
@@ -86,6 +95,8 @@ namespace Service.Services
             order.IsDeposit = false;           
             order.ShipperId = null;
             order.AmountPaid = 0;
+
+            CheckPayingOrder(order.DeliveryAddress.CustomerId);
 
             order.DeliveryAddress = null;
 
@@ -113,7 +124,7 @@ namespace Service.Services
         #region Payment With Zalo
         public async Task<Dictionary<string,object>> CreateOrderWithZaloPay(OrderCreateModel model)
         {
-            if (model.OrderDetails == null) throw new AppException("Don't have products in your cart");
+            if (model.OrderDetails == null) throw new AppException("Không có sản phẩm nào trong giỏ hàng của bạn.");
             var order = _mapper.Map<Order>(model);
 
             order.OrderDate = DateTime.UtcNow.AddHours(7);
@@ -121,6 +132,8 @@ namespace Service.Services
             order.StoreId = order.DeliveryAddress.StoreId;
             order.IsDeposit = false;
             order.ShipperId = null;
+
+            CheckPayingOrder(order.DeliveryAddress.CustomerId);
 
             order.DeliveryAddress = null;
 
@@ -220,7 +233,9 @@ namespace Service.Services
             order.StoreId = order.DeliveryAddress.StoreId;
             order.IsDeposit = false;
             order.ShipperId = null;
-            order.StatusId = 6;           
+            order.StatusId = 6;
+
+            CheckPayingOrder(order.DeliveryAddress.CustomerId);
 
             order.DeliveryAddress = null;
 
@@ -381,9 +396,21 @@ namespace Service.Services
             _context.SaveChanges();
         }
 
+        private void CheckCreditOfShipper(int shipperId)
+        {
+            var wallet = _context.Wallets.AsNoTracking().FirstOrDefault(a => a.ShipperId == shipperId);
+            if (wallet.Credit > 2000000)
+            {
+                throw new AppException("Bạn đang có số dư nợ vượt quá số tiền qui định./n"
+                    + "Vui lòng nạp thêm vào tài khoản để có thể nhận đơn tiếp.");
+            }
+        }
+
         public Order TakeOrder(int order_id, int shipper_id)
         {
             //if(order.ShipperId == null)
+            CheckCreditOfShipper(shipper_id);
+
             var order = GetOrderIgnoreInclude(order_id);
             order.StatusId = 3;
             order.ShipperId = shipper_id;
@@ -446,7 +473,7 @@ namespace Service.Services
         public void CancelOrder(int order_id)
         {
             var order = GetOrder(order_id);
-            if (order.StatusId < 3)
+            if (order.StatusId < 3 || order.StatusId == 6)
             {
                 order.StatusId = 5;
                 _context.Orders.Update(order);

@@ -941,6 +941,42 @@ namespace Repository.Migrations
                     b.ToTable("Product", "dbo");
                 });
 
+            modelBuilder.Entity("VWater.Data.Entities.ProductsInBaseline", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasColumnName("Id");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                b.Property<int>("ProductId")
+                    .HasColumnType("int")
+                    .HasColumnName("Product_Id");
+
+                b.Property<string>("Note")
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnType("nvarchar(200)")
+                    .HasColumnName("Note");
+
+                b.Property<int>("Quantity")
+                    .HasColumnType("int")
+                    .HasColumnName("Quantity");
+
+                b.Property<int>("WarehouseBaselineId")
+                    .HasColumnType("int")
+                    .HasColumnName("WarehouseBaseline_Id");
+
+                b.HasKey("Id");
+
+                b.HasIndex("ProductId");
+
+                b.HasIndex("WarehouseBaselineId");
+
+                b.ToTable("Products_In_Baseline", "dbo");
+            });
+
             modelBuilder.Entity("VWater.Data.Entities.ProductType", b =>
             {
                 b.Property<int>("Id")

@@ -18,6 +18,7 @@ namespace Service.Services
         public void Update(int id, MenuUpdateModel model);
         public void Delete(int id);
         public List<Menu> GetMenuByAreaId(int area_id);
+        public Menu GetMenuForStore(int store_id);
     }
     public class MenuService : IMenuService
     {
@@ -132,5 +133,26 @@ namespace Service.Services
 
             return menus.ToList();
         }
+
+        public Menu GetMenuForStore(int store_id)
+        {  
+            var store = _context.Stores.AsNoTracking().FirstOrDefault(a => a.Id == store_id);
+            var time = DateTime.UtcNow.AddHours(7);
+
+            var menu = _context.Menus.Include(a => a.ProductInMenus).ThenInclude(a => a.Product)
+                 .AsNoTracking().FirstOrDefault(a => a.AreaId == store.AreaId && a.ValidFrom <= time && time <= a.ValidTo);
+            if (menu == null) menu = _context.Menus.Include(a => a.ProductInMenus).ThenInclude(a => a.Product).Last();
+
+            ProductReadModel model = new ProductReadModel();
+
+            foreach (var product in menu.ProductInMenus)
+            {
+                model = _mapper.Map<ProductReadModel>(product.Product);
+                
+            }
+            return menu;
+        }
+
+
     }
 }

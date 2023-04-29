@@ -6,6 +6,7 @@ namespace VWater.Data.Entities
         {
             #region Generated Constructor
             GoodsInBaselines = new HashSet<GoodsInBaseline>();
+            ProductsInBaselines = new HashSet<ProductsInBaseline>();
             #endregion
         }
 
@@ -28,6 +29,8 @@ namespace VWater.Data.Entities
         public virtual ICollection<GoodsInBaseline> GoodsInBaselines { get; set; }
 
         public virtual Warehouse Warehouse { get; set; }
+
+        public virtual ICollection<ProductsInBaseline> ProductsInBaselines { get; set;}
 
         #endregion
 
