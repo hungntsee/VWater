@@ -23,6 +23,7 @@ using Service.Services;
 using Service.Shippers;
 using Service.Stores;
 using Service.Transactions;
+using Service.TransactionTypes;
 using Service.Wallets;
 using Service.Warehouses;
 using System.Text;
@@ -85,6 +86,7 @@ builder.Services.AddScoped<IWarehouseBaselineService, WarehouseBaselineService>(
 builder.Services.AddScoped<IDepositNoteService, DepositNoteService>();
 builder.Services.AddScoped<IWalletService, WalletService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<ITransactionTypeService, TransactionTypeService>();
 builder.Services.AddScoped<IShipperService, ShipperService>();
 
 builder.Services.AddAuthentication(options =>
