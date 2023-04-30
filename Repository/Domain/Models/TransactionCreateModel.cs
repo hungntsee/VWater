@@ -8,5 +8,6 @@
         public int? OrderId { get; set; }
         public string? Note { get; set; }
         public int? Account_Id { get; set; }
+        public int? Transaction_Id { get; set; }
     }
 }

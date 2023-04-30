@@ -1263,14 +1263,40 @@ namespace Repository.Migrations
                     .HasColumnType("nvarchar(100)")
                     .HasMaxLength(100);
 
+                b.Property<int>("TransactionTypeId")
+                    .HasColumnType("int")
+                    .HasColumnName("TransactionType_Id");
+
                 b.HasKey("Id");
 
                 b.HasIndex("WalletId");
 
                 b.HasIndex("OrderId");
 
+                b.HasIndex("TransactionTypeId");
+
                 b.ToTable("Transaction", "dbo");
 
+            });
+
+            modelBuilder.Entity("VWater.Data.Entities.TransactionType", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasColumnName("Id");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                b.Property<string>("TransactionTypeName")
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnType("nvarchar(50)")
+                    .HasColumnName("TransactionTypeName");
+
+                b.HasKey("Id");
+
+                b.ToTable("Transaction_Type", "dbo");
             });
 
             modelBuilder.Entity("VWater.Data.Entities.Store", b =>

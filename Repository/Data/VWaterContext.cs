@@ -80,6 +80,7 @@ namespace VWater.Data
         public virtual DbSet<VWater.Data.Entities.Sysdiagrams> Sysdiagrams { get; set; }
 
         public virtual DbSet<VWater.Data.Entities.Transaction> Transactions { get; set; }
+        public virtual DbSet<VWater.Data.Entities.TransactionType> TransactionTypes { get; set; }
 
         public virtual DbSet<VWater.Data.Entities.Wallet> Wallets { get; set; }
 
@@ -124,6 +125,7 @@ namespace VWater.Data
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.StoreMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.SysdiagramsMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.TransactionMap());
+            modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.TransactionTypeMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.WalletMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.WarehouseBaselineMap());
             modelBuilder.ApplyConfiguration(new VWater.Data.Mapping.WarehouseMap());
