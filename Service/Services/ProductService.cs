@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using VWater.Data;
 using VWater.Data.Entities;
+using VWater.Data.Queries;
 using VWater.Domain.Models;
 
 namespace Service.Services
@@ -14,6 +15,7 @@ namespace Service.Services
         public void Update(int id, ProductUpdateModel model);
         public void Delete(int id);
         public int GetNumberOfProduct();
+        public List<Product> GetProductByProductType(int productType_id);
     }
     public class ProductService : IProductService
     {
@@ -72,5 +74,13 @@ namespace Service.Services
             return _context.Products.Count();   
         }
 
+        public List<Product> GetProductByProductType(int productType_id)
+        {
+            var product = ProductExtensions.ByProductTypeId(
+                _context.Products,
+                productType_id);
+
+            return product.ToList();
+        }
     }
 }
