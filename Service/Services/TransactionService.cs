@@ -14,7 +14,6 @@ namespace Service.Transactions
         public IEnumerable<Transaction> GetAll();
         public Transaction GetById(int id);
         public Transaction Create(TransactionCreateModel request);
-        public Transaction CreateTransactionForDepositNote(TransactionCreateModel request);
         public void Update(int id, TransactionUpdateModel request);
         public void Delete(int id);
         public void RefundForShipper(TransactionCreateModel request);
@@ -42,22 +41,30 @@ namespace Service.Transactions
 
         public Transaction Create(TransactionCreateModel request)
         {
-            var transaction = _mapper.Map<Transaction>(request);
+            if(request.TransactionType_Id == 5)
+            {
+                var transaction1 = CreateTransactionForDepositNote(request);
+                return transaction1;
+            }
+            else
+            {
+                var transaction = _mapper.Map<Transaction>(request);
 
-            CheckPriceForTransaction(transaction);
+                CheckPriceForTransaction(transaction);
 
-            _context.Transactions.Add(transaction);
-            _context.SaveChanges();
-
-            if(transaction !=null) {
-            
-                var order = _context.Orders.AsNoTracking().FirstOrDefault(a => a.Id == transaction.OrderId);
-                order.StatusId = 8;
-                _context.Orders.Update(order);
+                _context.Transactions.Add(transaction);
                 _context.SaveChanges();
 
-            }
-            return transaction;
+                if(transaction !=null && (transaction.TransactionType_Id != 1 || transaction.TransactionType_Id != 2 || transaction.TransactionType_Id != 6)) {
+            
+                    var order = _context.Orders.AsNoTracking().FirstOrDefault(a => a.Id == transaction.OrderId);
+                    order.StatusId = 8;
+                    _context.Orders.Update(order);
+                    _context.SaveChanges();
+
+                }
+                return transaction;
+            }    
         }
 
         public void Update(int id, TransactionUpdateModel request)
