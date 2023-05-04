@@ -63,5 +63,12 @@ namespace Controller.Controllers
         {
             return Ok(new { NumberOfProduct = _productService.GetNumberOfProduct() });
         }
+
+        [HttpGet("/api/GetProductByProductType")]
+        public IActionResult GetProductByProductType(int productType_id)
+        {
+            var products = _productService.GetProductByProductType(productType_id);
+            return Ok(products);
+        }
     }
 }
