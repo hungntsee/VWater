@@ -640,14 +640,7 @@ namespace Service.Services
             if (depositeNote.Quantity > quantityDeposit)
             {
                 throw new AppException("Số lượng bình khách cọc không được lớn hơn số lượng bình khách mua.");
-            }
-
-                if (depositeNote.IsDeposit == true)
-            {
-                order.TotalPrice += depositeNote.Price;
-                _context.Orders.Update(order);
-                _context.SaveChanges();               
-            }
+            }            
 
             _context.DepositNotes.Add(depositeNote);
             _context.SaveChanges();

@@ -18,7 +18,7 @@
 
         public int Quantity { get; set; }
 
-        public string Note { get; set; }
+        public string? Note { get; set; }
         #endregion
 
         #region Generated Relationships

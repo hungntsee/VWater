@@ -39,6 +39,13 @@ namespace Controller.Controllers
             return Ok(new { message = "Transaction created" });
         }
 
+        [HttpPost("/api/CreateTransactionForDepositNote")]
+        public IActionResult CreateTransactionForDepositNote([FromBody] TransactionCreateModel request)
+        {
+            var transaction = _transactionService.Create(request);
+            return Ok(transaction);
+        }
+
         // PUT api/<TransactionController>/5
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] TransactionUpdateModel request)

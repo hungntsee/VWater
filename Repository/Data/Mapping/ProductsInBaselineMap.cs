@@ -28,7 +28,7 @@ namespace VWater.Data.Mapping
 
             builder.Property(t => t.ProductId)
                 .IsRequired()
-                .HasColumnName("Products_Id")
+                .HasColumnName("Product_Id")
                 .HasColumnType("int");
 
             builder.Property(t => t.Quantity)
@@ -37,6 +37,7 @@ namespace VWater.Data.Mapping
                 .HasColumnType("int");
 
             builder.Property(t => t.Note)
+                .IsRequired(false)
                 .HasColumnName("Note")
                 .HasColumnType("nvarchar(100)")
                 .HasMaxLength(100);

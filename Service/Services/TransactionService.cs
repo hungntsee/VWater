@@ -14,6 +14,7 @@ namespace Service.Transactions
         public IEnumerable<Transaction> GetAll();
         public Transaction GetById(int id);
         public Transaction Create(TransactionCreateModel request);
+        public Transaction CreateTransactionForDepositNote(TransactionCreateModel request);
         public void Update(int id, TransactionUpdateModel request);
         public void Delete(int id);
         public void RefundForShipper(TransactionCreateModel request);
@@ -43,9 +44,19 @@ namespace Service.Transactions
         {
             var transaction = _mapper.Map<Transaction>(request);
 
-            _context.Transactions.AddAsync(transaction);
-            _context.SaveChangesAsync();
+            CheckPriceForTransaction(transaction);
 
+            _context.Transactions.Add(transaction);
+            _context.SaveChanges();
+
+            if(transaction !=null) {
+            
+                var order = _context.Orders.AsNoTracking().FirstOrDefault(a => a.Id == transaction.OrderId);
+                order.StatusId = 8;
+                _context.Orders.Update(order);
+                _context.SaveChanges();
+
+            }
             return transaction;
         }
 
@@ -82,6 +93,80 @@ namespace Service.Transactions
             _context.Wallets.Update(wallet);
             _context.SaveChanges();
         }
+        
+        private bool CheckTransactionWithType(int order_id)
+        {
+            var order = _context.Orders.Include(a => a.Transactions).ThenInclude(a => a.TransactionType)
+                .AsNoTracking().FirstOrDefault(a => a.Id == order_id);
+            if (order == null) throw new AppException("Order not found!");
 
+            foreach (var transaction in order.Transactions)
+            {
+                if (transaction.TransactionType_Id == 3 || transaction.TransactionType_Id == 4)
+                {
+                    return true;
+                }
+
+            }
+
+            return false;
+
+        }
+
+        public Transaction CreateTransactionForDepositNote (TransactionCreateModel request)
+        {
+            var transaction = _mapper.Map<Transaction>(request);
+
+            CheckPriceForTransaction(transaction);
+
+            _context.Transactions.AddAsync(transaction);
+            _context.SaveChangesAsync();
+
+            if(CheckTransactionWithType(transaction.OrderId))
+            {
+                var order = _context.Orders.AsNoTracking().FirstOrDefault(a => a.Id == transaction.OrderId);
+                order.StatusId = 8;
+                _context.Orders.Update(order);
+                _context.SaveChanges();
+            }
+
+            return transaction;
+        }
+
+        private void CheckPriceForTransaction(Transaction transaction)
+        {
+            var order = _context.Orders
+                .Include(a => a.DepositNote)
+                .Include(a => a.OrderDetails)
+                .ThenInclude(a => a. ProductInMenu)
+                .ThenInclude(a => a.Product)
+                .AsNoTracking().FirstOrDefault(a => a.Id == transaction.OrderId);
+
+            var numberOfVoBinh = 0;
+            foreach (var orderDetail in order.OrderDetails)
+            {
+                if (orderDetail.ProductInMenu.Product.Description == "Bình") numberOfVoBinh += orderDetail.Quantity;
+            }
+
+            if (transaction.TransactionType_Id == 3)
+            {
+                if (transaction.Price != order.TotalPrice) throw new AppException("Số tiền của giao dịch không đúng với số tiền của đơn hàng!");
+            }
+            if (transaction.TransactionType_Id == 5)
+            {
+                if (order.IsDeposit == false)
+                {
+                    if (transaction.Price != 50000 * numberOfVoBinh) 
+                        throw new AppException("Số tiền của giao dịch không đúng với số lượng bình của đơn hàng!");
+                }
+                else
+                {
+                    if (transaction.Price != order.DepositNote.Price)
+                        throw new AppException("Số tiền của giao dịch không đúng với số tiền trong phiếu cọc bình!");
+                }
+            }
+
+            
+        }
     }
 }
