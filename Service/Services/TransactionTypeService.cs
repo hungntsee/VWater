@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Service.Helpers;
 using VWater.Data;
 using VWater.Data.Entities;
+using VWater.Data.Queries;
 using VWater.Domain.Models;
 
 namespace Service.TransactionTypes
@@ -27,7 +28,9 @@ namespace Service.TransactionTypes
         }
         public IEnumerable<TransactionType> GetAll()
         {
-            return _context.TransactionTypes.Include(a => a.Transactions);
+            //var idList = new int[3, 5, 6];
+            return _context.TransactionTypes.Include(a => a.Transactions)
+                .Where(a=>a.Id==3).Where(a => a.Id == 5).Where(a => a.Id == 6);   
         }
 
         public TransactionType GetById(int id)
@@ -69,5 +72,31 @@ namespace Service.TransactionTypes
             return transactionType;
         }
 
+        /*
+        public TransactionType GetTransactionTypeForStore()
+        {
+            //var transactionType1 = GetAll();
+            //var transactionType = _context.TransactionTypes.AsNoTracking();
+            //var transactionType = _mapper.Map<TransactionType>;
+            //var transactionType = new TransactionType();
+            //if (transactionType.Id ==3 && transactionType.Id == 5 && transactionType.Id == 6)
+
+            return _context.TransactionTypes.Include(a => a.Transactions);
+
+
+        }
+        */
+        /*
+        public List<TransactionType> GetTransactionTypeForStore()
+        {
+            var transactionType1 = new TransactionType();
+
+            var transactionType = 
+                _context.TransactionTypes;
+
+            if (transactionType1.Id == 3 && transactionType1.Id == 5 && transactionType1.Id == 6)
+                return transactionType.ToList();             
+        }
+        */
     }
 }
