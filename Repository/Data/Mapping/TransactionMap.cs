@@ -38,7 +38,6 @@ namespace VWater.Data.Mapping
                 .HasColumnType("int");
 
             builder.Property(t => t.OrderId)
-                .IsRequired(false)
                 .HasColumnName("Order_Id")
                 .HasColumnType("int");
 
@@ -53,7 +52,7 @@ namespace VWater.Data.Mapping
                 .HasColumnName("Account_Id")
                 .HasColumnType("int");
 
-            builder.Property(t => t.TransactionType_Id).IsRequired(false)
+            builder.Property(t => t.TransactionType_Id)
                 .HasColumnName("TransactionType_Id")
                 .HasColumnType("int");
 
