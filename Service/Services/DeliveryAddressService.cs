@@ -53,7 +53,8 @@ namespace Service.DeliveryAddresses
             var deliveryAddresses = DeliveryAddressExtensions.ByCustomerId(_context.DeliveryAddresses, request.CustomerId);
             foreach (var address in deliveryAddresses)
             {
-                if (request.Address.Equals(address.Address)) return address;
+                //if (request.Address.Equals(address.Address)) return address;
+                if (request.Address.Trim().ToLower().Equals(address.Address.Trim().ToLower())) return address;
             }
             var deliveryAddress = _mapper.Map<DeliveryAddress>(request);
             deliveryAddress.StoreId = 1;
