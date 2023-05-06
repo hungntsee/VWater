@@ -57,6 +57,9 @@ namespace Service.DeliveryAddresses
             }
             var deliveryAddress = _mapper.Map<DeliveryAddress>(request);
             deliveryAddress.StoreId = 1;
+
+            deliveryAddress.Address.Trim().ToLower();
+
             _context.DeliveryAddresses.Add(deliveryAddress);
             _context.SaveChanges();
 

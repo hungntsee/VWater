@@ -57,9 +57,8 @@ namespace Service.Services
             {
                 var customer1 = GetCustomerByPhone(model.PhoneNumber);
 
-                var da1 = customer1.DeliveryAddresses.ToString;
-                string daa1 = da1().Trim().ToLower();
-
+                customer1.DeliveryAddresses.ToString().Trim().ToLower();
+                //string daa1 = da1().Trim().ToLower();
 
                 customer1.Note = "Welcome Back";
                 //throw new AppException("This Phone number is already existed!");
@@ -70,8 +69,8 @@ namespace Service.Services
 
             var customer = _mapper.Map<Customer>(model);
 
-            var da = customer.DeliveryAddresses.ToString;
-            string daa = da().Trim().ToLower();
+            customer.DeliveryAddresses.ToString().Trim().ToLower();
+            //string daa = da().Trim().ToLower();
 
             customer.Note = "New User";
 
