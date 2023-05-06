@@ -30,7 +30,7 @@ namespace Service.TransactionTypes
         {
             //var idList = new int[3, 5, 6];
             return _context.TransactionTypes.Include(a => a.Transactions)
-                .Where(a=>a.Id==3).Where(a => a.Id == 5).Where(a => a.Id == 6);   
+                .Where(a=>a.Id==3 || a.Id == 5 || a.Id == 6);   
         }
 
         public TransactionType GetById(int id)
