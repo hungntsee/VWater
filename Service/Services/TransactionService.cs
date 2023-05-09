@@ -101,7 +101,7 @@ namespace Service.Transactions
             _context.SaveChanges();
         }
         
-        private bool CheckTransactionWithType(int order_id)
+        private bool CheckTransactionForOrder(int order_id)
         {
             var order = _context.Orders.Include(a => a.Transactions).ThenInclude(a => a.TransactionType)
                 .AsNoTracking().FirstOrDefault(a => a.Id == order_id);
@@ -123,17 +123,26 @@ namespace Service.Transactions
         public Transaction CreateTransactionForDepositNote (TransactionCreateModel request)
         {
             var transaction = _mapper.Map<Transaction>(request);
+            transaction.Date = DateTime.UtcNow.AddHours(7);
 
             CheckPriceForTransaction(transaction);
 
-            _context.Transactions.AddAsync(transaction);
-            _context.SaveChangesAsync();
+            _context.Transactions.Add(transaction);
+            _context.SaveChanges();
 
-            if(CheckTransactionWithType(transaction.OrderId))
+            if(CheckTransactionForOrder(transaction.OrderId))
             {
                 var order = _context.Orders.AsNoTracking().FirstOrDefault(a => a.Id == transaction.OrderId);
                 order.StatusId = 8;
                 _context.Orders.Update(order);
+                _context.SaveChanges();
+            }
+
+            if (transaction.TransactionType_Id > 2)
+            {
+                var wallet = _context.Wallets.AsNoTracking().FirstOrDefault(a => a.Id == transaction.WalletId);
+                wallet.Credit -= transaction.Price;
+                _context.Update(wallet);
                 _context.SaveChanges();
             }
 

@@ -309,7 +309,7 @@ namespace Service.Services
                 long vnpayTranId = Convert.ToInt64(vnpay.GetResponseData("vnp_TransactionNo"));
                 string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
                 string vnp_TransactionStatus = vnpay.GetResponseData("vnp_TransactionStatus");
-                String vnp_SecureHash = data["vnp_SecureHash"];
+                string vnp_SecureHash = data["vnp_SecureHash"];
                 bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, vnp_HashSecret);
 
                 var ipnData = new {
@@ -664,10 +664,11 @@ namespace Service.Services
                 }
             }
 
-            var priceDeposit = 50000 * quantityDeposit;
+            decimal priceDeposit = 50000 * quantityDeposit;
             transaction.Price = order.TotalPrice - order.AmountPaid + priceDeposit;
             transaction.WalletId = shipper.Wallets.Id;
             transaction.OrderId = order.Id;
+            transaction.TransactionType_Id = 1;
             transaction.Note = "Take Order";
 
             _context.Transactions.Add(transaction);
