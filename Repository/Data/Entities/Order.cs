@@ -5,7 +5,6 @@ namespace VWater.Data.Entities
         public Order()
         {
             #region Generated Constructor
-            GoodsExchangeNotes = new HashSet<GoodsExchangeNote>();
             OrderDetails = new HashSet<OrderDetail>();
             Transactions = new HashSet<Transaction>();
             #endregion
@@ -44,8 +43,6 @@ namespace VWater.Data.Entities
         public virtual DeliveryAddress DeliveryAddress { get; set; }
 
         public virtual DeliverySlot DeliverySlot { get; set; }
-
-        public virtual ICollection<GoodsExchangeNote> GoodsExchangeNotes { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 

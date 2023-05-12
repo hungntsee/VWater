@@ -18,7 +18,9 @@ namespace VWater.Data.Entities
 
         public string PhoneNumber { get; set; }
 
-        public bool? IsOnline { get; set; } 
+        public bool? IsOnline { get; set; }
+
+        public bool? IsActive { get; set; }
 
         #endregion
 

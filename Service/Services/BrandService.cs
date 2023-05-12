@@ -27,7 +27,7 @@ namespace Service.Brands
         }
         public IEnumerable<Brand> GetAll()
         {
-            return _context.Brands.Include(a => a.ManufactureManufacturer).Include(a => a.Goods);
+            return _context.Brands.Include(a => a.Products);
         }
 
         public Brand GetById(int id)
@@ -66,7 +66,7 @@ namespace Service.Brands
 
         private Brand GetBrand(int id)
         {
-            var brand = _context.Brands.Include(a => a.ManufactureManufacturer).Include(a => a.Goods)
+            var brand = _context.Brands.Include(a => a.Products)
                 .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (brand == null) throw new KeyNotFoundException("Brand not found!");
             return brand;

@@ -12,6 +12,8 @@ namespace VWater.Domain.Models
 
         public int? ProductType_Id { get; set; }
 
+        public int? BrandId { get; set; }
+
         #endregion
 
     }

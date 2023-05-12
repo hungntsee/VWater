@@ -9,8 +9,6 @@ namespace VWater.Data.Entities
             DeliveryAddresses = new HashSet<DeliveryAddress>();
             DeliverySlots = new HashSet<DeliverySlot>();
             Orders = new HashSet<Order>();
-            PurchaseOrders = new HashSet<PurchaseOrder>();
-            Warehouses = new HashSet<Warehouse>();
             #endregion
         }
 
@@ -30,19 +28,15 @@ namespace VWater.Data.Entities
         #endregion
 
         #region Generated Relationships
-        public virtual Area Area { get; set; }
-
         public virtual ICollection<Account> Accounts { get; set; }
+
+        public virtual Area Area { get; set; }
 
         public virtual ICollection<DeliveryAddress> DeliveryAddresses { get; set; }
 
         public virtual ICollection<DeliverySlot> DeliverySlots { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
-
-        public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
-
-        public virtual ICollection<Warehouse> Warehouses { get; set; }
 
         #endregion
 

@@ -30,7 +30,7 @@ namespace Service.Services
 
         public IEnumerable<Product> GetAll()
         {
-            return _context.Products.Include(a => a.GoodsInProducts);
+            return _context.Products;
         }
 
         public Product GetById(int id)
@@ -63,7 +63,7 @@ namespace Service.Services
 
         private Product GetProduct(int id)
         {
-            var product = _context.Products.Include(a => a.GoodsInProducts)
+            var product = _context.Products
                 .AsNoTracking().FirstOrDefault(p => p.Id == id);
             if (product == null) throw new KeyNotFoundException("Product not found!");
             return product;

@@ -556,23 +556,17 @@ namespace Service.Services
 
             order.DeliveryAddress.Orders = null;
             order.Status.Orders = null;
-            order.Status.PurchaseOrders = null;
             order.Store.Orders = null;
             order.Store.DeliveryAddresses = null;
             order.Store.DeliverySlots = null;
-            order.Store.PurchaseOrders = null;
-            order.Store.Warehouses = null;
             order.DeliverySlot.Orders = null;
             order.DeliverySlot.Store = null;
-            order.GoodsExchangeNotes = null;
             order.DepositNote = null;
             order.Status.Orders = null;
             order.Transactions = null;
             foreach (var order1 in order.OrderDetails)
              {
                order1.ProductInMenu.OrderDetails = null;
-               order1.ProductInMenu.Product.ProductInMenus = null;
-               order1.ProductInMenu.Product.GoodsInProducts = null;
              }
             
         }

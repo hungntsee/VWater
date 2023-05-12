@@ -9,7 +9,6 @@ namespace VWater.Data.Entities
         {
             #region Generated Constructor
             Orders = new HashSet<Order>();
-            PurchaseOrders = new HashSet<PurchaseOrder>();
             #endregion
         }
 
@@ -24,8 +23,6 @@ namespace VWater.Data.Entities
 
         #region Generated Relationships
         public virtual ICollection<Order> Orders { get; set; }
-
-        public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
 
         #endregion
 

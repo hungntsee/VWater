@@ -42,11 +42,20 @@ namespace VWater.Data.Mapping
                 .HasColumnName("ProductType_Id")
                 .HasColumnType("int");
 
+            builder.Property(t => t.BrandId)
+                .HasColumnName("Brand_Id")
+                .HasColumnType("int");
+
             // relationships
             builder.HasOne(t => t.ProductType)
                 .WithMany(t => t.Products)
                 .HasForeignKey(d => d.ProductType_Id)
                 .HasConstraintName("FK__Product__Product__3A4CA8FD");
+
+            builder.HasOne(t => t.Brand)
+                .WithMany(t => t.Products)
+                .HasForeignKey(d => d.BrandId)
+                .HasConstraintName("FK_Product_Brand");
 
             #endregion
         }
@@ -65,6 +74,7 @@ namespace VWater.Data.Mapping
             public const string Img = "Img";
             public const string Description = "Description";
             public const string ProductType_Id = "ProductType_Id";
+            public const string BrandId = "Brand_Id";
         }
         #endregion
     }

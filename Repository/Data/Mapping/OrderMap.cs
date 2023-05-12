@@ -122,10 +122,13 @@ namespace VWater.Data.Mapping
             public const string OrderDate = "OrderDate";
             public const string TotalQuantity = "TotalQuantity";
             public const string TotalPrice = "TotalPrice";
+            public const string AmountPaid = "AmountPaid";
             public const string StatusId = "Status_Id";
             public const string DeliverySlotId = "DeliverySlot_Id";
             public const string ShipperId = "Shipper_Id";
             public const string IsDeposit = "isDeposit";
+            public const string OrderIdMomo = "OrderIdMomo";
+            public const string IpnData = "IpnData";
         }
         #endregion
     }

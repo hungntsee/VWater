@@ -303,7 +303,6 @@ C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.Generat
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.AssemblyInfoInputs.cache
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.AssemblyInfo.cs
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.csproj.CoreCompileInputs.cache
-C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\staticwebassets\msbuild.Controller.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\staticwebassets\msbuild.build.Controller.props
