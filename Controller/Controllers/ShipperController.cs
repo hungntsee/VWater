@@ -23,6 +23,13 @@ namespace Controller.Controllers
             return Ok(shippers);
         }
 
+        [HttpGet("GetActiveShipper")]
+        public IActionResult GetActiveShipper()
+        {
+            var shippers = _shipperService.GetActiveShipper();
+            return Ok(shippers);
+        }
+
         // GET api/<ShipperController>/5
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
@@ -71,6 +78,13 @@ namespace Controller.Controllers
         public IActionResult ChangeStatus(int id)
         {
             var shipper = _shipperService.ChangeStatus(id);
+            return Ok(shipper);
+        }
+
+        [HttpGet("/api/ChangeShipperActivation")]
+        public IActionResult ChangeShipperActivation(int id)
+        {
+            var shipper = _shipperService.ChangeShipperActivation(id);
             return Ok(shipper);
         }
     }

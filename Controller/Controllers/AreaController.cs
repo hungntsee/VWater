@@ -22,6 +22,13 @@ namespace Controller.Controllers
             return Ok(areas);
         }
 
+        [HttpGet("GetActiveArea")]
+        public IActionResult GetActiveArea()
+        {
+            var areas = _areaService.GetActiveArea();
+            return Ok(areas);
+        }
+
         // GET api/<AreaController>/5
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
@@ -58,6 +65,13 @@ namespace Controller.Controllers
         public IActionResult GetNumberOfArea()
         {
             return Ok( new {NumberOfArea = _areaService.GetNumberOfArea()});
+        }
+
+        [HttpGet("/api/ChangeAreaActivation")]
+        public IActionResult ChangeAreaActivation(int id)
+        {
+            var shipper = _areaService.ChangeAreaActivation(id);
+            return Ok(shipper);
         }
     }
 }
