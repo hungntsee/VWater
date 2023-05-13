@@ -89,7 +89,6 @@ C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\Service.GeneratedMSBu
 C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\Service.AssemblyInfoInputs.cache
 C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\Service.AssemblyInfo.cs
 C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\Service.csproj.CoreCompileInputs.cache
-C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\Service.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\Service.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\staticwebassets\msbuild.Service.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\staticwebassets\msbuild.build.Service.props

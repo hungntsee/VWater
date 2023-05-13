@@ -141,7 +141,7 @@ namespace Service.Services
             var store = _context.Stores.AsNoTracking().FirstOrDefault(a => a.Id == store_id);
             var time = DateTime.UtcNow.AddHours(7);
 
-            var menu = _context.Menus.Include(a => a.ProductInMenus).ThenInclude(a => a.Product).ThenInclude(a => a.ProductsInBaselines)
+            var menu = _context.Menus.Include(a => a.ProductInMenus).ThenInclude(a => a.Product)
                  .AsNoTracking().FirstOrDefault(a => a.AreaId == store.AreaId && a.ValidFrom <= time && time <= a.ValidTo);
             if (menu == null) menu = _context.Menus.Include(a => a.ProductInMenus).ThenInclude(a => a.Product).Last();
 
@@ -151,7 +151,7 @@ namespace Service.Services
             foreach (var product in menu.ProductInMenus)
             {
                 model = _mapper.Map<ProductReadModel>(product.Product);
-                model.ProductsInBaseline = product.Product.ProductsInBaselines.Last();
+                //model.ProductsInBaseline = product.Product.ProductsInBaselines.Last();
                 list.Add(model);
             }
             return list;

@@ -20,11 +20,13 @@ namespace Service.Shippers
         public void Update(int id, ShipperUpdateModel request);
         public void Delete(int id);
         public int GetNumberOfShipper();
-        public void StatusOfShipper(int id, ShipperStatusModel request1);
+        //public void StatusOfShipper(int id, ShipperStatusModel request1);
         public ReportOrderResponseModel GetReportForShipper(int shipper_id);
         public List<Shipper> GetShipperByStoreId(int store_id);
         public Shipper ChangeStatus(int id);
+        public Shipper ChangeShipperActivation(int id);
         public string Deposit(ICollection<Order> orders);
+        public IEnumerable<Shipper> GetActiveShipper();
         /*public string VNPayIpnForShipper(HttpRequest request);*/
     }
     public class ShipperService : IShipperService
@@ -46,6 +48,11 @@ namespace Service.Shippers
             return _context.Shippers.Include(a => a.Orders).Include(a => a.Wallets);
         }
 
+        public IEnumerable<Shipper> GetActiveShipper()
+        {
+            return _context.Shippers.Include(a => a.Orders).Include(a => a.Wallets).Where(a => a.IsActive == true);
+        }
+
         public Shipper GetById(int id)
         {
             var shipper = GetShipper(id);
@@ -55,6 +62,7 @@ namespace Service.Shippers
         public void Create(ShipperCreateModel request)
         {
             var shipper = _mapper.Map<Shipper>(request);
+            shipper.IsActive= true;
 
             _context.Shippers.AddAsync(shipper);
             _context.SaveChangesAsync();
@@ -134,6 +142,18 @@ namespace Service.Shippers
 
             if (shipper.IsOnline == true) { shipper.IsOnline = false; }
             else { shipper.IsOnline = true; }
+            _context.Shippers.Update(shipper);
+            _context.SaveChangesAsync();
+
+            return shipper;
+        }
+
+        public Shipper ChangeShipperActivation(int id)
+        {
+            var shipper = GetShipper(id);
+
+            if (shipper.IsActive == true) { shipper.IsActive = false; }
+            else { shipper.IsActive = true; }
             _context.Shippers.Update(shipper);
             _context.SaveChangesAsync();
 

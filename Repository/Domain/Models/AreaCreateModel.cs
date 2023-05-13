@@ -6,6 +6,7 @@ namespace VWater.Domain.Models
 
         public string AreaName { get; set; }
 
+
         #endregion
 
     }

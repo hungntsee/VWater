@@ -37,17 +37,7 @@ namespace VWater.Data.Mapping
                 .HasColumnType("nvarchar(100)")
                 .HasMaxLength(100);
 
-            builder.Property(t => t.ManufactureId)
-                .IsRequired()
-                .HasColumnName("Manufacture_Id")
-                .HasColumnType("int");
-
             // relationships
-            builder.HasOne(t => t.ManufactureManufacturer)
-                .WithMany(t => t.ManufactureBrands)
-                .HasForeignKey(d => d.ManufactureId)
-                .HasConstraintName("FK_brand_manufacture");
-
             #endregion
         }
 
@@ -64,7 +54,6 @@ namespace VWater.Data.Mapping
             public const string BrandName = "BrandName";
             public const string Logo = "Logo";
             public const string Origin = "Origin";
-            public const string ManufactureId = "Manufacture_Id";
         }
         #endregion
     }

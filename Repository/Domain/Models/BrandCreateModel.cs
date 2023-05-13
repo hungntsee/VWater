@@ -10,8 +10,6 @@ namespace VWater.Domain.Models
 
         public string Origin { get; set; }
 
-        public int ManufactureId { get; set; }
-
         #endregion
 
     }

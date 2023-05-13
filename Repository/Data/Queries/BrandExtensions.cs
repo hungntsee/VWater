@@ -28,14 +28,6 @@ namespace VWater.Data.Queries
             return new ValueTask<VWater.Data.Entities.Brand>(task);
         }
 
-        public static IQueryable<VWater.Data.Entities.Brand> ByManufactureId(this IQueryable<VWater.Data.Entities.Brand> queryable, int manufactureId)
-        {
-            if (queryable is null)
-                throw new ArgumentNullException(nameof(queryable));
-
-            return queryable.Where(q => q.ManufactureId == manufactureId);
-        }
-
         #endregion
 
     }

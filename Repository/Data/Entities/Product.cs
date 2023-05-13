@@ -5,9 +5,7 @@ namespace VWater.Data.Entities
         public Product()
         {
             #region Generated Constructor
-            GoodsInProducts = new HashSet<GoodsInProduct>();
             ProductInMenus = new HashSet<ProductInMenu>();
-            ProductsInBaselines = new HashSet<ProductsInBaseline>();
             #endregion
         }
 
@@ -22,14 +20,14 @@ namespace VWater.Data.Entities
 
         public int? ProductType_Id { get; set; }
 
+        public int? BrandId { get; set; }
+
         #endregion
 
         #region Generated Relationships
-        public virtual ICollection<GoodsInProduct> GoodsInProducts { get; set; }
+        public virtual Brand? Brand { get; set; }
 
         public virtual ICollection<ProductInMenu> ProductInMenus { get; set; }
-
-        public virtual ICollection<ProductsInBaseline> ProductsInBaselines { get; set; }
 
         public virtual ProductType? ProductType { get; set; }
 

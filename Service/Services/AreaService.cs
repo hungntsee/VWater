@@ -12,11 +12,13 @@ namespace Service.Areas
     public interface IAreaService
     {
         public IEnumerable<Area> GetAll();
+        public IEnumerable<Area> GetActiveArea();
         public Area GetById(int id);
         public void Create(AreaCreateModel request);
         public void Update(int id, AreaUpdateModel request);
         public void Delete(int id);
         public int GetNumberOfArea();
+        public Area ChangeAreaActivation(int id);
     }
     public class AreaService : IAreaService
     {
@@ -30,7 +32,12 @@ namespace Service.Areas
         }
         public IEnumerable<Area> GetAll()
         {
-            return _context.Areas.Include(a => a.Distributors).Include(a => a.Stores).Include(a => a.Menus);
+            return _context.Areas.Include(a => a.Stores).Include(a => a.Menus);
+        }
+
+        public IEnumerable<Area> GetActiveArea()
+        {
+            return _context.Areas.Include(a => a.Stores).Include(a => a.Menus).Where(a=>a.IsActive==true);
         }
 
         public Area GetById(int id)
@@ -44,6 +51,7 @@ namespace Service.Areas
             if (_context.Areas.Any(a => a.AreaName == request.AreaName))
                 throw new AppException("Area: '" + request.AreaName + "' already exists");
             var area = _mapper.Map<Area>(request);
+            area.IsActive= true;
 
             _context.Areas.AddAsync(area);
             _context.SaveChangesAsync();
@@ -70,7 +78,6 @@ namespace Service.Areas
         private Area GetArea(int id)
         {
             var area = _context.Areas
-                .Include(a => a.Distributors)
                 .Include(a => a.Stores)
                 .Include(a => a.Menus)
                 .AsNoTracking().FirstOrDefault(a => a.Id == id);
@@ -83,5 +90,16 @@ namespace Service.Areas
             return _context.Areas.Count();
         }
 
+        public Area ChangeAreaActivation(int id)
+        {
+            var area = GetArea(id);
+
+            if (area.IsActive == true) { area.IsActive = false; }
+            else { area.IsActive = true; }
+            _context.Areas.Update(area);
+            _context.SaveChangesAsync();
+
+            return area;
+        }
     }
 }
