@@ -88,5 +88,12 @@ namespace Controller.Controllers
             var menu = _menuService.GetMenuForStore(store_id);
             return Ok(menu);
         }
+
+        [HttpGet("/api/GetMenuByStoreId")]
+        public IActionResult GetOrderByStore(int store_id)
+        {
+            var menu = _menuService.GetMenuByStore(store_id);
+            return Ok(menu);
+        }
     }
 }

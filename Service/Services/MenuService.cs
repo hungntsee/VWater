@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Service.Helpers;
 using VWater.Data;
@@ -19,6 +20,7 @@ namespace Service.Services
         public void Delete(int id);
         public List<Menu> GetMenuByAreaId(int area_id);
         public ICollection<ProductReadModel> GetMenuForStore(int store_id);
+        public Menu GetMenuByStore(int store_id);
     }
     public class MenuService : IMenuService
     {
@@ -83,7 +85,7 @@ namespace Service.Services
 
         private Menu GetMenuByArea(DateTime time, int area_id)
         {
-            var menu = _context.Menus.Include(a => a.ProductInMenus)
+            var menu = _context.Menus.Include(a => a.ProductInMenus).ThenInclude(a => a.Product)
                 .AsNoTracking().FirstOrDefault(a => a.AreaId == area_id && a.ValidFrom <= time && time <= a.ValidTo);
             if (menu == null) return _context.Menus.Include(a => a.ProductInMenus).Last();
             
@@ -155,6 +157,12 @@ namespace Service.Services
             return list;
         }
 
+        public Menu GetMenuByStore(int store_id)
+        {
+            var store = _context.Stores.AsNoTracking().FirstOrDefault( a=> a.Id == store_id);
+            var time = DateTime.UtcNow.AddHours(7);
 
+            return GetMenuByArea(time, store.AreaId);
+        }       
     }
 }

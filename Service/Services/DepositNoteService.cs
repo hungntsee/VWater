@@ -58,7 +58,22 @@ namespace Service.DepositNotes
         {
 
             if (depositNote == null) return;
-            if (depositNote.Quantity <0 && depositNote.Quantity > depositNote.Order.TotalQuantity) throw new AppException("Quantity must be >= 0 and < Order Quantity");
+
+            var order = _context.Orders.Include( a=> a.OrderDetails)
+                .ThenInclude(a => a.ProductInMenu)
+                .ThenInclude(a => a.Product)
+                .AsNoTracking().FirstOrDefault(a =>a.Id == depositNote.OrderId);
+            int voBinh = 0;
+            foreach (var orderDetail in order.OrderDetails)
+            {
+                if (orderDetail.ProductInMenu.Product.Description == "Bình")
+                {
+                    voBinh += orderDetail.Quantity;
+                }
+            }
+
+            if (depositNote.Quantity == 0) throw new AppException("Số lượng vỏ bình trong phiếu cọc bình không có.");
+            if (depositNote.Quantity > voBinh) throw new AppException("Số lượng vỏ bình trong phiếu cọc bình không được vượt quá số bình Khách mua.");
 
         }
 
