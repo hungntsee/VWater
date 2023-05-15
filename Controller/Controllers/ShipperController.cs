@@ -46,7 +46,7 @@ namespace Controller.Controllers
             return Ok(new { message = "Shipper updated" });
         }
 
-        [HttpGet("/api/GetNumberOfShipper")]
+        [HttpGet("/api/shipper/GetNumberOfShipper")]
         public IActionResult GetNumberOfShipper()
         {
             return Ok(new { numberOfShipper = _shipperService.GetNumberOfShipper() });

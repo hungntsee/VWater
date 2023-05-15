@@ -108,20 +108,24 @@ namespace Service.Shippers
         public ReportOrderResponseModel GetReportForShipper(int shipper_id)
         {
             var report = new ReportOrderResponseModel();
-
-            //var shipper = GetShipper(shipper_id);
-            var order = new Order();
+            var shipper = GetShipper(shipper_id);
+            //var order = new Order();
             //var orders = OrderExtensions.ByShipperId(_context.Orders, shipper_id);
 
-            if (order.ShipperId== shipper_id)
+            if (shipper.Id== shipper_id)
             { 
                 report.NumberOfFinishOrder = GetNumberOfOrderByStatusForShipper(1);
                 report.NumberOfWaitingOrder = GetNumberOfOrderByStatusForShipper(2);
                 report.NumberOfConfirmedOrder = GetNumberOfOrderByStatusForShipper(3);
                 report.NumberOfShippingOrder = GetNumberOfOrderByStatusForShipper(4);
                 report.NumberOfFailOrder = GetNumberOfOrderByStatusForShipper(5);           
+                return report;
             }
-            return report;
+            else
+            {
+                throw new AppException("Can not found!!!");
+            }
+
         }
 
         public void StatusOfShipper(int id, ShipperStatusModel request1)

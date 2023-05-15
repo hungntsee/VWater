@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Service.Helpers;
 using VWater.Data;
 using VWater.Data.Entities;
+using VWater.Data.Queries;
 using VWater.Domain.Models;
 
 namespace Service.Stores
@@ -77,6 +78,5 @@ namespace Service.Stores
 
             return numberOfStore;
         }
-
     }
 }

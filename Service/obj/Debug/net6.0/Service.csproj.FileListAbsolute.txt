@@ -104,3 +104,4 @@ C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\refint\Service.dll
 C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\Service.pdb
 C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\Service.genruntimeconfig.cache
 C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\ref\Service.dll
+C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\Service.MvcApplicationPartsAssemblyInfo.cs
