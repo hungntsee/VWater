@@ -29,6 +29,13 @@ namespace Controller.Controllers
             return Ok(accounts);
         }
 
+        [HttpGet("GetActiveAccount")]
+        public IActionResult GetActiveAccount()
+        {
+            var accounts = _accountService.GetActiveAccount();
+            return Ok(accounts);
+        }
+
         // GET api/<AccountController>/5
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
@@ -92,6 +99,13 @@ namespace Controller.Controllers
         {
             var result = _accountService.CheckOTP(phonenumber,code);
             return Ok(result);
+        }
+
+        [HttpGet("/api/ChangeAccountActivation")]
+        public IActionResult ChangeAccountActivation(int id)
+        {
+            var account = _accountService.ChangeAccountActivation(id);
+            return Ok(account);
         }
 
     }

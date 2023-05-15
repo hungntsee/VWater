@@ -16,6 +16,8 @@ namespace Service.Services
         public void Delete(int id);
         public int GetNumberOfProduct();
         public List<Product> GetProductByProductType(int productType_id);
+        public Product ChangeProductActivation(int id);
+        public IEnumerable<Product> GetActiveProduct();
     }
     public class ProductService : IProductService
     {
@@ -31,6 +33,11 @@ namespace Service.Services
         public IEnumerable<Product> GetAll()
         {
             return _context.Products;
+        }
+
+        public IEnumerable<Product> GetActiveProduct()
+        {
+            return _context.Products.Where(a => a.IsActive == true);
         }
 
         public Product GetById(int id)
@@ -82,5 +89,18 @@ namespace Service.Services
 
             return product.ToList();
         }
+
+        public Product ChangeProductActivation(int id)
+        {
+            var product = GetProduct(id);
+
+            if (product.IsActive == true) { product.IsActive = false; }
+            else { product.IsActive = true; }
+            _context.Products.Update(product);
+            _context.SaveChangesAsync();
+
+            return product;
+        }
     }
+
 }

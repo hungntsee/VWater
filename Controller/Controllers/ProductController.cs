@@ -25,6 +25,13 @@ namespace Controller.Controllers
             return Ok(products);
         }
 
+        [HttpGet("GetActiveProduct")]
+        public IActionResult GetActiveProduct()
+        {
+            var products = _productService.GetActiveProduct();
+            return Ok(products);
+        }
+
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
@@ -69,6 +76,13 @@ namespace Controller.Controllers
         {
             var products = _productService.GetProductByProductType(productType_id);
             return Ok(products);
+        }
+
+        [HttpGet("/api/ChangeProductActivation")]
+        public IActionResult ChangeProductActivation(int id)
+        {
+            var product = _productService.ChangeProductActivation(id);
+            return Ok(product);
         }
     }
 }

@@ -16,6 +16,8 @@ namespace Service.Stores
         public void Update(int id, StoreUpdateModel request);
         public void Delete(int id);
         public int GetNumberOfStore();
+        public Store ChangeStoreActivation(int id);
+        public IEnumerable<Store> GetActiveStore();
     }
     public class StoreService : IStoreService
     {
@@ -30,6 +32,11 @@ namespace Service.Stores
         public IEnumerable<Store> GetAll()
         {
             return _context.Stores.Include(a => a.Area);
+        }
+
+        public IEnumerable<Store> GetActiveStore()
+        {
+            return _context.Stores.Include(a => a.Area).Where(a => a.IsActive == true);
         }
 
         public Store GetById(int id)
@@ -77,6 +84,18 @@ namespace Service.Stores
             var numberOfStore = _context.Stores.Count();
 
             return numberOfStore;
+        }
+
+        public Store ChangeStoreActivation(int id)
+        {
+            var store = GetStore(id);
+
+            if (store.IsActive == true) { store.IsActive = false; }
+            else { store.IsActive = true; }
+            _context.Stores.Update(store);
+            _context.SaveChangesAsync();
+
+            return store;
         }
     }
 }

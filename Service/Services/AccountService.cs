@@ -28,6 +28,8 @@ public interface IAccountService
     public Account LoginByToken(string token);
     public string ForgotPassword(string phonenumber);
     public string CheckOTP(string phone, string code);
+    public Account ChangeAccountActivation(int id);
+    public IEnumerable<Account> GetActiveAccount();
 }
 public class AccountService : IAccountService
 {
@@ -48,6 +50,11 @@ public class AccountService : IAccountService
 
         var accounts = _context.Accounts.Include(a => a.RoleAccountRole);
         return accounts;
+    }
+
+    public IEnumerable<Account> GetActiveAccount()
+    {
+        return _context.Accounts.Include(a => a.RoleAccountRole).Where(a => a.IsActive == true);
     }
 
     public Account GetById(int id)
@@ -280,5 +287,16 @@ public class AccountService : IAccountService
         return null;
     }
 
+    public Account ChangeAccountActivation(int id)
+    {
+        var account = GetAccount(id);
+
+        if (account.IsActive == true) { account.IsActive = false; }
+        else { account.IsActive = true; }
+        _context.Accounts.Update(account);
+        _context.SaveChangesAsync();
+
+        return account;
+    }
 }
 

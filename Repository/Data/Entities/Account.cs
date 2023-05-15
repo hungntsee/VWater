@@ -34,6 +34,8 @@ namespace VWater.Data.Entities
 
         public int RoleId { get; set; }
 
+        public bool? IsActive { get; set; }
+
         #endregion
 
         #region Generated Relationships

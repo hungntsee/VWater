@@ -46,6 +46,10 @@ namespace VWater.Data.Mapping
                 .HasColumnType("nvarchar(100)")
                 .HasMaxLength(100);
 
+            builder.Property(t => t.IsActive)
+                .HasColumnName("isActive")
+                .HasColumnType("bit");
+
             // relationships
             builder.HasOne(t => t.Area)
                 .WithMany(t => t.Stores)
@@ -70,6 +74,7 @@ namespace VWater.Data.Mapping
             public const string Address = "Address";
             public const string Status = "Status";
             public const string Note = "Note";
+            public const string IsActive = "isActive";
         }
         #endregion
     }

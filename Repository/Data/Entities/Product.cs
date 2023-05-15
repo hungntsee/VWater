@@ -22,6 +22,8 @@ namespace VWater.Data.Entities
 
         public int? BrandId { get; set; }
 
+        public bool? IsActive { get; set; }
+
         #endregion
 
         #region Generated Relationships

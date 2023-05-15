@@ -25,6 +25,8 @@ namespace VWater.Data.Entities
 
         public string Note { get; set; }
 
+        public bool? IsActive { get; set; }
+
         #endregion
 
         #region Generated Relationships

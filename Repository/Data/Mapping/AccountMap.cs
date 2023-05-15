@@ -82,6 +82,10 @@ namespace VWater.Data.Mapping
                 .HasColumnName("Role_Id")
                 .HasColumnType("int");
 
+            builder.Property(t => t.IsActive)
+                .HasColumnName("isActive")
+                .HasColumnType("bit");
+
             // relationships
             builder.HasOne(t => t.RoleAccountRole)
                 .WithMany(t => t.RoleAccounts)
@@ -115,6 +119,7 @@ namespace VWater.Data.Mapping
             public const string Email = "Email";
             public const string AccessToken = "Access_token";
             public const string RoleId = "Role_Id";
+            public const string IsActive = "isActive";
         }
         #endregion
     }

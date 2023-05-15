@@ -22,6 +22,13 @@ namespace Controller.Controllers
             return Ok(stores);
         }
 
+        [HttpGet("GetActiveStore")]
+        public IActionResult GetActiveStore()
+        {
+            var stores = _storeService.GetActiveStore();
+            return Ok(stores);
+        }
+
         // GET api/<StoreController>/5
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
@@ -58,6 +65,13 @@ namespace Controller.Controllers
         public IActionResult GetNumberOfStore() 
         {
             return Ok(new {numberOfStore = _storeService.GetNumberOfStore() });
+        }
+
+        [HttpGet("/api/ChangeStoreActivation")]
+        public IActionResult ChangeStoreActivation(int id)
+        {
+            var store = _storeService.ChangeStoreActivation(id);
+            return Ok(store);
         }
     }
 }

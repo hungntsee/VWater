@@ -46,6 +46,10 @@ namespace VWater.Data.Mapping
                 .HasColumnName("Brand_Id")
                 .HasColumnType("int");
 
+            builder.Property(t => t.IsActive)
+                .HasColumnName("isActive")
+                .HasColumnType("bit");
+
             // relationships
             builder.HasOne(t => t.ProductType)
                 .WithMany(t => t.Products)
@@ -75,6 +79,7 @@ namespace VWater.Data.Mapping
             public const string Description = "Description";
             public const string ProductType_Id = "ProductType_Id";
             public const string BrandId = "Brand_Id";
+            public const string IsActive = "isActive";
         }
         #endregion
     }
