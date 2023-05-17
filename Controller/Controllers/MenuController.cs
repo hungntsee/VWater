@@ -75,13 +75,14 @@ namespace Controller.Controllers
             return Ok(list);
         }
 
-        [HttpGet("/api/GetMenuByAreaId")]
-        public IActionResult GetMenuByAreaId(int area_id)
+        [HttpGet("/api/GetMenuByStoreId")]
+        public IActionResult GetMenuByStoreId(int store_id)
         {
-            var menus = _menuService.GetMenuByStoreId(area_id);
+            var menus = _menuService.GetMenuByStoreId(store_id);
             return Ok(menus);
         }
 
+        /*
         [HttpGet("/api/GetMenuForStore")]
         public IActionResult GetMenuForStore(int store_id)
         {
@@ -95,5 +96,6 @@ namespace Controller.Controllers
             var menu = _menuService.GetMenuByStore(store_id);
             return Ok(menu);
         }
+        */
     }
 }
