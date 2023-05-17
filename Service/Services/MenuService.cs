@@ -18,7 +18,7 @@ namespace Service.Services
         public void Create(MenuCreateModel model);
         public void Update(int id, MenuUpdateModel model);
         public void Delete(int id);
-        public List<Menu> GetMenuByAreaId(int area_id);
+        public List<Menu> GetMenuByStoreId(int area_id);
         public ICollection<ProductReadModel> GetMenuForStore(int store_id);
         public Menu GetMenuByStore(int store_id);
     }
@@ -75,9 +75,9 @@ namespace Service.Services
 
         private Menu GetMenuById(int id)
         {
-            var menu = _context.Menus.Include(a => a.Area).Include(a => a.ProductInMenus)
+            var menu = _context.Menus.Include(a => a.Store).Include(a => a.ProductInMenus)
                 .ThenInclude(a => a.Product).ThenInclude(a=>a.ProductType).AsNoTracking().FirstOrDefault(p => p.Id == id);
-            menu.Area.Menus = null;  
+            menu.Store.Menus = null;  
 
             if (menu == null) throw new KeyNotFoundException("Menu not found!");
             return menu;
@@ -85,9 +85,14 @@ namespace Service.Services
 
         private Menu GetMenuByArea(DateTime time, int area_id)
         {
-            var menu = _context.Menus.Include(a => a.ProductInMenus).ThenInclude(a => a.Product)
-                .AsNoTracking().FirstOrDefault(a => a.AreaId == area_id && a.ValidFrom <= time && time <= a.ValidTo);
+            var menu = _context.Menus.Include(a => a.ProductInMenus).ThenInclude(a => a.Product).Include(a => a.Store)
+                .AsNoTracking().FirstOrDefault(a => a.Store.AreaId == area_id && a.ValidFrom <= time && time <= a.ValidTo);
             if (menu == null) return _context.Menus.Include(a => a.ProductInMenus).Last();
+
+            foreach(var productInMenu in menu.ProductInMenus)
+            {
+                productInMenu.Product.ProductInMenus = null;
+            }
             
             return menu;
             
@@ -99,7 +104,7 @@ namespace Service.Services
             if (menu.ValidFrom > menu.ValidTo) throw new AppException("Date for ValidTo > ValidFrom!");
             foreach (var m in _context.Menus)
             {
-                if (menu.ValidFrom < m.ValidTo && menu.AreaId == m.AreaId)
+                if (menu.ValidFrom < m.ValidTo && menu.StoreId == m.StoreId)
                 {
                     throw new AppException("Date for ValidFrom must be newest.!");
                 }
@@ -128,10 +133,10 @@ namespace Service.Services
             return productList;
         }
 
-        public List<Menu> GetMenuByAreaId(int area_id)
+        public List<Menu> GetMenuByStoreId(int store_id)
         {
-            var menus = MenuExtensions.ByAreaId(_context.Menus
-                .Include(a => a.Area), area_id);
+            var menus = MenuExtensions.ByStoreId(_context.Menus
+                .Include(a => a.Store), store_id);
 
             return menus.ToList();
         }
@@ -142,7 +147,7 @@ namespace Service.Services
             var time = DateTime.UtcNow.AddHours(7);
 
             var menu = _context.Menus.Include(a => a.ProductInMenus).ThenInclude(a => a.Product)
-                 .AsNoTracking().FirstOrDefault(a => a.AreaId == store.AreaId && a.ValidFrom <= time && time <= a.ValidTo);
+                 .AsNoTracking().FirstOrDefault(a => a.StoreId == store_id && a.ValidFrom <= time && time <= a.ValidTo);
             if (menu == null) menu = _context.Menus.Include(a => a.ProductInMenus).ThenInclude(a => a.Product).Last();
 
             ProductReadModel model = new ProductReadModel();

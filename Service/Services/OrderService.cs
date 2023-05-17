@@ -423,7 +423,7 @@ namespace Service.Services
             CreateTransactionForOrder(responseOrder);
 
             responseOrder.Shipper.Orders = null;
-            responseOrder.Shipper.Wallets.Transactions = null;
+            responseOrder.Shipper.Wallet.Transactions = null;
             foreach (var transaction in responseOrder.Transactions)
             {
                 transaction.Wallet = null;
@@ -647,7 +647,7 @@ namespace Service.Services
 
         private void CreateTransactionForOrder(Order order)
         {
-            var shipper = _context.Shippers.Include(a =>a .Wallets).AsNoTracking().FirstOrDefault(a => a.Id == order.ShipperId);
+            var shipper = _context.Shippers.Include(a =>a .Wallet).AsNoTracking().FirstOrDefault(a => a.Id == order.ShipperId);
             var transaction = new Transaction();
 
             transaction.Date = DateTime.UtcNow.AddHours(7);
@@ -663,7 +663,7 @@ namespace Service.Services
 
             decimal priceDeposit = 50000 * quantityDeposit;
             transaction.Price = order.TotalPrice - order.AmountPaid + priceDeposit;
-            transaction.WalletId = shipper.Wallets.Id;
+            transaction.WalletId = shipper.Wallet.Id;
             transaction.OrderId = order.Id;
             transaction.TransactionType_Id = 1;
             transaction.Note = "Take Order";
@@ -671,8 +671,8 @@ namespace Service.Services
             _context.Transactions.Add(transaction);
             _context.SaveChanges();
 
-            shipper.Wallets.Credit += transaction.Price;
-            _context.Wallets.Update(shipper.Wallets);
+            shipper.Wallet.Credit += transaction.Price;
+            _context.Wallets.Update(shipper.Wallet);
             _context.SaveChanges();
         }
 

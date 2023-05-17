@@ -34,7 +34,7 @@ namespace VWater.Data.Mapping
 
             // relationships
             builder.HasOne(t => t.Shipper)
-                .WithOne(t => t.Wallets)
+                .WithOne(t => t.Wallet)
                 .HasForeignKey<Wallet>(d => d.ShipperId)
                 .HasConstraintName("FK_Wallet_Shipper");
 

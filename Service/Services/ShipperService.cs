@@ -45,12 +45,12 @@ namespace Service.Shippers
         }
         public IEnumerable<Shipper> GetAll()
         {
-            return _context.Shippers.Include(a => a.Orders).Include(a => a.Wallets);
+            return _context.Shippers.Include(a => a.Orders).Include(a => a.Wallet);
         }
 
         public IEnumerable<Shipper> GetActiveShipper()
         {
-            return _context.Shippers.Include(a => a.Orders).Include(a => a.Wallets).Where(a => a.IsActive == true);
+            return _context.Shippers.Include(a => a.Orders).Include(a => a.Wallet).Where(a => a.IsActive == true);
         }
 
         public Shipper GetById(int id)
@@ -86,7 +86,7 @@ namespace Service.Shippers
 
         private Shipper GetShipper(int id)
         {
-            var shipper = _context.Shippers.Include(a => a.Orders).Include(a => a.Wallets)
+            var shipper = _context.Shippers.Include(a => a.Orders).Include(a => a.Wallet)
                 .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (shipper == null) throw new KeyNotFoundException("Shipper not found!");
             return shipper;
@@ -197,7 +197,7 @@ namespace Service.Shippers
 
             if (shipper_id != null)
             {
-               shipper = _context.Shippers.Include(a => a.Wallets).Include(a => a.Orders).AsNoTracking().FirstOrDefault(a => a.Id == shipper_id);
+               shipper = _context.Shippers.Include(a => a.Wallet).Include(a => a.Orders).AsNoTracking().FirstOrDefault(a => a.Id == shipper_id);
             }
 
             //Get Config Info

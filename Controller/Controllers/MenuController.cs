@@ -78,7 +78,7 @@ namespace Controller.Controllers
         [HttpGet("/api/GetMenuByAreaId")]
         public IActionResult GetMenuByAreaId(int area_id)
         {
-            var menus = _menuService.GetMenuByAreaId(area_id);
+            var menus = _menuService.GetMenuByStoreId(area_id);
             return Ok(menus);
         }
 

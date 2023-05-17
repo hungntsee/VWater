@@ -32,12 +32,12 @@ namespace Service.Areas
         }
         public IEnumerable<Area> GetAll()
         {
-            return _context.Areas.Include(a => a.Stores).Include(a => a.Menus);
+            return _context.Areas.Include(a => a.Stores);
         }
 
         public IEnumerable<Area> GetActiveArea()
         {
-            return _context.Areas.Include(a => a.Stores).Include(a => a.Menus).Where(a=>a.IsActive==true);
+            return _context.Areas.Include(a => a.Stores).Where(a=>a.IsActive==true);
         }
 
         public Area GetById(int id)
@@ -79,7 +79,6 @@ namespace Service.Areas
         {
             var area = _context.Areas
                 .Include(a => a.Stores)
-                .Include(a => a.Menus)
                 .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (area == null) throw new KeyNotFoundException("Area not found!");
             return area;

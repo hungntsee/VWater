@@ -60,7 +60,7 @@ namespace VWater.Data.Mapping
         public struct Columns
         {
             public const string Id = "Id";
-            public const string AreaId = "Area_Id";
+            public const string StoreId = "Store_Id";
             public const string ValidFrom = "ValidFrom";
             public const string ValidTo = "ValidTo";
             public const string Note = "Note";
