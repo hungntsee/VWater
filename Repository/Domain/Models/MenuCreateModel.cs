@@ -5,7 +5,7 @@ namespace VWater.Domain.Models
         #region Generated Properties
 
 
-        public int AreaId { get; set; }
+        public int StoreId { get; set; }
 
         public DateTime ValidFrom { get; set; }
 

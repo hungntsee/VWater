@@ -58,8 +58,8 @@ namespace Controller.Controllers
         [HttpGet("/api/GetWalletByShipperId")]
         public IActionResult GetWalletByShipperId(int shipper_id)
         {
-            var wallets = _walletService.GetWalletByShipperId(shipper_id);
-            return Ok(wallets);
+            var wallet = _walletService.GetWalletByShipperId(shipper_id);
+            return Ok(wallet);
         }
     }
 }

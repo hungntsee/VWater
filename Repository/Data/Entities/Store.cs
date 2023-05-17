@@ -9,6 +9,7 @@ namespace VWater.Data.Entities
             DeliveryAddresses = new HashSet<DeliveryAddress>();
             DeliverySlots = new HashSet<DeliverySlot>();
             Orders = new HashSet<Order>();
+            Menus = new HashSet<Menu>();
             #endregion
         }
 
@@ -39,6 +40,8 @@ namespace VWater.Data.Entities
         public virtual ICollection<DeliverySlot> DeliverySlots { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
+
+        public virtual ICollection<Menu> Menus { get; set; }
 
         #endregion
 

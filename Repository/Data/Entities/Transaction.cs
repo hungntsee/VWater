@@ -13,7 +13,7 @@ namespace VWater.Data.Entities
         public int WalletId { get; set; }
         public int OrderId { get; set; }
         public string Note { get; set; }
-        public int AccountId { get; set; }
+        public int? AccountId { get; set; }
         public int TransactionType_Id { get; set; }
 
         #region Generated Relationships

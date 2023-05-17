@@ -16,7 +16,7 @@ namespace Service.Wallets
         public void Create(WalletCreateModel request);
         public void Update(int id, WalletUpdateModel request);
         public void Delete(int id);
-        public List<Wallet> GetWalletByShipperId(int shipper_id);
+        public Wallet GetWalletByShipperId(int shipper_id);
     }
     public class WalletService : IWalletService
     {
@@ -71,12 +71,11 @@ namespace Service.Wallets
             return wallet;
         }
 
-        public List<Wallet> GetWalletByShipperId(int shipper_id)
+        public Wallet GetWalletByShipperId(int shipper_id)
         {
-            var wallets = WalletExtensions.ByShipperId(_context.Wallets
-                .Include(a => a.Transactions), shipper_id);
+            var wallet = _context.Wallets.Include(a => a.Transactions).AsNoTracking().FirstOrDefault(a => a.ShipperId == shipper_id);
            
-            return wallets.ToList();
+            return wallet;
         }
     }
 }

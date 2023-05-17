@@ -21,9 +21,9 @@ namespace VWater.Data.Mapping
                 .HasColumnType("int")
                 .ValueGeneratedOnAdd();
 
-            builder.Property(t => t.AreaId)
+            builder.Property(t => t.StoreId)
                 .IsRequired()
-                .HasColumnName("Area_Id")
+                .HasColumnName("Store_Id")
                 .HasColumnType("int");
 
             builder.Property(t => t.ValidFrom)
@@ -42,10 +42,10 @@ namespace VWater.Data.Mapping
                 .HasMaxLength(100);
 
             // relationships
-            builder.HasOne(t => t.Area)
+            builder.HasOne(t => t.Store)
                 .WithMany(t => t.Menus)
-                .HasForeignKey(d => d.AreaId)
-                .HasConstraintName("FK_product_menu_area");
+                .HasForeignKey(d => d.StoreId)
+                .HasConstraintName("FK_Menu_Store");
 
             #endregion
         }

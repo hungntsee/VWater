@@ -5,12 +5,12 @@ namespace VWater.Data.Queries
     public static partial class MenuExtensions
     {
         #region Generated Extensions
-        public static IQueryable<VWater.Data.Entities.Menu> ByAreaId(this IQueryable<VWater.Data.Entities.Menu> queryable, int areaId)
+        public static IQueryable<VWater.Data.Entities.Menu> ByStoreId(this IQueryable<VWater.Data.Entities.Menu> queryable, int storeId)
         {
             if (queryable is null)
                 throw new ArgumentNullException(nameof(queryable));
 
-            return queryable.Where(q => q.AreaId == areaId);
+            return queryable.Where(q => q.StoreId == storeId);
         }
 
         public static VWater.Data.Entities.Menu GetByKey(this IQueryable<VWater.Data.Entities.Menu> queryable, int id)

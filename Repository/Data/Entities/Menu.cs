@@ -12,7 +12,7 @@ namespace VWater.Data.Entities
         #region Generated Properties
         public int Id { get; set; }
 
-        public int AreaId { get; set; }
+        public int StoreId { get; set; }
 
         public DateTime ValidFrom { get; set; }
 
@@ -23,7 +23,7 @@ namespace VWater.Data.Entities
         #endregion
 
         #region Generated Relationships
-        public virtual Area Area { get; set; }
+        public virtual Store Store { get; set; }
 
         public virtual ICollection<ProductInMenu> ProductInMenus { get; set; }
 

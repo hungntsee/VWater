@@ -546,7 +546,7 @@ namespace Service.Services
             foreach (var order in orders)
             {
                 OrderJsonFile(order);
-                if (order.StatusId != 4 || order.StatusId != 5 ) list.Add(order);
+                if (order.StatusId < 4 ||  order.StatusId == 6 || order.StatusId == 7 ) list.Add(order);
             }
             return list;
         }
@@ -619,6 +619,9 @@ namespace Service.Services
             var order = GetOrder(model.OrderId);
 
             order.IsDeposit = true;
+
+            _context.Orders.Update(order);
+            _context.SaveChanges();
 
             var depositeNote = _mapper.Map<DepositNote>(model);
 
@@ -759,8 +762,10 @@ namespace Service.Services
                 .Include(a => a.Store)
                 .Include(a => a.Status)
                 .Include(a => a.DeliverySlot)
-                .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu)
-                .ThenInclude(a => a.Product).OrderByDescending(a => a.Id), shipper_id);
+                .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu).ThenInclude(a => a.Product)
+                .Include(a => a.DepositNote)
+                .Include(a => a.Transactions)
+                .OrderByDescending(a => a.Id), shipper_id);
 
             foreach (var order in orders)
             {

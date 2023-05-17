@@ -13,10 +13,9 @@ namespace Service.Transactions
     {
         public IEnumerable<Transaction> GetAll();
         public Transaction GetById(int id);
-        public Transaction Create(TransactionCreateModel request);
+        public ICollection<Transaction> Create(TransactionCreateModel request);
         public void Update(int id, TransactionUpdateModel request);
         public void Delete(int id);
-        public void RefundForShipper(TransactionCreateModel request);
     }
     public class TransactionService : ITransactionService
     {
@@ -39,32 +38,19 @@ namespace Service.Transactions
             return transaction;
         }
 
-        public Transaction Create(TransactionCreateModel request)
+        public ICollection<Transaction> Create(TransactionCreateModel request)
         {
-            if(request.TransactionType_Id == 5)
+            if(request.TransactionType_Id == 5) //VoBinh
             {
-                var transaction1 = CreateTransactionForDepositNote(request);
-                return transaction1;
+                var transactions = CreateTransactionForVoBinh(request);
+                return transactions;
             }
-            else
+            else if(request.TransactionType_Id == 3) //Tiền mặt
             {
-                var transaction = _mapper.Map<Transaction>(request);
-
-                CheckPriceForTransaction(transaction);
-
-                _context.Transactions.Add(transaction);
-                _context.SaveChanges();
-
-                if(transaction !=null && (transaction.TransactionType_Id != 1 || transaction.TransactionType_Id != 2 || transaction.TransactionType_Id != 6)) {
-            
-                    var order = _context.Orders.AsNoTracking().FirstOrDefault(a => a.Id == transaction.OrderId);
-                    order.StatusId = 8;
-                    _context.Orders.Update(order);
-                    _context.SaveChanges();
-
-                }
-                return transaction;
-            }    
+                var transactions = CreateTransactionForCash(request);            
+                return transactions;
+            }
+            return null;
         }
 
         public void Update(int id, TransactionUpdateModel request)
@@ -90,16 +76,6 @@ namespace Service.Transactions
             if (transaction == null) throw new KeyNotFoundException("Transaction not found!");
             return transaction;
         }
-
-        public void RefundForShipper(TransactionCreateModel request)
-        {
-            var transaction = Create(request);
-            if (transaction == null) return;
-            var wallet = _context.Wallets.Include(a => a.Shipper).AsNoTracking().FirstOrDefault(a => a.Id == request.WalletId);
-            wallet.Credit -= transaction.Price;
-            _context.Wallets.Update(wallet);
-            _context.SaveChanges();
-        }
         
         private bool CheckTransactionForOrder(int order_id)
         {
@@ -113,40 +89,115 @@ namespace Service.Transactions
                 {
                     return true;
                 }
-
             }
-
             return false;
 
         }
 
-        public Transaction CreateTransactionForDepositNote (TransactionCreateModel request)
+        public ICollection<Transaction> CreateTransactionForVoBinh (TransactionCreateModel request)
         {
-            var transaction = _mapper.Map<Transaction>(request);
-            transaction.Date = DateTime.UtcNow.AddHours(7);
-
-            CheckPriceForTransaction(transaction);
-
-            _context.Transactions.Add(transaction);
-            _context.SaveChanges();
-
-            if(CheckTransactionForOrder(transaction.OrderId))
+            var list = new List<Transaction>();
+            foreach(var order in request.Orders)
             {
-                var order = _context.Orders.AsNoTracking().FirstOrDefault(a => a.Id == transaction.OrderId);
-                order.StatusId = 8;
-                _context.Orders.Update(order);
+                Transaction transaction = new Transaction();
+                transaction.Price = 50000*GetNumberOfVoBinh(order);
+                transaction.WalletId = request.WalletId;
+                transaction.OrderId = order.Id;
+                transaction.Note = "Số lượng vỏ bình mà shipper giao/nộp: " + GetNumberOfVoBinh(order);
+                transaction.AccountId = request.Account_Id;
+                transaction.TransactionType_Id = 5;
+                transaction.Date = DateTime.UtcNow.AddHours(7);
+
+                CheckPriceForTransaction(transaction);
+
+                list.Add(transaction);
+
+                _context.Transactions.Add(transaction);
                 _context.SaveChanges();
+
+                if (CheckTransactionForOrder(order.Id))
+                {                   
+                    order.StatusId = 8;
+                    _context.Orders.Update(order);
+                    _context.SaveChanges();
+                }
+
+                if (transaction.TransactionType_Id > 2)
+                {
+                    var wallet = _context.Wallets.AsNoTracking().FirstOrDefault(a => a.Id == transaction.WalletId);
+                    wallet.Credit -= transaction.Price;
+                    _context.Update(wallet);
+                    _context.SaveChanges();
+                }
+            }         
+            return list;
+        }
+
+        public ICollection<Transaction> CreateTransactionForCash(TransactionCreateModel request)
+        {
+            var list = new List<Transaction>();
+            foreach (var order in request.Orders)
+            {
+                Transaction transaction = new Transaction();
+                if (order.IsDeposit == true)
+                {
+                    transaction.Price = order.TotalPrice + order.DepositNote.Price;
+                    transaction.Note = "Bao gồm tiền hàng và tiền cọc bình với số lượng bình là: " + order.DepositNote.Quantity;
+                }
+                else
+                {
+                    transaction.Price = order.TotalPrice;
+                    transaction.Note = "Thanh toán tiền hàng.";
+                }
+
+                transaction.WalletId = request.WalletId;
+                transaction.OrderId = order.Id;               
+                transaction.AccountId = request.Account_Id;
+                transaction.TransactionType_Id = 3;
+                transaction.Date = DateTime.UtcNow.AddHours(7);
+
+                CheckPriceForTransaction(transaction);
+
+                list.Add(transaction);
+
+                _context.Transactions.Add(transaction);
+                _context.SaveChanges();
+
+                if (order.IsDeposit == true)
+                {
+                    order.StatusId = 8;
+                    _context.Orders.Update(order);
+                    _context.SaveChanges();
+                } else
+                {
+                    if(order.Transactions.Any(a => a.TransactionType_Id == 5))
+                    {
+                        order.StatusId = 8;
+                        _context.Orders.Update(order);
+                        _context.SaveChanges();
+                    }
+                }
+
+                if (transaction.TransactionType_Id > 2 && transaction.TransactionType_Id < 6)
+                {
+                    var wallet = _context.Wallets.AsNoTracking().FirstOrDefault(a => a.Id == transaction.WalletId);
+                    wallet.Credit -= transaction.Price;
+                    _context.Update(wallet);
+                    _context.SaveChanges();
+                }
+            }
+            return list;
+        }
+
+        private int GetNumberOfVoBinh(Order order)
+        {
+            var numberOfVoBinh = 0;
+            foreach (var orderDetail in order.OrderDetails)
+            {
+                if (orderDetail.ProductInMenu.Product.Description == "Bình") numberOfVoBinh += orderDetail.Quantity;
             }
 
-            if (transaction.TransactionType_Id > 2)
-            {
-                var wallet = _context.Wallets.AsNoTracking().FirstOrDefault(a => a.Id == transaction.WalletId);
-                wallet.Credit -= transaction.Price;
-                _context.Update(wallet);
-                _context.SaveChanges();
-            }
-
-            return transaction;
+            return numberOfVoBinh;
         }
 
         private void CheckPriceForTransaction(Transaction transaction)
@@ -158,11 +209,7 @@ namespace Service.Transactions
                 .ThenInclude(a => a.Product)
                 .AsNoTracking().FirstOrDefault(a => a.Id == transaction.OrderId);
 
-            var numberOfVoBinh = 0;
-            foreach (var orderDetail in order.OrderDetails)
-            {
-                if (orderDetail.ProductInMenu.Product.Description == "Bình") numberOfVoBinh += orderDetail.Quantity;
-            }
+            var numberOfVoBinh = GetNumberOfVoBinh(order);
 
             if (transaction.TransactionType_Id == 3)
             {
