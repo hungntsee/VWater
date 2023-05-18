@@ -5,6 +5,7 @@ using Service.Helpers;
 using System.Text.RegularExpressions;
 using VWater.Data;
 using VWater.Data.Entities;
+using VWater.Data.Queries;
 using VWater.Domain.Models;
 
 namespace Service.Services
@@ -18,6 +19,7 @@ namespace Service.Services
         public void Update(int id, CustomerUpdateModel model);
         public void Delete(int id);
         public Customer GetHistoryOrder(int customer_id);
+        public ReportPerCustomer GetReportPerCustomer(int customer_id);
     }
     public class CustomerService : ICustomerService
     {
@@ -118,6 +120,26 @@ namespace Service.Services
                 .AsNoTracking().FirstOrDefault(a => a.Id == customer_id);            
 
             return customer;
+        }
+
+        public ReportPerCustomer GetReportPerCustomer(int customer_id)
+        {
+            ReportPerCustomer report = new ReportPerCustomer();
+            var orders = OrderExtensions.ByCustomerId(_context.Orders.Include(a => a.DepositNote), customer_id);
+
+            foreach( var order in orders)
+            {
+                if(order.IsDeposit == true) 
+                {
+                    var totalPrice = (order.TotalPrice + order.DepositNote.Price);
+                    report.AmountSpent += totalPrice;
+                }else
+                {
+                    report.AmountSpent += order.TotalPrice;
+                }
+            }
+
+            return report;
         }
     }
 }

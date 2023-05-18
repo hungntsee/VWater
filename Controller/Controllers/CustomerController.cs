@@ -74,5 +74,12 @@ namespace Controller.Controllers
             var customer = _customerService.GetHistoryOrder(customer_id);
             return Ok(customer);
         }
+
+        [HttpGet("/api/GetReportPerCustomer")]
+        public IActionResult GetReportPerCustomer(int customer_id)
+        {
+            var report = _customerService.GetReportPerCustomer(customer_id);
+            return Ok(report);
+        }
     }
 }
