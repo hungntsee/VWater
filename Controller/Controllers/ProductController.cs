@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Storage.Blobs;
+using Microsoft.AspNetCore.Mvc;
 using Service.Services;
 using VWater.Domain.Models;
 
@@ -84,5 +85,23 @@ namespace Controller.Controllers
             var product = _productService.ChangeProductActivation(id);
             return Ok(product);
         }
-    }
+        
+        private string _connectionString = "DefaultEndpointsProtocol=https;AccountName=vwaterblobstorage;AccountKey=VXEq91uZZ6FyWTSadQgEMFvUz6/gZedEezf0zKycEyCCsxm1OdCkd0YP7JuKYzdzv2azYBGTj0uH+AStRjoWcg==;EndpointSuffix=core.windows.net";
+        [HttpPost("api/UploadImageBlob")]
+            public async Task<IActionResult> UploadFilesToStorage(IFormFile files)
+            {
+                BlobContainerClient blobContainerClient = new BlobContainerClient(_connectionString, "fileupload");
+
+                    using(var stream= new MemoryStream())
+                    {
+                        await files.CopyToAsync(stream);
+                        stream.Position = 0;
+                        await blobContainerClient.UploadBlobAsync(files.FileName, stream);
+                    }
+            string namePath= "https://vwaterblobstorage.blob.core.windows.net/fileupload/" + files.FileName;
+            return Ok(namePath);
+            }
+        
+
+        }
 }

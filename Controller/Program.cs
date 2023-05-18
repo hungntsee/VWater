@@ -19,6 +19,7 @@ using Service.Wallets;
 using System.Text;
 using System.Text.Json.Serialization;
 using VWater.Data;
+using Azure.Storage.Blobs;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
@@ -117,3 +118,6 @@ app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseMiddleware<JwtMiddleware>();
 
 app.Run();
+
+app.UseStaticFiles();
+

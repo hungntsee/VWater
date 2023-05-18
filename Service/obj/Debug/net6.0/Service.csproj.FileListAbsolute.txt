@@ -105,3 +105,6 @@ C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\Service.pdb
 C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\Service.genruntimeconfig.cache
 C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\ref\Service.dll
 C:\Users\Asus\source\repos\VWater\Service\obj\Debug\net6.0\Service.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Asus\source\repos\VWater\Service\bin\Debug\net6.0\Azure.Storage.Blobs.dll
+C:\Users\Asus\source\repos\VWater\Service\bin\Debug\net6.0\Azure.Storage.Common.dll
+C:\Users\Asus\source\repos\VWater\Service\bin\Debug\net6.0\System.IO.Hashing.dll
