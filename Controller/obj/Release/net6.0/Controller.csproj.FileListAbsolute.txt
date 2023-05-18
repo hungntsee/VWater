@@ -319,3 +319,6 @@ C:\Users\Asus\source\repos\VWater\Controller\obj\Release\net6.0\refint\Controlle
 C:\Users\Asus\source\repos\VWater\Controller\obj\Release\net6.0\Controller.pdb
 C:\Users\Asus\source\repos\VWater\Controller\obj\Release\net6.0\Controller.genruntimeconfig.cache
 C:\Users\Asus\source\repos\VWater\Controller\obj\Release\net6.0\ref\Controller.dll
+C:\Users\Asus\source\repos\VWater\Controller\bin\Release\net6.0\Azure.Storage.Blobs.dll
+C:\Users\Asus\source\repos\VWater\Controller\bin\Release\net6.0\Azure.Storage.Common.dll
+C:\Users\Asus\source\repos\VWater\Controller\bin\Release\net6.0\System.IO.Hashing.dll

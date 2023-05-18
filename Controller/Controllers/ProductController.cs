@@ -87,10 +87,10 @@ namespace Controller.Controllers
         }
         
         private string _connectionString = "DefaultEndpointsProtocol=https;AccountName=vwaterblobstorage;AccountKey=VXEq91uZZ6FyWTSadQgEMFvUz6/gZedEezf0zKycEyCCsxm1OdCkd0YP7JuKYzdzv2azYBGTj0uH+AStRjoWcg==;EndpointSuffix=core.windows.net";
-        [HttpPost("api/UploadImageBlob")]
-            public async Task<IActionResult> UploadFilesToStorage(IFormFile files)
+        [HttpPost("api/UploadProductImage")]
+            public async Task<IActionResult> UploadProductImage(IFormFile files)
             {
-                BlobContainerClient blobContainerClient = new BlobContainerClient(_connectionString, "fileupload");
+                BlobContainerClient blobContainerClient = new BlobContainerClient(_connectionString, "product");
 
                     using(var stream= new MemoryStream())
                     {
@@ -98,10 +98,9 @@ namespace Controller.Controllers
                         stream.Position = 0;
                         await blobContainerClient.UploadBlobAsync(files.FileName, stream);
                     }
-            string namePath= "https://vwaterblobstorage.blob.core.windows.net/fileupload/" + files.FileName;
+            string namePath= "https://vwaterblobstorage.blob.core.windows.net/product/" + files.FileName;
             return Ok(namePath);
             }
         
-
         }
 }
