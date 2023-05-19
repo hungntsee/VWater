@@ -21,7 +21,6 @@ namespace Service.Shippers
         public void Delete(int id);
         public int GetNumberOfShipper();
         //public void StatusOfShipper(int id, ShipperStatusModel request1);
-        public ReportOrderResponseModel GetReportForShipper(int shipper_id);
         public List<Shipper> GetShipperByStoreId(int store_id);
         public Shipper ChangeStatus(int id);
         public Shipper ChangeShipperActivation(int id);
@@ -45,12 +44,21 @@ namespace Service.Shippers
         }
         public IEnumerable<Shipper> GetAll()
         {
-            return _context.Shippers.Include(a => a.Orders).Include(a => a.Wallet);
+            var shippers =_context.Shippers.Include(a => a.Orders).Include(a => a.Wallet).Include(a => a.Account).ThenInclude(a => a.Store);
+            foreach (var shipper in shippers)
+            {
+                if(shipper.Account.Store != null)
+                {
+                    shipper.Account.Store.Accounts = null;
+                    shipper.Account.Store.Orders = null;
+                }
+            }
+            return shippers;
         }
 
         public IEnumerable<Shipper> GetActiveShipper()
         {
-            return _context.Shippers.Include(a => a.Orders).Include(a => a.Wallet).Where(a => a.IsActive == true);
+            return _context.Shippers.Include(a => a.Orders).Include(a => a.Wallet).Include(a => a.Account).ThenInclude(a => a.Store).Where(a => a.IsActive == true);
         }
 
         public Shipper GetById(int id)
@@ -97,35 +105,6 @@ namespace Service.Shippers
             var numberOfShipper = _context.Shippers.Count();
 
             return numberOfShipper;
-        }
-
-        private int GetNumberOfOrderByStatusForShipper(int status_id)
-        {
-            var ordersByStatusForShipper = OrderExtensions.ByStatusId(_context.Orders, status_id);
-            return ordersByStatusForShipper.Count();
-        }
-
-        public ReportOrderResponseModel GetReportForShipper(int shipper_id)
-        {
-            var report = new ReportOrderResponseModel();
-            var shipper = GetShipper(shipper_id);
-            //var order = new Order();
-            //var orders = OrderExtensions.ByShipperId(_context.Orders, shipper_id);
-
-            if (shipper.Id== shipper_id)
-            { 
-                report.NumberOfFinishOrder = GetNumberOfOrderByStatusForShipper(1);
-                report.NumberOfWaitingOrder = GetNumberOfOrderByStatusForShipper(2);
-                report.NumberOfConfirmedOrder = GetNumberOfOrderByStatusForShipper(3);
-                report.NumberOfShippingOrder = GetNumberOfOrderByStatusForShipper(4);
-                report.NumberOfFailOrder = GetNumberOfOrderByStatusForShipper(5);           
-                return report;
-            }
-            else
-            {
-                throw new AppException("Can not found!!!");
-            }
-
         }
 
         public void StatusOfShipper(int id, ShipperStatusModel request1)

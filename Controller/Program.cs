@@ -66,6 +66,8 @@ builder.Services.AddScoped<IWalletService, WalletService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<ITransactionTypeService, TransactionTypeService>();
 builder.Services.AddScoped<IShipperService, ShipperService>();
+builder.Services.AddScoped<IReportService, ReportService>();
+
 
 builder.Services.AddAuthentication(options =>
 {

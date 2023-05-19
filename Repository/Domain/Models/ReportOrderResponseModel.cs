@@ -2,11 +2,11 @@
 {
     public class ReportOrderResponseModel
     {
-        public int NumberOfFinishOrder { get; set; }
-        public int NumberOfWaitingOrder { get; set; }
-        public int NumberOfConfirmedOrder { get; set; }
-        public int NumberOfShippingOrder { get; set; }
-        public int NumberOfFailOrder { get; set; }
+        public int DonHangGiaoThanhCong { get; set; }
+        public int DonHangThanhToanTienMat { get; set; }
+        public int DonHangThanhToanOnline { get; set; }
+        public int DonHangDaHoanTatGiaoDich { get; set; }
+        public int TongDonHang { get; set; }
 
     }
 }

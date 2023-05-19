@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.Services;
 using System.Net;
+using VWater.Data.Entities;
 using VWater.Domain.Models;
 
 namespace Controller.Controllers
@@ -20,8 +21,21 @@ namespace Controller.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var products = _orderService.GetAll();
-            return Ok(products);
+            var orders = _orderService.GetAll();
+            return Ok(orders);
+        }
+
+        [HttpGet("/api/FilterAllOrderByStatus")]
+        public IActionResult FilterAllOrderByStatus(int status_id) 
+        {
+            var orders = _orderService.GetAllOrderByStatus(status_id);
+            return Ok(orders);
+        }
+        [HttpGet("/api/FilterOrderOfStoreByStatus")]
+        public IActionResult FilterOrderOfStoreByStatus(int store_id, int status_id)
+        {
+            var orders = _orderService.GetOrderOfStoreByStatus(store_id,status_id);
+            return Ok(orders);
         }
 
         // GET api/<OrderController>/5
@@ -94,12 +108,6 @@ namespace Controller.Controllers
         public IActionResult GetNumberOfOrder()
         {
             return Ok(new {numberOfOrder = _orderService.GetNumberOfOrder()});
-        }
-
-        [HttpGet("/api/GetReport")]
-        public IActionResult GetReport()
-        {
-            return Ok(_orderService.GetReport());
         }
 
         [HttpPost("/api/CreateDepositNote")]
@@ -205,17 +213,6 @@ namespace Controller.Controllers
         {
             var orders = _orderService.GetOrderByShipper(shipper_id);
             return Ok(orders);
-        }
-
-        [HttpGet("/api/GetOrderByStoreAndStatus")]
-        public IActionResult GetOrderByStoreAndStatus(int store_id, int status_id)
-        {
-            var order = _orderService.GetOrderByStoreAndStatus(store_id, status_id);
-            if (order == null)
-            {
-                return BadRequest("Can't find result matched your input!");
-            }
-            return Ok(order);
         }
         
     }

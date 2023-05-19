@@ -19,6 +19,9 @@ namespace Service.Services
     public interface IOrderService
     {
         public IEnumerable<Order> GetAll();
+        public IEnumerable<Order> GetOrderByStore(int store_id);
+        public IEnumerable<Order> GetAllOrderByStatus( int status_id);
+        public IEnumerable<Order> GetOrderOfStoreByStatus(int store_id, int status_id);
         public Order GetById(int id);
         public Order Create(OrderCreateModel model);
         public void Update(int id, OrderUpdateModel model);
@@ -29,12 +32,10 @@ namespace Service.Services
         public List<Order> FollowOrder(int customer_id);
         public Order ReOrder(int order_id);
         public int GetNumberOfOrder();
-        public ReportOrderResponseModel GetReport();
         public DepositNote CreateDepositeNote(DepositNoteCreateModel model);
         public void CancelOrder(int order_id);
         public void ConfirmOrder(int order_id);
-        public void FinishOrder(int order_id);
-        public List<Order> GetOrderByStore(int store_id);
+        public void FinishOrder(int order_id);      
         public Order GetOrderByStatusForShipper(int shipper_id, int status_id);
         public int CountOrderByStatus();
         public List<Order> GetNewOrderByStoreId(int store_id);
@@ -43,7 +44,6 @@ namespace Service.Services
         public string CreateOrderWithVNPay(OrderCreateModel model);
         public string VNPayIpn(HttpRequest request);
         public List<Order> GetOrderByShipper(int shipper_id);
-        public Order GetOrderByStoreAndStatus(int store_id, int status_id);
     }
     public class OrderService : IOrderService
     {
@@ -596,24 +596,6 @@ namespace Service.Services
             return _context.Orders.Count();
         }
 
-        private int GetNumberOfOrderByStatus(int status_id)
-        {
-            var ordersByStatus = OrderExtensions.ByStatusId(_context.Orders, status_id);
-            return ordersByStatus.Count();
-        }
-
-        public ReportOrderResponseModel GetReport()
-        {
-            var report = new ReportOrderResponseModel();
-            report.NumberOfFinishOrder = GetNumberOfOrderByStatus(1);
-            report.NumberOfWaitingOrder = GetNumberOfOrderByStatus(2);
-            report.NumberOfConfirmedOrder = GetNumberOfOrderByStatus(3);
-            report.NumberOfShippingOrder = GetNumberOfOrderByStatus(4);
-            report.NumberOfFailOrder = GetNumberOfOrderByStatus(5);
-
-            return report;
-        }
-
         public DepositNote CreateDepositeNote(DepositNoteCreateModel model) 
         {
             var order = GetOrder(model.OrderId);
@@ -676,7 +658,7 @@ namespace Service.Services
             _context.SaveChanges();
         }
 
-        public List<Order> GetOrderByStore(int store_id)
+        public IEnumerable<Order> GetOrderByStore(int store_id)
         {
             var orders = OrderExtensions.ByStoreId(_context.Orders
                 .Include(a => a.DeliveryAddress).ThenInclude(a=> a.Customer)
@@ -716,6 +698,23 @@ namespace Service.Services
         public int CountOrderByStatus()
         {
             return _context.Orders.Count(a => a.StatusId == 2);   
+        }
+
+        public IEnumerable<Order> GetAllOrderByStatus(int status_id)
+        {
+            var orders = _context.Orders.Include(a => a.DeliveryAddress).ThenInclude(a => a.Customer)
+                .Include(a => a.Store)
+                .Include(a => a.Status)
+                .Include(a => a.DeliverySlot)
+                .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu)
+                .ThenInclude(a => a.Product).OrderByDescending(a => a.Id).Where( a => a.StatusId == status_id);
+
+            foreach (var order in orders)
+            {
+                OrderJsonFile(order);
+            }
+
+            return orders.ToList();
         }
 
         /*
@@ -775,22 +774,27 @@ namespace Service.Services
             return orders.ToList();
         }
 
-        public Order GetOrderByStoreAndStatus(int store_id, int status_id)
+        public IEnumerable<Order> GetOrderOfStoreByStatus(int store_id, int status_id)
         {
             var order = StoreAndStatus(store_id, status_id);
             return order;
         }
 
-        private Order StoreAndStatus(int store_id, int status_id)
+        private IEnumerable<Order> StoreAndStatus(int store_id, int status_id)
         {
-            var responseOrder = _context.Orders.Include(a => a.Store).Include(a => a.Status).OrderByDescending(a => a.Id)
-                .AsNoTracking().FirstOrDefault(a => a.StoreId == store_id && a.StatusId == status_id);
-            if (responseOrder == null) throw new KeyNotFoundException("Can not found!");
+            var orders = _context.Orders.Include(a => a.DeliveryAddress).ThenInclude(a => a.Customer)
+                .Include(a => a.Store)
+                .Include(a => a.Status)
+                .Include(a => a.DeliverySlot)
+                .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu)
+                .ThenInclude(a => a.Product).OrderByDescending(a => a.Id).Where(a => a.StatusId == status_id && a.StoreId == store_id);
 
-            responseOrder.Status.Orders = null;
-            //OrderJsonFile(responseOrder);
-            return responseOrder;
+            foreach (var order in orders)
+            {
+                OrderJsonFile(order);
+            }
 
+            return orders.ToList();
         }
 
     }

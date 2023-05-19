@@ -61,12 +61,6 @@ namespace Controller.Controllers
         }
         */
 
-        [HttpGet("/api/GetReportForShipper")]
-        public IActionResult GetReportForShipper(int shipper_id)
-        {
-            return Ok(_shipperService.GetReportForShipper(shipper_id));
-        }
-
         [HttpGet("/api/GetShipperByStoreId")]
         public IActionResult GetShipperByStoreId(int store_id)
         {
