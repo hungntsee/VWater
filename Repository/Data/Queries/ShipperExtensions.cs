@@ -43,6 +43,15 @@ namespace VWater.Data.Queries
             queryable.Include(x => x.Account);
             return queryable.Where(q => q.Account.StoreId == storeId);
         }
+
+        public static IQueryable<VWater.Data.Entities.Shipper> ByShipperName(this IQueryable<VWater.Data.Entities.Shipper> queryable, string? search)
+        {
+            if (queryable is null)
+                throw new ArgumentNullException(nameof(queryable));
+
+            //return queryable.Where(q => search.All(k => q.ShipperName.Contains(k)));
+            return queryable.Where(x => x.Fullname.Trim().ToLower().Contains(search.Trim().ToLower()));
+        }
         #endregion
 
     }

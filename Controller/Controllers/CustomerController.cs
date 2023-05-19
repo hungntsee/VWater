@@ -81,5 +81,12 @@ namespace Controller.Controllers
             var report = _customerService.GetReportPerCustomer(customer_id);
             return Ok(report);
         }
+
+        [HttpGet("/api/SearchCustomerName")]
+        public IActionResult SearchCustomerName(string search)
+        {
+            var customer = _customerService.SearchCustomerName(search);
+            return Ok(customer);
+        }
     }
 }

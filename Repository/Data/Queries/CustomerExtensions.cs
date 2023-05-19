@@ -29,6 +29,14 @@ namespace VWater.Data.Queries
             return new ValueTask<VWater.Data.Entities.Customer>(task);
         }
 
+        public static IQueryable<VWater.Data.Entities.Customer> ByCustomerName(this IQueryable<VWater.Data.Entities.Customer> queryable, string? search)
+        {
+            if (queryable is null)
+                throw new ArgumentNullException(nameof(queryable));
+
+            //return queryable.Where(q => search.All(k => q.CustomerName.Contains(k)));
+            return queryable.Where(x => x.FullName.Trim().ToLower().Contains(search.Trim().ToLower()));
+        }
         #endregion
 
     }

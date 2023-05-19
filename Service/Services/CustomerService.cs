@@ -20,6 +20,7 @@ namespace Service.Services
         public void Delete(int id);
         public Customer GetHistoryOrder(int customer_id);
         public ReportPerCustomer GetReportPerCustomer(int customer_id);
+        public List<Customer> SearchCustomerName(string search);
     }
     public class CustomerService : ICustomerService
     {
@@ -140,6 +141,15 @@ namespace Service.Services
             }
 
             return report;
+        }
+
+        public List<Customer> SearchCustomerName(string search)
+        {
+            var customer = CustomerExtensions.ByCustomerName(
+                _context.Customers,
+                search);
+
+            return customer.ToList();
         }
     }
 }

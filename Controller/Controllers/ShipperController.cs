@@ -81,5 +81,12 @@ namespace Controller.Controllers
             var shipper = _shipperService.ChangeShipperActivation(id);
             return Ok(shipper);
         }
+
+        [HttpGet("/api/SearchShipperName")]
+        public IActionResult SearchShipperName(string search)
+        {
+            var shipper = _shipperService.SearchShipperName(search);
+            return Ok(shipper);
+        }
     }
 }

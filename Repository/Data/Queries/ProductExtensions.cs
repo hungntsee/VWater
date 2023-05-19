@@ -50,7 +50,7 @@ namespace VWater.Data.Queries
                 throw new ArgumentNullException(nameof(queryable));
 
             //return queryable.Where(q => search.All(k => q.ProductName.Contains(k)));
-            return queryable.Where(x => search.Trim().ToLower().Contains(x.ProductName.Trim().ToLower()));
+            return queryable.Where(x => x.ProductName.Trim().ToLower().Contains(search.Trim().ToLower()));
         }
         #endregion
 

@@ -26,6 +26,7 @@ namespace Service.Shippers
         public Shipper ChangeShipperActivation(int id);
         public string Deposit(ICollection<Order> orders);
         public IEnumerable<Shipper> GetActiveShipper();
+        public List<Shipper> SearchShipperName(string search);
         /*public string VNPayIpnForShipper(HttpRequest request);*/
     }
     public class ShipperService : IShipperService
@@ -316,5 +317,14 @@ namespace Service.Shippers
 
             return returnContent;
         }*/
+
+        public List<Shipper> SearchShipperName(string search)
+        {
+            var shipper = ShipperExtensions.ByShipperName(
+                _context.Shippers,
+                search);
+
+            return shipper.ToList();
+        }
     }
 }
