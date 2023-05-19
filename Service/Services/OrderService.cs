@@ -22,6 +22,7 @@ namespace Service.Services
         public IEnumerable<Order> GetOrderByStore(int store_id);
         public IEnumerable<Order> GetAllOrderByStatus( int status_id);
         public IEnumerable<Order> GetOrderOfStoreByStatus(int store_id, int status_id);
+        public IEnumerable<Order> GetOrderOfShipperByStatus(int shipper_id, int status_id);
         public Order GetById(int id);
         public Order Create(OrderCreateModel model);
         public void Update(int id, OrderUpdateModel model);
@@ -36,7 +37,7 @@ namespace Service.Services
         public void CancelOrder(int order_id);
         public void ConfirmOrder(int order_id);
         public void FinishOrder(int order_id);      
-        public Order GetOrderByStatusForShipper(int shipper_id, int status_id);
+        //public Order GetOrderByStatusForShipper(int shipper_id, int status_id);
         public int CountOrderByStatus();
         public List<Order> GetNewOrderByStoreId(int store_id);
         public Task<Dictionary<string, object>> CreateOrderWithZaloPay(OrderCreateModel model);
@@ -44,6 +45,7 @@ namespace Service.Services
         public string CreateOrderWithVNPay(OrderCreateModel model);
         public string VNPayIpn(HttpRequest request);
         public List<Order> GetOrderByShipper(int shipper_id);
+        //public List<Order> GetOrderByStatus(int status_id);
     }
     public class OrderService : IOrderService
     {
@@ -474,8 +476,7 @@ namespace Service.Services
         {
             var order = GetOrder(order_id);
             if (order.StatusId < 3 || order.StatusId == 6)
-            {
-                order.StatusId = 5;
+            { 
                 _context.Orders.Update(order);
                 _context.SaveChanges();
             }
@@ -780,6 +781,43 @@ namespace Service.Services
             return order;
         }
 
+        public IEnumerable<Order> GetOrderOfShipperByStatus(int shipper_id, int status_id)
+        {
+            var order = ShipperAndStatus(shipper_id, status_id);
+            return order;
+        }
+
+        private IEnumerable<Order> ShipperAndStatus(int shipper_id, int status_id)
+        {
+            var orders = _context.Orders.Include(a => a.DeliveryAddress).ThenInclude(a => a.Customer)
+                .Include(a => a.Shipper)
+                .Include(a => a.Status)
+                .Include(a => a.DeliverySlot)
+                .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu)
+                .ThenInclude(a => a.Product).OrderByDescending(a => a.Id).Where(a => a.StatusId == status_id && a.ShipperId == shipper_id);
+
+            foreach (var order in orders)
+            {
+                OrderJsonFile1(order);
+            }
+
+            return orders.ToList();
+        }
+
+        private void OrderJsonFile1(Order order)
+        {
+            order.DeliveryAddress.Orders = null;
+            order.Status.Orders = null;
+            order.DeliverySlot.Orders = null;
+            order.DepositNote = null;
+            order.Transactions = null;
+            foreach (var order1 in order.OrderDetails)
+            {
+                order1.ProductInMenu.OrderDetails = null;
+            }
+
+        }
+
         private IEnumerable<Order> StoreAndStatus(int store_id, int status_id)
         {
             var orders = _context.Orders.Include(a => a.DeliveryAddress).ThenInclude(a => a.Customer)
@@ -797,5 +835,26 @@ namespace Service.Services
             return orders.ToList();
         }
 
+        /*
+        public List<Order> GetOrderByStatus(int status_id)
+        {
+            var orders = OrderExtensions.ByStatusId(_context.Orders
+                .Include(a => a.DeliveryAddress).ThenInclude(a => a.Customer)
+                .Include(a => a.Store)
+                .Include(a => a.Status)
+                .Include(a => a.DeliverySlot)
+                .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu).ThenInclude(a => a.Product)
+                .Include(a => a.DepositNote)
+                .Include(a => a.Transactions)
+                .OrderByDescending(a => a.Id), status_id);
+
+            foreach (var order in orders)
+            {
+                OrderJsonFile(order);
+            }
+
+            return orders.ToList();
+        }
+        */
     }
 }

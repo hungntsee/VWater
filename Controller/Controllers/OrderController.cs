@@ -31,10 +31,18 @@ namespace Controller.Controllers
             var orders = _orderService.GetAllOrderByStatus(status_id);
             return Ok(orders);
         }
+
         [HttpGet("/api/FilterOrderOfStoreByStatus")]
         public IActionResult FilterOrderOfStoreByStatus(int store_id, int status_id)
         {
             var orders = _orderService.GetOrderOfStoreByStatus(store_id,status_id);
+            return Ok(orders);
+        }
+
+        [HttpGet("/api/GetOrderOfShipperByStatus")]
+        public IActionResult GetOrderOfShipperByStatus(int shipper_id, int status_id)
+        {
+            var orders = _orderService.GetOrderOfShipperByStatus(shipper_id, status_id);
             return Ok(orders);
         }
 
@@ -152,6 +160,7 @@ namespace Controller.Controllers
             return Ok(orders);
         }
 
+        /*
         [HttpGet("/api/GetOrderByStatusForShipper")]
         public IActionResult GetOrderByStatusForShipper(int shipper_id, int status_id)
         {
@@ -162,6 +171,7 @@ namespace Controller.Controllers
             }
             return Ok(order);
         }
+        */
 
         [HttpGet("/api/CountOrderByStatus")]
         public IActionResult CountOrderByStatus()
@@ -214,6 +224,14 @@ namespace Controller.Controllers
             var orders = _orderService.GetOrderByShipper(shipper_id);
             return Ok(orders);
         }
-        
+
+        /*
+        [HttpGet("/api/GetOrderByStatus")]
+        public IActionResult GetOrderByStatus(int status_id)
+        {
+            var orders = _orderService.GetOrderByStatus(status_id);
+            return Ok(orders);
+        }
+        */
     }
 }
