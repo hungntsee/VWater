@@ -321,3 +321,4 @@ C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\ref\Controller.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\Azure.Storage.Blobs.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\Azure.Storage.Common.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\System.IO.Hashing.dll
+C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.MvcApplicationPartsAssemblyInfo.cs

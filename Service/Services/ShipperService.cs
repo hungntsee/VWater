@@ -95,7 +95,8 @@ namespace Service.Shippers
 
         private Shipper GetShipper(int id)
         {
-            var shipper = _context.Shippers.Include(a => a.Orders).Include(a => a.Wallet)
+            var shipper = _context.Shippers.Include(a => a.Orders).Include(a => a.Account.Store)
+                .Include(a => a.Wallet)
                 .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (shipper == null) throw new KeyNotFoundException("Shipper not found!");
             return shipper;
