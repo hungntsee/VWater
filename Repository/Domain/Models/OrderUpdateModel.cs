@@ -4,6 +4,8 @@ namespace VWater.Domain.Models
     {
         #region Generated Properties
 
+        public int Id { get; set; }
+
         public int DeliveryAddressId { get; set; }
 
         public int StoreId { get; set; }
@@ -21,6 +23,7 @@ namespace VWater.Domain.Models
         public int? ShipperId { get; set; }
 
         public bool? IsDeposit { get; set; }
+       
 
         #endregion
 

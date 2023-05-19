@@ -5,6 +5,7 @@ using Service.Helpers;
 using System.ComponentModel;
 using VWater.Data;
 using VWater.Data.Entities;
+using VWater.Data.Queries;
 using VWater.Domain.Models;
 
 namespace Service.Transactions
@@ -103,8 +104,10 @@ namespace Service.Transactions
         public ICollection<Transaction> CreateTransactionForVoBinh (TransactionCreateModel request)
         {
             var list = new List<Transaction>();
-            foreach(var order in request.Orders)
+            foreach(var model in request.Orders)
             {
+                var order = GetOrder(model.Id);
+
                 Transaction transaction = new Transaction();
                 transaction.Price = 50000*GetNumberOfVoBinh(order);
                 transaction.WalletId = request.WalletId;
@@ -139,11 +142,48 @@ namespace Service.Transactions
             return list;
         }
 
+        private void OrderJsonFile(Order order)
+        {
+
+            order.DeliveryAddress.Orders = null;
+            order.Status.Orders = null;
+            order.Store.Orders = null;
+            order.Store.DeliveryAddresses = null;
+            order.Store.DeliverySlots = null;
+            order.DeliverySlot.Orders = null;
+            order.DeliverySlot.Store = null;
+            order.DepositNote = null;
+            order.Status.Orders = null;
+            order.Transactions = null;
+            foreach (var order1 in order.OrderDetails)
+            {
+                order1.ProductInMenu.OrderDetails = null;
+            }
+
+        }
+
+        private Order GetOrder(int id)
+        {
+            var order = OrderExtensions.GetByKey(_context.Orders
+                .Include(a => a.DeliveryAddress).ThenInclude(a => a.Customer)
+                .Include(a => a.Store)
+                .Include(a => a.Status)
+                .Include(a => a.DeliverySlot)
+                .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu).ThenInclude(a => a.Product)
+                , id);
+            if (order == null) throw new KeyNotFoundException("Order not found!");
+            OrderJsonFile(order);
+            order.DeliveryAddress.Customer.DeliveryAddresses = null;
+            return order;
+        }
+
         public ICollection<Transaction> CreateTransactionForCash(TransactionCreateModel request)
         {
             var list = new List<Transaction>();
-            foreach (var order in request.Orders)
+            foreach (var model in request.Orders)
             {
+                var order = GetOrder(model.Id);
+
                 Transaction transaction = new Transaction();
                 if (order.IsDeposit == true)
                 {
