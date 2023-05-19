@@ -108,5 +108,33 @@ namespace Controller.Controllers
             var products = _productService.SearchProductName(search);
             return Ok(products);
         }
+
+        [HttpGet("/api/SearchProductNameVoi")]
+        public IActionResult SearchProductNameVoi(string search)
+        {
+            var products = _productService.SearchProductNameVoi(search);
+            return Ok(products);
+        }
+
+        [HttpGet("/api/SearchProductNameUp")]
+        public IActionResult SearchProductNameUp(string search)
+        {
+            var products = _productService.SearchProductNameUp(search);
+            return Ok(products);
+        }
+
+        [HttpGet("/api/SearchProductName350")]
+        public IActionResult SearchProductName350(string search)
+        {
+            var products = _productService.SearchProductName350(search);
+            return Ok(products);
+        }
+
+        [HttpGet("/api/SearchProductName550")]
+        public IActionResult SearchProductName550(string search)
+        {
+            var products = _productService.SearchProductName550(search);
+            return Ok(products);
+        }
     }
 }

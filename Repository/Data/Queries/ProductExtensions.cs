@@ -52,6 +52,42 @@ namespace VWater.Data.Queries
             //return queryable.Where(q => search.All(k => q.ProductName.Contains(k)));
             return queryable.Where(x => x.ProductName.Trim().ToLower().Contains(search.Trim().ToLower()));
         }
+
+        public static IQueryable<VWater.Data.Entities.Product> ByProductNameVoi(this IQueryable<VWater.Data.Entities.Product> queryable, string? search)
+        {
+            if (queryable is null)
+                throw new ArgumentNullException(nameof(queryable));
+
+            //return queryable.Where(q => search.All(k => q.ProductName.Contains(k)));
+            return queryable.Where(x => x.ProductName.Trim().ToLower().Contains(search.Trim().ToLower()) && x.ProductType_Id==1);
+        }
+
+        public static IQueryable<VWater.Data.Entities.Product> ByProductNameUp(this IQueryable<VWater.Data.Entities.Product> queryable, string? search)
+        {
+            if (queryable is null)
+                throw new ArgumentNullException(nameof(queryable));
+
+            //return queryable.Where(q => search.All(k => q.ProductName.Contains(k)));
+            return queryable.Where(x => x.ProductName.Trim().ToLower().Contains(search.Trim().ToLower()) && x.ProductType_Id == 2);
+        }
+
+        public static IQueryable<VWater.Data.Entities.Product> ByProductName350(this IQueryable<VWater.Data.Entities.Product> queryable, string? search)
+        {
+            if (queryable is null)
+                throw new ArgumentNullException(nameof(queryable));
+
+            //return queryable.Where(q => search.All(k => q.ProductName.Contains(k)));
+            return queryable.Where(x => x.ProductName.Trim().ToLower().Contains(search.Trim().ToLower()) && x.ProductType_Id == 3);
+        }
+
+        public static IQueryable<VWater.Data.Entities.Product> ByProductName550(this IQueryable<VWater.Data.Entities.Product> queryable, string? search)
+        {
+            if (queryable is null)
+                throw new ArgumentNullException(nameof(queryable));
+
+            //return queryable.Where(q => search.All(k => q.ProductName.Contains(k)));
+            return queryable.Where(x => x.ProductName.Trim().ToLower().Contains(search.Trim().ToLower()) && x.ProductType_Id == 4);
+        }
         #endregion
 
     }

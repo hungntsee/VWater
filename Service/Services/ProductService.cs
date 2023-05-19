@@ -21,6 +21,10 @@ namespace Service.Services
         public Product ChangeProductActivation(int id);
         public IEnumerable<Product> GetActiveProduct();
         public List<Product> SearchProductName(string search);
+        public List<Product> SearchProductNameVoi(string search);
+        public List<Product> SearchProductNameUp(string search);
+        public List<Product> SearchProductName350(string search);
+        public List<Product> SearchProductName550(string search);
     }
     public class ProductService : IProductService
     {
@@ -126,6 +130,42 @@ namespace Service.Services
         public List<Product> SearchProductName(string search)
         {
             var product = ProductExtensions.ByProductName(
+                _context.Products,
+                search);
+
+            return product.ToList();
+        }
+
+        public List<Product> SearchProductNameVoi(string search)
+        {
+            var product = ProductExtensions.ByProductNameVoi(
+                _context.Products,
+                search);
+
+            return product.ToList();
+        }
+
+        public List<Product> SearchProductNameUp(string search)
+        {
+            var product = ProductExtensions.ByProductNameUp(
+                _context.Products,
+                search);
+
+            return product.ToList();
+        }
+
+        public List<Product> SearchProductName350(string search)
+        {
+            var product = ProductExtensions.ByProductName350(
+                _context.Products,
+                search);
+
+            return product.ToList();
+        }
+
+        public List<Product> SearchProductName550(string search)
+        {
+            var product = ProductExtensions.ByProductName550(
                 _context.Products,
                 search);
 
