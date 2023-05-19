@@ -35,7 +35,7 @@ namespace Service.Transactions
                 transaction.Order.Transactions = null;
                 transaction.Wallet.Transactions = null;
             }
-            return 
+            return _context.Transactions.Include(a => a.Order).Include(a => a.Wallet).OrderByDescending(a => a.Id);
         }
 
         public Transaction GetById(int id)

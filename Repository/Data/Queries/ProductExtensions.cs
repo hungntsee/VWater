@@ -44,6 +44,14 @@ namespace VWater.Data.Queries
             return queryable.Where(q => (q.ProductType_Id == productTypeId || (productTypeId == null && q.ProductType_Id == null)));
         }
 
+        public static IQueryable<VWater.Data.Entities.Product> ByProductName(this IQueryable<VWater.Data.Entities.Product> queryable, string? search)
+        {
+            if (queryable is null)
+                throw new ArgumentNullException(nameof(queryable));
+
+            //return queryable.Where(q => search.All(k => q.ProductName.Contains(k)));
+            return queryable.Where(x => search.Trim().ToLower().Contains(x.ProductName.Trim().ToLower()));
+        }
         #endregion
 
     }

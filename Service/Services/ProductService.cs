@@ -20,6 +20,7 @@ namespace Service.Services
         public List<Product> GetProductByProductType(int productType_id);
         public Product ChangeProductActivation(int id);
         public IEnumerable<Product> GetActiveProduct();
+        public List<Product> SearchProductName(string search);
     }
     public class ProductService : IProductService
     {
@@ -121,6 +122,15 @@ namespace Service.Services
             return namePath;
         }
         */
+
+        public List<Product> SearchProductName(string search)
+        {
+            var product = ProductExtensions.ByProductName(
+                _context.Products,
+                search);
+
+            return product.ToList();
+        }
     }
 
 }

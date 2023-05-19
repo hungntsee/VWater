@@ -101,6 +101,12 @@ namespace Controller.Controllers
             string namePath= "https://vwaterblobstorage.blob.core.windows.net/product/" + files.FileName;
             return Ok(namePath);
             }
-        
+
+        [HttpGet("/api/SearchProductName")]
+        public IActionResult SearchProductName(string search)
+        {
+            var products = _productService.SearchProductName(search);
+            return Ok(products);
         }
+    }
 }
