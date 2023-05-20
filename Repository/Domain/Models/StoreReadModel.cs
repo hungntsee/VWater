@@ -11,8 +11,6 @@ namespace VWater.Domain.Models
 
         public string Address { get; set; }
 
-        public int? Status { get; set; }
-
         public string Note { get; set; }
 
         #endregion

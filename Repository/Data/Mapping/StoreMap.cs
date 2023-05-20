@@ -37,10 +37,6 @@ namespace VWater.Data.Mapping
                 .HasColumnType("nvarchar(100)")
                 .HasMaxLength(100);
 
-            builder.Property(t => t.Status)
-                .HasColumnName("Status")
-                .HasColumnType("int");
-
             builder.Property(t => t.Note)
                 .HasColumnName("Note")
                 .HasColumnType("nvarchar(100)")
@@ -72,7 +68,6 @@ namespace VWater.Data.Mapping
             public const string StoreName = "StoreName";
             public const string AreaId = "Area_Id";
             public const string Address = "Address";
-            public const string Status = "Status";
             public const string Note = "Note";
             public const string IsActive = "isActive";
         }
