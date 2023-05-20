@@ -751,7 +751,7 @@ namespace Service.Services
             foreach (var order in orders)
             {
                 OrderJsonFile(order);
-                if (order.StatusId < 3) list.Add(order);
+                if (order.StatusId ==2 || order.StatusId == 7) list.Add(order);
             }
             return list;
         }
