@@ -674,6 +674,7 @@ namespace Service.Services
             {
                 OrderJsonFile(order);
                 order.DeliveryAddress.Customer.DeliveryAddresses = null;
+                order.DeliveryAddress.Store = null;
             }
             return orders.ToList();
         }
