@@ -13,7 +13,7 @@ namespace Service.Services
     {
         public IEnumerable<Menu> GetAll();
         public Menu GetById(int id);
-        public Menu GetMenu(DateTime time, int area_id);
+        public Menu GetMenu(DateTime time, int store_id);
         public IEnumerable<ProductInMenu> FilterProductByType(int type_id, int menu_id);
         public void Create(MenuCreateModel model);
         public void Update(int id, MenuUpdateModel model);
@@ -59,9 +59,9 @@ namespace Service.Services
             return menu;
         }
 
-        public Menu GetMenu(DateTime time, int area_id)
+        public Menu GetMenu(DateTime time, int store_id)
         {
-            var menu = GetMenuByArea(time, area_id);
+            var menu = GetMenuByArea(time, store_id);
             return menu;
         }
 
@@ -83,10 +83,10 @@ namespace Service.Services
             return menu;
         }
 
-        private Menu GetMenuByArea(DateTime time, int area_id)
+        private Menu GetMenuByArea(DateTime time, int store_id)
         {
             var menu = _context.Menus.Include(a => a.ProductInMenus).ThenInclude(a => a.Product).Include(a => a.Store)
-                .AsNoTracking().FirstOrDefault(a => a.Store.AreaId == area_id && a.ValidFrom <= time && time <= a.ValidTo);
+                .AsNoTracking().FirstOrDefault(a => a.StoreId == store_id && a.ValidFrom <= time && time <= a.ValidTo);
             if (menu == null) return _context.Menus.Include(a => a.ProductInMenus).Last();
 
             foreach(var productInMenu in menu.ProductInMenus)

@@ -33,9 +33,9 @@ namespace Controller.Controllers
 
         //GET api/<MenuController>/time
         [HttpGet("/api/Menu/Search")]
-        public IActionResult GetByTime(DateTime time, int area_id)
+        public IActionResult GetByTime(DateTime time, int store_id)
         {
-            var menu = _menuService.GetMenu(time, area_id);
+            var menu = _menuService.GetMenu(time, store_id);
             if(menu == null)
             {
                 return BadRequest("Don't have any menu at this time!");

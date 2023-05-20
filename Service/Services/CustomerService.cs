@@ -128,6 +128,7 @@ namespace Service.Services
             ReportPerCustomer report = new ReportPerCustomer();
             var orders = OrderExtensions.ByCustomerId(_context.Orders.Include(a => a.DepositNote), customer_id);
 
+            report.NumberOfOrders = orders.Count();
             foreach( var order in orders)
             {
                 if(order.IsDeposit == true) 

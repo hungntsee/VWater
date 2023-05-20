@@ -568,62 +568,6 @@ namespace Repository.Migrations
                     b.ToTable("Goods_Composition", "dbo");
                 });
 
-            modelBuilder.Entity("VWater.Data.Entities.GoodsExchangeNote", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("GoodsId")
-                        .HasColumnType("int")
-                        .HasColumnName("Goods_Id");
-
-                    b.Property<string>("Note")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("Note");
-
-                    b.Property<DateTime>("NoteDate")
-                        .HasColumnType("date")
-                        .HasColumnName("NoteDate");
-
-                    b.Property<int?>("OrderId")
-                        .IsRequired()
-                        .HasColumnType("int")
-                        .HasColumnName("Order_Id");
-
-                    b.Property<int>("PurchaseOrderId")
-                        .HasColumnType("int")
-                        .HasColumnName("PurchaseOrder_Id");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int")
-                        .HasColumnName("Quantity");
-
-                    b.Property<int?>("Status")
-                        .HasColumnType("int")
-                        .HasColumnName("Status");
-
-                    b.Property<int>("WarehouseId")
-                        .HasColumnType("int")
-                        .HasColumnName("Warehouse_Id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GoodsId");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("PurchaseOrderId");
-
-                    b.HasIndex("WarehouseId");
-
-                    b.ToTable("Goods_Exchange_Note", "dbo");
-                });
 
             modelBuilder.Entity("VWater.Data.Entities.GoodsInBaseline", b =>
                 {
@@ -1324,10 +1268,6 @@ namespace Repository.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("Note");
 
-                    b.Property<int?>("Status")
-                        .HasColumnType("int")
-                        .HasColumnName("Status");
-
                     b.Property<string>("StoreName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -1379,43 +1319,6 @@ namespace Repository.Migrations
                     b.ToTable("Warehouse", "dbo");
                 });
 
-            modelBuilder.Entity("VWater.Data.Entities.WarehouseBaseline", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("date")
-                        .HasColumnName("Date");
-
-                    b.Property<string>("Note")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("Note");
-
-                    b.Property<int?>("Status")
-                        .HasColumnType("int")
-                        .HasColumnName("Status");
-
-                    b.Property<int>("TotalQuantity")
-                        .HasColumnType("int")
-                        .HasColumnName("TotalQuantity");
-
-                    b.Property<int>("WarehouseId")
-                        .HasColumnType("int")
-                        .HasColumnName("Warehouse_Id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("WarehouseId");
-
-                    b.ToTable("Warehouse_Baseline", "dbo");
-                });
 
             modelBuilder.Entity("VWater.Data.Entities.Account", b =>
                 {
