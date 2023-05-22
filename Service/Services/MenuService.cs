@@ -20,7 +20,7 @@ namespace Service.Services
         public void Delete(int id);
         public List<Menu> GetMenuByStoreId(int area_id);
         public ICollection<ProductReadModel> GetMenuForStore(int store_id);
-        public Menu GetMenuByStore(int store_id);
+        //public Menu GetMenuByStore(int store_id);
     }
     public class MenuService : IMenuService
     {
@@ -136,7 +136,7 @@ namespace Service.Services
         public List<Menu> GetMenuByStoreId(int store_id)
         {
             var menus = MenuExtensions.ByStoreId(_context.Menus
-                .Include(a => a.Store), store_id);
+                .Include(a=>a.Store), store_id);
 
             return menus.ToList();
         }
@@ -162,6 +162,7 @@ namespace Service.Services
             return list;
         }
 
+        /*
         public Menu GetMenuByStore(int store_id)
         {
             var store = _context.Stores.AsNoTracking().FirstOrDefault( a=> a.Id == store_id);
@@ -169,5 +170,6 @@ namespace Service.Services
 
             return GetMenuByArea(time, store.AreaId);
         }       
+        */
     }
 }

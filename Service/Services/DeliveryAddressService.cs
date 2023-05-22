@@ -57,7 +57,9 @@ namespace Service.DeliveryAddresses
                 if (request.Address.Trim().ToLower().Equals(address.Address.Trim().ToLower())) return address;
             }
             var deliveryAddress = _mapper.Map<DeliveryAddress>(request);
-            deliveryAddress.StoreId = 1;
+
+            var area = _context.Areas.Include(a=>a.Stores).AsNoTracking().FirstOrDefault(a => a.Id == deliveryAddress.AreaId);
+            deliveryAddress.StoreId = area.Stores.First().Id;
 
             deliveryAddress.Address.Trim().ToLower();
 
