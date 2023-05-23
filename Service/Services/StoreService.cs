@@ -51,6 +51,8 @@ namespace Service.Stores
                 throw new AppException("Store: '" + request.StoreName + "' already exists");
             var store = _mapper.Map<Store>(request);
 
+            store.IsActive = true;
+
             _context.Stores.AddAsync(store);
             _context.SaveChangesAsync();
         }

@@ -57,6 +57,8 @@ namespace Service.Services
         {
             var product = _mapper.Map<Product>(model);
 
+            product.IsActive = true;
+
             _context.Products.AddAsync(product);
             _context.SaveChangesAsync();
         }
