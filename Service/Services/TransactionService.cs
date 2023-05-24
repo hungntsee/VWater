@@ -47,6 +47,7 @@ namespace Service.Transactions
 
         public ICollection<Transaction> Create(TransactionCreateModel request)
         {
+
             if(request.TransactionType_Id == 5) //VoBinh
             {
                 var transactions = CreateTransactionForVoBinh(request);
@@ -101,12 +102,21 @@ namespace Service.Transactions
 
         }
 
+        private void CheckStatusOrder (Order order)
+        {
+            if (order.StatusId < 4 && order.StatusId > 5 && order.StatusId < 8) throw new AppException("Đơn hàng có mã " + order.Id +  " chưa được giao đến cho khách hàng. Không thể tạo giao dịch hoàn tiền.");
+            if (order.StatusId == 5) throw new AppException("Đơn hàng có mã " + order.Id + " đã bị hủy. Không thể tạo giao dịch mới.");
+            if (order.StatusId == 8) throw new AppException("Đơn hàng có mã " + order.Id + " đã được hoàn tất và đóng giao dịch. Không thể tạo giao dịch mới.");
+        }
+
         public ICollection<Transaction> CreateTransactionForVoBinh (TransactionCreateModel request)
         {
             var list = new List<Transaction>();
             foreach(var model in request.Orders)
             {
                 var order = GetOrder(model.Id);
+
+                CheckStatusOrder(order);
 
                 Transaction transaction = new Transaction();
                 transaction.Price = 50000*GetNumberOfVoBinh(order);
@@ -144,17 +154,6 @@ namespace Service.Transactions
 
         private void OrderJsonFile(Order order)
         {
-
-            order.DeliveryAddress.Orders = null;
-            order.Status.Orders = null;
-            order.Store.Orders = null;
-            order.Store.DeliveryAddresses = null;
-            order.Store.DeliverySlots = null;
-            order.DeliverySlot.Orders = null;
-            order.DeliverySlot.Store = null;
-            order.DepositNote = null;
-            order.Status.Orders = null;
-            order.Transactions = null;
             foreach (var order1 in order.OrderDetails)
             {
                 order1.ProductInMenu.OrderDetails = null;
@@ -164,13 +163,11 @@ namespace Service.Transactions
 
         private Order GetOrder(int id)
         {
-            var order = OrderExtensions.GetByKey(_context.Orders
-                .Include(a => a.DeliveryAddress).ThenInclude(a => a.Customer)
-                .Include(a => a.Store)
-                .Include(a => a.Status)
-                .Include(a => a.DeliverySlot)
+            var order = _context.Orders
                 .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu).ThenInclude(a => a.Product)
-                , id);
+                .Include(a => a.Transactions)
+                .Include(a => a.DepositNote)
+                .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (order == null) throw new KeyNotFoundException("Order not found!");
             OrderJsonFile(order);
             order.DeliveryAddress.Customer.DeliveryAddresses = null;
@@ -184,18 +181,29 @@ namespace Service.Transactions
             {
                 var order = GetOrder(model.Id);
 
-                Transaction transaction = new Transaction();
-                if (order.IsDeposit == true)
-                {
-                    transaction.Price = order.TotalPrice + order.DepositNote.Price;
-                    transaction.Note = "Bao gồm tiền hàng và tiền cọc bình với số lượng bình là: " + order.DepositNote.Quantity;
-                }
-                else
-                {
-                    transaction.Price = order.TotalPrice;
-                    transaction.Note = "Thanh toán tiền hàng.";
-                }
+                CheckStatusOrder(order);
 
+                Transaction transaction = new Transaction();
+
+                if (order.AmountPaid == 0) { 
+                    if (order.IsDeposit == true)
+                    {
+                        transaction.Price = order.TotalPrice  + order.DepositNote.Price;
+                        transaction.Note = "Bao gồm tiền hàng và tiền cọc bình với số lượng bình là: " + order.DepositNote.Quantity;
+                    }
+                    else
+                    {
+                        transaction.Price = order.TotalPrice;
+                        transaction.Note = "Thanh toán tiền hàng.";
+                    }
+                } else if(order.AmountPaid > 0)
+                {
+                    if (order.IsDeposit == true)
+                    {
+                        transaction.Price = order.TotalPrice - order.AmountPaid + order.DepositNote.Price;
+                        transaction.Note = "Tiền cọc bình với số lượng bình là: " + order.DepositNote.Quantity + "bình.";
+                    }
+                }
                 transaction.WalletId = request.WalletId;
                 transaction.OrderId = order.Id;               
                 transaction.AccountId = request.Account_Id;
@@ -214,14 +222,12 @@ namespace Service.Transactions
                     order.StatusId = 8;
                     _context.Orders.Update(order);
                     _context.SaveChanges();
-                } else
+                }
+                else if(order.Transactions.Any(a => a.TransactionType_Id == 5))
                 {
-                    if(order.Transactions.Any(a => a.TransactionType_Id == 5))
-                    {
-                        order.StatusId = 8;
-                        _context.Orders.Update(order);
-                        _context.SaveChanges();
-                    }
+                     order.StatusId = 8;
+                     _context.Orders.Update(order);
+                     _context.SaveChanges();
                 }
 
                 if (transaction.TransactionType_Id > 2 && transaction.TransactionType_Id < 6)
@@ -259,7 +265,7 @@ namespace Service.Transactions
 
             if (transaction.TransactionType_Id == 3)
             {
-                if (transaction.Price != order.TotalPrice) throw new AppException("Số tiền của giao dịch không đúng với số tiền của đơn hàng!");
+                if (transaction.Price != (order.TotalPrice - order.AmountPaid + order.DepositNote.Price)) throw new AppException("Số tiền của giao dịch không đúng với số tiền của đơn hàng!");
             }
             if (transaction.TransactionType_Id == 5)
             {

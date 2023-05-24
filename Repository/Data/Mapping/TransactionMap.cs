@@ -1,3 +1,4 @@
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using VWater.Data.Entities;
 
@@ -60,7 +61,8 @@ namespace VWater.Data.Mapping
             builder.HasOne(t => t.Order)
                 .WithMany(t => t.Transactions)
                 .HasForeignKey(d => d.OrderId)
-                .HasConstraintName("FK_Transaction_Order");
+                .HasConstraintName("FK_Transaction_Order")
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(t => t.Wallet)
                 .WithMany(t => t.Transactions)

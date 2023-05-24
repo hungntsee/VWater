@@ -35,8 +35,8 @@ namespace Controller.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] TransactionCreateModel request)
         {
-            _transactionService.Create(request);
-            return Ok(new { message = "Transaction created" });
+            var list = _transactionService.Create(request);
+            return Ok(list);
         }
 
         // PUT api/<TransactionController>/5
