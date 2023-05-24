@@ -170,7 +170,6 @@ namespace Service.Transactions
                 .AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (order == null) throw new KeyNotFoundException("Order not found!");
             OrderJsonFile(order);
-            order.DeliveryAddress.Customer.DeliveryAddresses = null;
             return order;
         }
 
