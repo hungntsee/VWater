@@ -177,6 +177,7 @@ public class AccountService : IAccountService
             throw new AppException("User with the email '" + request.AccountCreateModel.Email + "' already exists");
         var account = _mapper.Map<Account>(request.AccountCreateModel);
         account.Username = request.AccountCreateModel.Email;
+        account.RoleId = 2;
 
         _context.Accounts.Add(account);
         _context.SaveChanges();
