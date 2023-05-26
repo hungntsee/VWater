@@ -34,7 +34,7 @@ namespace Service.Services
         }
         public IEnumerable<Customer> GetAll()
         {
-            return _context.Customers.Include(a => a.DeliveryAddresses);
+            return _context.Customers.Include(a => a.DeliveryAddresses).OrderByDescending(a=>a.Id);
         }
 
         public Customer GetById(int id)
@@ -65,6 +65,8 @@ namespace Service.Services
 
                 customer1.Note = "Welcome Back";
                 //throw new AppException("This Phone number is already existed!");
+                customer1.FullName= model.FullName;
+
                 _context.Customers.Update(customer1);
                 _context.SaveChanges();
                 return customer1;

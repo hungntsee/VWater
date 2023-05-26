@@ -49,9 +49,15 @@ namespace Service.Stores
         {
             if (_context.Stores.Any(b => b.StoreName == request.StoreName))
                 throw new AppException("Store: '" + request.StoreName + "' already exists");
+
             var store = _mapper.Map<Store>(request);
 
             store.IsActive = true;
+
+            //if (store.Area.IsActive==false)
+            //if (_context.Stores.Any(b => b.Area.IsActive == false))
+            
+            //throw new AppException("Can not create store with area inactive");
 
             _context.Stores.AddAsync(store);
             _context.SaveChangesAsync();

@@ -36,6 +36,10 @@ namespace Service.Services
         public void Create(MenuCreateModel model)
         {
             var menu = _mapper.Map<Menu>(model);
+
+            //menu.ValidFrom.ToFileTimeUtc();
+            //menu.ValidTo.ToFileTimeUtc();
+
             ValidateMenuDate(menu);
             _context.Menus.Add(menu);
             _context.SaveChanges();
