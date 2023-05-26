@@ -54,7 +54,7 @@ namespace Service.Services
 
         public IEnumerable<Menu> GetAll()
         {
-            return _context.Menus.Include(a => a.ProductInMenus).IgnoreAutoIncludes().OrderByDescending(a => a.Id);
+            return _context.Menus.Include(a => a.ProductInMenus).IgnoreAutoIncludes().OrderByDescending(a => a.ValidTo);
         }
 
         public Menu GetById(int id)
@@ -140,7 +140,7 @@ namespace Service.Services
         public List<Menu> GetMenuByStoreId(int store_id)
         {
             var menus = MenuExtensions.ByStoreId(_context.Menus
-                .Include(a=>a.Store), store_id);
+                .Include(a=>a.Store).OrderByDescending(a=>a.ValidTo), store_id);
 
             return menus.ToList();
         }

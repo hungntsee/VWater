@@ -45,7 +45,7 @@ namespace Service.Shippers
         }
         public IEnumerable<Shipper> GetAll()
         {
-            var shippers =_context.Shippers.Include(a => a.Orders).Include(a => a.Wallet).Include(a => a.Account).ThenInclude(a => a.Store);
+            var shippers =_context.Shippers.Include(a => a.Orders).Include(a => a.Wallet).Include(a => a.Account).ThenInclude(a => a.Store).OrderByDescending(a=>a.Id);
             foreach (var shipper in shippers)
             {
                 if(shipper.Account.Store != null)
@@ -148,7 +148,7 @@ namespace Service.Shippers
         public List<Shipper> GetShipperByStoreId(int store_id)
         {
             var shipper = ShipperExtensions.ByStoreId(
-                _context.Shippers.Include(a => a.Account),
+                _context.Shippers.Include(a => a.Account).OrderByDescending(a => a.Id),
                 store_id);
 
             return shipper.ToList();

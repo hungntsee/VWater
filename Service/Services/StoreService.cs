@@ -59,8 +59,20 @@ namespace Service.Stores
             
             //throw new AppException("Can not create store with area inactive");
 
+            
             _context.Stores.AddAsync(store);
             _context.SaveChangesAsync();
+            
+
+            /*
+            var store1 = GetStore(request.AreaId);
+            if (store1.Area.IsActive != false)
+            {
+                _context.Stores.AddAsync(store);
+                _context.SaveChangesAsync();
+            }
+            else throw new AppException("Can not create store with area inactive");
+            */
         }
 
         public void Update(int id, StoreUpdateModel request)
