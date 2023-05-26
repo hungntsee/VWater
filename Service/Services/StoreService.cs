@@ -31,7 +31,7 @@ namespace Service.Stores
         }
         public IEnumerable<Store> GetAll()
         {
-            return _context.Stores.Include(a => a.Area);
+            return _context.Stores.Include(a => a.Area).OrderByDescending(a => a.Id);
         }
 
         public IEnumerable<Store> GetActiveStore()

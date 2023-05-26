@@ -477,7 +477,8 @@ namespace Service.Services
         {
             var order = GetOrder(order_id);
             if (order.StatusId < 3 || order.StatusId == 6)
-            { 
+            {
+                order.StatusId = 5;
                 _context.Orders.Update(order);
                 _context.SaveChanges();
             }
