@@ -69,6 +69,7 @@ public class AccountService : IAccountService
             throw new AppException("User with the email '" + request.Email + "' already exists");
         var account = _mapper.Map<Account>(request);
         account.Username = request.Email;
+        account.IsActive = true;
         /*account.Password = BCrypt.HashPassword(request.Password);*/
 
         _context.Accounts.Add(account);

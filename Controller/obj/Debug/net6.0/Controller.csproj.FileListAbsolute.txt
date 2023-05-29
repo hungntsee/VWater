@@ -19,6 +19,8 @@ C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\Azure.Core.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\Azure.Identity.dll
+C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\Azure.Storage.Blobs.dll
+C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\Azure.Storage.Common.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\BCrypt.Net-Core.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\BouncyCastle.Crypto.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\Castle.Core.dll
@@ -114,6 +116,7 @@ C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\System.Composition
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\System.Drawing.Common.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\System.IO.Hashing.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\System.Memory.Data.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\System.Reflection.MetadataLoadContext.dll
 C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\System.Runtime.Caching.dll
@@ -303,6 +306,7 @@ C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.Generat
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.AssemblyInfoInputs.cache
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.AssemblyInfo.cs
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.csproj.CoreCompileInputs.cache
+C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\staticwebassets\msbuild.Controller.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\staticwebassets\msbuild.build.Controller.props
@@ -318,7 +322,3 @@ C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\refint\Controller.
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.pdb
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.genruntimeconfig.cache
 C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\ref\Controller.dll
-C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\Azure.Storage.Blobs.dll
-C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\Azure.Storage.Common.dll
-C:\Users\Asus\source\repos\VWater\Controller\bin\Debug\net6.0\System.IO.Hashing.dll
-C:\Users\Asus\source\repos\VWater\Controller\obj\Debug\net6.0\Controller.MvcApplicationPartsAssemblyInfo.cs
