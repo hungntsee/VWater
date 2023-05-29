@@ -180,7 +180,7 @@ public class AccountService : IAccountService
         account.Username = request.AccountCreateModel.Email;
         account.RoleId = 2;
         account.IsActive = true;
-        //account.Shipper.IsActive = true;
+        //account.Shipper.IsOnline = true;
 
         _context.Accounts.Add(account);
         _context.SaveChanges();
@@ -189,8 +189,9 @@ public class AccountService : IAccountService
         {
             shipper = _mapper.Map<Shipper>(request);
             shipper.AccountId = account.Id;
-            shipper.Fullname = account.FirstName +" "+ account.FirstName;
+            shipper.Fullname = account.FirstName +" "+ account.LastName;
             shipper.IsActive= true;
+            shipper.IsOnline= true;
             _context.Shippers.Add(shipper);
             _context.SaveChanges();
 

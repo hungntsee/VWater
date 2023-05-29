@@ -71,6 +71,7 @@ namespace Service.Shippers
         public void Create(ShipperCreateModel request)
         {
             var shipper = _mapper.Map<Shipper>(request);
+            shipper.IsOnline= true;
             shipper.IsActive= true;
 
             _context.Shippers.AddAsync(shipper);
@@ -148,7 +149,7 @@ namespace Service.Shippers
         public List<Shipper> GetShipperByStoreId(int store_id)
         {
             var shipper = ShipperExtensions.ByStoreId(
-                _context.Shippers.Include(a => a.Account).OrderByDescending(a => a.Id),
+                _context.Shippers.Include(a => a.Account).Include(a => a.Account).ThenInclude(a => a.Store).OrderByDescending(a => a.Id),
                 store_id);
 
             return shipper.ToList();

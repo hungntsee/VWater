@@ -4,7 +4,7 @@ namespace VWater.Domain.Models
     {
         #region Generated Properties
         public AccountCreateModel AccountCreateModel { get; set; }
-
+        //public bool? IsOnline { get; set; }
         public string PhoneNumber { get; set; }
 
         #endregion

@@ -39,7 +39,7 @@ namespace Service.Services
 
         public IEnumerable<Product> GetAll()
         {
-            return _context.Products;
+            return _context.Products.OrderByDescending(a=>a.Id);
         }
 
         public IEnumerable<Product> GetActiveProduct()
