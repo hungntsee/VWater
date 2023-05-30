@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Repository.Domain.Models;
 using Service.Helpers;
 using System.ComponentModel;
+using System.Web;
+using VNPAY_CS_ASPX;
 using VWater.Data;
 using VWater.Data.Entities;
 using VWater.Data.Queries;
@@ -17,16 +20,19 @@ namespace Service.Transactions
         public ICollection<Transaction> Create(TransactionCreateModel request);
         public void Update(int id, TransactionUpdateModel request);
         public void Delete(int id);
+        public string VNPayIpnForShipper(HttpRequest request);
     }
     public class TransactionService : ITransactionService
     {
         private VWaterContext _context;
         private readonly IMapper _mapper;
+        private IConfiguration _configuration;
 
-        public TransactionService(VWaterContext context, IMapper mapper)
+        public TransactionService(VWaterContext context, IMapper mapper, IConfiguration configuration)
         {
             _context = context;
             _mapper = mapper;
+            _configuration = configuration;
         }
         public IEnumerable<Transaction> GetAll()
         {
@@ -279,8 +285,153 @@ namespace Service.Transactions
                         throw new AppException("Số tiền của giao dịch không đúng với số tiền trong phiếu cọc bình!");
                 }
             }
+        }
 
+        public string VNPayIpnForShipper(HttpRequest request)
+        {
+            string returnContent = string.Empty;
+            var data = HttpUtility.ParseQueryString(request.QueryString.Value);
+            if (data.Count > 0)
+            {
+                string vnp_HashSecret = _configuration["VNPay:vnp_HashSecret"]; //Secret key
+                var vnpayData = data;
+                VnPayLibrary vnpay = new VnPayLibrary();
+                foreach (string s in vnpayData)
+                {
+                    if (!string.IsNullOrEmpty(s) && s.StartsWith("vnp_"))
+                    {
+                        vnpay.AddResponseData(s, vnpayData[s]);
+                    }
+
+                }
+                //Lay danh sach tham so tra ve tu VNPAY
+                //vnp_TxnRef: Ma don hang merchant gui VNPAY tai command=pay    
+                //vnp_TransactionNo: Ma GD tai he thong VNPAY
+                //vnp_ResponseCode:Response code from VNPAY: 00: Thanh cong, Khac 00: Xem tai lieu
+                //vnp_SecureHash: HmacSHA512 cua du lieu tra ve
+
+                string vnp_TxnRef = vnpay.GetResponseData("vnp_TxnRef");
+                long vnp_Amount = Convert.ToInt64(vnpay.GetResponseData("vnp_Amount")) / 100;
+                long vnpayTranId = Convert.ToInt64(vnpay.GetResponseData("vnp_TransactionNo"));
+                string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
+                string vnp_TransactionStatus = vnpay.GetResponseData("vnp_TransactionStatus");
+                string vnp_SecureHash = data["vnp_SecureHash"];
+                bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, vnp_HashSecret);
+                string vnp_OrderInfo = vnpay.GetResponseData("vnp_OrderInfo");
+
+                var ipnData = new
+                {
+                    vnp_TxnRef = vnp_TxnRef,
+                    vnp_Amount = vnp_Amount,
+                    vnpayTranId = vnpayTranId,
+                    vnp_ResponseCode = vnp_ResponseCode,
+                    vnp_TransactionStatus = vnp_TransactionStatus,
+                    vnp_SecureHash = vnp_SecureHash,
+                    checkSignature = checkSignature
+                };
+
+                var list = new List<Transaction>();
+                string[] orderIds = vnp_OrderInfo.Split(",");
+                if (checkSignature) 
+                {
+                    if (vnp_ResponseCode == "00" && vnp_TransactionStatus == "00")
+                    {
+                        foreach (string id in orderIds)
+                        {
+                            int orderId = Convert.ToInt16(id);
+                            var order = _context.Orders.Include(a => a.DepositNote).Include(a => a.Shipper).ThenInclude(a => a.Wallet).AsNoTracking().FirstOrDefault(a => a.Id == orderId);
+                            var transaction = CreateTransactionForOnline(order);
+                            if (transaction == null)
+                            {
+                                returnContent = "{\"RspCode\":\"01\",\"Message\":\"Cannot create Transaction for OrderId = " + order.Id + "\"}";
+                            }
+                            else list.Add(transaction);
+                        }
+
+                        if (list.Count == orderIds.Length)
+                        {
+                            returnContent = "{\"RspCode\":\"00\",\"Message\":\"Confirm Success\"}";
+                        }
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("Thanh toan loi, TxnRef={0}, VNPAY TranId={1},ResponseCode={2}",
+                                       vnp_TxnRef, vnpayTranId, vnp_ResponseCode);
+                    }
+                }
+                else
+                {
+                    returnContent = "{\"RspCode\":\"97\",\"Message\":\"Invalid signature\"}";
+                    System.Console.WriteLine("Invalid signature, InputData={0}", request.QueryString.Value);
+                }
+            }
+            else
+            {
+                returnContent = "{\"RspCode\":\"99\",\"Message\":\"Input data required\"}";
+            }
+
+            return returnContent;
+        }
+
+        private Transaction CreateTransactionForOnline(Order order)
+        {
+            var transaction = new Transaction();
+            transaction.OrderId = order.Id;
+            transaction.Date = DateTime.UtcNow.AddHours(7);
+            transaction.WalletId = order.Shipper.Wallet.Id;
+
+            if (order.AmountPaid == 0)
+            {
+                if (order.IsDeposit == true)
+                {
+                    transaction.Price = order.TotalPrice + order.DepositNote.Price;
+                    transaction.Note = "Thanh toán online bao gồm tiền hàng và tiền cọc bình với số lượng bình là: " + order.DepositNote.Quantity;
+                }
+                else
+                {
+                    transaction.Price = order.TotalPrice;
+                    transaction.Note = "Thanh toán online tiền hàng.";
+                }
+            }
+            else if (order.AmountPaid > 0)
+            {
+                if (order.IsDeposit == true)
+                {
+                    transaction.Price = order.TotalPrice - order.AmountPaid + order.DepositNote.Price;
+                    transaction.Note = "Thanh toán online tiền cọc bình với số lượng bình là: " + order.DepositNote.Quantity + "bình.";
+                }
+            }
             
+            transaction.AccountId = null;
+            transaction.TransactionType_Id = 4;
+
+            CheckPriceForTransaction(transaction);
+
+            _context.Transactions.Add(transaction);
+            _context.SaveChanges();
+
+            if (order.IsDeposit == true)
+            {
+                order.StatusId = 8;
+                _context.Orders.Update(order);
+                _context.SaveChanges();
+            }
+            else if (order.Transactions.Any(a => a.TransactionType_Id == 5))
+            {
+                order.StatusId = 8;
+                _context.Orders.Update(order);
+                _context.SaveChanges();
+            }
+
+            if (transaction.TransactionType_Id > 2 && transaction.TransactionType_Id < 6)
+            {
+                var wallet = _context.Wallets.AsNoTracking().FirstOrDefault(a => a.Id == transaction.WalletId);
+                wallet.Credit -= transaction.Price;
+                _context.Update(wallet);
+                _context.SaveChanges();
+            }
+
+            return transaction;
         }
     }
 }

@@ -54,5 +54,16 @@ namespace Controller.Controllers
             _transactionService.Delete(id);
             return Ok(new { message = "Transaction deleted" });
         }
+
+        [HttpGet("/api/VNPayIpn-ForShipper")]
+        public IActionResult VnPayIpnForShipper()
+        {
+            var responseContent = _transactionService.VNPayIpnForShipper(Request);
+            if (responseContent != "{\"RspCode\":\"00\",\"Message\":\"Confirm Success\"}")
+            {
+                return Ok(responseContent);
+            }
+            return new RedirectResult("https://vwater-admin-ui.vercel.app/drivers");
+        }
     }
 }
