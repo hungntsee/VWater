@@ -45,7 +45,10 @@ namespace Service.Shippers
         }
         public IEnumerable<Shipper> GetAll()
         {
-            var shippers =_context.Shippers.Include(a => a.Orders).Include(a => a.Wallet).Include(a => a.Account).ThenInclude(a => a.Store).OrderByDescending(a=>a.Id);
+            var shippers =_context.Shippers.Include(a => a.Orders)
+                .Include(a => a.Wallet)
+                .Include(a => a.Account).ThenInclude(a => a.Store)
+                .OrderByDescending(a=>a.Id);
             foreach (var shipper in shippers)
             {
                 if(shipper.Account.Store != null)
