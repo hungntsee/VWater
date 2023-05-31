@@ -447,7 +447,8 @@ namespace Service.Services
                 .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu).ThenInclude(a => a.Product)
                 , id);
             if (order == null) throw new KeyNotFoundException("Order not found!");
-            order.DepositNote.Order = null;
+            if (order.DepositNote != null)
+                order.DepositNote.Order = null;
             return order;
         }
 
@@ -694,8 +695,9 @@ namespace Service.Services
                 OrderJsonFile(order);
                 order.DeliveryAddress.Customer.DeliveryAddresses = null;
                 order.DeliveryAddress.Store = null;
-                order.DepositNote.Order = null;
-                o
+                if (order.DepositNote != null)
+                    order.DepositNote.Order = null;
+                
             }
             return orders.ToList();
         }
@@ -737,7 +739,8 @@ namespace Service.Services
             foreach (var order in orders)
             {
                 OrderJsonFile(order);
-                order.DepositNote.Order = null;
+                if (order.DepositNote != null)
+                    order.DepositNote.Order = null;
             }
 
             return orders.ToList();
@@ -856,7 +859,8 @@ namespace Service.Services
             foreach (var order in orders)
             {
                 OrderJsonFile(order);
-                order.DepositNote.Order = null;
+                if (order.DepositNote != null)
+                    order.DepositNote.Order = null;
             }
 
             return orders.ToList();
