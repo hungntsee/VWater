@@ -443,10 +443,11 @@ namespace Service.Services
                 .Include(a => a.Store)
                 .Include(a => a.Status)
                 .Include(a => a.DeliverySlot)
+                .Include(a => a.DepositNote)
                 .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu).ThenInclude(a => a.Product)
                 , id);
             if (order == null) throw new KeyNotFoundException("Order not found!");
-            
+            order.DepositNote.Order = null;
             return order;
         }
 
@@ -488,6 +489,7 @@ namespace Service.Services
         public void FinishOrder(int order_id)
         {
             var order = GetOrderIgnoreInclude(order_id);
+
             order.StatusId = 4;
             _context.Orders.Update(order);
             _context.SaveChanges();
@@ -622,7 +624,9 @@ namespace Service.Services
             if (depositeNote.Quantity > quantityDeposit)
             {
                 throw new AppException("Số lượng bình khách cọc không được lớn hơn số lượng bình khách mua.");
-            }            
+            }
+
+            if (quantityDeposit == 0) throw new AppException("Không có sản phẩm loại bình. Không thể tạo phiếu cọc bình");
 
             _context.DepositNotes.Add(depositeNote);
             _context.SaveChanges();
