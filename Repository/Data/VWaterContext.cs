@@ -13,6 +13,7 @@ namespace VWater.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(Configuration.GetConnectionString("VWaterDatabase"));
+            optionsBuilder.EnableSensitiveDataLogging();
 
         }
 

@@ -122,8 +122,10 @@ namespace Service.Transactions
             {
                 var order = GetOrder(model.Id);
 
+                if (order.Transactions.Any(a => a.TransactionType_Id == 5)) throw new AppException("Đơn hàng này đã được trả vỏ bình.");
                 CheckStatusOrder(order);
 
+                if (GetNumberOfVoBinh(order) == 0) throw new AppException("Đơn hàng " + order.Id + " không có vỏ bình. Không thể tạo giao dịch cho Vỏ bình");
                 Transaction transaction = new Transaction();
                 transaction.Price = 50000*GetNumberOfVoBinh(order);
                 transaction.WalletId = request.WalletId;
@@ -140,20 +142,18 @@ namespace Service.Transactions
                 _context.Transactions.Add(transaction);
                 _context.SaveChanges();
 
+                var wallet = _context.Wallets.AsNoTracking().FirstOrDefault(a => a.Id == transaction.WalletId);
+                wallet.Credit -= transaction.Price;
+                _context.Update(wallet);
+                _context.SaveChanges();
+
                 if (CheckTransactionForOrder(order.Id))
-                {                   
+                {                             
                     order.StatusId = 8;
                     _context.Orders.Update(order);
                     _context.SaveChanges();
                 }
 
-                if (transaction.TransactionType_Id > 2)
-                {
-                    var wallet = _context.Wallets.AsNoTracking().FirstOrDefault(a => a.Id == transaction.WalletId);
-                    wallet.Credit -= transaction.Price;
-                    _context.Update(wallet);
-                    _context.SaveChanges();
-                }
             }         
             return list;
         }
@@ -167,15 +167,18 @@ namespace Service.Transactions
 
         }
 
-        private Order GetOrder(int id)
+        private Order GetOrder(int orderId)
         {
             var order = _context.Orders
                 .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu).ThenInclude(a => a.Product)
                 .Include(a => a.Transactions)
                 .Include(a => a.DepositNote)
-                .AsNoTracking().FirstOrDefault(a => a.Id == id);
+                .Include(a => a.Shipper)
+                .AsNoTracking()
+                .FirstOrDefault(a => a.Id == orderId);
             if (order == null) throw new KeyNotFoundException("Order not found!");
             OrderJsonFile(order);
+            order.Shipper.Orders = null;
             return order;
         }
 
@@ -185,6 +188,8 @@ namespace Service.Transactions
             foreach (var model in request.Orders)
             {
                 var order = GetOrder(model.Id);
+
+                if (order.Transactions.Any(a => a.TransactionType_Id == 3 || a.TransactionType_Id == 4 )) throw new AppException("Đơn hàng này đã được thanh toán");
 
                 CheckStatusOrder(order);
 
@@ -209,7 +214,7 @@ namespace Service.Transactions
                         transaction.Note = "Tiền cọc bình với số lượng bình là: " + order.DepositNote.Quantity + "bình.";
                     }
                 }
-                transaction.WalletId = request.WalletId;
+                transaction.WalletId = order.Shipper.Wallet.Id;
                 transaction.OrderId = order.Id;               
                 transaction.AccountId = request.Account_Id;
                 transaction.TransactionType_Id = 3;
@@ -220,6 +225,11 @@ namespace Service.Transactions
                 list.Add(transaction);
 
                 _context.Transactions.Add(transaction);
+                _context.SaveChanges();
+
+                var wallet = _context.Wallets.AsNoTracking().FirstOrDefault(a => a.Id == transaction.WalletId);
+                wallet.Credit -= transaction.Price;
+                _context.Update(wallet);
                 _context.SaveChanges();
 
                 if (order.IsDeposit == true)
@@ -233,14 +243,6 @@ namespace Service.Transactions
                      order.StatusId = 8;
                      _context.Orders.Update(order);
                      _context.SaveChanges();
-                }
-
-                if (transaction.TransactionType_Id > 2 && transaction.TransactionType_Id < 6)
-                {
-                    var wallet = _context.Wallets.AsNoTracking().FirstOrDefault(a => a.Id == transaction.WalletId);
-                    wallet.Credit -= transaction.Price;
-                    _context.Update(wallet);
-                    _context.SaveChanges();
                 }
             }
             return list;

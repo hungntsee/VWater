@@ -633,30 +633,43 @@ namespace Service.Services
         private void CreateTransactionForOrder(Order order)
         {
             var shipper = _context.Shippers.Include(a =>a .Wallet).AsNoTracking().FirstOrDefault(a => a.Id == order.ShipperId);
-            var transaction = new Transaction();
 
-            transaction.Date = DateTime.UtcNow.AddHours(7);
+            //TransactionForOrder
+            var transactionForOrder = new Transaction();
 
+            transactionForOrder.Date = DateTime.UtcNow.AddHours(7);            
+            transactionForOrder.Price = order.TotalPrice - order.AmountPaid;
+            transactionForOrder.WalletId = shipper.Wallet.Id;
+            transactionForOrder.OrderId = order.Id;
+            transactionForOrder.TransactionType_Id = 1;
+            transactionForOrder.Note = "Nợ tiền hàng.";
+
+            //TransactionForVoBinh
             int quantityDeposit = 0;
             foreach (var orderDetail in order.OrderDetails)
             {
                 if (orderDetail.ProductInMenu.Product.Description == "Bình")
                 {
-                    quantityDeposit+= orderDetail.Quantity;
+                    quantityDeposit += orderDetail.Quantity;
                 }
             }
-
             decimal priceDeposit = 50000 * quantityDeposit;
-            transaction.Price = order.TotalPrice - order.AmountPaid + priceDeposit;
-            transaction.WalletId = shipper.Wallet.Id;
-            transaction.OrderId = order.Id;
-            transaction.TransactionType_Id = 1;
-            transaction.Note = "Take Order";
 
-            _context.Transactions.Add(transaction);
+            var transactionForVoBinh = new Transaction();
+
+            transactionForVoBinh.Date = DateTime.UtcNow.AddHours(7);
+            transactionForVoBinh.Price = priceDeposit;
+            transactionForVoBinh.WalletId = shipper.Wallet.Id;
+            transactionForVoBinh.OrderId = order.Id;
+            transactionForVoBinh.TransactionType_Id = 1;
+            transactionForVoBinh.Note = "Nợ tiền vỏ bình với số lượng bình là: " + quantityDeposit;
+
+
+            _context.Transactions.Add(transactionForOrder);
+            _context.Transactions.Add(transactionForVoBinh);
             _context.SaveChanges();
 
-            shipper.Wallet.Credit += transaction.Price;
+            shipper.Wallet.Credit += transactionForOrder.Price + priceDeposit;
             _context.Wallets.Update(shipper.Wallet);
             _context.SaveChanges();
         }

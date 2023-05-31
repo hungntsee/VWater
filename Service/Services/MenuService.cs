@@ -91,7 +91,7 @@ namespace Service.Services
         {
             var menu = _context.Menus.Include(a => a.ProductInMenus).ThenInclude(a => a.Product).Include(a => a.Store)
                 .AsNoTracking().FirstOrDefault(a => a.StoreId == store_id && a.ValidFrom <= time && time <= a.ValidTo);
-            if (menu == null) return _context.Menus.Include(a => a.ProductInMenus).Last();
+            if (menu == null) return _context.Menus.Include(a => a.ProductInMenus).OrderBy(a => a.ValidFrom).Last();
 
             foreach(var productInMenu in menu.ProductInMenus)
             {
