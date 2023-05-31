@@ -681,7 +681,8 @@ namespace Service.Services
                 .Include(a => a.Store)
                 .Include(a => a.Status)
                 .Include(a => a.DeliverySlot)
-                .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu)
+                .Include(a => a.DepositNote)
+                .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu)                
                 .ThenInclude(a => a.Product).OrderByDescending(a => a.Id), store_id);
 
             foreach (var order in orders)
@@ -689,6 +690,8 @@ namespace Service.Services
                 OrderJsonFile(order);
                 order.DeliveryAddress.Customer.DeliveryAddresses = null;
                 order.DeliveryAddress.Store = null;
+                order.DepositNote.Order = null;
+                o
             }
             return orders.ToList();
         }
@@ -723,12 +726,14 @@ namespace Service.Services
                 .Include(a => a.Store)
                 .Include(a => a.Status)
                 .Include(a => a.DeliverySlot)
+                .Include(a => a.DepositNote)
                 .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu)
                 .ThenInclude(a => a.Product).OrderByDescending(a => a.Id).Where( a => a.StatusId == status_id);
 
             foreach (var order in orders)
             {
                 OrderJsonFile(order);
+                order.DepositNote.Order = null;
             }
 
             return orders.ToList();
@@ -840,12 +845,14 @@ namespace Service.Services
                 .Include(a => a.Store)
                 .Include(a => a.Status)
                 .Include(a => a.DeliverySlot)
+                .Include(a => a.DepositNote)
                 .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu)
                 .ThenInclude(a => a.Product).OrderByDescending(a => a.Id).Where(a => a.StatusId == status_id && a.StoreId == store_id);
 
             foreach (var order in orders)
             {
                 OrderJsonFile(order);
+                order.DepositNote.Order = null;
             }
 
             return orders.ToList();
