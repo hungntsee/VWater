@@ -349,6 +349,12 @@ namespace Service.Transactions
                             if (order.StatusId == 8) throw new AppException("Hóa đơn mã : " + order.Id +" đã được thanh toán.");
 
                             var transaction = CreateTransactionForOnline(order);
+
+                            transaction.Note = ipnData.ToString();
+                            _context.Transactions.Update(transaction);
+                            _context.SaveChanges();
+
+
                             if (transaction == null)
                             {
                                 returnContent = "{\"RspCode\":\"99\",\"Message\":\"Cannot create Transaction for Orders\"}";
