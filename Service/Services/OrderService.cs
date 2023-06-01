@@ -697,6 +697,13 @@ namespace Service.Services
                 transactionForOrder.OrderId = order.Id;
                 transactionForOrder.TransactionType_Id = 1;
                 transactionForOrder.Note = "Nợ tiền hàng.";
+
+                _context.Transactions.Add(transactionForOrder);
+                _context.SaveChanges();
+
+                shipper.Wallet.Credit += transactionForOrder.Price;
+                _context.Wallets.Update(shipper.Wallet);
+                _context.SaveChanges();
             }           
 
             //TransactionForVoBinh
@@ -720,11 +727,11 @@ namespace Service.Services
             transactionForVoBinh.Note = "Nợ tiền vỏ bình với số lượng bình là: " + quantityDeposit;
 
 
-            _context.Transactions.Add(transactionForOrder);
+            
             _context.Transactions.Add(transactionForVoBinh);
             _context.SaveChanges();
 
-            shipper.Wallet.Credit += transactionForOrder.Price + priceDeposit;
+            shipper.Wallet.Credit += priceDeposit;
             _context.Wallets.Update(shipper.Wallet);
             _context.SaveChanges();
         }
