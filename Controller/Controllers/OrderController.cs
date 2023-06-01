@@ -233,5 +233,11 @@ namespace Controller.Controllers
             return Ok(orders);
         }
         */
+        [HttpPost("/api/NapTienChoTaiXe")]
+        public IActionResult NapTienChoTaiXe(string orderIds)
+        {
+            var payment_url = _orderService.NapTienChoShipper(orderIds);
+            return Ok(payment_url);
+        }
     }
 }

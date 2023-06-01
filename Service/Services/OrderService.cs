@@ -46,6 +46,7 @@ namespace Service.Services
         public string CreateOrderWithVNPay(OrderCreateModel model);
         public string VNPayIpn(HttpRequest request);
         public List<Order> GetOrderByShipper(int shipper_id);
+        public string NapTienChoShipper(string orderIds);
         //public List<Order> GetOrderByStatus(int status_id);
     }
     public class OrderService : IOrderService
@@ -383,6 +384,51 @@ namespace Service.Services
 
             return returnContent;
         }
+
+        public string NapTienChoShipper(string orderIds)
+        {
+            string[] ids = orderIds.Split(",");
+            decimal totalAmount = 0;
+            foreach(var id in ids)
+            {
+                var order = _context.Orders.Include(a => a.DepositNote).AsNoTracking().FirstOrDefault(a => a.Id == Convert.ToInt16(id));
+
+                if (order.IsDeposit == true && order.DepositNote != null) totalAmount += order.TotalPrice - order.AmountPaid + order.DepositNote.Price;
+                else totalAmount += order.TotalPrice - order.AmountPaid;
+            }
+
+            string vnp_Returnurl = _config["VNPay:Returnurl_ForShipper"];
+            string vnp_Url = _config["VNPay:vnp_Url"];
+            string vnp_TmnCode = _config["VNPay:vnp_TmnCode"];
+            string vnp_HashSecret = _config["VNPay:vnp_HashSecret"];
+
+            if (string.IsNullOrEmpty(vnp_TmnCode) || string.IsNullOrEmpty(vnp_HashSecret))
+            {
+                throw new AppException("Vui lòng cấu hình các tham số: vnp_TmnCode,vnp_HashSecret trong file web.config");
+            }
+
+            //Build URL for VNPay
+            long amount = (long)totalAmount;
+
+            VnPayLibrary vnpay = new VnPayLibrary();
+
+            vnpay.AddRequestData("vnp_Version", VnPayLibrary.VERSION);
+            vnpay.AddRequestData("vnp_Command", "pay");
+            vnpay.AddRequestData("vnp_TmnCode", vnp_TmnCode);
+            vnpay.AddRequestData("vnp_Amount", (amount * 100).ToString());
+            vnpay.AddRequestData("vnp_CreateDate", DateTime.UtcNow.AddHours(7).ToString("yyyyMMddHHmmss"));
+            vnpay.AddRequestData("vnp_CurrCode", "VND");
+            vnpay.AddRequestData("vnp_IpAddr", VNPAY_CS_ASPX.Utils.GetIpAddress(_contextAccessor));
+            vnpay.AddRequestData("vnp_Locale", "vn");
+            vnpay.AddRequestData("vnp_OrderInfo", orderIds);
+            vnpay.AddRequestData("vnp_ReturnUrl", vnp_Returnurl);
+            vnpay.AddRequestData("vnp_TxnRef", Guid.NewGuid().ToString());
+            vnpay.AddRequestData("vnp_ExpireDate", DateTime.UtcNow.AddHours(7).AddMinutes(15).ToString("yyyyMMddHHmmss"));
+
+            string paymentUrl = vnpay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
+
+            return paymentUrl;
+        }
         #endregion
         public void Update(int id, OrderUpdateModel model)
         {
@@ -628,7 +674,7 @@ namespace Service.Services
             }
 
             if (quantityDeposit == 0) throw new AppException("Không có sản phẩm loại bình. Không thể tạo phiếu cọc bình");
-
+            depositeNote.Price = 50000 * quantityDeposit;
             _context.DepositNotes.Add(depositeNote);
             _context.SaveChanges();
 

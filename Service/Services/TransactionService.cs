@@ -334,7 +334,7 @@ namespace Service.Transactions
 
                 var list = new List<Transaction>();
                 string[] orderIds = vnp_OrderInfo.Split(",");
-                if (checkSignature) 
+                /*if () */
                 {
                     if (vnp_ResponseCode == "00" && vnp_TransactionStatus == "00")
                     {
@@ -342,6 +342,9 @@ namespace Service.Transactions
                         {
                             int orderId = Convert.ToInt16(id);
                             var order = _context.Orders.Include(a => a.DepositNote).Include(a => a.Shipper).ThenInclude(a => a.Wallet).AsNoTracking().FirstOrDefault(a => a.Id == orderId);
+
+                            if (order.StatusId == 8) throw new AppException("Hóa đơn mã : " + order.Id +" đã được thanh toán.");
+
                             var transaction = CreateTransactionForOnline(order);
                             if (transaction == null)
                             {
@@ -363,11 +366,11 @@ namespace Service.Transactions
                                        vnp_TxnRef, vnpayTranId, vnp_ResponseCode);
                     }
                 }
-                else
+                /*else
                 {
                     returnContent = "{\"RspCode\":\"97\",\"Message\":\"Invalid signature\"}";
                     System.Console.WriteLine("Invalid signature, InputData={0}", request.QueryString.Value);
-                }
+                }*/
             }
             else
             {
@@ -386,7 +389,7 @@ namespace Service.Transactions
 
             if (order.AmountPaid == 0)
             {
-                if (order.IsDeposit == true)
+                if (order.IsDeposit == true && order.DepositNote != null)
                 {
                     transaction.Price = order.TotalPrice + order.DepositNote.Price;
                     transaction.Note = "Thanh toán online bao gồm tiền hàng và tiền cọc bình với số lượng bình là: " + order.DepositNote.Quantity;
@@ -414,6 +417,10 @@ namespace Service.Transactions
             _context.Transactions.Add(transaction);
             _context.SaveChanges();
 
+            /*var wallet = _context.Wallets.AsNoTracking().FirstOrDefault(a => a.Id == transaction.WalletId);*/
+
+            order.Shipper.Wallet.Credit -= transaction.Price;            
+
             if (order.IsDeposit == true)
             {
                 order.StatusId = 8;
@@ -424,14 +431,6 @@ namespace Service.Transactions
             {
                 order.StatusId = 8;
                 _context.Orders.Update(order);
-                _context.SaveChanges();
-            }
-
-            if (transaction.TransactionType_Id > 2 && transaction.TransactionType_Id < 6)
-            {
-                var wallet = _context.Wallets.AsNoTracking().FirstOrDefault(a => a.Id == transaction.WalletId);
-                wallet.Credit -= transaction.Price;
-                _context.Update(wallet);
                 _context.SaveChanges();
             }
 

@@ -21,7 +21,7 @@ namespace VWater.Data.Entities
 
         public virtual Wallet Wallet { get; set; }
 
-        public virtual Account Account { get; set; }
+        public virtual Account? Account { get; set; }
 
         public virtual TransactionType? TransactionType { get; set; }
         #endregion

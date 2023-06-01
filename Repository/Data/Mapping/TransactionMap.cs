@@ -49,7 +49,7 @@ namespace VWater.Data.Mapping
                 .HasMaxLength(100);
 
             builder.Property(t => t.AccountId)
-                .IsRequired()
+                .IsRequired(false)
                 .HasColumnName("Account_Id")
                 .HasColumnType("int");
 
