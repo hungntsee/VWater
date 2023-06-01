@@ -122,7 +122,7 @@ namespace Service.Services
             report.CancelOrder = GetNumberOrderByStatus(5, store_id);
             report.ShippingOrder = GetNumberOrderByStatus(3, store_id);
             report.ShippedOrder = GetNumberOrderByStatus(4, store_id);
-            report.TotalOrder = _context.Orders.Count();
+            report.TotalOrder = _context.Orders.Where(a=>a.StoreId== store_id).Count();
 
             return report;
         }
