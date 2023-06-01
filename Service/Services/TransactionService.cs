@@ -345,7 +345,8 @@ namespace Service.Transactions
                             var transaction = CreateTransactionForOnline(order);
                             if (transaction == null)
                             {
-                                returnContent = "{\"RspCode\":\"01\",\"Message\":\"Cannot create Transaction for OrderId = " + order.Id + "\"}";
+                                returnContent = "{\"RspCode\":\"99\",\"Message\":\"Cannot create Transaction for Orders\"}";
+                                System.Console.WriteLine("Không thể tạo giao dịch nạp tiền cho đơn hàng mã: " + orderId);
                             }
                             else list.Add(transaction);
                         }
@@ -354,6 +355,7 @@ namespace Service.Transactions
                         {
                             returnContent = "{\"RspCode\":\"00\",\"Message\":\"Confirm Success\"}";
                         }
+                        else returnContent = "{\"RspCode\":\"99\",\"Message\":\"Confirm Fail\"}";
                     }
                     else
                     {
