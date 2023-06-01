@@ -214,7 +214,7 @@ namespace Service.Transactions
                         transaction.Note = "Tiền cọc bình với số lượng bình là: " + order.DepositNote.Quantity + "bình.";
                     }
                 }
-                transaction.WalletId = order.Shipper.Wallet.Id;
+                transaction.WalletId = request.WalletId;
                 transaction.OrderId = order.Id;               
                 transaction.AccountId = request.Account_Id;
                 transaction.TransactionType_Id = 3;
@@ -272,7 +272,10 @@ namespace Service.Transactions
 
             if (transaction.TransactionType_Id == 3)
             {
-                if (transaction.Price != (order.TotalPrice - order.AmountPaid + order.DepositNote.Price)) throw new AppException("Số tiền của giao dịch không đúng với số tiền của đơn hàng!");
+                if (order.DepositNote != null)
+                {
+                    if (transaction.Price != (order.TotalPrice - order.AmountPaid + order.DepositNote.Price)) throw new AppException("Số tiền của giao dịch không đúng với số tiền của đơn hàng!");
+                }               
             }
             if (transaction.TransactionType_Id == 5)
             {
