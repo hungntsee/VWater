@@ -232,13 +232,13 @@ namespace Service.Transactions
                 _context.Update(wallet);
                 _context.SaveChanges();
 
-                if (order.IsDeposit == true)
+                if (order.IsDeposit == true || GetNumberOfVoBinh(order) == 0)
                 {
                     order.StatusId = 8;
                     _context.Orders.Update(order);
                     _context.SaveChanges();
                 }
-                else if(order.Transactions.Any(a => a.TransactionType_Id == 5))
+                else if (order.Transactions.Any(a => a.TransactionType_Id == 5))
                 {
                      order.StatusId = 8;
                      _context.Orders.Update(order);

@@ -397,7 +397,7 @@ namespace Service.Services
                 else totalAmount += order.TotalPrice - order.AmountPaid;
             }
 
-            string vnp_Returnurl = _config["VNPay:Returnurl_ForShipper"];
+            string vnp_Returnurl = _config["VNPay:vnp_Returnurl_ForShipper"];
             string vnp_Url = _config["VNPay:vnp_Url"];
             string vnp_TmnCode = _config["VNPay:vnp_TmnCode"];
             string vnp_HashSecret = _config["VNPay:vnp_HashSecret"];
@@ -537,6 +537,7 @@ namespace Service.Services
         {
             var order = _context.Orders.Include(a => a.DepositNote).AsNoTracking().FirstOrDefault(a => a.Id == order_id);
             if (order.IsDeposit == true && order.DepositNote == null) throw new AppException("Can not crreate DepositNote");
+            
             order.StatusId = 4;
             _context.Orders.Update(order);
             _context.SaveChanges();
