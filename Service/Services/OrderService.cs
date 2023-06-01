@@ -613,7 +613,7 @@ namespace Service.Services
             order.Store.DeliverySlots = null;
             order.DeliverySlot.Orders = null;
             order.DeliverySlot.Store = null;
-            order.DepositNote = null;
+            //order.DepositNote = null;
             order.Status.Orders = null;
             order.Transactions = null;
             foreach (var order1 in order.OrderDetails)
