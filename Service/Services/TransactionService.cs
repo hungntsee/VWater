@@ -350,9 +350,11 @@ namespace Service.Transactions
 
                             var transaction = CreateTransactionForOnline(order);
 
+                            /*
                             transaction.Note = ipnData.ToString();
                             _context.Transactions.Update(transaction);
                             _context.SaveChanges();
+                            */
 
 
                             if (transaction == null)
