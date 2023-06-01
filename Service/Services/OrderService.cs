@@ -535,8 +535,8 @@ namespace Service.Services
 
         public void FinishOrder(int order_id)
         {
-            var order = GetOrderIgnoreInclude(order_id);
-
+            var order = _context.Orders.Include(a => a.DepositNote).AsNoTracking().FirstOrDefault(a => a.Id == order_id);
+            if (order.IsDeposit == true && order.DepositNote == null) throw new AppException("Can not crreate DepositNote");
             order.StatusId = 4;
             _context.Orders.Update(order);
             _context.SaveChanges();
@@ -653,6 +653,7 @@ namespace Service.Services
             var order = GetOrder(model.OrderId);
 
             order.IsDeposit = true;
+            order.DepositNote = null;
 
             _context.Orders.Update(order);
             _context.SaveChanges();
@@ -686,14 +687,17 @@ namespace Service.Services
             var shipper = _context.Shippers.Include(a =>a .Wallet).AsNoTracking().FirstOrDefault(a => a.Id == order.ShipperId);
 
             //TransactionForOrder
-            var transactionForOrder = new Transaction();
+            if(order.AmountPaid == 0)
+            {
+                var transactionForOrder = new Transaction();
 
-            transactionForOrder.Date = DateTime.UtcNow.AddHours(7);            
-            transactionForOrder.Price = order.TotalPrice - order.AmountPaid;
-            transactionForOrder.WalletId = shipper.Wallet.Id;
-            transactionForOrder.OrderId = order.Id;
-            transactionForOrder.TransactionType_Id = 1;
-            transactionForOrder.Note = "Nợ tiền hàng.";
+                transactionForOrder.Date = DateTime.UtcNow.AddHours(7);
+                transactionForOrder.Price = order.TotalPrice - order.AmountPaid;
+                transactionForOrder.WalletId = shipper.Wallet.Id;
+                transactionForOrder.OrderId = order.Id;
+                transactionForOrder.TransactionType_Id = 1;
+                transactionForOrder.Note = "Nợ tiền hàng.";
+            }           
 
             //TransactionForVoBinh
             int quantityDeposit = 0;
