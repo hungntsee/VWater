@@ -33,7 +33,7 @@ namespace VWater.Data.Queries
             if (queryable is null)
                 throw new ArgumentNullException(nameof(queryable));
 
-            return queryable.Where(q => q.MenuId == menuId);
+            return queryable.Where(q => q.MenuId == menuId && q.Product.IsActive==true);
         }
 
         public static IQueryable<VWater.Data.Entities.ProductInMenu> ByProductId(this IQueryable<VWater.Data.Entities.ProductInMenu> queryable, int productId)
