@@ -126,6 +126,11 @@ namespace Service.Transactions
                 CheckStatusOrder(order);
 
                 if (GetNumberOfVoBinh(order) == 0) throw new AppException("Đơn hàng " + order.Id + " không có vỏ bình. Không thể tạo giao dịch cho Vỏ bình");
+                
+                if (order.IsDeposit == true && order.DepositNote != null)
+                {
+                    if (order.DepositNote.Quantity != GetNumberOfVoBinh(order)) throw new AppException("Đơn hàng " + order.Id + " có số lượng cọc bình bằng số lượng bình mua. Không thể tạo giao dịch.");
+                }
                 Transaction transaction = new Transaction();
                 transaction.Price = 50000*GetNumberOfVoBinh(order);
                 transaction.WalletId = request.WalletId;
