@@ -88,5 +88,11 @@ namespace Controller.Controllers
             var customer = _customerService.SearchCustomerName(search);
             return Ok(customer);
         }
+        [HttpGet("/api/GetCustomerByStoreId")]
+        public IActionResult GetCustomerByStoreId(int store_id)
+        {
+            var customer = _customerService.GetCustomerByStoreId(store_id);
+            return Ok(customer);
+        }
     }
 }

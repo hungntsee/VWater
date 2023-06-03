@@ -21,6 +21,7 @@ namespace Service.Services
         public Customer GetHistoryOrder(int customer_id);
         public ReportPerCustomer GetReportPerCustomer(int customer_id);
         public List<Customer> SearchCustomerName(string search);
+        public IEnumerable<Customer> GetCustomerByStoreId(int store_id);
     }
     public class CustomerService : ICustomerService
     {
@@ -153,6 +154,12 @@ namespace Service.Services
                 search);
 
             return customer.ToList();
+        }
+
+        public IEnumerable<Customer> GetCustomerByStoreId(int store_id)
+        {
+            var customers = _context.Customers.Include(a => a.DeliveryAddresses).ThenInclude(a => a.Orders).Where(a => a.DeliveryAddresses.Any(a => a.StoreId == store_id));
+            return customers;
         }
     }
 }

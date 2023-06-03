@@ -350,11 +350,6 @@ namespace Service.Transactions
 
                             var transaction = CreateTransactionForOnline(order);
 
-                            transaction.Note = ipnData.ToString();
-                            _context.Transactions.Update(transaction);
-                            _context.SaveChanges();
-
-
                             if (transaction == null)
                             {
                                 returnContent = "{\"RspCode\":\"99\",\"Message\":\"Cannot create Transaction for Orders\"}";
