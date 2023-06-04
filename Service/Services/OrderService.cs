@@ -676,7 +676,7 @@ namespace Service.Services
             }
 
             if (quantityDeposit == 0) throw new AppException("Không có sản phẩm loại bình. Không thể tạo phiếu cọc bình");
-            depositeNote.Price = 50000 * quantityDeposit;
+            depositeNote.Price = 50000 * depositeNote.Quantity;
             _context.DepositNotes.Add(depositeNote);
             _context.SaveChanges();
 

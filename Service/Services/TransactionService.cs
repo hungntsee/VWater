@@ -121,6 +121,7 @@ namespace Service.Transactions
             foreach(var model in request.Orders)
             {
                 var order = GetOrder(model.Id);
+                
 
                 if (order.Transactions.Any(a => a.TransactionType_Id == 5)) throw new AppException("Đơn hàng này đã được trả vỏ bình.");
                 CheckStatusOrder(order);
@@ -129,7 +130,7 @@ namespace Service.Transactions
                 
                 if (order.IsDeposit == true && order.DepositNote != null)
                 {
-                    if (order.DepositNote.Quantity != GetNumberOfVoBinh(order)) throw new AppException("Đơn hàng " + order.Id + " có số lượng cọc bình bằng số lượng bình mua. Không thể tạo giao dịch.");
+                    if (order.DepositNote.Quantity == GetNumberOfVoBinh(order)) throw new AppException("Đơn hàng " + order.Id + " có số lượng cọc bình bằng số lượng bình mua. Không thể tạo giao dịch.");
                 }
                 Transaction transaction = new Transaction();
                 transaction.Price = 50000*GetNumberOfVoBinh(order);
