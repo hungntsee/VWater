@@ -429,7 +429,9 @@ namespace Service.Transactions
 
             /*var wallet = _context.Wallets.AsNoTracking().FirstOrDefault(a => a.Id == transaction.WalletId);*/
 
-            order.Shipper.Wallet.Credit -= transaction.Price;            
+            order.Shipper.Wallet.Credit -= transaction.Price;
+            _context.Orders.Update(order);
+            _context.SaveChanges();
 
             if (order.IsDeposit == true)
             {
