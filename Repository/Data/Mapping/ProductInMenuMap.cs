@@ -45,6 +45,7 @@ namespace VWater.Data.Mapping
             builder.HasOne(t => t.Menu)
                 .WithMany(t => t.ProductInMenus)
                 .HasForeignKey(d => d.MenuId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_product_in_menu_product_menu");
 
             #endregion

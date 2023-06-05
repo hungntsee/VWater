@@ -239,5 +239,12 @@ namespace Controller.Controllers
             var payment_url = _orderService.NapTienChoShipper(orderIds);
             return Ok(payment_url);
         }
+
+        [HttpGet("/api/GetFinishOrderByShipper")]
+        public IActionResult GetFinishOrderByShipper(int shipper_id)
+        {
+            var orders = _orderService.GetFinishOrderByShipper(shipper_id);
+            return Ok(orders);
+        }
     }
 }

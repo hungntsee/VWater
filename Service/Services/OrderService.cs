@@ -47,6 +47,7 @@ namespace Service.Services
         public string VNPayIpn(HttpRequest request);
         public List<Order> GetOrderByShipper(int shipper_id);
         public string NapTienChoShipper(string orderIds);
+        public List<Order> GetFinishOrderByShipper(int shipper_id);
         //public List<Order> GetOrderByStatus(int status_id);
     }
     public class OrderService : IOrderService
@@ -705,9 +706,8 @@ namespace Service.Services
                 shipper.Wallet.Credit += transactionForOrder.Price;
                 _context.Wallets.Update(shipper.Wallet);
                 _context.SaveChanges();
-            }           
-
-            //TransactionForVoBinh
+            }                      
+                //TransactionForVoBinh
             int quantityDeposit = 0;
             foreach (var orderDetail in order.OrderDetails)
             {
@@ -716,25 +716,29 @@ namespace Service.Services
                     quantityDeposit += orderDetail.Quantity;
                 }
             }
-            decimal priceDeposit = 50000 * quantityDeposit;
 
-            var transactionForVoBinh = new Transaction();
+            if(quantityDeposit> 0)
+            {
+                decimal priceDeposit = 50000 * quantityDeposit;
 
-            transactionForVoBinh.Date = DateTime.UtcNow.AddHours(7);
-            transactionForVoBinh.Price = priceDeposit;
-            transactionForVoBinh.WalletId = shipper.Wallet.Id;
-            transactionForVoBinh.OrderId = order.Id;
-            transactionForVoBinh.TransactionType_Id = 1;
-            transactionForVoBinh.Note = "Nợ tiền vỏ bình với số lượng bình là: " + quantityDeposit;
+                var transactionForVoBinh = new Transaction();
+
+                transactionForVoBinh.Date = DateTime.UtcNow.AddHours(7);
+                transactionForVoBinh.Price = priceDeposit;
+                transactionForVoBinh.WalletId = shipper.Wallet.Id;
+                transactionForVoBinh.OrderId = order.Id;
+                transactionForVoBinh.TransactionType_Id = 1;
+                transactionForVoBinh.Note = "Nợ tiền vỏ bình với số lượng bình là: " + quantityDeposit;
 
 
-            
-            _context.Transactions.Add(transactionForVoBinh);
-            _context.SaveChanges();
 
-            shipper.Wallet.Credit += priceDeposit;
-            _context.Wallets.Update(shipper.Wallet);
-            _context.SaveChanges();
+                _context.Transactions.Add(transactionForVoBinh);
+                _context.SaveChanges();
+
+                shipper.Wallet.Credit += priceDeposit;
+                _context.Wallets.Update(shipper.Wallet);
+                _context.SaveChanges();
+            }          
         }
 
         public IEnumerable<Order> GetOrderByStore(int store_id)
@@ -759,6 +763,8 @@ namespace Service.Services
             }
             return orders.ToList();
         }
+
+
 
         public Order GetOrderByStatusForShipper(int shipper_id, int status_id)
         {
@@ -852,6 +858,26 @@ namespace Service.Services
                 .Include(a => a.DepositNote)
                 .Include(a => a.Transactions)
                 .OrderByDescending(a => a.Id), shipper_id);
+
+            foreach (var order in orders)
+            {
+                OrderJsonFile(order);
+            }
+
+            return orders.ToList();
+        }
+
+        public List<Order> GetFinishOrderByShipper(int shipper_id)
+        {
+            var orders = OrderExtensions.ByShipperId(_context.Orders
+                .Include(a => a.DeliveryAddress).ThenInclude(a => a.Customer)
+                .Include(a => a.Store)
+                .Include(a => a.Status)
+                .Include(a => a.DeliverySlot)
+                .Include(a => a.OrderDetails).ThenInclude(a => a.ProductInMenu).ThenInclude(a => a.Product)
+                .Include(a => a.DepositNote)
+                .Include(a => a.Transactions)
+                .OrderByDescending(a => a.Id).Where(q=>q.Id !=3), shipper_id);
 
             foreach (var order in orders)
             {
